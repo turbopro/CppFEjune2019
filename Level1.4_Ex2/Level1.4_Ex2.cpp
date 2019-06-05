@@ -33,7 +33,8 @@ int main(void)
 	// parse stdin: exit loop if user enters Ctrl-Z/Ctrl-D or too many characters
 	// count characters, lines
 	// store input text in string array
-	
+	// with do/while, we check for first run through the loop where all counters
+	//  are zero   
 	do
 	{
 		if (i == 0 && characters == 0 && lines == 0)
