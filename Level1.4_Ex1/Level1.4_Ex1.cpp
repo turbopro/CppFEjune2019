@@ -8,16 +8,11 @@
 // Functions:
 //  getchar() to read input
 //  strtok() to count number of words in input text
-//  
-// For Visual Studio, given that we're testing and this code is not
-//  for use in a production environment, we need to disable 
-//  secure CRT warning/error for the strtok() function
-//  #pragma warning(disable: 4996)
+// 
+// strtok() uses a pointer to tokenise a string array into words
 
 #include <stdio.h>
 #include <string.h>
-
-#pragma warning(disable: 4996)			// for non-production environment only
 
 int main(void)
 {
@@ -30,7 +25,7 @@ int main(void)
 	char *p_word = NULL;				// pointer to char to count words
 
 	// get user input
-	// Ctrl-Z for Windows; Ctrl-D for Unix and other OSes
+	// user terminates input via Ctrl-Z for Windows, Ctrl-D for Unices
 	printf("Please enter text (maximum 1000 characters)\n");
 	printf("To quit, 'Enter' then 'Ctrl-Z/Ctrl-D' then 'Enter'\n");
 
@@ -53,7 +48,7 @@ int main(void)
 	p_word = strtok(word_token, " '\n''\t''\v''\f''\r'");
 
 	// loop over "word_token"; identify and increment words 
-	while (p_word != NULL)
+	while (p_word)	// while pointer points to a string
 	{
 		p_word = strtok(NULL, " '\n''\t''\v''\f''\r'");
 		words++;
