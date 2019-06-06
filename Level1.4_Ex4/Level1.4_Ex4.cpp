@@ -1,5 +1,5 @@
 // Level1.4_Ex4.cpp 
-// C program that takes creates a table of values, Fahrenheit vs Celcius temperatures
+// C program that creates a table of values, Fahrenheit vs Celsius temperatures
 //  
 // Table should have a header
 // Left column shows the temperature in Fahrenheit
@@ -11,19 +11,18 @@
 // The program is maintenance insensitive: start, end, and the step size must be adjustable
 // Using a while loop
 //
-// Formula for Fahrenheit to Celcius: 
+// Formula for Fahrenheit to Celsius: 
 //  Celsius = (5 / 9) * (Fahrenheit – 32)
 //
 // Variables:
 // - MaxRange = maximum size for the arrays to hold the fahrenheit and celsius arrays
 // - minStep = divisor to create maximum number of steps allowed for a particular range
-// - fTocRatio = fahrenheit to celsius converter factor
+// - fTocRatio = fahrenheit to celsius conversion ratio
 // - start, end = starting and ending fahrenheit temperatures
 // - step = step size
 // - stepper = aggregate step size used to populate the fahrenheit array
-// - p_start, p_end = pointers to relevant floats above
-// - p_step, p_end = pointers to relevant floats above
-//   pointers used as arguments to set_input function 
+// - p_start, p_end, p_step = pointers to relevant floats above
+//   pointers are used as arguments to the 'get_input' function 
 // - min_step, max_step = minimum and maximum step sizes
 // - fahrenheit_array = array to store fahrenheit temperatures
 // - celsius_array = array to store celsius temperatures
@@ -33,30 +32,36 @@
 #include <stdlib.h>
 #include <string.h>
 
-void set_input(float* p_input, const char* input_name, 
+void get_input(float* p_input, const char* input_name, 
 	float min_step = 0, float max_step = 0);		// function declaration to get user input
+
+int fill_array(float* fahrenheit_array, float* celsius_array, 
+	float* p_stepper, float *end, float *p_step);	// function definition to fill arrays
+
+const int ArSize = 1000;
+const float MaxRange = 1000;
+const float fT0cRatio = 5.0f / 9.0f;
 
 int main(void)
 {
-	const int MaxRange = 1000;					// max size for arrays to hold temps
-	const int minStep = 2;						// divisor to generate maximum steps
-	const float fT0cRatio = 5.0f / 9.0f;		// fahrenheit to celsius conversion factor
-	float start = 0, end = 0, step = 0, stepper = 0;	// floats for temps and steps	
-	float *p_start = &start, *p_end = &end, *p_step = &step;	// pointers to floats
-	const char *input[3] = { "start", "end", "step" };	// pointer to char arrays 
+	const int minStep = 2;
+	float start = 0, end = 0, step = 0, stepper = 0;
+	float *p_start = &start, *p_end = &end, *p_step = &step, *p_stepper = &stepper;
+	const char *input[3] = { "start", "end", "step" };
 	float min_step, max_step;
-	float fahrenheit_array[MaxRange];			// counters
-	float celsius_array[MaxRange];
-	int i = 0, j = 0;
+	float fahrenheit_array[ArSize];
+	float celsius_array[ArSize];
+	int array_idx = 0, i = 0;
 
 	// get user input
 	// get start temperature: minimum value is -459.67, absolute zero
-	set_input(p_start, input[0]);
+	get_input(p_start, input[0]);
 
 	// get end temperature: maximum value is 1000 
 	do
 	{
-		set_input(p_end, input[1]);
+		printf("\n");
+		get_input(p_end, input[1]);
 		if (end > start)
 			break;
 		else
@@ -69,52 +74,48 @@ int main(void)
 	min_step = (end - start) / MaxRange;
 	do
 	{
-		set_input(p_step, input[2], min_step, max_step);
+		printf("\n");
+		get_input(p_step, input[2], min_step, max_step);
 		if (step > min_step && step < max_step)
 			break;
 		else
 			printf("Invalid entry: step size out of range\n\n");
 	} while (1);
 
-	// create arrays of fahrenheit temps
-	stepper = start;
-	//while ((stepper = start + (i * step)) <= end)
-	while (stepper <= end)
-	{
-		fahrenheit_array[i] = stepper;
-		celsius_array[i] = (fahrenheit_array[i] - 32) * fT0cRatio;
-		stepper += step;
-		i++;
-		if (i >= MaxRange) { break; }
-	} 
+	// create arrays of fahrenheit and celsius temperatures
+	stepper = start;		// initialise stepper
+	// fill arrays and store how many array cells were filled 
+	array_idx = fill_array(fahrenheit_array, celsius_array, p_stepper, p_end, p_step);
 	
 	// add upper temperature to fahrenheit_array if not included already
-	if (fahrenheit_array[i - 1] != end && i < (MaxRange - 1))
+	// ensure we do not write past the end of the array
+	if (fahrenheit_array[array_idx - 1] != end && array_idx < (ArSize - 1))
 	{
-		fahrenheit_array[i] = end;
-		celsius_array[i] = (fahrenheit_array[i] - 32) * fT0cRatio;
-		i++;
+		fahrenheit_array[array_idx] = end;
+		celsius_array[array_idx] = (fahrenheit_array[array_idx] - 32) * fT0cRatio;
+		array_idx++;		// increment index to reflect added end value
 	}
 	
+	// display Fahrenheit to Celsius table
 	printf("---------------------------------------------\n");
 	printf("\tFahrenheit\t|\t   Celsius\t\n");
 	printf("---------------------------------------------\n");
-	for (j = 0; j < i; j++)
+	for (i = 0; i < array_idx; i++)
 	{
-		printf("\t%10.1f\t|\t%10.1f\n", fahrenheit_array[j], celsius_array[j]);
+		printf("\t%10.1f\t|\t%10.1f\n", fahrenheit_array[i], celsius_array[i]);
 	}
 	printf("---------------------------------------------\n");
 
 	return 0;
 }
 
-void set_input(float* p_input, const char* input_name, float min_step, float max_step)
+// get_input() definition
+void get_input(float* p_input, const char* input_name, float min_step, float max_step)
 {
 	const float AbsZero = -459.57f;
-	const float MaxRange = 1000.0f;
-	const int ArSize = 10;
+	const int BufferSize = 10;
 	char* p_end = NULL;
-	char input_buffer[ArSize];
+	char input_buffer[BufferSize];
 
 	do
 	{
@@ -131,13 +132,12 @@ void set_input(float* p_input, const char* input_name, float min_step, float max
 			printf("Ctrl-Z to quit\n");
 		}
 
-		if (fgets(input_buffer, ArSize, stdin))
+		if (fgets(input_buffer, BufferSize, stdin))
 		{
 			*p_input = strtof(input_buffer, &p_end);
 
 			if (*p_end != '\n' || input_buffer[0] == '\n' || p_end == input_buffer)
 			{
-				//printf("ERROR: \"%s\" is an invalid float!\n", input_buffer);
 				printf("ERROR: not a valid float\n\n");
 				continue;
 			}
@@ -156,4 +156,27 @@ void set_input(float* p_input, const char* input_name, float min_step, float max
 		}
 
 	} while (1);
+}
+
+// fill_array() definition
+int fill_array(float* fahrenheit_array, float* celsius_array, 
+	float* p_stepper, float *p_end,	float *p_step)
+{
+	int i = 0;
+	
+	// while stepper value is less than end value fill both arrays  
+	while (*p_stepper <= *p_end)
+	{
+		fahrenheit_array[i] = *p_stepper;
+		celsius_array[i] = (fahrenheit_array[i] - 32) * fT0cRatio;
+		*p_stepper += *p_step;
+		i++;
+		if (i >= ArSize) 		// fail safe exit sequence
+		{						//  in case of rounding errors
+			printf("Indexing Error: program exiting...");
+			exit(1);
+		}
+	}
+
+	return i;
 }

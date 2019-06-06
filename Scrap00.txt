@@ -113,3 +113,22 @@
 	printf("End temperarture: %.1f\n", end);
 	printf("Step size: %.1f\n", step);
 	*/
+
+
+// building arrays in main:
+// create arrays of fahrenheit temps
+	stepper = start;		// initialise stepper
+	
+	while (stepper <= end)
+	{
+		fahrenheit_array[i] = stepper;
+		celsius_array[i] = (fahrenheit_array[i] - 32) * fT0cRatio;
+		stepper += step;
+		i++;
+		if (i >= MaxRange) 		// fail safe exit sequence
+		{						// in case of rounding errors
+			printf("Indexing Error: program exiting...");
+			exit(1);
+		}
+	}
+	
