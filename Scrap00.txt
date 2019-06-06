@@ -1,0 +1,115 @@
+/*
+	do
+	{
+		printf("Please enter start (lower) value of the range\n");
+		printf("range of values: %.1f (absolute zero) to %d\n", AbsZero, MaxRange);
+		printf("Ctrl-Z to quit\n");
+		
+		if (fgets(input_buffer, ArSize, stdin))
+		{
+			start = strtof(input_buffer, &p_end);
+
+			if (*p_end != '\n' || input_buffer[0] == '\n' || p_end == input_buffer)
+			{
+				//printf("ERROR: \"%s\" is an invalid float!\n", input_buffer);
+				printf("ERROR: invalid entry\n\n");
+				continue;
+			}
+			else
+				break;
+		}
+		else
+		{
+			printf("Exiting...\n");
+			exit(0);
+		}
+
+	} while (1);
+	
+	// get end value: maximum value is 1000
+	do
+	{
+		printf("\nPlease enter end (upper) value of the range\n");
+		printf("range of values: %.1f (absolute zero) to %d\n", AbsZero, MaxRange);
+		printf("Ctrl-Z to quit\n");
+
+		if (fgets(input_buffer, ArSize, stdin))
+		{
+			end = strtof(input_buffer, &p_end);
+
+			if (*p_end != '\n' || input_buffer[0] == '\n' || p_end == input_buffer )
+			{
+				//printf("ERROR: \"%s\" is an invalid float!\n", input_buffer);
+				printf("ERROR: invalid entry\n\n");
+				continue;
+			}
+			else if (start >= end)
+			{
+				printf("Invalid entry: end (upper value) must be greater than start (lower value)\n");
+				continue;
+			}
+			else
+				break;
+		}
+		else
+		{
+			printf("Exiting...\n");
+			exit(0);
+		}
+
+	} while (1);
+	*/
+
+	
+	/*
+	// maximum value for upper range = 1000
+	while (1)
+	{
+		printf("\nPlease enter upper number of the range\n");
+		printf("range: %.1f (absolute zero) to %d\n", AbsZero, MaxRange);
+		scanf_s("%f", &end);
+		if (end < AbsZero || end > MaxRange)
+		{
+			printf("Invalid entry: value out of range\n");
+			continue;
+		}
+		else if (end <= start)
+		{
+			printf("Invalid entry: upper number must be greater than lower number\n");
+			continue;
+		}
+		else
+			break;
+	}
+	
+	// step size allows for maximum 1000 steps in lower to upper range
+	max_step = (end - start) / minStep;
+	min_step = (end - start) / MaxRange;
+	while (1)
+	{
+		printf("Please enter step size\n");
+		printf("range: %.1f to %.1f\n", max_step, min_step);
+		scanf_s("%f", &step);
+		if (step < min_step || step > max_step)
+		{
+			printf("Invalid entry: value out of range\n");
+			continue;
+		}
+		else
+			break;
+	}
+	*/
+
+
+/*
+	for (j = 0; j < i; j++)
+	{
+		printf("fahrenheit array:[%d] = %.1f\n", j, fahrenheit_array[j]);
+		printf("ceclius array:[%d] = %.1f\n", j, celcius_array[j]);
+	}
+	
+	//printf("lower num: %.1f\nupper num: %.1f\nstep: %.1f\n", start, end, step);
+	printf("\nStart temperarture: %.1f\n", start);
+	printf("End temperarture: %.1f\n", end);
+	printf("Step size: %.1f\n", step);
+	*/
