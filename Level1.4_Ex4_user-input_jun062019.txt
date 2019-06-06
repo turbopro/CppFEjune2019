@@ -53,14 +53,6 @@ int main(void)
 	float celsius_array[ArSize];
 	int array_idx = 0, i = 0;
 
-	// to run the program with different values, change the below:
-	start = 0;			// set the start value
-	end = 300;			// set the end value
-	step = 20;			// set the step size
-	
-	/* If required, uncomment this and the closing comment demarcaton (line # 93)
-	   to include user input
-	
 	// get user input
 	// get start temperature: minimum value is -459.67, absolute zero
 	get_input(p_start, input[0]);
@@ -73,7 +65,7 @@ int main(void)
 		if (end > start)
 			break;
 		else
-			printf("Invalid entry: end value must be greater than start value\n\n");
+			printf("Invalid entry: end number must be greater than start number\n\n");
 	} while (1);
 
 	// get step size
@@ -89,8 +81,6 @@ int main(void)
 		else
 			printf("Invalid entry: step size out of range\n\n");
 	} while (1);
-	
-	*/
 
 	// create arrays of fahrenheit and celsius temperatures
 	stepper = start;		// initialise stepper
