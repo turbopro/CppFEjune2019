@@ -28,6 +28,10 @@
 // - fahrenheit_array = array to store fahrenheit temperatures
 // - celsius_array = array to store celsius temperatures
 // - array_size, i = array indexers
+//
+// - get_input() = function to get user input for start, end, and step values
+//                 the function does some error checking, but needs to do much more
+// - fill_array() = function to fill the fahrenheit and celsius arrays
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -37,7 +41,7 @@ void get_input(float* p_input, const char* input_name,
 	float min_step = 0, float max_step = 0);		// function declaration to get user input
 
 int fill_array(float* fahrenheit_array, float* celsius_array, 
-	float* p_stepper, float *end, float *p_step);	// function definition to fill arrays
+	float* p_start, float *end, float *p_step);	// function definition to fill arrays
 
 const int ArSize = 1000;
 const float MaxRange = 1000;
@@ -45,23 +49,23 @@ const float fT0cRatio = 5.0f / 9.0f;
 
 int main(void)
 {
-	const int minStep = 2;
-	float start = 0, end = 0, step = 0, stepper = 0;
-	float *p_start = &start, *p_end = &end, *p_step = &step, *p_stepper = &stepper;
-	const char *input[3] = { "start", "end", "step" };
-	float min_step, max_step;
+	float start = 0, end = 0, step = 0;
+	float* p_start = &start, * p_end = &end, * p_step = &step;	
 	float fahrenheit_array[ArSize];
 	float celsius_array[ArSize];
 	int array_idx = 0, i = 0;
+
+	// to enable user input uncomment the variable declarations below
+	// const int minStep = 2;
+	// const char* input[3] = { "start", "end", "step" };
+	// float min_step, max_step;
 
 	// to run the program with different values, change the below:
 	start = 0;			// set the start value
 	end = 300;			// set the end value
 	step = 20;			// set the step size
 	
-	/* If required, uncomment this and the closing comment demarcaton (line # 93)
-	   to include user input
-	
+	/* to enable user input, uncomment this and the closing comment demarcaton (line # 97)	
 	// get user input
 	// get start temperature: minimum value is -459.67, absolute zero
 	get_input(p_start, input[0]);
@@ -90,22 +94,11 @@ int main(void)
 		else
 			printf("Invalid entry: step size out of range\n\n");
 	} while (1);
-	
 	*/
 
 	// create arrays of fahrenheit and celsius temperatures
-	stepper = start;		// initialise stepper
 	// fill arrays and store how many array cells were filled 
-	array_idx = fill_array(fahrenheit_array, celsius_array, p_stepper, p_end, p_step);
-	
-	// add upper temperature to fahrenheit_array if not included already
-	// ensure we do not write past the end of the array
-	if (fahrenheit_array[array_idx - 1] != end && array_idx < (ArSize - 1))
-	{
-		fahrenheit_array[array_idx] = end;
-		celsius_array[array_idx] = (fahrenheit_array[array_idx] - 32) * fT0cRatio;
-		array_idx++;		// increment index to reflect added end value
-	}
+	array_idx = fill_array(fahrenheit_array, celsius_array, p_start, p_end, p_step);
 	
 	// display Fahrenheit to Celsius table
 	printf("---------------------------------------------\n");
@@ -171,22 +164,34 @@ void get_input(float* p_input, const char* input_name, float min_step, float max
 
 // fill_array() definition
 int fill_array(float* fahrenheit_array, float* celsius_array, 
-	float* p_stepper, float *p_end,	float *p_step)
+	float* p_start, float *p_end,	float *p_step)
 {
 	int i = 0;
+	float stepper = *p_start;
 	
 	// while stepper value is less than end value fill both arrays  
-	while (*p_stepper <= *p_end)
+	while (stepper <= *p_end)
 	{
-		fahrenheit_array[i] = *p_stepper;
+		fahrenheit_array[i] = stepper;
 		celsius_array[i] = (fahrenheit_array[i] - 32) * fT0cRatio;
-		*p_stepper += *p_step;
+		stepper += *p_step;
 		i++;
-		if (i >= ArSize) 		// fail safe exit sequence
-		{						//  in case of rounding errors
+		
+		// failsafe sequence in case of rounding errors
+		if (i >= ArSize)
+		{
 			printf("Indexing Error: program exiting...");
 			exit(1);
 		}
+	}
+
+	// add upper temperature to fahrenheit_array if not included already
+	// ensure we do not write past the end of the array
+	if (fahrenheit_array[i] != *p_end && i < (ArSize - 1))
+	{
+		fahrenheit_array[i] = *p_end;
+		celsius_array[i] = (fahrenheit_array[i] - 32) * fT0cRatio;
+		i++;		// increment index to reflect added end value
 	}
 
 	return i;
