@@ -131,4 +131,88 @@
 			exit(1);
 		}
 	}
+
+### user input in main
+
+
+	/* If required, uncomment this and the closing comment demarcaton (line # 94)
+	   to include user input
+
+	// get user input
+	// get start temperature: minimum value is -459.67, absolute zero
+	get_input(p_start, input[0]);
+
+	// get end temperature: maximum value is 1000
+	do
+	{
+		printf("\n");
+		get_input(p_end, input[1]);
+		if (end > start)
+			break;
+		else
+			printf("Invalid entry: end value must be greater than start value\n\n");
+	} while (1);
+
+	// get step size
+	// step size allows for maximum 1000 steps in lower to upper range
+	max_step = (end - start) / minStep;
+	min_step = (end - start) / MaxRange;
+	do
+	{
+		printf("\n");
+		get_input(p_step, input[2], min_step, max_step);
+		if (step > min_step && step < max_step)
+			break;
+		else
+			printf("Invalid entry: step size out of range\n\n");
+	} while (1);
+	*/
+
+###
+
+### origina get_input() function
+
+/*
+	do
+	{
+		if (input_name == "step")
+		{
+			printf("Please enter step size\n");
+			printf("range: %.1f to %.1f\n", min_step, max_step);
+			printf("Ctrl-Z to quit\n");
+		}
+		else
+		{
+			printf("Please enter %s temperature\n", input_name);
+			printf("range of values: %.1f (absolute zero) to %.1f\n", AbsZero, MaxRange);
+			printf("Ctrl-Z to quit\n");
+		}
+
+		if (fgets(input_buffer, BufferSize, stdin))
+		{
+			*p_input = strtof(input_buffer, &p_end);
+
+			if (*p_end != '\n' || input_buffer[0] == '\n' || p_end == input_buffer)
+			{
+				printf("ERROR: not a valid float\n\n");
+				continue;
+			}
+			else if (*p_input < AbsZero || *p_input > MaxRange)
+			{
+				printf("Invalid entry: value out of range\n\n");
+				continue;
+			}
+			else
+				break;
+		}
+		else
+		{
+			printf("Exiting...\n");
+			exit(0);
+		}
+
+	} while (1);
+*/
+
+###
 	
