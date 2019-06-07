@@ -1,18 +1,17 @@
-// Level1.4_Ex4.cpp 
-// C program that creates a table of values, Fahrenheit vs Celsius temperatures
+// Level1.4_Ex5.cpp 
+// C program that creates a table of values, Celsius vs Fahrenheit temperatures
 //  
 // Table should have a header
 // Left column shows the temperature in Fahrenheit
 // The right column shows the temperature in Celsius
 // Initial range for left column: 0 - 300, in steps of 20
-// Right column Celsius displays with one digit precision after the decimal point
+// Right column Fahrenheit displays with one digit precision after the decimal point
 //  (use “ % 10.1f ” as format specifier).
 // 
-// The program is maintenance insensitive: start, end, and the step size must be adjustable
-// Using a while loop
+// Using a for loop
 //
-// Formula for Fahrenheit to Celsius: 
-//  Celsius = (5 / 9) * (Fahrenheit – 32)
+// Formula for Celsius to Fahrenheit: 
+//  Fahrenheit = 1.8 * Celsius + 32
 //
 // Variables:
 // - MaxRange = maximum value for the upper fahrenheit temperature
@@ -33,11 +32,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-void get_input(float* p_input, const char* input_name, 
+void get_input(float* p_input, const char* input_name,
 	float min_step = 0, float max_step = 0);		// function declaration to get user input
 
-int fill_array(float* fahrenheit_array, float* celsius_array, 
-	float* p_stepper, float *end, float *p_step);	// function definition to fill arrays
+int fill_array(float* fahrenheit_array, float* celsius_array,
+	float* p_stepper, float* end, float* p_step);	// function definition to fill arrays
 
 const int ArSize = 1000;
 const float MaxRange = 1000;
@@ -47,8 +46,8 @@ int main(void)
 {
 	const int minStep = 2;
 	float start = 0, end = 0, step = 0, stepper = 0;
-	float *p_start = &start, *p_end = &end, *p_step = &step, *p_stepper = &stepper;
-	const char *input[3] = { "start", "end", "step" };
+	float* p_start = &start, * p_end = &end, * p_step = &step, * p_stepper = &stepper;
+	const char* input[3] = { "start", "end", "step" };
 	float min_step, max_step;
 	float fahrenheit_array[ArSize];
 	float celsius_array[ArSize];
@@ -58,15 +57,15 @@ int main(void)
 	start = 0;			// set the start value
 	end = 300;			// set the end value
 	step = 20;			// set the step size
-	
+
 	/* If required, uncomment this and the closing comment demarcaton (line # 93)
 	   to include user input
-	
+
 	// get user input
 	// get start temperature: minimum value is -459.67, absolute zero
 	get_input(p_start, input[0]);
 
-	// get end temperature: maximum value is 1000 
+	// get end temperature: maximum value is 1000
 	do
 	{
 		printf("\n");
@@ -90,14 +89,14 @@ int main(void)
 		else
 			printf("Invalid entry: step size out of range\n\n");
 	} while (1);
-	
+
 	*/
 
 	// create arrays of fahrenheit and celsius temperatures
 	stepper = start;		// initialise stepper
 	// fill arrays and store how many array cells were filled 
 	array_idx = fill_array(fahrenheit_array, celsius_array, p_stepper, p_end, p_step);
-	
+
 	// add upper temperature to fahrenheit_array if not included already
 	// ensure we do not write past the end of the array
 	if (fahrenheit_array[array_idx - 1] != end && array_idx < (ArSize - 1))
@@ -106,7 +105,7 @@ int main(void)
 		celsius_array[array_idx] = (fahrenheit_array[array_idx] - 32) * fT0cRatio;
 		array_idx++;		// increment index to reflect added end value
 	}
-	
+
 	// display Fahrenheit to Celsius table
 	printf("---------------------------------------------\n");
 	printf("\tFahrenheit\t|\t   Celsius\t\n");					// header
@@ -170,11 +169,11 @@ void get_input(float* p_input, const char* input_name, float min_step, float max
 }
 
 // fill_array() definition
-int fill_array(float* fahrenheit_array, float* celsius_array, 
-	float* p_stepper, float *p_end,	float *p_step)
+int fill_array(float* fahrenheit_array, float* celsius_array,
+	float* p_stepper, float* p_end, float* p_step)
 {
 	int i = 0;
-	
+
 	// while stepper value is less than end value fill both arrays  
 	while (*p_stepper <= *p_end)
 	{
