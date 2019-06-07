@@ -32,8 +32,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-void get_input(float* p_input, const char* input_name,
-	float min_step = 0, float max_step = 0);		// function declaration to get user input
+//void get_input(float* p_input, const char* input_name,
+//	float min_step = 0, float max_step = 0);		// function declaration to get user input
+
+void get_input(float* p_start, float* p_end, float* p_step);
+//	float min_step = 0, float max_step = 0);		// function declaration to get user input
+
+void check_input(float* user_input);
 
 int fill_array(float* fahrenheit_array, float* celsius_array,
 	float* p_start, float* end, float* p_step);	// function definition to fill arrays
@@ -41,6 +46,7 @@ int fill_array(float* fahrenheit_array, float* celsius_array,
 const int ArSize = 1000;
 const float MaxRange = 1000;
 const float cT0fRatio = 1.8f;
+const float AbsZero = -459.57f;
 
 int main(void)
 {
@@ -99,7 +105,7 @@ int main(void)
 
 	// display Fahrenheit to Celsius table
 	printf("---------------------------------------------\n");
-	printf("\tCelsius\t|\t   Fahrenheit\t\n");					// header
+	printf("\t   Celsius\t|\tFahrenheit\t\n");					// header
 	printf("---------------------------------------------\n");
 	for (i = 0; i < array_idx; i++)
 	{
@@ -111,13 +117,52 @@ int main(void)
 }
 
 // get_input() definition
-void get_input(float* p_input, const char* input_name, float min_step, float max_step)
+//void get_input(float* p_input, const char* input_name, float min_step, float max_step)
+void get_input(float* p_start, float* p_end, float* p_step)
 {
-	const float AbsZero = -459.57f;
-	const int BufferSize = 10;
-	char* p_end = NULL;
-	char input_buffer[BufferSize];
+	const int StepDivisor = 2;
+	//const char* input[3] = { "start", "end", "step" };
+	float min_step, max_step;
 
+	// get user input
+	// get start temperature: minimum value is -459.67, absolute zero
+	printf("Please enter start temperature\n");
+	printf("range of values: %.1f (absolute zero) to %.1f\n", AbsZero, MaxRange);
+	printf("Ctrl-Z to quit\n");
+	check_input(p_start);
+
+	// get end temperature: maximum value is 1000
+	printf("Please enter end temperature\n");
+	printf("range of values: %.1f (absolute zero) to %.1f\n", AbsZero, MaxRange);
+	printf("Ctrl-Z to quit\n");	
+	do
+	{
+		printf("\n");
+		check_input(p_end);
+		if (*p_end > *p_start)
+			break;
+		else
+			printf("Invalid entry: end value must be greater than start value\n\n");
+	} while (1);
+
+	// get step size
+	// step size allows for maximum 1000 steps in lower to upper range
+	max_step = (*p_end - *p_start) / StepDivisor;
+	min_step = (*p_end - *p_start) / MaxRange;
+	printf("\nPlease enter step size\n");
+	printf("range: %.1f to %.1f\n", min_step, max_step);
+	printf("Ctrl-Z to quit\n");
+	do
+	{
+		//printf("\n");
+		check_input(p_step);
+		if (*p_step > min_step && *p_step < max_step)
+			break;
+		else
+			printf("Invalid entry: step size out of range\n\n");
+	} while (1);
+
+/*
 	do
 	{
 		if (input_name == "step")
@@ -157,7 +202,43 @@ void get_input(float* p_input, const char* input_name, float min_step, float max
 		}
 
 	} while (1);
+*/
 }
+
+// check user input
+void check_input(float* user_input)
+{
+	const int BufferSize = 10;
+	char* p_end = NULL;
+	char input_buffer[BufferSize];
+	
+	do
+	{
+		if (fgets(input_buffer, BufferSize, stdin))
+		{
+			*user_input = strtof(input_buffer, &p_end);
+
+			if (*p_end != '\n' || input_buffer[0] == '\n' || p_end == input_buffer)
+			{
+				printf("ERROR: not a valid float\n\n");
+				continue;
+			}
+			else if (*user_input < AbsZero || *user_input > MaxRange)
+			{
+				printf("Invalid entry: value out of range\n\n");
+				continue;
+			}
+			else
+				break;
+		}
+		else
+		{
+			printf("Exiting...\n");
+			exit(0);
+		}
+	} while (1);
+}
+
 
 // fill_array() definition
 int fill_array(float* fahrenheit_array, float* celsius_array,
