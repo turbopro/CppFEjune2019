@@ -16,8 +16,8 @@
 // Variables:
 // - MaxRange = maximum value for the upper fahrenheit temperature
 // - ArSize = the size of the arrays to hold the fahrenheit and celsius arrays
-// - minStep = divisor to create maximum number of steps allowed for a particular range
-// - fTocRatio = fahrenheit to celsius conversion ratio
+// - StepDivisor = divisor to create maximum number of steps allowed for a particular range
+// - cTofRatio = celsius to fahrenheit conversion ratio
 // - start, end = starting and ending fahrenheit temperatures
 // - step = step size
 // - stepper = aggregate step size used to populate the fahrenheit array
