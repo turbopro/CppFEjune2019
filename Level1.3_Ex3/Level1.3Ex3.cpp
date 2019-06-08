@@ -1,6 +1,10 @@
-// Level1_Ex3.cpp -- code file with comments: printf() command outputs
+// Level1.3_Ex3.cpp
+//
+// C program to serve as an exercise to determine operator
+// precedence
 //
 // Comments appear to the right of each printf() statement
+//
 
 #include <stdio.h>
 

@@ -1,4 +1,5 @@
-// Level1.3_Ex6.cpp -- use shift operator
+// Level1.3_Ex6.cpp
+// 
 //
 // Shift any integer two places to the right, and, indicate
 //  whether logical or arithmetic shift

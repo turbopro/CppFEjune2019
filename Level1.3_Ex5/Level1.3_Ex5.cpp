@@ -1,18 +1,21 @@
-// Level1.3_Ex5.cpp -- demonstrate the difference between the --i and i--
+// Level1.3_Ex5.cpp
+//
+// C-program that clearly shows the difference between --i and i--.
 //
 // Calculate the sum of a range of digits: eg, sum of 1, 2, 3, ... 25 = 325
 // We use a while loop that terminates when an indexer/counter reaches a
-//  threshold.
+// threshold.
+//
 
 #include <stdio.h>
 
 int main(void)
 {
-	int i = 0, n = 25, sum = 0;
+	int i = 1, target = 5, sum = 0;
 
-	// calculate sum of digits from 1 to n
+	// calculate sum of digits from start to end
 	// use while loop and post decrement operator gives the correct output 
-	i = n;
+	i = target;
 	while (true)
 	{
 		if (i > 0)
@@ -24,10 +27,10 @@ int main(void)
 		else
 			break;
 	}
-	printf("Post decrement: sum of digits 1 through %d = %d\n", n, sum);
+	printf("Post decrement: sum of digits 1 through %d = %d\n", target, sum);
 
 	// use while loop and pre decrement operator gives incorrect output
-	i = n;
+	i = target;
 	sum = 0;
 	while (true)
 	{
@@ -40,7 +43,7 @@ int main(void)
 		else
 			break;
 	}
-	printf("Pre decrement:  sum of digits 1 through %d != %d\n", n, sum);
+	printf("Pre decrement:  sum of digits 1 through %d != %d\n", target, sum);
 
 	return 0;
 }

@@ -1,4 +1,7 @@
-// right_tri_area.cpp -- source file to compute area of a right triangle
+// Level1.3_Ex2.cpp
+//
+// C program to calculate the area of a right triangle.
+// Get user input for base and height values
 //
 // Formula: Area = 1/2 (Base * Height)
 //
@@ -23,16 +26,18 @@ int main(void)
 {
 	// get user input
 	float height = 0.0, base = 0.0, area = 0.0;				// all variables are float
+	
 	printf("Please enter the height of the triangle: ");
 	scanf_s("%f", &height);
-	printf("Height: %.2f\n", height);						// display two decimal places
+	printf("Height: %.1f\n", height);						// display to one decimal place
+
 	printf("\nPlease enter the base of the triangle: ");
 	scanf_s("%f", &base);
-	printf("Base: %.2f\n", base);
+	printf("Base: %.1f\n", base);
 
 	area = area_right_triangle(base, height);
 
-	printf("\nArea of triangle: %.2f\n", area);
+	printf("\nArea of triangle with base %.1f, and height %.1f = %.1f\n", base, height, area);
 
 	return 0;
 }
