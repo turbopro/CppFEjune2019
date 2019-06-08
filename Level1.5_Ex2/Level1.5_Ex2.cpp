@@ -6,24 +6,27 @@
 // Must make use of a recursive function.
 //  
 // Variables:
-// - count_0 thru others = integers to store counts of characters
-// - ch = char to store individual input characters
+// - number = integer store for number
+// 
+// Functions:
+// factorial = recursive function to calculate the factorial of an integer
+//             
 
 #include <stdio.h>
 
-long int factorial(int input)
+long int factorial(int number)
 {
-	if (input >= 1)
-		return input * factorial(input - 1);
+	if (number >= 1)
+		return number * factorial(number - 1);
 	else
 		return 1;
 }
 
 int main(void)
 {
-	int num = 6;
+	int number = 6;
 
-	printf("\nFactorial of %d = %ld\n", num, factorial(num));
+	printf("\nFactorial of %d = %ld\n", number, factorial(number));
 
 	return 0;
 }
