@@ -1,11 +1,15 @@
 // Level1.3_Ex6.cpp
 // 
+// C program that shifts any number two places to the right. 
+// Input should be an integer. Output should be the shifted result, 
+// as well as output an indication of whether a logical or arithmetic 
+// shift is performed (if a 1 or 0 is shifted in at the left side) 
+// for the inputted number. 
 //
-// Shift any integer two places to the right, and, indicate
-//  whether logical or arithmetic shift
+// For more info and example, see Logical shift - Wikipedia
+// 
 
 #include <stdio.h>
-#include <limits.h>
 
 int main(void)
 {
@@ -17,7 +21,7 @@ int main(void)
 
 	result = number >> shift;
 
-	printf("%d shifted two digits to the right = %d\n", number, result);
+	printf("\n%d shifted two digits to the right = %d\n", number, result);
 	if((result < 0 && number < 0) || (result > 0 && number > 0))
 		printf("This was an arithmetic shift\n");
 	else

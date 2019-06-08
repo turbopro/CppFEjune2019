@@ -27,6 +27,11 @@
 // - fahrenheit_array = array to store fahrenheit temperatures
 // - celsius_array = array to store celsius temperatures
 // - array_size, i = array indexers
+//
+// - get_input() = function to get user input for start, end, and step values
+//                 the function does some error checking, but needs to do much more
+// - check_input = function to check/validate user input
+// - fill_array() = function to fill the fahrenheit and celsius arrays
 
 #include <stdio.h>
 #include <stdlib.h>

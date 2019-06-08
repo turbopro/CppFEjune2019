@@ -216,3 +216,8 @@
 
 ###
 	
+Level1.4_Ex4
+
+// - get_input() = function to get user input for start, end, and step values
+//                 the function does some error checking, but needs to do much more
+// - fill_array() = function to fill the fahrenheit and celsius arrays

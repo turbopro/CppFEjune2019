@@ -7,6 +7,7 @@
 // Variables:
 // - count_0 thru others = integers to store counts of characters
 // - ch = char to store individual input characters
+//
 
 #include <stdio.h>
 
@@ -21,7 +22,7 @@ int main(void)
 	printf("operand1: %.1f, operand2: %.1f\n", operand1, operand2);
 
 	result = minus(operand1, operand2);
-	printf("\noperand1 - operand2 = %.1f\n", result);
+	printf("\n%.1f - %.1f = %.1f\n", operand1, operand2, result);
 
 	return 0;
 }

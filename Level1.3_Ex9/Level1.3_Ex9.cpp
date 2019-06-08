@@ -1,4 +1,7 @@
-// Level1.3_Ex9 -- Conditional expressions
+// Level1.3_Ex9
+//
+// Conditional expressions
+//
 
 #include <stdio.h>
 

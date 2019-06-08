@@ -1,4 +1,5 @@
-// Level1.4_Ex2.cpp 
+// Level1.4_Ex2.cpp
+//
 // C program that takes text input from the stdin stream (keyboard)
 // -- this version uses a do/while loop --
 // 
@@ -8,9 +9,9 @@
 // We use string manipulation functions from 'string.h' and 'stdio.h'
 // Functions:
 //  getchar() to read input
-//  strtok() to count number of words in input text
+//  strtok_s() to count number of words in input text
 //  
-// strtok() uses a pointer to tokenize a string array into words
+// strtok_s() uses a pointer to tokenize a string array into words
 
 #include <stdio.h>
 #include <string.h>
@@ -24,6 +25,7 @@ int main(void)
 	int characters, words, lines;		// counters
 	characters = words = lines = i = 0;
 	char* p_word = NULL;				// pointer to char to count words
+	char* next_token = NULL;			// pointer to char for next word
 
 	// get user input
 	// user terminates input via Ctrl-Z for Windows, Ctrl-D for Unices
@@ -68,10 +70,10 @@ int main(void)
 	{
 		// if null pointer, set pointer to first word
 		if (p_word == NULL)
-			p_word = strtok(word_token, " '\n''\t''\v''\f''\r'");
+			p_word = strtok_s(word_token, " '\n''\t''\v''\f''\r'", &next_token);
 		else
 		{
-			p_word = strtok(NULL, " '\n''\t''\v''\f''\r'");
+			p_word = strtok_s(NULL, " '\n''\t''\v''\f''\r'", &next_token);
 			words++;
 		}
 	} while (p_word);	// while the pointer points to a string

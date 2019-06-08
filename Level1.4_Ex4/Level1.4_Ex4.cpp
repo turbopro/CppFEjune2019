@@ -1,4 +1,5 @@
-// Level1.4_Ex4.cpp 
+// Level1.4_Ex4.cpp
+//
 // C program that creates a table of values, Fahrenheit vs Celsius temperatures
 //  
 // Table should have a header
@@ -17,12 +18,12 @@
 // Variables:
 // - MaxRange = maximum value for the upper fahrenheit temperature
 // - ArSize = the size of the arrays to hold the fahrenheit and celsius arrays
-// - minStep = divisor to create maximum number of steps allowed for a particular range
+// - StepDivisor = divisor to create maximum number of steps allowed for a particular range
 // - fTocRatio = fahrenheit to celsius conversion ratio
 // - start, end = starting and ending fahrenheit temperatures
 // - step = step size
 // - stepper = aggregate step size used to populate the fahrenheit array
-// - p_start, p_end, p_step, p_steppers = pointers to relevant floats above
+// - p_start, p_end, p_step = pointers to relevant floats above
 //   pointers are used as arguments to the 'get_input' function 
 // - min_step, max_step = minimum and maximum step sizes
 // - fahrenheit_array = array to store fahrenheit temperatures
@@ -31,6 +32,7 @@
 //
 // - get_input() = function to get user input for start, end, and step values
 //                 the function does some error checking, but needs to do much more
+// - check_input = function to check/validate user input
 // - fill_array() = function to fill the fahrenheit and celsius arrays
 
 #include <stdio.h>
@@ -70,7 +72,7 @@ int main(void)
 	
 	// get user input for start, end and step values
 	// to run the program to accept user input, uncomment the line below
-	//get_input(p_start, p_end, p_step);
+	// get_input(p_start, p_end, p_step);
 	
 	// create arrays of fahrenheit and celsius temperatures
 	// fill arrays and store how many array cells were filled 

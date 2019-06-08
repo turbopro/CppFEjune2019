@@ -1,6 +1,9 @@
-// Level1.3_Ex8 -- Assignment operator
+// Level1.3_Ex8
 //
-// display out via comments
+// Assignment operator
+//
+// display output via comments
+//
 
 #include <stdio.h>
 

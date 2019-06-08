@@ -1,4 +1,4 @@
-// Level1.4_Ex1.cpp
+// Level1.4_Ex3.cpp
 //
 // C program that takes text input from the stdin stream (keyboard)
 // 
@@ -11,6 +11,8 @@
 //  strtok_s() to count number of words in input text
 // 
 // strtok_s() uses a pointer to tokenise a string array into words
+// use a switch statement
+//
 
 #include <stdio.h>
 #include <string.h>
@@ -40,7 +42,7 @@ int main(void)
 		if (ch == '\n') { lines++; }
 		input_text[i++] = ch;
 	}
-	
+
 	// thanks to youtuber, CodeVault --> https://www.youtube.com/watch?v=34DnZ2ewyZo
 	// use strtok() to count number of words in "input_text"
 	// word separators = ' ', '\n', '\t', '\v', '\f', and '\r'

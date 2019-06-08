@@ -1,5 +1,5 @@
+// Level1.5_Ex3
 // Main.c
-// Level1.5_Ex2
 //
 // C program that consists of two source-files: Main.c and Print.c
 // - Main.c contains the main() function and gives the variable i a value. 

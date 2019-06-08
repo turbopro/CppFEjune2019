@@ -1,4 +1,5 @@
-// freq.c 
+// freq.c
+//
 // C program that counts how many times each of the numbers 0-4 have been typed. 
 // Use a switch-case construction. Use default to count the number of other 
 // characters. The input will be halted with ^Z (EOF). EOF means End-of-File and 
@@ -11,6 +12,7 @@
 // Variables:
 // - count_0 thru others = integers to store counts of characters
 // - ch = char to store individual input characters
+//
 
 #include <stdio.h>
 
@@ -20,7 +22,7 @@ int main(void)
 		count_3 = 0, count_4 = 0, others = 0;
 	char ch;
 
-	printf("Please enter some text\nCtrl-Z to end input\n");
+	printf("Please enter some text, include numbers\nCtrl-Z to end input\n");
 	while ((ch = getchar()) != EOF)
 	{
 		switch (ch)
