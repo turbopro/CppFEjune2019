@@ -77,8 +77,6 @@ int main(void)
 	// create arrays of fahrenheit and celsius temperatures
 	// fill arrays and store how many array cells were filled 
 	array_idx = fill_array(fahrenheit_array, celsius_array, p_start, p_end, p_step);
-	
-	printf("\narray_index: %d\n", array_idx);
 
 	// display Fahrenheit to Celsius table
 	printf("---------------------------------------------\n");
