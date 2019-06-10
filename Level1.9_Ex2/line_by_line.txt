@@ -1,2 +1,3 @@
-this is atest.
+this is a test
 and so is this
+as well		as this
