@@ -38,12 +38,46 @@ int main(void)
 	int i = 0;
 	FILE* p_outfile;
 	const char* mode = "w+";
-	char output_filename[FileNameSize+1];
+	char output_filename[FileNameSize + 1] = { '\0' };
 	errno_t err_file_open;
 
 	// get filename from user
 	printf("Please enter the name of the output file\n");
 	printf("Maximum characters for the filename: %d\n", FileNameSize);
+	printf("Ctrl-Shift-A to quit\n");
+	
+	while ((ch = getchar()) != 1 && i <= FileNameSize)		// Ctrl-Shift-A == 1
+	{
+		if (ch == '\n')			// if newline, terminate string array, print/save line
+		{
+			if (strlen(output_filename) == 0)
+			{
+				printf("\nInvalid entry\n");
+				printf("You must enter a filename.\n");
+				printf("Maximum characters for the filename % d\n", FileNameSize);
+				continue;
+			}
+			else
+			{
+				output_filename[i] = '\0';
+				printf("Thanks, %s will be used to store input text\n", output_filename);
+				i = 0;				// reset i to 0 
+			}
+		}
+		else
+		{
+			input_buffer[i++] = (char)ch;
+		}
+	}
+	if (i)		// characters input exceed BufferSize
+	{
+		printf("\nMaximum characters input per line, %d, exceeded\n", BufferSize);
+		printf("Exiting...\n");
+	}
+	//else
+		printf("\nDone, bye.\n");
+
+	/*
 	while( 1 )
 	{
 		if (fgets(output_filename, FileNameSize, stdin))
@@ -70,7 +104,7 @@ int main(void)
 		}
 	}
 
-	/*
+	
 	while ( !fgets(output_filename, FileNameSize, stdin) )
 	{
 		if (strlen(output_filename) == 0)
