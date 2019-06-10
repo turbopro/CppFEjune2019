@@ -38,97 +38,66 @@ int main(void)
 	int i = 0;
 	FILE* p_outfile;
 	const char* mode = "w+";
-	char output_filename[FileNameSize + 1] = { '\0' };
+	char output_filename[FileNameSize + 1] = { '\0' }; // set filename to empty text
 	errno_t err_file_open;
 
-	// get filename from user
-	printf("Please enter the name of the output file\n");
-	printf("Maximum characters for the filename: %d\n", FileNameSize);
-	printf("Ctrl-Shift-A to quit\n");
-	
-	while ((ch = getchar()) != 1 && i <= FileNameSize)		// Ctrl-Shift-A == 1
+	while ( 1 )	// loop until we get valid filename from user
 	{
-		if (ch == '\n')			// if newline, terminate string array, print/save line
+		printf("Please enter a name for the output file\n");
+		printf("Maximum characters: %d\n", FileNameSize);
+		printf("Ctrl-Shift-A to quit\n");
+		while ((ch = getchar()) != 1 && i <= FileNameSize)		// Ctrl-Shift-A == 1
 		{
-			if (strlen(output_filename) == 0)
+			if (ch == '\n')			// if newline, process input text
 			{
-				printf("\nInvalid entry\n");
-				printf("You must enter a filename.\n");
-				printf("Maximum characters for the filename % d\n", FileNameSize);
-				continue;
-			}
-			else
-			{
-				output_filename[i] = '\0';
-				printf("Thanks, %s will be used to store input text\n", output_filename);
-				i = 0;				// reset i to 0 
-			}
-		}
-		else
-		{
-			input_buffer[i++] = (char)ch;
-		}
-	}
-	if (i)		// characters input exceed BufferSize
-	{
-		printf("\nMaximum characters input per line, %d, exceeded\n", BufferSize);
-		printf("Exiting...\n");
-	}
-	//else
-		printf("\nDone, bye.\n");
+				output_filename[i] = '\0';		// terminate filename
+				i = 0;							// reset i to 0 for next line input
 
-	/*
-	while( 1 )
-	{
-		if (fgets(output_filename, FileNameSize, stdin))
-		{
-			if (strlen(output_filename) == 0)
-			{
-				printf("\nInvalid entry\n");
-				printf("You must enter a filename.\n");
-				printf("Maximum characters for the filename % d\n", FileNameSize);
-				continue;
+				if (strlen(output_filename) == 0)	// if user did not enter a name
+				{
+					printf("Invalid entry: you must enter a valid filename.\n");
+					printf("Maximum characters: %d\n", FileNameSize);
+					printf("Ctrl-Shift-A to quit\n");
+					continue;
+				}
+				else { break; }
 			}
-			else
-			{
-				printf("\nThank you.\n");
-				printf("Output file '%s' stored in current folder\n", output_filename);
-				break;
-			}
+			else { output_filename[i++] = (char)ch; }
 		}
-		else
-		{
-			printf("\nInvalid entry: maximum number of characters exceeded\n");
-			printf("Exiting...\n");
-			exit(1);
-		}
-	}
 
-	
-	while ( !fgets(output_filename, FileNameSize, stdin) )
-	{
-		if (strlen(output_filename) == 0)
+		if (i > FileNameSize)	// if too many characters entered
 		{
-			printf("You must enter a name for the output file\n");
-			printf("Maximum number of characters: %d\n", FileNameSize);
+			printf("\nInvalid entry: Filename too long\n");
+			printf("Maximum characters: %d\n\n", FileNameSize);
+			// reset the input buffer to accept new line input
+			while ((ch = getchar()) != '\n' && ch != EOF) { }	// clear input buffer
+			output_filename[0] = '\0';			// reset output_filename
+			i = 0;		// reset indexer for new input
+			continue;
 		}
+		else if (strlen(output_filename) == 0)	// if user hit Ctrl-Shift-A to quit
+		{
+			printf("\nGoodbye...\n");
+			exit(0);
+		}
+		else { break; }
 	}
-	*/
-	// check if file opened successfully
+	
+	// open output file for writing; check if file opened successfully
 	err_file_open = fopen_s(&p_outfile, output_filename, mode);
 	if (err_file_open)
 	{
-		printf("Cannot open output file, %s!\n", output_filename);
+		printf("\nCannot open output file, %s!\n", output_filename);
 		printf("Exiting...\n");
-		if (p_outfile) { fclose(p_outfile); }	// if file open, close it
 		exit(1);
 	}
 	else
 	{
-		printf("Output file '%s' opened successfully in current folder\n", output_filename);
+		printf("\nOutput file '%s' opened successfully in current folder\n", output_filename);
 	}
 
-	if (p_outfile)			// confirm file is open and ready for writing
+	// if file handle is open and ready for writing
+	if (p_outfile)			
 	{
 		// get user input
 		printf("\nPlease enter some text, line by line\n");
@@ -149,14 +118,14 @@ int main(void)
 				input_buffer[i++] = (char)ch;
 			}
 		}
-
-		if (i)		// characters input exceed BufferSize
+		
+		if ( i )		// characters input exceed BufferSize
 		{
-			printf("\nMaximum characters input per line, %d, exceeded\n", BufferSize);
+			printf("\nInvalid entry: Too many characters entered.\n");
+			printf("Maximum characters per line, %d, exceeded\n", BufferSize);
 			printf("Exiting...\n");
 		}
-		else
-			printf("\nDone, bye.\n");
+		else { printf("\nGoodbye.\n"); }		// user entered Ctrl-Shift-A
 
 		fclose(p_outfile);			// close file
 	}
