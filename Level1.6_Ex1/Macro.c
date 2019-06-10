@@ -13,14 +13,20 @@
 //
 
 #include <stdio.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 #include "Defs.h"
 
 int main()
 {
 	int a = 100, b = 200;
 
+	printf("Variables values,\n");
+	printf("a:\t%d\nb:\t%d", a, b);
+
+	printf("\n\n\nWhen we apply the macro, PRINT1, with argument 'a', we get\n\n");
 	PRINT1(a);
+
+	printf("\n\n\nWhen we apply the macro, PRINT2, with arguments 'a' and 'b', we get\n");
 	printf("\n");
 	PRINT2(a, b);
 	printf("\n");

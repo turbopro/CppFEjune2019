@@ -16,9 +16,11 @@ int main(void)
 {
 	int x = 10, y = 20;
 
-	printf("Original values x: %d, and y: %d\n", x, y);
-	Swap(&x, &y);
-	printf("\nAfter Swap() applied, x: %d, and y: %d\n", x, y);
+	printf("Original values,\n");
+	printf("x:\t%d\ny:\t%d\n", x, y);
+	Swap(&x, &y);			// pass by reference
+	printf("\nAfter Swap() applied,\n");
+	printf("x:\t%d\ny:\t%d\n", x, y);
 
 	return 0;
 }

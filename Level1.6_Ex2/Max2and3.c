@@ -14,17 +14,22 @@ int main()
 {
 	int x = 100, y = 15, z = 500;
 
+	printf("Variable values are\n");
+	printf("x:\t%d\ny:\t%d\nz:\t%d\n", x, y, z);
+	
+	printf("\n\nWhen we run macro MAX2 with arguments x and y, we get:\n");
 	if (MAX2(x, y) == x)
-		printf("x (%d) is greater than y (%d)\n", x, y);
+		printf("\nx (%d) is greater than y (%d)\n", x, y);
 	else
-		printf("y (%d) is greater than x (%d)\n", y, x);
+		printf("\ny (%d) is greater than x (%d)\n", y, x);
 
+	printf("\n\nWhen we run macro MAX3 with arguments x, y and z, we get:\n");
 	if (MAX3(x, y, z) == x)
-		printf("x (%d) is greater than y (%d) and z (%d)\n", x, y, z);
+		printf("\nx (%d) is greater than y (%d) and z (%d)\n", x, y, z);
 	else if (MAX3(x, y, z) == y)
-		printf("y (%d) is greater than x (%d) and z (%d)\n", y, x, z);
+		printf("\ny (%d) is greater than x (%d) and z (%d)\n", y, x, z);
 	else
-		printf("z (%d) is greater than x (%d) and y (%d)\n", z, x, y);
+		printf("\nz (%d) is greater than x (%d) and also greater than y (%d)\n", z, x, y);
 
 	return 0;
 }

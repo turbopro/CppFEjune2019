@@ -42,11 +42,12 @@ int main(void)
 
 	if (i)		// characters input exceed BUFFER_SIZE: i = BUFFER_SIZE
 	{
-		printf("Maximum characters input per line, %d, exceeded\n", BUFFER_SIZE);
-		printf("Exiting ...\n");
+		printf("\nInvalid input: Too many characters entered\n");
+		printf("Maximum characters (%d) input per line exceeded\n", BUFFER_SIZE);
+		printf("Exiting...\n");
 	}
 	else
-		printf("Done, bye.\n");
+		printf("\nGoodbye.\n");
 
 	return 0;
 }
