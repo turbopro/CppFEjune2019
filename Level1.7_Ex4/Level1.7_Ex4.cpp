@@ -14,15 +14,18 @@
 
 #include <stdio.h>
 
-#define WEEK_LENGTH 7
-#define MAX_STRING_LENGTH 12
+#define WEEK_LENGTH 7				// length of a week
+#define MAX_STRING_LENGTH 12		// string length
 
-// const char [] since the function does not change the array elements
+// DayName() declaration
+// const char [][] since the function does not change the array elements
+// char [][] is an array of array of characters (strings)
 void DayName(const char day_name[][MAX_STRING_LENGTH], int day_of_week);
 
 int main(void)
 {
 	// array of strings for days of the week
+	// "offset day" included to account for the '0th' element of the array
 	char day_name[WEEK_LENGTH+1][MAX_STRING_LENGTH] =
 	{
 		"offset day", "Sunday", "Monday", "Tuesday", 
@@ -45,6 +48,7 @@ int main(void)
 	return 0;
 }
 
+// DayName() definition
 void DayName(const char day_name[][MAX_STRING_LENGTH], int day_of_week)
 {
 	printf("Day %d: %s\n", day_of_week, day_name[day_of_week]);

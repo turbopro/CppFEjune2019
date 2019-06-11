@@ -10,8 +10,9 @@
 #ifndef STRUCTS_H_INCLUDED
 #define STRUCTS_H_INCLUDED
 
-#define DESCRIPTION_SIZE 20
+#define DESCRIPTION_SIZE 20		// max string length of Article's description
 
+// Article declaration/definition
 struct Article
 {
 	int article_number;
@@ -19,6 +20,7 @@ struct Article
 	char description[DESCRIPTION_SIZE + 1];
 };
 
+// const Article* for Print, to prevent Print from changing Article pointed to by 'art1'
 void Print(const Article* art1);
 
 #endif // STRUCTS_H_INCLUDED

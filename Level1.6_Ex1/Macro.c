@@ -10,11 +10,12 @@
 // Name the program “Macro.c”and the include - file “Defs.h”.
 // Don’t forget to implement the mechanism to avoid multiple inclusion 
 // of the header file.
+// 
+// Variables a and b will of type integer.
 //
 
 #include <stdio.h>
-//#include <stdlib.h>
-#include "Defs.h"
+#include "Defs.h"	// include header 'Defs.h' with PRINT1 and PRINT2 definitions
 
 int main()
 {

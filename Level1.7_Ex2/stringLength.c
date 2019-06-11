@@ -50,12 +50,12 @@ int main()
 
 int Length(char str[])
 {
-	int i = 0;			// string indexer
-	while (str[i])		// loop until '\0' character 
+	int i = 0;		// string (character array) indexer
+	while (str[i])	// loop until '\0' character 
 	{
-		i++;
+		i++;		// increment i to keep count of the loop cycles
 	}
 
-	return i;
+	return i;		// return the count of characters	
 }
 

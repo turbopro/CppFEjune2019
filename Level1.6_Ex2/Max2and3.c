@@ -5,6 +5,8 @@
 // These macros must return the maximum value of the given arguments. 
 // Let the macro MAX3 make use of the macro MAX2.
 //
+// For our purposes, all variables will be of type integer.
+//
 
 #include <stdio.h>
 #include <stdlib.h>

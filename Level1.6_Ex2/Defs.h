@@ -3,6 +3,8 @@
 // 
 // header file with definitions for macros
 // MAX2 and MAX3
+// 
+// For our purposes, all variables will be of type integer.
 //
 // since #pragma once is OS/compiler specific, we
 // will use the C standard #ifndef / #define procedure
