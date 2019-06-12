@@ -1,3 +1,6 @@
+#ifndef POINT_H_INCLUDED
+#define POINT_H_INCLUDED
+
 // Point.h
 // Level2.2_Ex1
 // 
@@ -38,13 +41,10 @@
 // ToString()	-	returns a string representation of a Point object :	return type std::string
 //
 
+#include <iostream>
+#include <string>
 
-#ifndef POINT_H_INCLUDED
-#define POINT_H_INCLUDED
-
-#define DESCRIPTION_SIZE 20		// max string length of Article's description
-
-// Point class definition
+// Point class declaration
 class Point
 {
 	private:
@@ -52,8 +52,13 @@ class Point
 		int m_y;
 	
 	public:
-
+		Point();
+		~Point();
+		float GetX() const;
+		float GetY() const;
+		void SetX(float newX);
+		void SetY(float newY);
+		std::string ToString() const;
 };
-
 
 #endif // POINT_H_INCLUDED
