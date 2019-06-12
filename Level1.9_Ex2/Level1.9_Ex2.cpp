@@ -99,7 +99,7 @@ int main(void)
 		printf("\nOutput file '%s' opened successfully in current folder\n", output_filename);
 	}
 
-	// if file handle is open and ready for writing
+	// if output file is open and ready for writing
 	if (p_outfile)			
 	{
 		// get user input
@@ -136,7 +136,7 @@ int main(void)
 
 		fclose(p_outfile);			// close file
 	}
-	else	// something went wrong with output file handler
+	else	// something went wrong with the output file handler
 	{
 		printf("\nProgram error: unknown fault\n");
 		printf("Report error to your IT support\n");
