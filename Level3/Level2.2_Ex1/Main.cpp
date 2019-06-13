@@ -17,53 +17,34 @@ using namespace std;
 
 int main(void)
 {
-	
-		
-	// get user input for x, y coordinates
-	double x;
-	// loop until valid user input
-	//do
-	//cout << "Please enter x coordinate value: ";	
-	/*
-	while ( 1 )
+	// get user input for x; loop until valid user input or quit
+	double x = 0.0;
+	while (cout << "Please enter x coordinate value (Ctrl-Z to quit): " && !(cin >> x) || cin.peek() != '\n')
 	{
-		if (cin.eof())
+		if (cin.eof())		// quit if user enters Ctrl-Z
 		{
-			cin.clear();
-			std::cout << "Exiting.  Bye..." << endl;
+			cout << "\nExiting. Bye...\n";
 			exit(0);
 		}
-		else if (!(cin >> x) || cin.peek() != '\n')
-		{
-			cout << "Invalid entry: you must enter a valid number" << endl;
-			cin.clear();		// clear error flag for next input
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');	// clear rest of line entry
-			continue;
-		}
-		else
-		{
-			break;
-		}
-	} //while (1);
-	
-	//double y = 10.5;
-	*/
-	while (cout << "Please enter x coordinate value: " && !(cin >> x) || cin.peek() != '\n')
-	{
-		cout << "Invalid entry: you must enter a valid number" << endl;
+		cout << "Invalid entry: you must enter a valid number\n" << endl;
 		cin.clear();		// clear error flag for next input
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');	// clear rest of line entry
 	}
 
-	double y;
-	while (cout << "Please enter y coordinate value: " && !(cin >> y) || cin.peek() != '\n')
+	// get user input for y; loop until valid user input or quit
+	double y = 0.0;
+	while (cout << "Please enter y coordinate value (Ctrl-Z to quit): " && !(cin >> y) || cin.peek() != '\n')
 	{
-		cout << "Invalid entry: you must enter a valid number" << endl;
+		if (cin.eof())		// quit if user enters Ctrl-Z
+		{
+			cout << "\nExiting. Bye...\n";
+			exit(0);
+		}
+		cout << "Invalid entry: you must enter a valid number\n" << endl;
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	}
 	
-
 	// create Point object with default constructor
 	Point p0;
 
