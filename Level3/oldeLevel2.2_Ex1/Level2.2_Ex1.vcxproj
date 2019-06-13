@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{D0E196C6-A909-4F5F-8D5B-C22910E25540}</ProjectGuid>
+    <ProjectGuid>{E0E65C93-21CF-41AF-9BB2-3141A6D9CF80}</ProjectGuid>
     <RootNamespace>Level22Ex1</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -124,10 +124,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Point.h" />
+    <ClInclude Include="Point0.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Point.cpp" />
+    <ClCompile Include="Main.C" />
+    <ClCompile Include="Point.C" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

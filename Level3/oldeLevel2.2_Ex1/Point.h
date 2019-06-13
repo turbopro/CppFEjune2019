@@ -41,23 +41,22 @@
 #ifndef POINT_H_INCLUDED
 #define POINT_H_INCLUDED
 
-#include <iostream>
-#include <string>
+//#include <iostream>
 
 // Point class declaration
 class Point
 {
 private:
-	double m_x;
-	double m_y;
+	int m_x;
+	int m_y;
 
 public:
 	Point();
 	~Point();
-	double GetX() const;
-	double GetY() const;
-	void SetX(double newX);
-	void SetY(double newY);
+	float GetX() const;
+	float GetY() const;
+	void SetX(float newX);
+	void SetY(float newY);
 	std::string ToString() const;
 };
 

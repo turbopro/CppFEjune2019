@@ -7,45 +7,47 @@
 // object, and the standard stream operators (as with iostream) to 
 // create the string.  This requires the “sstream” header file. 
 // Use the str() function to retrieve the string from the string 
-// buffer.  The output can be like : “Point(1.5, 3.9)”
+// buffer.  
+// The retrun format : “Point(1.5, 3.9)”
 //
 
 #include <iostream>
-//#include <string>
+#include <sstream>
+#include <string>
 #include "Point.h"
 
-// Default constructor definition
+// Default constructor
 Point::Point()
 {
 	m_x = m_y = 0.0;
 }
 
-// Destructor definition
+// (verbose) Destructor definition
 Point::~Point()
 {
-	std::cout << "Point (" << m_x << ", " << m_y << ") has left the building.\n";
+	std::cout << "\nRIP point (" << m_x << ", " << m_y << ")\n";
 }
 
 // GetX() definition
-float Point::GetX() const
+double Point::GetX() const
 {
 	return m_x;
 }
 
 // GetY() definition
-float Point::GetY() const
+double Point::GetY() const
 {
 	return m_y;
 }
 
 // SetX() definition
-void Point::SetX(float newX)
+void Point::SetX(double newX)
 {
 	m_x = newX;
 }
 
 // SetY() definition
-void Point::SetX(float newX)
+void Point::SetY(double newY)
 {
 	m_y = newY;
 }
@@ -53,5 +55,17 @@ void Point::SetX(float newX)
 // ToString() definition
 std::string Point::ToString() const
 {
-	m_y = newY;
+	// create stream objects for conversion
+	// input Point object's x & y coordinates
+	std::ostringstream m_x_conv, m_y_conv;
+	m_x_conv << m_x;
+	m_y_conv << m_y;
+
+	// get str values for x & y coordinates
+	std::string str_m_x, str_m_y;
+	str_m_x = m_x_conv.str();
+	str_m_y = m_y_conv.str();
+	
+	// return string with format: "Point(x, y)"
+	return ("Point(" + str_m_x + ", " + str_m_y + ")");
 }
