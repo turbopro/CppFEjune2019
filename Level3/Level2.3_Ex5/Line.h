@@ -62,9 +62,9 @@ public:
 		const Point& endpoint);		
 	Line(const Line& Other);					// copy constructor
 	~Line();									// destructor
-	Point StartPoint() const;					// startpoint point getter
+	const Point& StartPoint() const;			// startpoint point getter
 	void StartPoint(Point newP);				// startpoint point setter
-	Point EndPoint() const;						// endpoint point getter
+	const Point& EndPoint() const;				// endpoint point getter
 	void EndPoint(Point newP);					// endpoint point setter
 	std::string ToString() const;				// print the Point coordinates
 	double Length() const;						// distance from the origin

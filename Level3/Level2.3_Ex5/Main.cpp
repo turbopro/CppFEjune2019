@@ -50,20 +50,21 @@ int main(void)
 	// set x, y coordinates with user input values
 	P1.X(x);
 	P1.Y(y);
-	/*
+	
 	// print P1 object description using ToString() member function 
-	cout << "\nP1 is: " << P1.ToString() << endl;
+	//cout << "\n\nP1 is: " << P1.ToString() << endl;
 
 	// print P1 object's x, y coordinates via get functions 
-	cout << "\nP1 x-coordinate = " << P1.X() << endl;
-	cout << "P1 y-coordinate = " << P1.Y() << endl << endl;
-	*/
+	//cout << "\nP1 x-coordinate = " << P1.X() << endl;
+	//cout << "P1 y-coordinate = " << P1.Y() << endl << endl;
+	
 
 	// create second Point, P2
 	point_id = "P2";
 	user_input(x, point_id, x_axis);
 	user_input(y, point_id, y_axis);
 	Point P2{ x, y };		// use constructor
+	cout << endl << endl;
 	/*
 	// print P2
 	cout << "\nP2 is: " << P2.ToString() << endl;
@@ -100,9 +101,9 @@ int main(void)
 
 	// print L1
 	cout << "\nL1 is: " << L1.ToString() << endl;
-	//cout << "\nL1 startpoint " << L1.StartPoint().ToString() << endl;
-	//cout << "\nL1 endpoint " << L1.EndPoint().ToString() << endl;
-	cout << "L1 length = " << L1.Length() << endl;
+	cout << "\n\nL1 startpoint " << L1.StartPoint().ToString() << endl;
+	cout << "\n\nL1 endpoint " << L1.EndPoint().ToString() << endl;
+	cout << "\n\nL1 length = " << L1.Length() << endl;
 
 	return 0;
 }

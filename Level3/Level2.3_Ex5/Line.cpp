@@ -51,13 +51,13 @@ Line::~Line()
 }
 
 // StartPoint() definition for startpoint getter
-Point Line::StartPoint() const
+const Point& Line::StartPoint() const
 {
 	return m_startpoint;
 }
 
 // EndPoint() definition for endpoint getter 
-Point Line::EndPoint() const
+const Point& Line::EndPoint() const
 {
 	return m_endpoint;
 }
@@ -96,7 +96,7 @@ std::string Line::ToString() const
 
 	// return string with format: "Point(x, y)"
 	return ( "Line: StartPoint(" + str_m_startpoint_x + ", " + str_m_startpoint_y + 
-		") -|- EndPoint(" + str_m_endpoint_x + ", " + str_m_endpoint_y + ")" );
+		") :: EndPoint(" + str_m_endpoint_x + ", " + str_m_endpoint_y + ")" );
 }
 
 // Distance() definition with no arguments
