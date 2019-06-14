@@ -21,27 +21,25 @@
 
 
 // constructor using colon syntax initialiser
-Line::Line(const Point& startpoint, const Point& endpoint) 
-	: m_startpoint(startpoint), m_endpoint(endpoint)
+Line::Line(const Point& startpoint, const Point& endpoint)
+	: m_startpoint{ startpoint }, m_endpoint{ endpoint }
 {
-	//m_startpoint.X(startpoint.X());
-	//m_startpoint.Y(startpoint.Y());
-	//m_endpoint.X(endpoint.X());
-	//m_endpoint.Y(endpoint.Y());
+	//m_startpoint = startpoint;
+	//m_endpoint = endpoint;
 
-	std::cout << "Waa! Waa! new 'constructor' Line\n";
+	std::cout << "Waa! Waa! new Line 'constructor'\n";
 }
 
 // default constructor using colon syntax initialiser
 Line::Line() : m_startpoint(0, 0), m_endpoint(0, 0)
 {
-	std::cout << "Waa! Waa! new 'default constructor' Line\n";
+	std::cout << "Waa! Waa! new Line 'default constructor'\n";
 }
 
 // copy constructor using colon syntax initialiser
 Line::Line(const Line& Other) : m_startpoint(Other.m_startpoint), m_endpoint(Other.m_endpoint)
 {
-	std::cout << "Can you tell I'm a 'copy constructor' Line\n";
+	std::cout << "Can you tell I'm a Line 'copy constructor'\n";
 }
 
 // (verbose) Destructor definition
@@ -63,54 +61,31 @@ const Point& Line::EndPoint() const
 }
 
 // StartPoint() definition for startpoint setter
-void Line::StartPoint(Point newP)
+void Line::StartPoint(const Point& newP)
 {
 	m_startpoint = newP;
 }
 
 // EndPoint() definition for endpoint setter
-void Line::EndPoint(Point newP)
+void Line::EndPoint(const Point& newP)
 {
 	m_endpoint = newP;
 }
 
 // ToString() definition
+// use Point::ToString() to print Point object values
 std::string Line::ToString() const
 {
 	// create stream objects for conversion
 	// input Line object's startpoint & endpoint x & y coordinates
-	std::ostringstream m_startpoint_x_conv, m_startpoint_y_conv,
-		m_endpoint_x_conv, m_endpoint_y_conv;
-	m_startpoint_x_conv << m_startpoint.X();
-	m_startpoint_y_conv << m_startpoint.Y();
-	m_endpoint_x_conv << m_endpoint.X();
-	m_endpoint_y_conv << m_endpoint.Y();
-
-	// get str values for startpoint & endpoint x & y coordinates
-	std::string str_m_startpoint_x, str_m_startpoint_y,
-		str_m_endpoint_x, str_m_endpoint_y;
-	str_m_startpoint_x = m_startpoint_x_conv.str();
-	str_m_startpoint_y = m_startpoint_y_conv.str();
-	str_m_endpoint_x = m_endpoint_x_conv.str();
-	str_m_endpoint_y = m_endpoint_y_conv.str();
-
-	// return string with format: "Point(x, y)"
-	return ( "Line: StartPoint(" + str_m_startpoint_x + ", " + str_m_startpoint_y + 
-		") :: EndPoint(" + str_m_endpoint_x + ", " + str_m_endpoint_y + ")" );
+	return ( "startpoint: " + m_startpoint.ToString() +
+		", and endpoint: " + m_endpoint.ToString() );
 }
 
-// Distance() definition with no arguments
-// formula: sqrt((Point.x)^2 + (Point.y)^2)
+// Length() definition
+// use Point::Distance(const Point&) to calculate length of the Line object
 double Line::Length() const
 {
 	return m_startpoint.Distance(m_endpoint);
 }
 
-/*
-// Distance() definition between two points
-// formula: sqrt((Point1.x - Point2.x)^2 + (Point1.y - Point2.y)^2)
-double Line::Distance(const Line& p) const
-{
-	return std::sqrt((p.m_x - m_x) * (p.m_x - m_x) + (p.m_y - m_y) * (p.m_y - m_y));
-}
-*/

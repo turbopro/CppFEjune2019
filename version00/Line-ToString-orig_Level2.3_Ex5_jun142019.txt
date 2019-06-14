@@ -1,0 +1,20 @@
+/*
+	std::ostringstream m_startpoint_x_conv, m_startpoint_y_conv,
+		m_endpoint_x_conv, m_endpoint_y_conv;
+	m_startpoint_x_conv << m_startpoint.X();
+	m_startpoint_y_conv << m_startpoint.Y();
+	m_endpoint_x_conv << m_endpoint.X();
+	m_endpoint_y_conv << m_endpoint.Y();
+
+	// get str values for startpoint & endpoint x & y coordinates
+	std::string str_m_startpoint_x, str_m_startpoint_y,
+		str_m_endpoint_x, str_m_endpoint_y;
+	str_m_startpoint_x = m_startpoint_x_conv.str();
+	str_m_startpoint_y = m_startpoint_y_conv.str();
+	str_m_endpoint_x = m_endpoint_x_conv.str();
+	str_m_endpoint_y = m_endpoint_y_conv.str();
+
+	// return string with format: "Point(x, y)"
+	return ( "Line: StartPoint(" + str_m_startpoint_x + ", " + str_m_startpoint_y + 
+		") :: EndPoint(" + str_m_endpoint_x + ", " + str_m_endpoint_y + ")" );
+	*/

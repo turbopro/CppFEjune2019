@@ -60,9 +60,9 @@ public:
 	Point(double x_coord, double y_coord);		// constructor
 	Point(const Point& Other);					// copy constructor
 	~Point();									// destructor
-	double X() const;							// x coordinate getter
+	const double& X() const;					// x coordinate getter
 	void X(double newX);						// x coordinate setter
-	double Y() const;							// y coordinate getter
+	const double& Y() const;					// y coordinate getter
 	void Y(double newY);						// y coordinate setter
 	std::string ToString() const;				// print the Point coordinates
 	double Distance() const;					// distance from the origin

@@ -22,19 +22,19 @@
 // constructor using colon syntax initialiser
 Point::Point(double x_coord, double y_coord) : m_x(x_coord), m_y(y_coord)
 {
-	std::cout << "Waa! Waa! new 'constructor' Point\n";
+	std::cout << "Waa! Waa! new Point 'constructor'\n";
 }
 
 // default constructor using colon syntax initialiser
 Point::Point() : m_x(0), m_y(0)
 {
-	std::cout << "Waa! Waa! new 'default constructor' Point\n";
+	std::cout << "Waa! Waa! new Point 'default constructor'\n";
 }
 
 // copy constructor using colon syntax initialiser
 Point::Point(const Point& Other) : m_x(Other.m_x), m_y(Other.m_y)
 {
-	std::cout << "Can you tell I'm a 'copy constructor' Point\n";
+	std::cout << "Can you tell I'm a Point 'copy constructor'\n";
 }
 
 // (verbose) Destructor definition
@@ -44,13 +44,13 @@ Point::~Point()
 }
 
 // X() definition for x getter
-double Point::X() const
+const double& Point::X() const
 {
 	return m_x;
 }
 
 // Y() definition for y getter 
-double Point::Y() const
+const double& Point::Y() const
 {
 	return m_y;
 }

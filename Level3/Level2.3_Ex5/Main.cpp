@@ -52,20 +52,22 @@ int main(void)
 	P1.Y(y);
 	
 	// print P1 object description using ToString() member function 
-	//cout << "\n\nP1 is: " << P1.ToString() << endl;
+	cout << "\n\nP1 is: " << P1.ToString() << endl;
 
-	// print P1 object's x, y coordinates via get functions 
-	//cout << "\nP1 x-coordinate = " << P1.X() << endl;
-	//cout << "P1 y-coordinate = " << P1.Y() << endl << endl;
+	//print P1 object's x, y coordinates via get functions 
+	cout << "\nP1 x-coordinate = " << P1.X() << endl;
+	cout << "P1 y-coordinate = " << P1.Y() << endl << endl;
 	
 
 	// create second Point, P2
+	// get user input
 	point_id = "P2";
 	user_input(x, point_id, x_axis);
 	user_input(y, point_id, y_axis);
-	Point P2{ x, y };		// use constructor
-	cout << endl << endl;
-	/*
+	
+	// create Point P2: use constructor
+	Point P2{ x, y };
+	
 	// print P2
 	cout << "\nP2 is: " << P2.ToString() << endl;
 	cout << "\nP2 x-coordinate = " << P2.X() << endl;
@@ -87,23 +89,39 @@ int main(void)
 
 	// create const Point object
 	const Point Pc{ 1.5, 3.9 };
-
-	// assign new x coordinate to Pc
-	// Pc.X(0.3);	->	will not compile: "no instance of overloaded function "Point::X matches the
-	//					argument list and object (the objedct has type qualifiers that prevent a match)"
-	//					cannot change the value of a const object directly
-
 	// print the x coordinate value for Pc
 	cout << "\nPc x-coordinate = " << Pc.X() << endl << endl;
-	*/
-	// create a line with P1 and P2
+	
+	// create a line with P1 and P2: use constructor
 	Line L1{ P1, P2 };
 
 	// print L1
-	cout << "\nL1 is: " << L1.ToString() << endl;
-	cout << "\n\nL1 startpoint " << L1.StartPoint().ToString() << endl;
-	cout << "\n\nL1 endpoint " << L1.EndPoint().ToString() << endl;
-	cout << "\n\nL1 length = " << L1.Length() << endl;
+	cout << "\nLine L1: " << L1.ToString() << endl;
+	cout << "\nL1 startpoint " << L1.StartPoint().ToString() << endl;
+	cout << "\nL1 endpoint " << L1.EndPoint().ToString() << endl;
+	cout << "\nL1 length = " << L1.Length() << endl << endl;
+
+	// create a line with P1 and P2: use default constructor 
+	Line L2;
+	// set x, y coordinates with original user input values
+	L2.StartPoint(P1);
+	L2.EndPoint(P2);
+	
+	// print L2
+	cout << "\nLine L2: " << L2.ToString() << endl;
+	cout << "\nL2 startpoint " << L2.StartPoint().ToString() << endl;
+	cout << "\nL2 endpoint " << L2.EndPoint().ToString() << endl;
+	cout << "\nL2 length = " << L2.Length() << endl << endl;
+
+	// copy L1 to new L3
+	Line L3 = L1;
+
+	// print L3
+	cout << "\nLine L3: " << L3.ToString() << endl;
+	cout << "\nL3 startpoint " << L3.StartPoint().ToString() << endl;
+	cout << "\nL3 endpoint " << L3.EndPoint().ToString() << endl;
+	cout << "\nL3 length = " << L3.Length() << endl << endl;
+
 
 	return 0;
 }
