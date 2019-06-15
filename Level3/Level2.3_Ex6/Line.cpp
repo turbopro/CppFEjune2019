@@ -2,31 +2,35 @@
 // Level2.3_Ex6
 //
 // Source file that implements the Line class declared in the 
-// Line.h header file.  
-// The string in the ToString() function, requires conversion of 
-// the double coordinates to a string.  We use a std::stringstream 
-// object, and the standard stream operators (as with iostream) to 
-// create the string.  This requires the “sstream” header file. 
-// Use the str() function to retrieve the string from the string 
-// buffer.  
-// The retrun format : “Point(1.5, 3.9)”
+// Line.h header file.
+//
+// constructor uses the colon initialiser, and is verbose
+// default constructor also uses the colon initlaiser, and also verbose
+// copy constructor same as above
+// destructor is also verbose
+//
+// Getter functions are overloaded functions
+// Both return const references to Point objects; class  members cannot be changed
+//
+// Setter functions are overloaded functions
+// Both have const references to Point object arguments; the arguments are read-only 
+// and cannot be changed by the function
+// 
+// The ToString() function, makes use of the ToString() function of the
+// constituent points of the Line
+//
+// The Length() function makes use of the Point::Distance(p) function 
 //
 
 #include <iostream>
-#include <sstream>			// for std::ostringstream() function in ToString() member function
 #include <string>			// for std::string() function in ToString() member function
-#include <cmath>			// for std::sqrt() function in Distance()
 #include "Point.h"			// Point class declaration
 #include "Line.h"			// Line class declaration
 
-
 // constructor using colon syntax initialiser
 Line::Line(const Point& startpoint, const Point& endpoint)
-	: m_startpoint{ startpoint }, m_endpoint{ endpoint }
+	: m_startpoint{ startpoint.X(), startpoint.Y() }, m_endpoint{ endpoint.X(), endpoint.Y() }
 {
-	//m_startpoint = startpoint;
-	//m_endpoint = endpoint;
-
 	std::cout << "Waa! Waa! new Line 'constructor'\n";
 }
 
@@ -48,32 +52,32 @@ Line::~Line()
 	std::cout << "RIP: " << this->ToString() << std::endl;
 }
 
-// StartPoint() definition for startpoint getter
+// StartPoint() getter function definition
 const Point& Line::StartPoint() const
 {
 	return m_startpoint;
 }
 
-// EndPoint() definition for endpoint getter 
+// EndPoint() getter function definition 
 const Point& Line::EndPoint() const
 {
 	return m_endpoint;
 }
 
-// StartPoint() definition for startpoint setter
+// StartPoint() setter function definition
 void Line::StartPoint(const Point& newP)
 {
 	m_startpoint = newP;
 }
 
-// EndPoint() definition for endpoint setter
+// EndPoint() setter function definition
 void Line::EndPoint(const Point& newP)
 {
 	m_endpoint = newP;
 }
 
 // ToString() definition
-// use Point::ToString() to print Point object values
+// use Point::ToString() of the Point objects
 std::string Line::ToString() const
 {
 	// create stream objects for conversion
@@ -83,7 +87,7 @@ std::string Line::ToString() const
 }
 
 // Length() definition
-// use Point::Distance(const Point&) to calculate length of the Line object
+// use Point::Distance(const Point&) function to calculate length
 double Line::Length() const
 {
 	return m_startpoint.Distance(m_endpoint);

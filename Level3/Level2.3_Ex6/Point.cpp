@@ -18,7 +18,6 @@
 #include <cmath>			// for std::sqrt() function in Distance()
 #include "Point.h"			// Point class declaration
 
-
 // constructor using colon syntax initialiser
 Point::Point(double x_coord, double y_coord) : m_x(x_coord), m_y(y_coord)
 {
@@ -77,9 +76,8 @@ std::string Point::ToString() const
 	m_y_conv << m_y;
 
 	// get str values for x & y coordinates
-	std::string str_m_x, str_m_y;
-	str_m_x = m_x_conv.str();
-	str_m_y = m_y_conv.str();
+	std::string str_m_x = m_x_conv.str();
+	std::string str_m_y = m_y_conv.str();
 
 	// return string with format: "Point(x, y)"
 	return ("Point(" + str_m_x + ", " + str_m_y + ")");
