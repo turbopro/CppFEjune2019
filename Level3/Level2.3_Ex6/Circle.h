@@ -4,25 +4,25 @@
 // header file for the Circle class
 //
 // Our Circle class has private members for its radius. 
-// We include the following public functionality (see Figure 1 in this project's image folder):
+// We include the following public functionality
 //	· Default constructor
+//	· Constructor
+//	· Copy Constructor
 //	· Destructor
-//	· Getter functions for the radius
-//	· Settter functions for the radius
-//  · Member functions for Diameter
-//  · Member functions for Area
-//  · Member functions for Circumference
+//	· Getter function for the radius
+//	· Settter function for the radius
+//  · Member function for Diameter
+//  · Member function for Area
+//  · Member function for Circumference
 //	· A ToString() that returns a string description of the point.
 //    Use the std::string class as return type
 //
 // Member data variables will be prefixed with 'm_' to signify the variable is a class member
-// Member data variables will be declared float; float provides sufficient precision for academic
-//  purposes
 //
 // private members:
 // DATA:
-// m_radius	-	radius (type float)
-// m_centre	-	centre point (type Point)
+// m_radius			-	type double
+// m_centrepoint	-	type Point
 // 
 // METHODS:
 // ...
@@ -32,14 +32,19 @@
 // ...
 //
 // METHODS:
-// CentrePoint()	-	default constructor
+// Circle()			-	default constructor
+// Circle(double&,Point&)	-	constructor
+// Circle(Circle&)	-	copy constructor
 // ~CentrePoint()	-	destructor
-// Radius()			-	getter/setter overloaded function for m_radius:	return type float for getter
-// ToString()		-	returns a string representation of a Point object :	return type std::string
+// Radius()			-	getter/setter overloaded function for m_radius:	return const double reference for getter
+// CentrePoint()	-	getter/setter overloaded function for m_centrepoint: return const Point reference for getter
+// ToString()		-	returns a string representation of the Circle object: return type std::string
+// Diameter()		-	returns the diamter of the circle
+//						formula: diameter = 2 * radius
 // Circumference()	-	returns the distance around the circle
-//                      formula = 2 * radius
+//                      formula: circumference = 2 * radius * Pi
 // Area()			-	returns the area of the circle
-//                      formula = PI * radius^2
+//                      formula: area = Pi * radius^2
 //
 
 #ifndef CIRCLE_H_INCLUDED
@@ -66,12 +71,10 @@ public:
 	void Radius(const double& newR);			// radius setter
 	const Point& CentrePoint() const;			// centrepoint getter
 	void CentrePoint(const Point& newP);		// centrepoint setter	
-	std::string ToString() const;				// print the Point coordinates
+	std::string ToString() const;				// print the Circle radius and coordinates
 	double Diameter() const;					// distance through the centre between two points on the circle
 	double Circumference() const;				// distance around the circle
 	double Area()const;							// area of the circle
 };
 
 #endif // CIRCLE_H_INCLUDED
-
-

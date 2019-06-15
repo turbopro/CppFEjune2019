@@ -89,7 +89,7 @@ int main(void)
 	P1.Y(y);
 	
 	// print P1
-	cout << "\n\nP1 is: " << P1.ToString() << endl;
+	cout << "P1 is: " << P1.ToString() << endl;
 	//print P1 x, y coordinates 
 	cout << "\nP1 x-coordinate = " << P1.X() << endl;
 	cout << "P1 y-coordinate = " << P1.Y() << endl << endl;
@@ -104,7 +104,7 @@ int main(void)
 	Point P2{ x, y };
 
 	// print P2
-	cout << "\nP2 is: " << P2.ToString() << endl;
+	cout << "P2 is: " << P2.ToString() << endl;
 	//print P2 x, y coordinates 
 	cout << "\nP2 x-coordinate = " << P2.X() << endl;
 	cout << "P2 y-coordinate = " << P2.Y() << endl;
@@ -115,7 +115,7 @@ int main(void)
 
 	// distance betwwen point P2 and the origin
 	cout << "Distance between P2 and the origin: " << fixed << setprecision(2)
-		<< P2.Distance() << endl << endl;
+		<< P2.Distance() << endl;
 
 	// distance betwwen points P1 and P2
 	cout << "\nDistance between P1 and P2: " << fixed << setprecision(2)
@@ -126,9 +126,9 @@ int main(void)
 	Line L1{ P1, P2 };
 
 	// print L1
-	cout << "Line L1: " << L1.ToString() << endl << endl;
-	cout << "\nL1 startpoint " << L1.StartPoint().ToString() << endl;
-	cout << "\nL1 endpoint " << L1.EndPoint().ToString() << endl;
+	cout << "Line L1: " << L1.ToString() << endl;
+	cout << "\nL1 startpoint " << L1.StartPoint().ToString();
+	cout << "\nL1 endpoint " << L1.EndPoint().ToString();
 	cout << "\nL1 length = " << L1.Length() << endl << endl;
 
 	// create a line with P1 and P2: use default constructor 
@@ -138,18 +138,18 @@ int main(void)
 	L2.EndPoint(P2);
 
 	// print L2
-	cout << "\nLine L2: " << L2.ToString() << endl << endl;
-	cout << "\nL2 startpoint " << L2.StartPoint().ToString() << endl;
-	cout << "\nL2 endpoint " << L2.EndPoint().ToString() << endl;
+	cout << "Line L2: " << L2.ToString() << endl;
+	cout << "\nL2 startpoint " << L2.StartPoint().ToString();
+	cout << "\nL2 endpoint " << L2.EndPoint().ToString();
 	cout << "\nL2 length = " << L2.Length() << endl << endl;
 
 	// copy L1 to new L3
 	Line L3 = L1;
 
 	// print L3
-	cout << "\nLine L3: " << L3.ToString() << endl << endl;
-	cout << "\nL3 startpoint " << L3.StartPoint().ToString() << endl;
-	cout << "\nL3 endpoint " << L3.EndPoint().ToString() << endl;
+	cout << "Line L3 (copy of L1): " << L3.ToString() << endl;
+	cout << "\nL3 startpoint " << L3.StartPoint().ToString();
+	cout << "\nL3 endpoint " << L3.EndPoint().ToString();
 	cout << "\nL3 length = " << L3.Length() << endl << endl;
 
 	cout << "\n\nCircles:\n";
@@ -167,10 +167,10 @@ int main(void)
 
 	// print C1
 	cout << "Circle C1: " << C1.ToString() << endl;
-	cout << "\nC1 radius " << C1.Radius() << endl;
-	cout << "\nC1 centrepoint " << C1.CentrePoint().ToString() << endl;
-	cout << "\nC1 diameter = " << C1.Diameter() << endl 
-		<< "\nC1 circumference = " << C1.Circumference() << endl 
+	cout << "\nC1 radius " << C1.Radius();
+	cout << "\nC1 centrepoint " << C1.CentrePoint().ToString();
+	cout << "\nC1 diameter = " << C1.Diameter()  
+		<< "\nC1 circumference = " << C1.Circumference()  
 		<< "\nC1 area = " << C1.Area() << endl << endl;
 
 	// get coordinates for Point object Pc2 for Circle object C2
@@ -189,21 +189,21 @@ int main(void)
 
 	// print C2
 	cout << "Circle C2: " << C2.ToString() << endl;
-	cout << "\nC2 radius " << C2.Radius() << endl;
-	cout << "\nC2 centrepoint " << C2.CentrePoint().ToString() << endl;
-	cout << "\nC2 diameter = " << C2.Diameter() << endl
-		<< "\nC2 circumference = " << C2.Circumference() << endl
+	cout << "\nC2 radius " << C2.Radius();
+	cout << "\nC2 centrepoint " << C2.CentrePoint().ToString();
+	cout << "\nC2 diameter = " << C2.Diameter() 
+		<< "\nC2 circumference = " << C2.Circumference() 
 		<< "\nC2 area = " << C2.Area() << endl << endl;
 
 	// create copy of C1
 	Circle C3 = C1;
 
 	// print C3
-	cout << "Circle C3: " << C3.ToString() << endl;
-	cout << "\nC3 radius " << C3.Radius() << endl;
-	cout << "\nC3 centrepoint " << C3.CentrePoint().ToString() << endl;
-	cout << "\nC3 diameter = " << C3.Diameter() << endl
-		<< "\nC3 circumference = " << C3.Circumference() << endl
+	cout << "Circle C3(copy of C1): " << C3.ToString() << endl;
+	cout << "\nC3 radius " << C3.Radius();
+	cout << "\nC3 centrepoint " << C3.CentrePoint().ToString();
+	cout << "\nC3 diameter = " << C3.Diameter() 
+		<< "\nC3 circumference = " << C3.Circumference()
 		<< "\nC3 area = " << C3.Area() << endl << endl;
 
 	return 0;

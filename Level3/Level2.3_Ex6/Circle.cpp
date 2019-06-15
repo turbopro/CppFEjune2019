@@ -23,7 +23,7 @@
 // the string values output from the ToString() function of the centrepoint member
 //
 // The Diameter(), Circumference() and Area() functions effect direct calculations on the
-// member variables using constants: the constant M_PI is the C/C++ constant for Pi
+// member variables: the constant M_PI is the C/C++ constant for Pi
 //
 
 #define _USE_MATH_DEFINES	// for PI
@@ -40,26 +40,26 @@
 Circle::Circle(const double& radius, const Point& centrepoint)
 	: m_radius{ radius }, m_centrepoint{ centrepoint.X(), centrepoint.Y() }
 {
-	std::cout << "Waa! Waa! new Circle 'constructor'\n";
+	//std::cout << "Waa! Waa! new Circle 'constructor'\n";
 }
 
 // default constructor using colon syntax initialiser
 Circle::Circle() : m_radius{ 0.0 }, m_centrepoint{ 0, 0 }
 {
-	std::cout << "Waa! Waa! new Circle 'default constructor'\n";
+	//std::cout << "Waa! Waa! new Circle 'default constructor'\n";
 }
 
 // copy constructor using colon syntax initialiser
 Circle::Circle(const Circle& Other) 
 	: m_radius{ Other.m_radius }, m_centrepoint{ Other.m_centrepoint }
 {
-	std::cout << "Can you tell I'm a Circle 'copy constructor'\n";
+	//std::cout << "Can you tell I'm a Circle 'copy constructor'\n";
 }
 
 // (verbose) Destructor definition
 Circle::~Circle()
 {
-	std::cout << "RIP: " << this->ToString() << std::endl;
+	//std::cout << "RIP: " << this->ToString() << std::endl;
 }
 
 // Radius() definition for radius getter
@@ -94,7 +94,7 @@ std::string Circle::ToString() const
 	std::ostringstream m_radius_conv;
 	m_radius_conv << m_radius;
 	std::string str_m_radius = m_radius_conv.str();
-	return ("radius: " + str_m_radius +	", and endpoint: " + 
+	return ("radius: " + str_m_radius +	", and centrepoint: " + 
 		m_centrepoint.ToString());
 }
 

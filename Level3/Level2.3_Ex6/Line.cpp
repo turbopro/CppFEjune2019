@@ -10,16 +10,16 @@
 // destructor is also verbose
 //
 // Getter functions are overloaded functions
-// Both return const references to Point objects; class  members cannot be changed
+// Both return const references to Point objects; class members cannot be changed
 //
 // Setter functions are overloaded functions
 // Both have const references to Point object arguments; the arguments are read-only 
 // and cannot be changed by the function
 // 
-// The ToString() function, makes use of the ToString() function of the
+// The ToString() function makes use of the ToString() function of the
 // constituent points of the Line
 //
-// The Length() function makes use of the Point::Distance(p) function 
+// The Length() function makes use of the Point::Distance(const Point&) function 
 //
 
 #include <iostream>
@@ -31,25 +31,25 @@
 Line::Line(const Point& startpoint, const Point& endpoint)
 	: m_startpoint{ startpoint.X(), startpoint.Y() }, m_endpoint{ endpoint.X(), endpoint.Y() }
 {
-	std::cout << "Waa! Waa! new Line 'constructor'\n";
+	//std::cout << "Waa! Waa! new Line 'constructor'\n";
 }
 
 // default constructor using colon syntax initialiser
 Line::Line() : m_startpoint(0, 0), m_endpoint(0, 0)
 {
-	std::cout << "Waa! Waa! new Line 'default constructor'\n";
+	//std::cout << "Waa! Waa! new Line 'default constructor'\n";
 }
 
 // copy constructor using colon syntax initialiser
 Line::Line(const Line& Other) : m_startpoint(Other.m_startpoint), m_endpoint(Other.m_endpoint)
 {
-	std::cout << "Can you tell I'm a Line 'copy constructor'\n";
+	//std::cout << "Can you tell I'm a Line 'copy constructor'\n";
 }
 
 // (verbose) Destructor definition
 Line::~Line()
 {
-	std::cout << "RIP: " << this->ToString() << std::endl;
+	//std::cout << "RIP: " << this->ToString() << std::endl;
 }
 
 // StartPoint() getter function definition

@@ -3,23 +3,23 @@
 // 
 // header file for the Line class
 //
-// Our Point class has private members for the x- and y-coordinates. 
-// We include the following public functionality (see Figure 1 in this project's image folder):
+// Our Line class has private members for the startpoint and endpoint of the line 
+// We include the following public functionality
 //	· Default constructor
+//	· Constructor
+//	· Copy constructor
 //	· Destructor
-//	· Getter functions for the x - and y - coordinates(GetX() and GetY() functions)
-//	· Settter functions for the x - and y - coordinates(SetX() and SetY() functions)
-//	· A ToString() that returns a string description of the point.
-//    Use the std::string class as return type
+//	· Getter functions for the startpoint and endpoint data members
+//	· Settter functions for the startpoint and endpointx data members
+//	· A ToString() that returns a string description of the Line
+//	· A Length() that returns the length of the Line
 //
 // Member data variables will be prefixed with 'm_' to signify the variable is a class member
-// Member data variables will be declared float; float provides sufficient precision for academic
-//  purposes
 //
 // private members:
 // DATA:
-// m_x	-	x coordinate (type float)
-// m_y	-	y coordinate (type float)
+// m_startpoint	-	type point
+// m_endpoint	-	type point
 // 
 // METHODS:
 // ...
@@ -29,17 +29,14 @@
 // ...
 //
 // METHODS:
-// Point()	-	default constructor
-// ~Point()	-	destructor
-// GetX()	-	getter function for m_x	:	return type float
-// GetY()	-	getter function for m_y	:	return type float
-// SetX()	-	setter function for m_x	:	no return, void function
-// SetY()	-	setter function for m_y	:	no return, void function
-// ToString()	-	returns a string representation of a Point object :	return type std::string
-// DistanceOrigin()	-	returns the distance between the point and the origin
-//                      formula = sqrt((Point.x)^2 + (Point.y)^2)
-// Distance(Point p)	-	returns the distance between two points
-//							formula = sqrt((Point1.x - Point2.x)^2 + (Point1.y - Point2.y)^2)
+// Line()			-	default constructor
+// Line(const Point&, const Point&)	-	constructor
+// Line(const Point&)				-	copyconstructor
+// ~Point()			-	destructor
+// StartPoint()		-	getter/setter function for m_startpoint: return type const Point& for getter
+// EndPoint()		-	getter/setter function for m_endpoint: return type const Point& for getter
+// ToString()		-	returns a string representation of the Line object:	return type std::string
+// Length()			-	returns the length of the line
 //
 
 #ifndef LINE_H_INCLUDED
@@ -63,12 +60,11 @@ public:
 	Line(const Line& Other);					// copy constructor
 	~Line();									// destructor
 	const Point& StartPoint() const;			// startpoint point getter
-	void StartPoint(const Point& newP);				// startpoint point setter
+	void StartPoint(const Point& newP);			// startpoint point setter
 	const Point& EndPoint() const;				// endpoint point getter
-	void EndPoint(const Point& newP);					// endpoint point setter
+	void EndPoint(const Point& newP);			// endpoint point setter
 	std::string ToString() const;				// print the Point coordinates
 	double Length() const;						// distance from the origin
 };
 
 #endif // LINE_H_INCLUDED
-

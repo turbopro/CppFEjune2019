@@ -2,14 +2,31 @@
 // Level2.3_Ex6
 //
 // Source file that implements the Point class declared in the 
-// Point.h header file.  
-// The string in the ToString() function, requires conversion of 
-// the double coordinates to a string.  We use a std::stringstream 
-// object, and the standard stream operators (as with iostream) to 
-// create the string.  This requires the “sstream” header file. 
-// Use the str() function to retrieve the string from the string 
-// buffer.  
-// The retrun format : “Point(1.5, 3.9)”
+// Point.h header file.
+//
+// constructor uses the colon initialiser, and is verbose
+// default constructor also uses the colon initlaiser, and also verbose
+// copy constructor same as above
+// destructor is also verbose
+//
+// Getter functions are overloaded functions
+// Both return const references to doubles; class members cannot be changed
+//
+// Setter functions are overloaded functions
+// Both have const double arguments; the arguments are read-only 
+// and cannot be changed by the function
+// 
+// The ToString() function converts the double values of the data members 
+// to strings
+// We use a std::stringstream object, and the standard stream operators 
+// (as with iostream) to create the string.  This requires the “sstream” 
+// header file. We also use the str() function to retrieve the string 
+// from the string buffer.  
+// The return format for ToString(): “Point(1.5, 3.9)”
+//
+// The overloaded Distance() function makes use of the Pythagoras theorem to 
+// calculate the distance between the point and the origin, and, the distance
+// between two points
 //
 
 #include <iostream>
@@ -19,27 +36,27 @@
 #include "Point.h"			// Point class declaration
 
 // constructor using colon syntax initialiser
-Point::Point(double x_coord, double y_coord) : m_x(x_coord), m_y(y_coord)
+Point::Point(double x_coord, double y_coord) : m_x{ x_coord }, m_y{ y_coord }
 {
-	std::cout << "Waa! Waa! new Point 'constructor'\n";
+	//std::cout << "Waa! Waa! new Point 'constructor'\n";
 }
 
 // default constructor using colon syntax initialiser
-Point::Point() : m_x(0), m_y(0)
+Point::Point() : m_x{ 0 }, m_y{ 0 }
 {
-	std::cout << "Waa! Waa! new Point 'default constructor'\n";
+	//std::cout << "Waa! Waa! new Point 'default constructor'\n";
 }
 
 // copy constructor using colon syntax initialiser
-Point::Point(const Point& Other) : m_x(Other.m_x), m_y(Other.m_y)
+Point::Point(const Point& Other) : m_x{ Other.m_x }, m_y{ Other.m_y }
 {
-	std::cout << "Can you tell I'm a Point 'copy constructor'\n";
+	//std::cout << "Can you tell I'm a Point 'copy constructor'\n";
 }
 
 // (verbose) Destructor definition
 Point::~Point()
 {
-	std::cout << "RIP: " << this->ToString() << std::endl;
+	//std::cout << "RIP: " << this->ToString() << std::endl;
 }
 
 // X() definition for x getter
@@ -55,13 +72,13 @@ const double& Point::Y() const
 }
 
 // X() definition for x setter
-void Point::X(double newX)
+void Point::X(const double& newX)
 {
 	m_x = newX;
 }
 
 // Y() definition for y setter
-void Point::Y(double newY)
+void Point::Y(const double& newY)
 {
 	m_y = newY;
 }
