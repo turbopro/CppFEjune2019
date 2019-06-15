@@ -1,5 +1,5 @@
 // Point.h
-// Level2.3_Ex76
+// Level2.3_Ex7
 // 
 // header file for the Point class
 //
@@ -63,13 +63,14 @@ public:
 	Point(double x_coord, double y_coord);		// constructor
 	Point(const Point& Other);					// copy constructor
 	~Point();									// destructor
-	const double& X() const;					// x coordinate getter
-	void X(const double& newX);					// x coordinate setter
-	const double& Y() const;					// y coordinate getter
-	void Y(const double& newY);					// y coordinate setter
+	const double& X() const { return m_x; }		// x coordinate getter
+	void X(const double& newX) { m_x = newX; }	// x coordinate setter
+	const double& Y() const { return m_y; }		// y coordinate getter
+	void Y(const double& newY) { m_y = newY; }	// y coordinate setter
 	std::string ToString() const;				// print the Point coordinates
 	double Distance() const;					// distance from the origin
 	double Distance(const Point& p) const;		// distance between two points
 };
 
 #endif // POINT_H_INCLUDED
+
