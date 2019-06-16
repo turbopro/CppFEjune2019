@@ -10,14 +10,17 @@
 // · Print the point coordinates using the get functions.
 //
 // user_input() function to get user input for coordinate values
-// we use pass by reference to allow the function to change the coordinate values directly
-// the string references, however, are const to make them read-only
+// Function moved to its own source file, UserInput.cpp
+// We use pass by reference to allow the function to change the coordinate values directly
+// The string references are const to make them read-only
 // Arguments:
 // coord_value	-	reference to relevant coordinate value
 // point_id		-	read-only string reference to the id of the point
 //                  used to identify the point in the text output to the screen for the user 
 // axis			-	read-only string reference to the relevant coordinate axis
 //                  used to identify the axis in the text output to the screen for the user 
+//
+// bool return value is used to intercept user entered Ctrl-Z to quit 
 //
 
 #include <iostream>
@@ -30,7 +33,7 @@ using namespace std;
 
 // declaration for user_input() function
 // const qualifier to make both input strings read-only
-void user_input(double& coord_val, const string& point_id, const string& axis);
+bool user_input(double& coord_val, const string& point_id, const string& axis);
 
 int main(void)
 {
@@ -40,8 +43,8 @@ int main(void)
 	double x{ 0.0 }, y{ 0.0 };		// declare/initialise coordinates
 	// get coordinates for first Point, P1
 	string point_id{ "P1" };
-	user_input(x, point_id, x_axis);
-	user_input(y, point_id, y_axis);
+	if (!(user_input(x, point_id, x_axis))) { return 0; }		// If user_input returns false, 
+	if (!(user_input(y, point_id, y_axis))) { return 0; }		// user entered Ctrl-Z to quit
 
 	// create P1 object with default constructor
 	Point P1;
@@ -61,8 +64,8 @@ int main(void)
 	// create second Point, P2
 	// get user input
 	point_id = "P2";
-	user_input(x, point_id, x_axis);
-	user_input(y, point_id, y_axis);
+	if (!(user_input(x, point_id, x_axis))) { return 0; }
+	if (!(user_input(y, point_id, y_axis))) { return 0; }
 	
 	// create Point P2: use constructor
 	Point P2{ x, y };
@@ -80,16 +83,9 @@ int main(void)
 	cout << "Distance between P2 and the origin: " << fixed << setprecision(2)
 		<< P2.Distance() << endl << endl;
 
-	// save distance betwwen point P1 and the P2 to view death of copy of P2 object after
-	// call-by-reference to Distance() function with one argument 
-	double point_diff = P1.Distance(P2);	// create P2 copy with copy constructor
+	// distance betwwen point P1 and the P2 	
 	cout << "\nDistance between P1 and P2: " << fixed << setprecision(2)
-		<< point_diff << endl << endl;
-
-	// create const Point object
-	const Point Pc{ 1.5, 3.9 };
-	// print the x coordinate value for Pc
-	cout << "\nPc x-coordinate = " << Pc.X() << endl << endl;
+		<< P1.Distance(P2) << endl;
 	
 	// create a line with P1 and P2: use constructor
 	Line L1{ P1, P2 };
@@ -120,7 +116,6 @@ int main(void)
 	cout << "\nL3 startpoint " << L3.StartPoint().ToString() << endl;
 	cout << "\nL3 endpoint " << L3.EndPoint().ToString() << endl;
 	cout << "\nL3 length = " << L3.Length() << endl << endl;
-
 
 	return 0;
 }

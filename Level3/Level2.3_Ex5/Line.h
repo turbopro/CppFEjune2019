@@ -3,23 +3,26 @@
 // 
 // header file for the Line class
 //
-// Our Point class has private members for the x- and y-coordinates. 
-// We include the following public functionality (see Figure 1 in this project's image folder):
-//	· Default constructor
+// Our Line class has private members startpoint and endpoint
+// We include the following public functionality
+//	· Default constructor (set start- and end-points to (0, 0)
+//	· Constructor with a startpoint and an endpoint
+//	· Copy constructor
 //	· Destructor
-//	· Getter functions for the x - and y - coordinates(GetX() and GetY() functions)
-//	· Settter functions for the x - and y - coordinates(SetX() and SetY() functions)
-//	· A ToString() that returns a string description of the point.
-//    Use the std::string class as return type
+//	· Overloaded getters for the start- and end-point
+//	· Overloaded setters for the start- and end-point
+//	· A ToString() function that returns a description of the line
+//  · A Length() function that returns the length of the line. Note 
+//    that you can use the distance function on the embedded Point 
+//    objects to calculate the length. This mechanism is called 
+//    “delegation”.
 //
 // Member data variables will be prefixed with 'm_' to signify the variable is a class member
-// Member data variables will be declared float; float provides sufficient precision for academic
-//  purposes
 //
 // private members:
 // DATA:
-// m_x	-	x coordinate (type float)
-// m_y	-	y coordinate (type float)
+// m_startpoint	-	type point
+// m_endpoint	-	type point
 // 
 // METHODS:
 // ...
@@ -29,23 +32,22 @@
 // ...
 //
 // METHODS:
-// Point()	-	default constructor
-// ~Point()	-	destructor
-// GetX()	-	getter function for m_x	:	return type float
-// GetY()	-	getter function for m_y	:	return type float
-// SetX()	-	setter function for m_x	:	no return, void function
-// SetY()	-	setter function for m_y	:	no return, void function
-// ToString()	-	returns a string representation of a Point object :	return type std::string
-// DistanceOrigin()	-	returns the distance between the point and the origin
-//                      formula = sqrt((Point.x)^2 + (Point.y)^2)
-// Distance(Point p)	-	returns the distance between two points
-//							formula = sqrt((Point1.x - Point2.x)^2 + (Point1.y - Point2.y)^2)
+// Line()						-	default constructor
+// Line(Point a, Point b)		-	constructor
+// Line(Point Other)			-	copy constructor
+// ~Line()						-	destructor
+// StartPoint()					-	getter function for startpoint
+// EndPoint()					-	getter function for endpoint
+// StartPoint(Point p)			-	setter function for startpoint
+// EndPoint(Poin p)				-	setter function for endpoint
+// ToString()					-	returns a string representation of a Line
+// Length()						-	returns the length of the line
+//									makes use of the Distance(Point p) function
 //
 
 #ifndef LINE_H_INCLUDED
 #define LINE_H_INCLUDED
 
-#include <iostream>
 #include <string>			// for return std::string in ToString() member function
 #include "Point.h"
 
@@ -57,17 +59,16 @@ private:
 	Point m_endpoint;
 
 public:
-	Line();										// default constructor
-	Line(const Point& startpoint,				// constructor
-		const Point& endpoint);		
-	Line(const Line& Other);					// copy constructor
-	~Line();									// destructor
-	const Point& StartPoint() const;			// startpoint point getter
-	void StartPoint(const Point& newP);				// startpoint point setter
-	const Point& EndPoint() const;				// endpoint point getter
-	void EndPoint(const Point& newP);					// endpoint point setter
-	std::string ToString() const;				// print the Point coordinates
-	double Length() const;						// distance from the origin
+	Line();													// default constructor
+	Line(const Point& startpoint, const Point& endpoint);	// constructor	
+	Line(const Line& Other);								// copy constructor
+	~Line();												// destructor
+	const Point& StartPoint() const;						// startpoint point getter
+	void StartPoint(const Point& newP);						// startpoint point setter
+	const Point& EndPoint() const;							// endpoint point getter
+	void EndPoint(const Point& newP);						// endpoint point setter
+	std::string ToString() const;							// print the Line
+	double Length() const;									// length of the line
 };
 
 #endif // LINE_H_INCLUDED

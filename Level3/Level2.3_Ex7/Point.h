@@ -14,8 +14,6 @@
 //	· Distance() functions for distance from the origin, and, distance between two points
 //
 // Member data variables will be prefixed with 'm_' to signify the variable is a class member
-// Member data variables will be declared float; float provides sufficient precision for academic
-//  purposes
 //
 // private members:
 // DATA:
@@ -48,7 +46,6 @@
 #ifndef POINT_H_INCLUDED
 #define POINT_H_INCLUDED
 
-#include <iostream>
 #include <string>			// for return std::string in ToString() member function
 
 // Point class declaration

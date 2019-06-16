@@ -32,7 +32,6 @@
 #include <sstream>			// for std::ostringstream() function in ToString() member function
 #include <string>			// for std::string() function in ToString() member function
 #include <cmath>			// for std::sqrt() function, and M_PI (Pi)
-#include "Point.h"			// Point class declaration
 #include "Circle.h"			// Line class declaration
 
 
@@ -94,6 +93,7 @@ std::string Circle::ToString() const
 	std::ostringstream m_radius_conv;
 	m_radius_conv << m_radius;
 	std::string str_m_radius = m_radius_conv.str();
+	
 	return ("radius: " + str_m_radius +	", and centrepoint: " + 
 		m_centrepoint.ToString());
 }

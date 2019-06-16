@@ -1,4 +1,4 @@
-// Line.C
+// Line.cpp
 // Level2.3_Ex6
 //
 // Source file that implements the Line class declared in the 
@@ -24,7 +24,6 @@
 
 #include <iostream>
 #include <string>			// for std::string() function in ToString() member function
-#include "Point.h"			// Point class declaration
 #include "Line.h"			// Line class declaration
 
 // constructor using colon syntax initialiser

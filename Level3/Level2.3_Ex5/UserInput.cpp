@@ -17,7 +17,7 @@
 
 using namespace std;
 
-void user_input(double& coord_value, const string& point_id, const string& axis)
+bool user_input(double& coord_value, const string& point_id, const string& axis)
 {
 	// loop until valid user input, or, quit if Ctrl-Z entered
 	while ((cout << "Enter " << axis << "-coordinate value for " << point_id << " (Ctrl-Z to quit): ")
@@ -26,10 +26,12 @@ void user_input(double& coord_value, const string& point_id, const string& axis)
 		if (cin.eof())		// quit
 		{
 			cout << "\nExiting. Bye...\n";
-			exit(0);
+			return false;
 		}
 		cout << "Invalid entry: you must enter a valid number\n\n";
 		cin.clear();		// clear error flag for next input
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');	// clear rest of line entry
 	}
+
+	return true;
 }

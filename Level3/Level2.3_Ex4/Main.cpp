@@ -19,6 +19,8 @@
 // axis			-	read-only string reference to the relevant coordinate axis
 //                  used to identify the axis in the text output to the screen for the user 
 //
+// bool return value is used to intercept user entered Ctrl-Z to quit 
+//
 
 #include <iostream>
 #include <limits>			// for user_input() function, used to clear invalid input
@@ -30,7 +32,7 @@ using namespace std;
 
 // declaration for user_input() function
 // const qualifier to make both input strings read-only
-void user_input(double& coord_val, const string& point_id, const string& axis);
+bool user_input(double& coord_val, const string& point_id, const string& axis);
 
 int main(void)
 {
@@ -40,8 +42,8 @@ int main(void)
 	double x{ 0.0 }, y{ 0.0 };		// declare/initialise coordinates
 	// get coordinates for first Point, P1
 	string point_id{ "P1" };
-	user_input(x, point_id, x_axis);
-	user_input(y, point_id, y_axis);
+	if (!(user_input(x, point_id, x_axis))) { return 0; }		// If user_input returns false, 
+	if (!(user_input(y, point_id, y_axis))) { return 0; }		// user entered Ctrl-Z to quit
 
 	// create P1 object with default constructor
 	Point P1;
@@ -59,9 +61,11 @@ int main(void)
 
 	// create second Point, P2
 	point_id = "P2";
-	user_input(x, point_id, x_axis);
-	user_input(y, point_id, y_axis);
+	if (!(user_input(x, point_id, x_axis))) { return 0; }
+	if (!(user_input(y, point_id, y_axis))) { return 0; }
+	
 	Point P2{ x, y };		// use constructor
+	
 	// print P2
 	cout << "\nP2 is: " << P2.ToString() << endl;
 	cout << "\nP2 x-coordinate = " << P2.X() << endl;
@@ -75,11 +79,9 @@ int main(void)
 	cout << "Distance between P2 and the origin: " << fixed << setprecision(2)
 		<< P2.Distance() << endl << endl;
 
-	// save distance betwwen point P1 and the P2 to view death of copy of P2 object after
-	// call-by-reference to Distance() function with one argument 
-	double point_diff = P1.Distance(P2);	// create P2 copy with copy constructor
+	// distance betwwen point P1 and the P2 	
 	cout << "\nDistance between P1 and P2: " << fixed << setprecision(2)
-		<< point_diff << endl << endl;
+		<< P1.Distance(P2) << endl;
 
 	// create const Point object
 	const Point Pc{ 1.5, 3.9 };
@@ -95,7 +97,7 @@ int main(void)
 	return 0;
 }
 
-void user_input(double& coord_value, const string& point_id, const string& axis)
+bool user_input(double& coord_value, const string& point_id, const string& axis)
 {
 	// loop until valid user input, or, quit if Ctrl-Z entered
 	while ((cout << "Enter " << axis << "-coordinate value for " << point_id << " (Ctrl-Z to quit): ")
@@ -104,10 +106,12 @@ void user_input(double& coord_value, const string& point_id, const string& axis)
 		if (cin.eof())		// quit
 		{
 			cout << "\nExiting. Bye...\n";
-			exit(0);
+			return false;
 		}
 		cout << "Invalid entry: you must enter a valid number\n\n";
 		cin.clear();		// clear error flag for next input
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');	// clear rest of line entry
 	}
+
+	return true;
 }

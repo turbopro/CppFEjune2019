@@ -42,7 +42,6 @@
 #ifndef LINE_H_INCLUDED
 #define LINE_H_INCLUDED
 
-#include <iostream>
 #include <string>			// for return std::string in ToString() member function
 #include "Point.h"
 
@@ -54,17 +53,16 @@ private:
 	Point m_endpoint;
 
 public:
-	Line();										// default constructor
-	Line(const Point& startpoint,				// constructor
-		const Point& endpoint);
-	Line(const Line& Other);					// copy constructor
-	~Line();									// destructor
-	const Point& StartPoint() const;			// startpoint point getter
-	void StartPoint(const Point& newP);			// startpoint point setter
-	const Point& EndPoint() const;				// endpoint point getter
-	void EndPoint(const Point& newP);			// endpoint point setter
-	std::string ToString() const;				// print the Point coordinates
-	double Length() const;						// distance from the origin
+	Line();													// default constructor
+	Line(const Point& startpoint, const Point& endpoint);	// constructor
+	Line(const Line& Other);								// copy constructor
+	~Line();												// destructor
+	const Point& StartPoint() const;						// startpoint point getter
+	void StartPoint(const Point& newP);						// startpoint point setter
+	const Point& EndPoint() const;							// endpoint point getter
+	void EndPoint(const Point& newP);						// endpoint point setter
+	std::string ToString() const;							// print the Line
+	double Length() const;									// length of the line
 };
 
 #endif // LINE_H_INCLUDED

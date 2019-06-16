@@ -1,4 +1,4 @@
-// Point.C
+// Point.cpp
 // Level2.3_Ex6
 //
 // Source file that implements the Point class declared in the 
@@ -92,7 +92,7 @@ std::string Point::ToString() const
 	m_x_conv << m_x;
 	m_y_conv << m_y;
 
-	// get str values for x & y coordinates
+	// get str values for data members
 	std::string str_m_x = m_x_conv.str();
 	std::string str_m_y = m_y_conv.str();
 

@@ -1,4 +1,5 @@
 // Main.cpp
+// Level2.2_Ex2
 //
 // Test program for the Point class. Include "Point.h"
 // Tests as follows:
@@ -10,13 +11,15 @@
 //
 // user_input() function to get user input for coordinate values
 // we use pass by reference to allow the function to change the coordinate values directly
-// the string references, however, are const to make them read-only
+// the string references are const to make them read-only
 // Arguments:
 // coord_value	-	reference to relevant coordinate value
 // point_id		-	read-only string reference to the id of the point
 //                  used to identify the point in the text output to the screen for the user 
 // axis			-	read-only string reference to the relevant coordinate axis
-//                  used to identify the axis in the text output to the screen for the user 
+//                  used to identify the axis in the text output to the screen for the user
+//
+// bool return value is used to intercept user entered Ctrl-Z to quit 
 //
 
 #include <iostream>
@@ -27,9 +30,10 @@
 
 using namespace std;
 
+// move user input to a function
 // declaration for user_input() function
 // const qualifier to make both input strings read-only
-void user_input(double& coord_val, const string& point_id, const string& axis);
+bool user_input(double& coord_val, const string& point_id, const string& axis);
 
 int main(void)
 {
@@ -39,8 +43,8 @@ int main(void)
 	double x = 0.0, y = 0.0;		// declare/initialise coordinates
 	// get coordinates for first Point, P1
 	string point_id = "P1";
-	user_input(x, point_id, x_axis);
-	user_input(y, point_id, y_axis);
+	if (user_input(x, point_id, x_axis)) { return 0; }		//if return is true, user entered Ctrl-Z to quit
+	if (user_input(y, point_id, y_axis)) { return 0; }
 
 	// create P1 object with default constructor
 	Point P1;
@@ -59,11 +63,13 @@ int main(void)
 	
 	// create second Point, P2
 	point_id = "P2";
-	user_input(x, point_id, x_axis);
-	user_input(y, point_id, y_axis);
+	if (user_input(x, point_id, x_axis)) { return 0; }
+	if (user_input(y, point_id, y_axis)) { return 0; }
+	
 	Point P2;
 	P2.SetX(x);
 	P2.SetY(y);
+	
 	// print P2
 	cout << "\nP2 is: " << P2.ToString() << endl;
 	cout << "\nP2 x-coordinate = " << P2.GetX() << endl;
@@ -88,7 +94,7 @@ int main(void)
 	return 0;
 }
 
-void user_input(double& coord_value, const string& point_id, const string& axis)
+bool user_input(double& coord_value, const string& point_id, const string& axis)
 {
 	// loop until valid user input, or, quit if Ctrl-Z entered
 	while ((cout << "Enter " << axis << "-coordinate value for " << point_id << " (Ctrl-Z to quit): ") 
@@ -97,10 +103,11 @@ void user_input(double& coord_value, const string& point_id, const string& axis)
 		if (cin.eof())		// quit
 		{
 			cout << "\nExiting. Bye...\n";
-			exit(0);
+			return true;
 		}
 		cout << "Invalid entry: you must enter a valid number\n\n";
 		cin.clear();		// clear error flag for next input
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');	// clear rest of line entry
 	}
+	return false;
 }

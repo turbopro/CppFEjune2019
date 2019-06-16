@@ -71,16 +71,16 @@ int main(void)
 
 	double x{ 0.0 }, y{ 0.0 }, r{ 0.0 };		// declare/initialise geom_values
 
-	cout << "Points:\n";
+	cout << "\n"
+		<< "|========================|\n"
+		<< "|       POINTS:          |\n"
+		<< "|========================|\n\n";
 
 	// get coordinates for first Point object P1
 	string geom_id{ "Point 1" };
 	// check if user hit Ctrl-Z to quit
-	if (user_input(x, geom_id, x_coord))		// user quit
-	{
-		return 0;		// cleanup objects, then terminate programme
-	}
-	if (user_input(y, geom_id, y_coord)) { return 0; }
+	if (!(user_input(x, geom_id, x_coord))) { return 0; }		// If user_input returns false, 
+	if (!(user_input(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
 
 	// create P1 with default constructor
 	Point P1;
@@ -97,8 +97,8 @@ int main(void)
 	// create second Point object P2
 	// get user input
 	geom_id = "Point 2";
-	if (user_input(x, geom_id, x_coord)) { return 0; }
-	if (user_input(y, geom_id, y_coord)) { return 0; }
+	if (!(user_input(x, geom_id, x_coord))) { return 0; }
+	if (!(user_input(y, geom_id, y_coord))) { return 0; }
 
 	// create P2 with constructor
 	Point P2{ x, y };
@@ -121,7 +121,11 @@ int main(void)
 	cout << "\nDistance between P1 and P2: " << fixed << setprecision(2)
 		<< P1.Distance(P2) << endl << endl;
 
-	cout << "\n\nLines:\n";
+	cout << "\n\n"
+		<< "|========================|\n"
+		<< "|        LINES:          |\n"
+		<< "|========================|\n\n";
+
 	// create a line with P1 and P2: use constructor
 	Line L1{ P1, P2 };
 
@@ -152,13 +156,16 @@ int main(void)
 	cout << "\nL3 endpoint " << L3.EndPoint().ToString();
 	cout << "\nL3 length = " << L3.Length() << endl << endl;
 
-	cout << "\n\nCircles:\n";
+	cout << "\n\n"
+		<< "|========================|\n"
+		<< "|      CIRCLES:          |\n"
+		<< "|========================|\n\n";
 
 	// get coordinates for Point object Pc1 for Circle object C1
 	geom_id = "Circle 1";
-	if (user_input(x, geom_id, x_coord)) { return 0; }
-	if (user_input(y, geom_id, y_coord)) { return 0; }
-	if (user_input(r, geom_id, radius)) { return 0; }
+	if (!(user_input(x, geom_id, x_coord))) { return 0; }
+	if (!(user_input(y, geom_id, y_coord))) { return 0; }
+	if (!(user_input(r, geom_id, radius))) { return 0; }
 
 	// create centre point Pc1 for C1
 	Point Pc1{ x, y };
@@ -175,9 +182,9 @@ int main(void)
 
 	// get coordinates for Point object Pc2 for Circle object C2
 	geom_id = "Circle 2";
-	if (user_input(x, geom_id, x_coord)) { return 0; }
-	if (user_input(y, geom_id, y_coord)) { return 0; }
-	if (user_input(r, geom_id, radius)) { return 0; }
+	if (!(user_input(x, geom_id, x_coord))) { return 0; }
+	if (!(user_input(y, geom_id, y_coord))) { return 0; }
+	if (!(user_input(r, geom_id, radius))) { return 0; }
 
 	// create centre point Pc2 for C2
 	Point Pc2{ x, y };

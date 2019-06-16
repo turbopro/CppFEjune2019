@@ -2,42 +2,36 @@
 // Level2.3_Ex5
 //
 // Source file that implements the Line class declared in the 
-// Line.h header file.  
-// The string in the ToString() function, requires conversion of 
-// the double coordinates to a string.  We use a std::stringstream 
-// object, and the standard stream operators (as with iostream) to 
-// create the string.  This requires the “sstream” header file. 
-// Use the str() function to retrieve the string from the string 
-// buffer.  
-// The retrun format : “Point(1.5, 3.9)”
+// Line.h header file.
+//
+// We use verbose constructors and destructor for academic purposes
+//
+// No need anymore for <sstream> or <cmath> libraries; the Point
+// class member functions do the hard work for the Line class member
+// functions. "Point.h" included already in Line.h
 //
 
 #include <iostream>
-#include <sstream>			// for std::ostringstream() function in ToString() member function
 #include <string>			// for std::string() function in ToString() member function
-#include <cmath>			// for std::sqrt() function in Distance()
-#include "Point.h"			// Point class declaration
 #include "Line.h"			// Line class declaration
-
 
 // constructor using colon syntax initialiser
 Line::Line(const Point& startpoint, const Point& endpoint)
-	: m_startpoint{ startpoint }, m_endpoint{ endpoint }
+	: m_startpoint{ startpoint.X(), startpoint.Y() }, m_endpoint{ endpoint.X(), endpoint.Y() }
 {
-	//m_startpoint = startpoint;
-	//m_endpoint = endpoint;
-
 	std::cout << "Waa! Waa! new Line 'constructor'\n";
 }
 
 // default constructor using colon syntax initialiser
-Line::Line() : m_startpoint(0, 0), m_endpoint(0, 0)
+Line::Line() : m_startpoint{ 0, 0 }, m_endpoint{ 0, 0 }
 {
 	std::cout << "Waa! Waa! new Line 'default constructor'\n";
 }
 
 // copy constructor using colon syntax initialiser
-Line::Line(const Line& Other) : m_startpoint(Other.m_startpoint), m_endpoint(Other.m_endpoint)
+Line::Line(const Line& Other) 
+	: m_startpoint{ Other.m_startpoint.X(), Other.m_startpoint.Y() }, 
+	  m_endpoint{ Other.m_endpoint.X(), Other.m_endpoint.Y() }
 {
 	std::cout << "Can you tell I'm a Line 'copy constructor'\n";
 }
@@ -76,8 +70,8 @@ void Line::EndPoint(const Point& newP)
 // use Point::ToString() to print Point object values
 std::string Line::ToString() const
 {
-	// create stream objects for conversion
-	// input Line object's startpoint & endpoint x & y coordinates
+	// concatenate string output from Point::ToString() function 
+	// of the points of the line
 	return ( "startpoint: " + m_startpoint.ToString() +
 		", and endpoint: " + m_endpoint.ToString() );
 }

@@ -11,6 +11,16 @@
 // buffer.  
 // The retrun format : “Point(1.5, 3.9)”
 //
+// Add constructor and copy constructor
+// Also, all constructors and destructor are verbose; they anounce
+// their births and deaths
+//
+// We now use const reference argument for Distance(const Point& p)
+//
+// Overload getter/setter functions
+//
+// Make getter functions const functions
+//
 
 #include <iostream>
 #include <sstream>			// for std::ostringstream() function in ToString() member function

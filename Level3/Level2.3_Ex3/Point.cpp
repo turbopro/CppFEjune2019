@@ -1,4 +1,5 @@
-// Point.C
+// Point.cpp
+// Level2.3_Ex3
 //
 // Source file that implements the Point class declared in the 
 // Point.h header file.  
@@ -9,6 +10,14 @@
 // Use the str() function to retrieve the string from the string 
 // buffer.  
 // The retrun format : “Point(1.5, 3.9)”
+//
+// Add constructor and copy constructor
+// Also, all constructors and destructor are verbose; they anounce
+// their births and deaths
+//
+// We now use const reference argument for Distance(const Point& p)
+//
+// Overloading getter/setter functions
 //
 
 #include <iostream>

@@ -17,9 +17,7 @@
 // The Length() function makes use of the Point::Distance(const Point&) function 
 //
 
-#include <iostream>
 #include <string>			// for std::string() function in ToString() member function
-#include "Point.h"			// Point class declaration
 #include "Line.h"			// Line class declaration
 
 // constructor using colon syntax initialiser

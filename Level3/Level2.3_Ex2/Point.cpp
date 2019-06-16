@@ -1,4 +1,5 @@
-// Point.C
+// Point.cpp
+// Level2.3_Ex2
 //
 // Source file that implements the Point class declared in the 
 // Point.h header file.  
@@ -9,6 +10,12 @@
 // Use the str() function to retrieve the string from the string 
 // buffer.  
 // The retrun format : “Point(1.5, 3.9)”
+//
+// Add constructor and copy constructor
+// Also, all constructors and destructor are verbose; they anounce
+// their births and deaths
+//
+// We now use const reference argument for Distance(const Point& p)
 //
 
 #include <iostream>
@@ -95,7 +102,7 @@ double Point::DistanceOrigin() const
 
 // Distance() definition
 // formula: sqrt((Point1.x - Point2.x)^2 + (Point1.y - Point2.y)^2)
-double Point::Distance(const Point& p) const
+double Point::Distance(const Point& p) const		// pass Point p as const reference 
 {
 	return std::sqrt((p.m_x - m_x) * (p.m_x - m_x) + (p.m_y - m_y) * (p.m_y - m_y));
 	// p.m_x = 10.0;		->	Error: expression must be a modifiable lvalue

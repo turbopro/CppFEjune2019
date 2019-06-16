@@ -1,21 +1,19 @@
 // Point.h
-// Level2.3_Ex76
+// Level2.3_Ex6
 // 
 // header file for the Point class
 //
 // Our Point class has private members for the x- and y-coordinates. 
-// We include the following public functionality
+// We include the following public functionality (see Figure 1 in this project's image folder):
 //	· Default constructor
 //	· Destructor
-//	· Getter functions for the x- and y-coordinates(X() and Y() functions)
-//	· Settter functions for the x- and y-coordinates(X() and Y() functions)
+//	· Getter functions for the x - and y - coordinates(GetX() and GetY() functions)
+//	· Settter functions for the x - and y - coordinates(SetX() and SetY() functions)
 //	· A ToString() that returns a string description of the point.
 //    Use the std::string class as return type
 //	· Distance() functions for distance from the origin, and, distance between two points
 //
 // Member data variables will be prefixed with 'm_' to signify the variable is a class member
-// Member data variables will be declared float; float provides sufficient precision for academic
-//  purposes
 //
 // private members:
 // DATA:
@@ -30,25 +28,26 @@
 // ...
 //
 // METHODS:
-// Point()			-	default constructor
-// Point()			-	constructor
-// Point()			-	copy constructor
-// ~Point()			-	destructor
-// X()				-	getter function for m_x	:	return type double
-// Y()				-	getter function for m_y	:	return type double
-// X(const double&)	-	setter function for m_x
-// Y(const double&)	-	setter function for m_y
-// ToString()		-	returns a string representation of a Point object :	return type std::string
-// DistanceOrigin()	-	returns the distance between the point and the origin
-//                      formula = sqrt((Point.x)^2 + (Point.y)^2)
-// Distance(const Point&)	-	returns the distance between two points
+// Point()					-	default constructor
+// Point(double x, double y)-	constructor
+// Point(double Other)		-	copy constructor
+// ~Point()					-	destructor
+// X()						-	getter function for m_x	:	return type double
+// Y()						-	getter function for m_y	:	return type double
+// X(double x)				-	setter function for m_x	:	no return, void function
+// Y(double y)				-	setter function for m_y	:	no return, void function
+// ToString()				-	returns a string representation of a Point object :	return type std::string
+// Distance()				-	returns the distance between the point and the origin
+//								formula = sqrt((Point.x)^2 + (Point.y)^2)
+// Distance(const Point& p)		-	returns the distance between two points
 //								formula = sqrt((Point1.x - Point2.x)^2 + (Point1.y - Point2.y)^2)
+//
+// getter functions should be const functions
 //
 
 #ifndef POINT_H_INCLUDED
 #define POINT_H_INCLUDED
 
-#include <iostream>
 #include <string>			// for return std::string in ToString() member function
 
 // Point class declaration

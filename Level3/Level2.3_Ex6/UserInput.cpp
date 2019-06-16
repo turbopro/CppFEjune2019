@@ -13,6 +13,8 @@
 // The bool return value is used to indicate to the main function that the user entered 
 // Ctrl-Z to quit the programme. The main function then goes through the proper cleanup and 
 // closes the programme
+// When the user enters Ctrl-Z, then user input is considered incomplete, and bool 'false'
+// is returned. If the user enters valid numbers, then the function returns bool 'true'
 //
 
 #include <iostream>
@@ -29,12 +31,12 @@ bool user_input(double& geom_value, const string& geom_id, const string& geom_de
 		if (cin.eof())		// user entered Ctrl-Z to quit
 		{
 			cout << "\nExiting. Bye...\n";
-			return true;
+			return false;
 		}
 		cout << "Invalid entry: you must enter a valid number\n\n";
 		cin.clear();		// clear error flag for next input
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');	// clear the rest of line entry
 	}
 
-	return false;
+	return true;
 }

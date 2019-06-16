@@ -1,7 +1,9 @@
 // Point.C
+// Level2.3_Ex1
 //
 // Source file that implements the Point class declared in the 
-// Point.h header file.  
+// Point.h header file.
+//
 // The string in the ToString() function, requires conversion of 
 // the double coordinates to a string.  We use a std::stringstream 
 // object, and the standard stream operators (as with iostream) to 
@@ -56,12 +58,12 @@ void Point::SetY(double newY)
 std::string Point::ToString() const
 {
 	// create stream objects for conversion
-	// input Point object's x & y coordinates
+	// input Point object's data members
 	std::ostringstream m_x_conv, m_y_conv;
 	m_x_conv << m_x;
 	m_y_conv << m_y;
 
-	// get str values for x & y coordinates
+	// get str values for data members
 	std::string str_m_x, str_m_y;
 	str_m_x = m_x_conv.str();
 	str_m_y = m_y_conv.str();
