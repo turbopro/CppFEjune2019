@@ -24,7 +24,6 @@
 #include <cmath>
 #include "Point.h"
 
-
 // constructor using colon syntax initialiser
 Point::Point(double x_coord, double y_coord) : m_x(x_coord), m_y(y_coord)
 {

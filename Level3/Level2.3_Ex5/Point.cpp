@@ -1,4 +1,4 @@
-// Point.C
+// Point.cpp
 // Level2.3_Ex5
 //
 // Source file that implements the Point class declared in the 
@@ -20,6 +20,7 @@
 // Overload getter/setter functions
 //
 // Make getter functions const functions
+// Also, return read-only const double references from getter functions
 //
 
 #include <iostream>

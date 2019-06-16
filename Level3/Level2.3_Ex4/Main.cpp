@@ -19,7 +19,11 @@
 // axis			-	read-only string reference to the relevant coordinate axis
 //                  used to identify the axis in the text output to the screen for the user 
 //
-// bool return value is used to intercept user entered Ctrl-Z to quit 
+// The bool return value is used to indicate to the main function that the user entered 
+// Ctrl-Z to quit the programme. The main function then goes through the proper cleanup and 
+// closes the programme
+// When the user enters Ctrl-Z, then user input is considered incomplete, and bool 'false'
+// is returned. If the user enters valid numbers, then the function returns bool 'true'
 //
 
 #include <iostream>
@@ -61,8 +65,8 @@ int main(void)
 
 	// create second Point, P2
 	point_id = "P2";
-	if (!(user_input(x, point_id, x_axis))) { return 0; }
-	if (!(user_input(y, point_id, y_axis))) { return 0; }
+	if (!(user_input(x, point_id, x_axis))) { return 0; }		// If user_input returns false, 
+	if (!(user_input(y, point_id, y_axis))) { return 0; }		// user entered Ctrl-Z to quit
 	
 	Point P2{ x, y };		// use constructor
 	
@@ -77,19 +81,19 @@ int main(void)
 
 	// distance betwwen point P2 and the origin (use Disance() with no arguments)
 	cout << "Distance between P2 and the origin: " << fixed << setprecision(2)
-		<< P2.Distance() << endl << endl;
+		<< P2.Distance() << endl;
 
 	// distance betwwen point P1 and the P2 	
 	cout << "\nDistance between P1 and P2: " << fixed << setprecision(2)
-		<< P1.Distance(P2) << endl;
+		<< P1.Distance(P2) << endl << endl;
 
 	// create const Point object
 	const Point Pc{ 1.5, 3.9 };
 
 	// assign new x coordinate to Pc
-	// Pc.X(0.3);	->	will not compile: "no instance of overloaded function "Point::X matches the
-	//					argument list and object (the objedct has type qualifiers that prevent a match)"
-	//					cannot change the value of a const object directly
+	// Pc.X(0.3);	->	Will not compile: "no instance of overloaded function Point::X matches the
+	//					argument list and object (the object has type qualifiers that prevent a match)"
+	//					We should not be able to change the value of a const object
 
 	// print the x coordinate value for Pc
 	cout << "\nPc x-coordinate = " << Pc.X() << endl << endl;
@@ -106,12 +110,11 @@ bool user_input(double& coord_value, const string& point_id, const string& axis)
 		if (cin.eof())		// quit
 		{
 			cout << "\nExiting. Bye...\n";
-			return false;
+			return false;	// user_input() did not complete, return false
 		}
 		cout << "Invalid entry: you must enter a valid number\n\n";
 		cin.clear();		// clear error flag for next input
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');	// clear rest of line entry
 	}
-
-	return true;
+	return true;			// user_input() completed successfully, return true
 }

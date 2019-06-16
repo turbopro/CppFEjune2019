@@ -36,14 +36,16 @@
 // · Print the diameter, circumference and area of the Circle
 //
 // user_input() function to get user input for coordinate values
-// we use pass by reference to allow the function to change the coordinate values directly
-// the string references are const to make them read-only
+// We use pass by reference to allow the function to change the coordinate values directly
+// The string references are const to make them read-only
 // Arguments:
 // geom_value		-	reference to relevant geometric value
 // geom_id			-	read-only string reference to the id of the geometric object
 //						used to identify the object in the text output to the screen for the user 
 // geom_description	-	read-only string reference to the relevant geometric description
 //						used to identify the object in the text output to the screen for the user 
+// Argument names updated to reflect more generic terms to include a variety of geometric objects
+//
 // bool return value is used to intercept user entered Ctrl-Z to quit
 //
 
@@ -64,7 +66,7 @@ int main(void)
 {
 	const string x_coord{ "x-coordinate" };		// for user input: set geom_description
 	const string y_coord{ "y-coordinate" };
-	const string  radius{ "radius" };
+	const string  radius{ "radius" };			// added for Circle object
 
 	cout << "\n"
 		<< "|========================|\n"
@@ -96,8 +98,8 @@ int main(void)
 	// create second Point object P2
 	// get user input
 	geom_id = "Point 2";
-	if (!(user_input(x, geom_id, x_coord))) { return 0; }
-	if (!(user_input(y, geom_id, y_coord))) { return 0; }
+	if (!(user_input(x, geom_id, x_coord))) { return 0; }		// If user_input returns false, 
+	if (!(user_input(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
 	
 	// create P2 with constructor
 	Point P2{ x, y };
@@ -164,8 +166,8 @@ int main(void)
 	double r{ 0.0 };
 	// get coordinates for Point object Pc1 and radius for Circle object C1
 	geom_id = "Circle 1";
-	if (!(user_input(x, geom_id, x_coord))) { return 0; }
-	if (!(user_input(y, geom_id, y_coord))) { return 0; }
+	if (!(user_input(x, geom_id, x_coord))) { return 0; }		// If user_input returns false,
+	if (!(user_input(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
 	if (!(user_input(r, geom_id, radius)))  { return 0; }
 	
 	// create centre point Pc1 for C1
@@ -183,8 +185,8 @@ int main(void)
 
 	// get coordinates for Point object Pc2 and radius for Circle object C2
 	geom_id = "Circle 2";
-	if (!(user_input(x, geom_id, x_coord))) { return 0; }
-	if (!(user_input(y, geom_id, y_coord))) { return 0; }
+	if (!(user_input(x, geom_id, x_coord))) { return 0; }		// If user_input returns false,
+	if (!(user_input(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
 	if (!(user_input(r, geom_id, radius)))  { return 0; }
 	
 	// create centre point Pc2 for C2

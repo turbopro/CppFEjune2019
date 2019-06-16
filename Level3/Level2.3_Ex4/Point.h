@@ -29,10 +29,6 @@
 // DATA:
 // ...
 //
-// public members:
-// DATA:
-// ...
-//
 // METHODS:
 // Point()					-	default constructor
 // Point(double x, double y)-	constructor
@@ -45,10 +41,11 @@
 // ToString()				-	returns a string representation of a Point object :	return type std::string
 // Distance()				-	returns the distance between the point and the origin
 //								formula = sqrt((Point.x)^2 + (Point.y)^2)
-// Distance(const Point& p)		-	returns the distance between two points
+// Distance(const Point& p)	-	returns the distance between two points
 //								formula = sqrt((Point1.x - Point2.x)^2 + (Point1.y - Point2.y)^2)
 //
 // getter functions should be const functions
+// return read-only const double references from getter functions
 //
 
 #ifndef POINT_H_INCLUDED
@@ -68,9 +65,9 @@ public:
 	Point(double x_coord, double y_coord);		// constructor
 	Point(const Point& Other);					// copy constructor
 	~Point();									// destructor
-	double X() const;							// x coordinate getter
+	const double& X() const;					// x coordinate getter
 	void X(double newX);						// x coordinate setter
-	double Y() const;							// y coordinate getter
+	const double& Y() const;					// y coordinate getter
 	void Y(double newY);						// y coordinate setter
 	std::string ToString() const;				// print the Point coordinates
 	double Distance() const;					// distance from the origin

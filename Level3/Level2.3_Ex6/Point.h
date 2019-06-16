@@ -17,8 +17,8 @@
 //
 // private members:
 // DATA:
-// m_x	-	x coordinate (type float)
-// m_y	-	y coordinate (type float)
+// m_x	-	x coordinate (type double)
+// m_y	-	y coordinate (type double)
 // 
 // METHODS:
 // ...
@@ -43,6 +43,7 @@
 //								formula = sqrt((Point1.x - Point2.x)^2 + (Point1.y - Point2.y)^2)
 //
 // getter functions should be const functions
+// return read-only const double references from getter functions
 //
 
 #ifndef POINT_H_INCLUDED

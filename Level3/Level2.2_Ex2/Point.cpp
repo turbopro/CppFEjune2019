@@ -1,4 +1,4 @@
-// Point.C
+// Point.cpp
 // Level2.2_Ex2
 //
 // Source file that implements the Point class declared in the 

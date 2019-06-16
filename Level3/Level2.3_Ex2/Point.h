@@ -45,7 +45,6 @@
 //									formula = sqrt((Point1.x - Point2.x)^2 + (Point1.y - Point2.y)^2)
 //
 
-
 #ifndef POINT_H_INCLUDED
 #define POINT_H_INCLUDED
 
@@ -63,12 +62,12 @@ public:
 	Point(double x_coord, double y_coord);		// constructor
 	Point(const Point& Other);					// copy constructor
 	~Point();
-	double GetX() const;
-	double GetY() const;
-	void SetX(double newX);
-	void SetY(double newY);
-	std::string ToString() const;
-	double DistanceOrigin() const;
+	double GetX() const;						// getter function for x-coordinate
+	double GetY() const;						// getter function for y-coordinate
+	void SetX(double newX);						// setter function for x-coordinate
+	void SetY(double newY);						// setter function for y-coordinate
+	std::string ToString() const;				// function to output point coordinates as a string
+	double DistanceOrigin() const;				// distance function that calculates the distance between the origin and point
 	double Distance(const Point& p) const;		// pass argument Point p as a const reference
 };
 

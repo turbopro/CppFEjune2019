@@ -4,22 +4,23 @@
 // header file for the Point class
 //
 // Our Point class has private members for the x- and y-coordinates. 
-// We include the following public functionality (see Figure 1 in this project's image folder):
+// We include the following public functionality
+// Add constructor and copy constructor
 //	· Default constructor
+//	· Constructor
+//	· Copy constructor
 //	· Destructor
-//	· Getter functions for the x - and y - coordinates(GetX() and GetY() functions)
-//	· Settter functions for the x - and y - coordinates(SetX() and SetY() functions)
+//	· Overloaded getter functions for the x- and y-coordinates (X() and Y() functions)
+//	· Overloaded settter functions for the x- and y-coordinates (X(double x) and Y(double y) functions)
 //	· A ToString() that returns a string description of the point.
 //    Use the std::string class as return type
 //
 // Member data variables will be prefixed with 'm_' to signify the variable is a class member
-// Member data variables will be declared float; float provides sufficient precision for academic
-//  purposes
 //
 // private members:
 // DATA:
-// m_x	-	x coordinate (type float)
-// m_y	-	y coordinate (type float)
+// m_x	-	x coordinate (type double)
+// m_y	-	y coordinate (type double)
 // 
 // METHODS:
 // ...
@@ -40,10 +41,11 @@
 // ToString()				-	returns a string representation of a Point object :	return type std::string
 // Distance()				-	returns the distance between the point and the origin
 //								formula = sqrt((Point.x)^2 + (Point.y)^2)
-// Distance(const Point& p)		-	returns the distance between two points
+// Distance(const Point& p)	-	returns the distance between two points
 //								formula = sqrt((Point1.x - Point2.x)^2 + (Point1.y - Point2.y)^2)
 //
 // getter functions should be const functions
+// return read-only const double references from getter functions
 //
 
 #ifndef POINT_H_INCLUDED

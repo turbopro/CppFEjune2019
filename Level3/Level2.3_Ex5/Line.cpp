@@ -1,4 +1,4 @@
-// Line.C
+// Line.cpp
 // Level2.3_Ex5
 //
 // Source file that implements the Line class declared in the 

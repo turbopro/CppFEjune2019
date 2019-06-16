@@ -19,7 +19,11 @@
 // axis			-	read-only string reference to the relevant coordinate axis
 //                  used to identify the axis in the text output to the screen for the user
 //
-// bool return value is used to intercept user entered Ctrl-Z to quit 
+// The bool return value is used to indicate to the main function that the user entered 
+// Ctrl-Z to quit the programme. The main function then goes through the proper cleanup and 
+// closes the programme
+// When the user enters Ctrl-Z, then user input is considered incomplete, and bool 'false'
+// is returned. If the user enters valid numbers, then the function returns bool 'true'
 //
 
 #include <iostream>
@@ -43,8 +47,8 @@ int main(void)
 	double x = 0.0, y = 0.0;		// declare/initialise coordinates
 	// get coordinates for first Point, P1
 	string point_id = "P1";
-	if (user_input(x, point_id, x_axis)) { return 0; }		//if return is true, user entered Ctrl-Z to quit
-	if (user_input(y, point_id, y_axis)) { return 0; }
+	if (!(user_input(x, point_id, x_axis))) { return 0; }		// If user_input returns false, 
+	if (!(user_input(y, point_id, y_axis))) { return 0; }		// user entered Ctrl-Z to quit
 
 	// create P1 object with default constructor
 	Point P1;
@@ -59,12 +63,11 @@ int main(void)
 	// print P1 object's x, y coordinates via get functions 
 	cout << "\nP1 x-coordinate = " << P1.GetX() << endl;
 	cout <<   "P1 y-coordinate = " << P1.GetY() << endl << endl;
-
-	
+		
 	// create second Point, P2
 	point_id = "P2";
-	if (user_input(x, point_id, x_axis)) { return 0; }
-	if (user_input(y, point_id, y_axis)) { return 0; }
+	if (!(user_input(x, point_id, x_axis))) { return 0; }		// If user_input returns false, 
+	if (!(user_input(y, point_id, y_axis))) { return 0; }		// user entered Ctrl-Z to quit
 	
 	Point P2;
 	P2.SetX(x);
@@ -76,19 +79,19 @@ int main(void)
 	cout << "P2 y-coordinate = " << P2.GetY() << endl;
 
 	// distance betwwen point P1 and the origin
-	cout << "\nDistance between P1 and the origin: " << setprecision(2) // two decimal places
+	cout << "\nDistance between P1 and the origin: " << fixed << setprecision(2) // two decimal places
 		<< P1.DistanceOrigin() << endl;
 
 	// distance betwwen point p1 and the origin
-	cout << "Distance between P2 and the origin: " << setprecision(2)
+	cout << "Distance between P2 and the origin: " << fixed << setprecision(2)
 		<< P2.DistanceOrigin() << endl;
 
 	// distance betwwen point P1 and the P2
-	cout << "\nDistance between P1 and P2: " << setprecision(2)
+	cout << "\nDistance between P1 and P2: " << fixed << setprecision(2)
 		<< P1.Distance(P2) << endl;
 	
 	// distance betwwen point P2 and the P1
-	cout << "Distance between P2 and P1: " << setprecision(2)
+	cout << "Distance between P2 and P1: " << fixed << setprecision(2)
 		<< P2.Distance(P1) << endl << endl;
 
 	return 0;
@@ -103,11 +106,11 @@ bool user_input(double& coord_value, const string& point_id, const string& axis)
 		if (cin.eof())		// quit
 		{
 			cout << "\nExiting. Bye...\n";
-			return true;
+			return false;	// user_input() did not complete, return false
 		}
 		cout << "Invalid entry: you must enter a valid number\n\n";
 		cin.clear();		// clear error flag for next input
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');	// clear rest of line entry
 	}
-	return false;
+	return true;			// user_input() completed successfully, return true
 }

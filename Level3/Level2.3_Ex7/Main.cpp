@@ -44,6 +44,8 @@
 //						used to identify the point in the text output to the screen for the user 
 // geom_description	-	read-only string reference to the relevant coordinate axis
 //						used to identify the axis in the text output to the screen for the user 
+// Argument names updated to reflect more generic terms to include a variety of geometric objects
+//
 // bool return value is used to intercept user entered Ctrl-Z to quit
 //
 
@@ -97,8 +99,8 @@ int main(void)
 	// create second Point object P2
 	// get user input
 	geom_id = "Point 2";
-	if (!(user_input(x, geom_id, x_coord))) { return 0; }
-	if (!(user_input(y, geom_id, y_coord))) { return 0; }
+	if (!(user_input(x, geom_id, x_coord))) { return 0; }		// If user_input returns false, 
+	if (!(user_input(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
 
 	// create P2 with constructor
 	Point P2{ x, y };
@@ -163,8 +165,8 @@ int main(void)
 
 	// get coordinates for Point object Pc1 for Circle object C1
 	geom_id = "Circle 1";
-	if (!(user_input(x, geom_id, x_coord))) { return 0; }
-	if (!(user_input(y, geom_id, y_coord))) { return 0; }
+	if (!(user_input(x, geom_id, x_coord))) { return 0; }		// If user_input returns false,
+	if (!(user_input(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
 	if (!(user_input(r, geom_id, radius))) { return 0; }
 
 	// create centre point Pc1 for C1
@@ -182,8 +184,8 @@ int main(void)
 
 	// get coordinates for Point object Pc2 for Circle object C2
 	geom_id = "Circle 2";
-	if (!(user_input(x, geom_id, x_coord))) { return 0; }
-	if (!(user_input(y, geom_id, y_coord))) { return 0; }
+	if (!(user_input(x, geom_id, x_coord))) { return 0; }		// If user_input returns false,
+	if (!(user_input(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
 	if (!(user_input(r, geom_id, radius))) { return 0; }
 
 	// create centre point Pc2 for C2

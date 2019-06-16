@@ -28,6 +28,8 @@
 // calculate the distance between the point and the origin, and, the distance
 // between two points
 //
+// Constructors and destructor no longer verbose
+//
 
 #include <iostream>
 #include <sstream>			// for std::ostringstream() function in ToString() member function
@@ -38,25 +40,21 @@
 // constructor using colon syntax initialiser
 Point::Point(double x_coord, double y_coord) : m_x{ x_coord }, m_y{ y_coord }
 {
-	//std::cout << "Waa! Waa! new Point 'constructor'\n";
 }
 
 // default constructor using colon syntax initialiser
 Point::Point() : m_x{ 0 }, m_y{ 0 }
 {
-	//std::cout << "Waa! Waa! new Point 'default constructor'\n";
 }
 
 // copy constructor using colon syntax initialiser
 Point::Point(const Point& Other) : m_x{ Other.m_x }, m_y{ Other.m_y }
 {
-	//std::cout << "Can you tell I'm a Point 'copy constructor'\n";
 }
 
 // (verbose) Destructor definition
 Point::~Point()
 {
-	//std::cout << "RIP: " << this->ToString() << std::endl;
 }
 
 // X() definition for x getter

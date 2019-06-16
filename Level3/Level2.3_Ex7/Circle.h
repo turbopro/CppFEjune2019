@@ -41,8 +41,12 @@
 // Diameter()		-	returns the diamter of the circle; formula: diameter = 2 * radius
 // Circumference()	-	returns the distance around the circle; formula: circumference = 2 * radius * Pi
 // Area()			-	returns the area of the circle; formula: area = Pi * radius^2
-// 
-// Note 1: M_PI (pi) is available only through Circle.cpp source/implementation file
+//
+// All getter/setter functions inlined
+//
+// Note 1: M_PI (pi) is available only when _USE_MATH_DEFINES is defined in Circle.cpp and main.cpp, and
+//         <cmath> library is included in same files
+//         This may be related to inlining of Diameter(), Circumference() and Area()--see Note 2
 //
 // Note 2: Diameter(), Circumference() and Area() are all inlined here since these functions are one-liners,
 // and the formulas for them are not expected to change anytime soon.

@@ -19,7 +19,11 @@
 // axis			-	read-only string reference to the relevant coordinate axis
 //                  used to identify the axis in the text output to the screen for the user 
 //
-// bool return value is used to intercept user entered Ctrl-Z to quit 
+// The bool return value is used to indicate to the main function that the user entered 
+// Ctrl-Z to quit the programme. The main function then goes through the proper cleanup and 
+// closes the programme
+// When the user enters Ctrl-Z, then user input is considered incomplete, and bool 'false'
+// is returned. If the user enters valid numbers, then the function returns bool 'true'
 //
 
 #include <iostream>
@@ -61,8 +65,8 @@ int main(void)
 	
 	// create second Point, P2
 	point_id = "P2";
-	if (!(user_input(x, point_id, x_axis))) { return 0; }
-	if (!(user_input(y, point_id, y_axis))) { return 0; }
+	if (!(user_input(x, point_id, x_axis))) { return 0; }		// If user_input returns false, 
+	if (!(user_input(y, point_id, y_axis))) { return 0; }		// user entered Ctrl-Z to quit
 
 	Point P2{x, y};		// use constructor
 	
@@ -88,6 +92,7 @@ int main(void)
 	return 0;
 }
 
+// user_input() function definition
 bool user_input(double& coord_value, const string& point_id, const string& axis)
 {
 	// loop until valid user input, or, quit if Ctrl-Z entered
@@ -97,11 +102,11 @@ bool user_input(double& coord_value, const string& point_id, const string& axis)
 		if (cin.eof())		// quit
 		{
 			cout << "\nExiting. Bye...\n";
-			return false;
+			return false;	// user_input() did not complete, return false
 		}
 		cout << "Invalid entry: you must enter a valid number\n\n";
 		cin.clear();		// clear error flag for next input
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');	// clear rest of line entry
 	}
-	return true;
+	return true;			// user_input() completed successfully, return true
 }

@@ -64,8 +64,8 @@ int main(void)
 	// create second Point, P2
 	// get user input
 	point_id = "P2";
-	if (!(user_input(x, point_id, x_axis))) { return 0; }
-	if (!(user_input(y, point_id, y_axis))) { return 0; }
+	if (!(user_input(x, point_id, x_axis))) { return 0; }		// If user_input returns false, 
+	if (!(user_input(y, point_id, y_axis))) { return 0; }		// user entered Ctrl-Z to quit
 	
 	// create Point P2: use constructor
 	Point P2{ x, y };
@@ -81,11 +81,11 @@ int main(void)
 
 	// distance betwwen point P2 and the origin (use Disance() with no arguments)
 	cout << "Distance between P2 and the origin: " << fixed << setprecision(2)
-		<< P2.Distance() << endl << endl;
+		<< P2.Distance() << endl;
 
 	// distance betwwen point P1 and the P2 	
 	cout << "\nDistance between P1 and P2: " << fixed << setprecision(2)
-		<< P1.Distance(P2) << endl;
+		<< P1.Distance(P2) << endl << endl;
 	
 	// create a line with P1 and P2: use constructor
 	Line L1{ P1, P2 };

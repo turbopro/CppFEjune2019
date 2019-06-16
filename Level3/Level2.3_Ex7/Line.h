@@ -38,6 +38,8 @@
 // ToString()		-	returns a string representation of the Line object:	return type std::string
 // Length()			-	returns the length of the line
 //
+// All getter/setter functions inlined
+//
 
 #ifndef LINE_H_INCLUDED
 #define LINE_H_INCLUDED

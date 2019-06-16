@@ -1,4 +1,4 @@
-// Point.C
+// Point.cpp
 // Level2.3_Ex4
 //
 // Source file that implements the Point class declared in the 
@@ -20,6 +20,7 @@
 // Overload getter/setter functions
 //
 // Make getter functions const functions
+// Also, return read-only const double references from getter functions
 //
 
 #include <iostream>
@@ -54,13 +55,13 @@ Point::~Point()
 }
 
 // X() definition for x getter
-double Point::X() const
+const double& Point::X() const
 {
 	return m_x;
 }
 
 // Y() definition for y getter 
-double Point::Y() const
+const double& Point::Y() const
 {
 	return m_y;
 }

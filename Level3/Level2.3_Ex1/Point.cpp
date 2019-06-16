@@ -1,4 +1,4 @@
-// Point.C
+// Point.cpp
 // Level2.3_Ex1
 //
 // Source file that implements the Point class declared in the 
@@ -37,8 +37,6 @@ Point::Point() : m_x(0), m_y(0)
 // copy constructor using colon syntax initialiser
 Point::Point(const Point& Other)	:	m_x(Other.m_x), m_y(Other.m_y)
 {
-	//m_x = p.m_x;
-	//m_y = p.m_y;
 	std::cout << "Can you tell I'm a Point 'copy constructor'\n";
 }
 

@@ -21,8 +21,9 @@
 //
 // The Length() function makes use of the Point::Distance(const Point&) function 
 //
+// Constructors and destructor no longer verbose
+//
 
-#include <iostream>
 #include <string>			// for std::string() function in ToString() member function
 #include "Line.h"			// Line class declaration
 
@@ -30,25 +31,21 @@
 Line::Line(const Point& startpoint, const Point& endpoint)
 	: m_startpoint{ startpoint.X(), startpoint.Y() }, m_endpoint{ endpoint.X(), endpoint.Y() }
 {
-	//std::cout << "Waa! Waa! new Line 'constructor'\n";
 }
 
 // default constructor using colon syntax initialiser
 Line::Line() : m_startpoint(0, 0), m_endpoint(0, 0)
 {
-	//std::cout << "Waa! Waa! new Line 'default constructor'\n";
 }
 
 // copy constructor using colon syntax initialiser
 Line::Line(const Line& Other) : m_startpoint(Other.m_startpoint), m_endpoint(Other.m_endpoint)
 {
-	//std::cout << "Can you tell I'm a Line 'copy constructor'\n";
 }
 
-// (verbose) Destructor definition
+// Destructor definition
 Line::~Line()
 {
-	//std::cout << "RIP: " << this->ToString() << std::endl;
 }
 
 // StartPoint() getter function definition
