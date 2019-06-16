@@ -51,8 +51,11 @@
 #ifndef CIRCLE_H_INCLUDED
 #define CIRCLE_H_INCLUDED
 
+#define _USE_MATH_DEFINES	// for PI
+
 #include <string>			// for return std::string in ToString() member function
 #include "Point.h"
+#include <cmath>			// for PI
 
 // Point class declaration
 class Circle
