@@ -36,15 +36,17 @@
 #include <cmath>			// for std::sqrt() function, and M_PI (Pi)
 #include "Circle.h"			// Line class declaration
 
-
+// 	: m_radius{ radius }, m_centrepoint{ centrepoint.X(), centrepoint.Y() }
+// updated after grading; see relevant post in the forum for this HW
+// https://quantnet.com/threads/level-3-hw-vernon-woolford.39463/#post-248880
 // constructor using colon syntax initialiser
 Circle::Circle(const double& radius, const Point& centrepoint)
-	: m_radius{ radius }, m_centrepoint{ centrepoint.X(), centrepoint.Y() }
+	: m_radius{ radius }, m_centrepoint{ centrepoint }
 {
 }
 
 // default constructor using colon syntax initialiser
-Circle::Circle() : m_radius{ 0.0 }, m_centrepoint{ 0, 0 }
+Circle::Circle() : m_radius{ 0.0 }, m_centrepoint{ Point{ 0, 0 } }
 {
 }
 

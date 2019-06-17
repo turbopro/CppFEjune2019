@@ -27,14 +27,18 @@
 #include <string>			// for std::string() function in ToString() member function
 #include "Line.h"			// Line class declaration
 
+// : m_startpoint{ startpoint.X(), startpoint.Y() }, m_endpoint{ endpoint.X(), endpoint.Y() }
+// updated after grading; see relevant post in the forum for this HW
+// https://quantnet.com/threads/level-3-hw-vernon-woolford.39463/#post-248880
 // constructor using colon syntax initialiser
 Line::Line(const Point& startpoint, const Point& endpoint)
-	: m_startpoint{ startpoint.X(), startpoint.Y() }, m_endpoint{ endpoint.X(), endpoint.Y() }
+	: m_startpoint{ startpoint }, m_endpoint{ endpoint }
 {
 }
 
+// Line::Line() : m_startpoint(0, 0), m_endpoint(0, 0)
 // default constructor using colon syntax initialiser
-Line::Line() : m_startpoint(0, 0), m_endpoint(0, 0)
+Line::Line() : m_startpoint( Point{ 0, 0 } ), m_endpoint( Point{ 0, 0 } )
 {
 }
 
