@@ -12,13 +12,20 @@
 //	· A ToString() that returns a string description of the point.
 //    Use the std::string class as return type
 //	· Distance() functions for distance from the origin, and, distance between two points
+//  · Operator + () for addition of the points using '+'
+//  · Operator * () for scaling of the points using '*'
+//  · Operator - () for negation of the coordinates
+//  · Operator = () for the assignment operator '='
+//  · Operator *= () for scaling and assigning
+//  · Operator == () compare the points for equality
+//  ·
 //
 // Member data variables will be prefixed with 'm_' to signify the variable is a class member
 //
 // private members:
 // DATA:
-// m_x	-	x coordinate (type float)
-// m_y	-	y coordinate (type float)
+// m_x	-	x coordinate (type double)
+// m_y	-	y coordinate (type double)
 // 
 // METHODS:
 // ...
@@ -60,18 +67,31 @@ private:
 	double m_y;
 
 public:
-	Point();									// default constructor
-	Point(double x_coord, double y_coord);		// constructor
-	Point(const Point& Other);					// copy constructor
-	~Point();									// destructor
-	const double& X() const { return m_x; }		// inline x coordinate getter
-	void X(const double& newX) { m_x = newX; }	// inline x coordinate setter
-	const double& Y() const { return m_y; }		// inline y coordinate getter
-	void Y(const double& newY) { m_y = newY; }	// inline y coordinate setter
-	std::string ToString() const;				// print the Point coordinates
-	double Distance() const;					// distance from the origin
-	double Distance(const Point& p) const;		// distance between two points
+	Point();										// default constructor
+	Point(double x_coord, double y_coord);			// constructor
+	Point(const Point& Other);						// copy constructor
+	~Point();										// destructor
+	const double& X() const { return m_x; }			// inline x coordinate getter
+	//void X(const double& newX) { m_x = newX; }	// inline x coordinate setter
+	void X(const double& newX);						// x coordinate setter
+	const double& Y() const { return m_y; }			// inline y coordinate getter
+	//void Y(const double& newY) { m_y = newY; }	// inline y coordinate setter
+	void Y(const double& newY);						// y coordinate setter
+	std::string ToString() const;					// print the Point coordinates
+	double Distance() const;						// distance from the origin
+	double Distance(const Point& p) const;			// distance between two points
+	
+	// operator functions
+	Point operator-() const;						// reverse the sign of the point
+	Point operator+(const Point& p) const;			// add two points
+	Point operator * (double& n) const;				// scale the point by factor n
+	friend Point operator*(double& n, const Point& p);	// multiply n by Point p
+	Point& operator = (const Point& p);				// assignment operator
+	Point& operator*=(double& n);					// scale the point by factor n
+	bool operator == (const Point&) const;			// equality operator							
 };
 
-#endif // POINT_H_INCLUDED
+inline void Point::X(const double& newX) { m_x = newX; }	// inline x coordinate setter
+inline void Point::Y(const double& newY) { m_y = newY; }	// inline y coordinate setter
 
+#endif // POINT_H_INCLUDED

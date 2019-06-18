@@ -65,13 +65,15 @@ public:
 	Point(const Point& Other);					// copy constructor
 	~Point();									// destructor
 	const double& X() const { return m_x; }		// inline x coordinate getter
-	void X(const double& newX) { m_x = newX; }	// inline x coordinate setter
+	void X(const double& newX);					// x coordinate setter
 	const double& Y() const { return m_y; }		// inline y coordinate getter
-	void Y(const double& newY) { m_y = newY; }	// inline y coordinate setter
+	void Y(const double& newY);					// y coordinate setter
 	std::string ToString() const;				// print the Point coordinates
 	double Distance() const;					// distance from the origin
 	double Distance(const Point& p) const;		// distance between two points
 };
 
-#endif // POINT_H_INCLUDED
+inline void Point::X(const double& newX) { m_x = newX; }	// inline x coordinate setter
+inline void Point::Y(const double& newY) { m_y = newY; }	// inline y coordinate setter
 
+#endif // POINT_H_INCLUDED

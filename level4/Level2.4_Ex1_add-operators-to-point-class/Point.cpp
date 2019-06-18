@@ -69,3 +69,52 @@ double Point::Distance(const Point& p) const
 {
 	return std::sqrt((p.m_x - m_x) * (p.m_x - m_x) + (p.m_y - m_y) * (p.m_y - m_y));
 }
+
+// overloading operators
+// reverse the sign of the point
+Point Point::operator-() const
+{
+	return Point{ -m_x, -m_y };
+}
+
+// add two points
+Point Point::operator + (const Point& p) const
+{
+	return Point{ (m_x + p.m_x), (m_y + p.m_y) };
+}
+
+// scale the point by factor n
+Point Point::operator*(double& n) const
+{
+	return Point{ n * m_x, n * m_y };
+}
+
+// multiply n by Point p
+Point operator*(double& n, const Point& p)
+{
+	return p * n;
+}
+
+// assignment operator
+Point& Point::operator=(const Point& p)
+{
+	m_x = p.m_x;
+	m_y = p.m_y;
+	return *this;
+}
+
+// scale the point by factor n, and assign
+Point& Point::operator*=(double& n)
+{
+	m_x *= n;
+	m_y *= n;
+	return *this;
+}
+
+// equality operator
+bool Point::operator==(const Point& p) const
+{
+	if (m_x == p.m_x && m_y == p.m_y) { return true; }
+	else { return false; }
+}
+

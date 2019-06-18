@@ -123,6 +123,25 @@ int main(void)
 	cout << "\nDistance between P1 and P2: " << fixed << setprecision(2)
 		<< P1.Distance(P2) << endl << endl;
 
+	// testing overloaded operators
+	// test P1 '+' P2
+	cout << "\nTest for '+' operator\n\n";
+	Point P1plusP2 = P1 + P2;
+	// print P1plusP2
+	cout << "P1 + P2: " << P1plusP2.ToString() << endl;
+	//print P1 x, y coordinates 
+	cout << "\nP1 + P2 x-coordinate = " << P1plusP2.X() << endl;
+	cout << "P1 + P2 y-coordinate = " << P1plusP2.Y() << endl << endl;
+
+	// test P2 + P1
+	Point P2plusP1 = P2 + P1;
+	// print P1plusP2
+	cout << "P2plusP1 is: " << P2plusP1.ToString() << endl;
+	//print P1 x, y coordinates 
+	cout << "\nP2plusP1 x-coordinate = " << P2plusP1.X() << endl;
+	cout << "P2plusP1 y-coordinate = " << P2plusP1.Y() << endl << endl;
+
+	
 	cout << "\n\n"
 		<< "|========================|\n"
 		<< "|        LINES:          |\n"
@@ -158,6 +177,7 @@ int main(void)
 		<< "\nL3 endpoint " << L3.EndPoint().ToString()
 		<< "\nL3 length = " << L3.Length() << endl << endl;
 
+	
 	cout << "\n\n"
 		<< "|========================|\n"
 		<< "|      CIRCLES:          |\n"
@@ -214,6 +234,7 @@ int main(void)
 		<< "\nC3 diameter = " << C3.Diameter()
 		<< "\nC3 circumference = " << C3.Circumference()
 		<< "\nC3 area = " << C3.Area() << endl << endl;
+	
 
 	return 0;
 }

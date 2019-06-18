@@ -55,17 +55,22 @@ private:
 	Point m_endpoint;
 
 public:
-	Line();														// default constructor
-	Line(const Point& startpoint, const Point& endpoint);		// constructor
-	Line(const Line& Other);									// copy constructor
-	~Line();													// destructor
-	const Point& StartPoint() const { return m_startpoint; }	// inline startpoint point getter
-	void StartPoint(const Point& newP) { m_startpoint = newP; }	// inline startpoint point setter
-	const Point& EndPoint() const { return m_endpoint; }		// inline endpoint point getter
-	void EndPoint(const Point& newP) { m_endpoint = newP; }		// inline endpoint point setter
-	std::string ToString() const;								// print the Point coordinates
-	double Length() const;										// length of the line
+	Line();															// default constructor
+	Line(const Point& startpoint, const Point& endpoint);			// constructor
+	Line(const Line& Other);										// copy constructor
+	~Line();														// destructor
+	const Point& StartPoint() const { return m_startpoint; }		// inline startpoint point getter
+	//void StartPoint(const Point& newP) { m_startpoint = newP; }	// inline startpoint point setter
+	void StartPoint(const Point& newP);								// startpoint point setter
+	const Point& EndPoint() const { return m_endpoint; }			// inline endpoint point getter
+	//void EndPoint(const Point& newP) { m_endpoint = newP; }		// inline endpoint point setter
+	void EndPoint(const Point& newP);								// endpoint point setter
+	std::string ToString() const;									// print the Point coordinates
+	double Length() const;											// length of the line
 };
+
+inline void Line::StartPoint(const Point& newP) { m_startpoint = newP; }	// inline startpoint point setter
+inline void Line::EndPoint(const Point& newP) { m_endpoint = newP; }		// inline endpoint point setter
 
 #endif // LINE_H_INCLUDED
 
