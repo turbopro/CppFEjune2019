@@ -78,19 +78,20 @@ Point Point::operator-() const
 }
 
 // add two points
-Point Point::operator + (const Point& p) const
+Point Point::operator+ (const Point& p) const
 {
 	return Point{ (m_x + p.m_x), (m_y + p.m_y) };
 }
 
 // scale the point by factor n
-Point Point::operator*(double& n) const
+Point Point::operator * (double n) const
 {
 	return Point{ n * m_x, n * m_y };
+	//return Point( n * m_x, n * m_y );
 }
 
 // multiply n by Point p
-Point operator*(double& n, const Point& p)
+Point operator*(double n, const Point& p)
 {
 	return p * n;
 }
@@ -104,7 +105,7 @@ Point& Point::operator=(const Point& p)
 }
 
 // scale the point by factor n, and assign
-Point& Point::operator*=(double& n)
+Point& Point::operator*=(double n)
 {
 	m_x *= n;
 	m_y *= n;

@@ -89,13 +89,9 @@ int main(void)
 	// set x, y coordinates with user input values
 	P1.X(x);
 	P1.Y(y);
-
 	// print P1
-	cout << "P1 is: " << P1.ToString() << endl;
-	//print P1 x, y coordinates 
-	cout << "\nP1 x-coordinate = " << P1.X() << endl;
-	cout << "P1 y-coordinate = " << P1.Y() << endl << endl;
-
+	cout << "P1 is: " << P1.ToString() << endl << endl;
+	
 	// create second Point object P2
 	// get user input
 	geom_id = "Point 2";
@@ -106,42 +102,64 @@ int main(void)
 	Point P2{ x, y };
 
 	// print P2
-	cout << "P2 is: " << P2.ToString() << endl;
-	//print P2 x, y coordinates 
-	cout << "\nP2 x-coordinate = " << P2.X() << endl;
-	cout << "P2 y-coordinate = " << P2.Y() << endl;
+	cout << "P2 is: " << P2.ToString() << endl << endl;
 
-	// distance betwwen point P1 and the origin
-	cout << "\nDistance between P1 and the origin: " << fixed << setprecision(2)
-		<< P1.Distance() << endl;
+	// overloaded operators for the Point class
+	// test '=' operator: assignment operator
+	cout << "\n\nassignment operator '='\n\n";
+	Point P3 = P1;
+	// print P3
+	cout << "P3 = P1: " << P3.ToString() << endl << endl;
 
-	// distance betwwen point P2 and the origin
-	cout << "Distance between P2 and the origin: " << fixed << setprecision(2)
-		<< P2.Distance() << endl;
-
-	// distance betwwen points P1 and P2
-	cout << "\nDistance between P1 and P2: " << fixed << setprecision(2)
-		<< P1.Distance(P2) << endl << endl;
-
-	// testing overloaded operators
-	// test P1 '+' P2
-	cout << "\nTest for '+' operator\n\n";
-	Point P1plusP2 = P1 + P2;
-	// print P1plusP2
-	cout << "P1 + P2: " << P1plusP2.ToString() << endl;
-	//print P1 x, y coordinates 
-	cout << "\nP1 + P2 x-coordinate = " << P1plusP2.X() << endl;
-	cout << "P1 + P2 y-coordinate = " << P1plusP2.Y() << endl << endl;
-
-	// test P2 + P1
-	Point P2plusP1 = P2 + P1;
-	// print P1plusP2
-	cout << "P2plusP1 is: " << P2plusP1.ToString() << endl;
-	//print P1 x, y coordinates 
-	cout << "\nP2plusP1 x-coordinate = " << P2plusP1.X() << endl;
-	cout << "P2plusP1 y-coordinate = " << P2plusP1.Y() << endl << endl;
-
+	// test P1 '+' P2: add the coordinates of two points
+	cout << "\naddition operator '+'\n\n";
+	Point P4 = P1 + P2;
+	// print P4
+	cout << "P4 = P1 + P2: " << P4.ToString() << endl;
 	
+	// test P2 + P1
+	P4 = P2 + P1;
+	// print P4
+	cout << "P4 = P2 + P1: " << P4.ToString() << endl << endl;
+	
+	// test '-' unary operator: negate the coordinates of the Point  
+	cout << "\nunary operator '-'\n(negates the coordinates of a Point)\n\n";
+	Point P5 = -P1;
+	// print P5
+	cout << "P5 = -P1: " << P5.ToString() << endl << endl;
+	
+	// test '*' operator: scaling a Point 
+	cout << "\nmultiplication operator '*'\n(scaling operator: Point * double)\n\n";
+	Point P6 = P1 * 3;
+	// print P6
+	cout << "P6 = P1 * 3: " << P6.ToString() << endl << endl;
+
+	cout << "\nmultiplication operator '*'\n(scaling operator: double * Point)\n\n";
+	Point P7 = 4 * P2;
+	// print P7
+	cout << "P7 = 4 * P2: " << P7.ToString() << endl << endl;
+	
+	//test '*=' operator: scaling the coordinatesand then assigning to a Point
+	cout << "\nmultiplication and assignment operator '*='\n(scaling and assigning operator\n\n";
+	P7 *= 4;
+	// print P4
+	cout << "P7 *= 4: " << P7.ToString() << endl << endl;
+	
+	//test '==' operator: compare Point a to Point b for equality
+	cout << "\nequality operator '=='\n\n";
+	Point P8 = P7;
+	cout << "P7: " << P7.ToString() << ", " << "P8: " << P8.ToString() << endl;
+	if (P7 == P8) { cout << "P7 and P8 share the same coordinates\n\n"; }
+	else { cout << "P7 and P8 do not share the same coordinates\n\n"; }
+
+	P8 = P6;
+	cout << "P7: " << P7.ToString() << ", " << "P8: " << P8.ToString() << endl;
+	if (P7 == P8) { cout << "P7 and P8 share the same coordinates\n\n"; }
+	else { cout << "P7 and P8 do not share the same coordinates\n\n"; }
+	
+
+
+	/*
 	cout << "\n\n"
 		<< "|========================|\n"
 		<< "|        LINES:          |\n"
@@ -234,7 +252,7 @@ int main(void)
 		<< "\nC3 diameter = " << C3.Diameter()
 		<< "\nC3 circumference = " << C3.Circumference()
 		<< "\nC3 area = " << C3.Area() << endl << endl;
-	
+	*/
 
 	return 0;
 }

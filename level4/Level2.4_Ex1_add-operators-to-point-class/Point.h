@@ -84,11 +84,11 @@ public:
 	// operator functions
 	Point operator-() const;						// reverse the sign of the point
 	Point operator+(const Point& p) const;			// add two points
-	Point operator * (double& n) const;				// scale the point by factor n
-	friend Point operator*(double& n, const Point& p);	// multiply n by Point p
-	Point& operator = (const Point& p);				// assignment operator
-	Point& operator*=(double& n);					// scale the point by factor n
-	bool operator == (const Point&) const;			// equality operator							
+	Point operator * (double n) const;				// scale the point by factor n
+	friend Point operator*(double n, const Point& p);	// multiply n by Point p
+	Point& operator=(const Point& p);				// assignment operator
+	Point& operator*=(double n);					// scale the point by factor n
+	bool operator==(const Point&) const;			// equality operator							
 };
 
 inline void Point::X(const double& newX) { m_x = newX; }	// inline x coordinate setter
