@@ -73,12 +73,12 @@ public:
 
 	// overloaded operator methods
 	Line& operator=(const Line& Other);								// assignment operator
-	// ostream operator <<
-	friend std::ostream& operator<<(std::ostream& os, const Line& l);
 };
 
 inline void Line::StartPoint(const Point& newP) { m_startpoint = newP; }	// inline startpoint point setter
 inline void Line::EndPoint(const Point& newP) { m_endpoint = newP; }		// inline endpoint point setter
+
+std::ostream& operator<<(std::ostream& os, const Line& l);
 
 #endif // LINE_H_INCLUDED
 

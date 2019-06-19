@@ -103,12 +103,11 @@ public:
 	Point& operator=(const Point& Other);			// assignment operator
 	Point& operator*=(double n);					// scale the point by factor n
 	bool operator==(const Point& Other) const;		// equality operator
-
-	// ostream operator <<
-	friend std::ostream& operator<<(std::ostream& os, const Point& p);
 };
 
 inline void Point::X(const double& newX) { m_x = newX; }	// inline x coordinate setter
 inline void Point::Y(const double& newY) { m_y = newY; }	// inline y coordinate setter
+
+std::ostream& operator<<(std::ostream& os, const Point& p);
 
 #endif // POINT_H_INCLUDED

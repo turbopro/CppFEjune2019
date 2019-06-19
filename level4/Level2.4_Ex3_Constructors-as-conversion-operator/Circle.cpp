@@ -83,6 +83,5 @@ Circle& Circle::operator=(const Circle& Other)
 // overloaded ostream operator <<
 std::ostream& operator<<(std::ostream& os, const Circle& c)
 {
-	return os << "Circle with radius: " << c.m_radius
-		<< ", and centrepoint: " << c.m_centrepoint;
+	return os << c.ToString();
 }

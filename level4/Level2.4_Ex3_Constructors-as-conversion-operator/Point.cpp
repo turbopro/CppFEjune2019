@@ -142,5 +142,5 @@ bool Point::operator==(const Point& Other) const
 // overloaded ostream operator <<
 std::ostream& operator<<(std::ostream& os, const Point& p)
 {
-	return os << "Point(" << p.m_x << ", " << p.m_y << ")";
+	return os << p.ToString();
 }

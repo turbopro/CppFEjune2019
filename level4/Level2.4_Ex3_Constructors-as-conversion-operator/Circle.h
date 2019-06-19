@@ -89,11 +89,11 @@ public:
 
 	// overloaded operator methods
 	Circle& operator=(const Circle& Other);							// assignment operator
-	// ostream operator <<
-	friend std::ostream& operator<<(std::ostream& os, const Circle& c);
 };
 
 inline void Circle::Radius(const double& newR) { m_radius = newR; }				// inline radius setter
 inline void Circle::CentrePoint(const Point& newP) { m_centrepoint = newP; }	// inline centrepoint setter
+
+std::ostream& operator<<(std::ostream& os, const Circle& c);
 
 #endif // CIRCLE_H_INCLUDED
