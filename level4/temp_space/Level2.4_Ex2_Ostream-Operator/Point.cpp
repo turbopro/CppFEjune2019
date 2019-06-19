@@ -1,5 +1,5 @@
 // Point.cpp
-// Level2.4_Ex1: Add operators to the Point class
+// Level2.4_Ex2: Ostream << Operator
 //
 // Source file that implements the Point class declared in the 
 // Point.h header file.
@@ -135,3 +135,8 @@ bool Point::operator==(const Point& Other) const
 	else { return false; }
 }
 
+// overloaded ostream operator <<
+std::ostream& operator<<(std::ostream& os, const Point& p)
+{
+	return os << p.ToString();
+}

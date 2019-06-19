@@ -1,5 +1,5 @@
 // Circle.h
-// Level2.4_Ex1: Add operators to the Point class
+// Level2.4_Ex2: Ostream << Operator
 // 
 // header file for the Circle class
 //
@@ -52,6 +52,7 @@
 // and the formulas for them are not expected to change anytime soon.
 //
 // operator=()		-	overloaded assignment operator
+// operator<<()		-	overloaded ostream operator <<
 //
 
 #ifndef CIRCLE_H_INCLUDED
@@ -92,5 +93,7 @@ public:
 
 inline void Circle::Radius(const double& newR) { m_radius = newR; }				// inline radius setter
 inline void Circle::CentrePoint(const Point& newP) { m_centrepoint = newP; }	// inline centrepoint setter
+
+std::ostream& operator<<(std::ostream& os, const Circle& c);					// overloaded ostream operator <<
 
 #endif // CIRCLE_H_INCLUDED

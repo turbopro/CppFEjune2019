@@ -1,5 +1,5 @@
 // Main.cpp
-// Level2.4_Ex1: Add operators to the Point class
+// Level2.4_Ex2: Ostream << Operator
 //
 // Test program for the Point, Line and Circle classes 
 // Include "Point.h", "Line.h", and "Circle.h" header files
@@ -90,7 +90,7 @@ int main(void)
 	P1.X(x);
 	P1.Y(y);
 	// print P1
-	cout << "P1 is: " << P1.ToString() << endl << endl;
+	cout << "P1 is: " << P1 << endl << endl;
 	
 	// create second Point object P2
 	// get user input
@@ -102,69 +102,75 @@ int main(void)
 	Point P2{ x, y };
 
 	// print P2
-	cout << "P2 is: " << P2.ToString() << endl << endl;
+	cout << "P2 is: " << P2 << endl << endl;
 
 	// overloaded operators for the Point class
 	// assignment operator '='
 	cout << "\n\nassignment operator '='\n\n";
 	Point P3 = P1;
 	// print P3
-	cout << "P3 = P1: " << P3.ToString() << endl << endl;
+	cout << "P3 = P1: " << P3 << endl << endl;
 
 	// assignment operator '=':	self assignment check
 	cout << "\n\nassignment operator '=': no self assignment\n\n";
 	P3 = P3;
 	// print P3
-	cout << "\nP3: " << P3.ToString() << endl << endl;
+	cout << "\nP3: " << P3 << endl << endl;
 
 	// addition operator '+'
 	cout << "\naddition operator '+'\n\n";
 	Point P4 = P1 + P2;
 	// print P4
-	cout << "P4 = P1 + P2: " << P4.ToString() << endl;
+	cout << "P4 = P1 + P2: " << P4 << endl;
 	
 	// P2 + P1
 	P4 = P2 + P1;
 	// print P4
-	cout << "P4 = P2 + P1: " << P4.ToString() << endl << endl;
+	cout << "P4 = P2 + P1: " << P4 << endl << endl;
 	
 	// unary negation operator '-': negate the coordinates of the Point  
 	cout << "\nunary operator '-': negates the coordinates of a Point\n\n";
 	Point P5 = -P1;
 	// print P5
-	cout << "P5 = -P1: " << P5.ToString() << endl << endl;
+	cout << "P5 = -P1: " << P5 << endl << endl;
 	
 	// multiplication operator '*': scaling a Point 
 	cout << "\nmultiplication operator '*'\: scaling operator: Point * double\n\n";
 	Point P6 = P1 * 3;
 	// print P6
-	cout << "P6 = P1 * 3: " << P6.ToString() << endl << endl;
+	cout << "P6 = P1 * 3: " << P6 << endl << endl;
 
 	cout << "\nmultiplication operator '*': scaling operator: double * Point\n\n";
 	Point P7 = 4 * P2;
 	// print P7
-	cout << "P7 = 4 * P2: " << P7.ToString() << endl << endl;
+	cout << "P7 = 4 * P2: " << P7 << endl << endl;
 	
 	// compound multiplication/assignment operator: scale the coordinates, then assign to the Point
 	cout << "\ncompound multiplication/assignment operator '*=': scale and assign to point\n\n";
 	P7 *= 4;
 	// print P4
-	cout << "P7 *= 4: " << P7.ToString() << endl << endl;
+	cout << "P7 *= 4: " << P7 << endl << endl;
 	
 	// equality operator '==': compare Point a to Point b for equality
 	cout << "\nequality operator '=='\n\n";
 	Point P8 = P7;
-	cout << "P7: " << P7.ToString() << ", " << "P8: " << P8.ToString() << endl;
+	cout << "P7: " << P7 << ", " << "P8: " << P8 << endl;
 	if (P7 == P8) { cout << "P7 and P8 share the same coordinates\n\n"; }
 	else { cout << "P7 and P8 do not share the same coordinates\n\n"; }
 
 	P8 = P6;
-	cout << "P7: " << P7.ToString() << ", " << "P8: " << P8.ToString() << endl;
+	cout << "P7: " << P7 << ", " << "P8: " << P8 << endl;
 	if (P7 == P8) { cout << "P7 and P8 share the same coordinates\n\n"; }
 	else { cout << "P7 and P8 do not share the same coordinates\n\n"; }
 	
+	// single argument constructor: implicit conversion operator
+	Point p9{ 1.0, 1.0 };
+	if (p9 == Point(1.0)) cout << "Equal!" << endl;
+	else cout << "Not equal" << endl;
 
 
+
+	
 	
 	cout << "\n\n"
 		<< "|========================|\n"
@@ -175,10 +181,11 @@ int main(void)
 	Line L1{ P1, P2 };
 
 	// print L1
-	cout << "Line L1: " << L1.ToString() << endl
-		<< "\nL1 startpoint " << L1.StartPoint().ToString()
-		<< "\nL1 endpoint " << L1.EndPoint().ToString()
-		<< "\nL1 length = " << L1.Length() << endl << endl;
+	cout << "Line L1: " << L1 << endl
+		<< "\nL1 startpoint " << L1.StartPoint()
+		<< "\nL1 endpoint " << L1.EndPoint()
+		<< "\nL1 length = " << fixed << setprecision(2) 
+		<< L1.Length() << endl << endl;
 
 	// create a line with P1 and P2: use default constructor 
 	Line L2;
@@ -187,29 +194,21 @@ int main(void)
 	L2.EndPoint(P2);
 
 	// print L2
-	cout << "Line L2: " << L2.ToString() << endl
-		<< "\nL2 startpoint " << L2.StartPoint().ToString()
-		<< "\nL2 endpoint " << L2.EndPoint().ToString()
-		<< "\nL2 length = " << L2.Length() << endl << endl;
+	cout << "Line L2: " << L2 << endl << endl;
 
 	// assign L1 to new L3
 	Line L3 = L1;
 
 	// print L3
-	cout << "Line L3 = L1): " << L3.ToString() << endl
-		<< "\nL3 startpoint " << L3.StartPoint().ToString()
-		<< "\nL3 endpoint " << L3.EndPoint().ToString()
-		<< "\nL3 length = " << L3.Length() << endl << endl;
+	cout << "Line L3 = L1): " << L3 << endl << endl;
 
 	// assignment operator '=': self assignment check
 	L3 = L3;
 
 	// print L3
-	cout << "\nLine L3: " << L3.ToString() << endl
-		<< "\nL3 startpoint " << L3.StartPoint().ToString()
-		<< "\nL3 endpoint " << L3.EndPoint().ToString()
-		<< "\nL3 length = " << L3.Length() << endl << endl;
+	cout << "\nLine L3: " << L3 << endl << endl;
 
+	
 	
 	cout << "\n\n"
 		<< "|========================|\n"
@@ -228,9 +227,9 @@ int main(void)
 	Circle C1{ r, Pc1 };
 
 	// print C1
-	cout << "Circle C1: " << C1.ToString() << endl
-		<< "\nC1 radius " << C1.Radius()
-		<< "\nC1 centrepoint " << C1.CentrePoint().ToString()
+	cout << "Circle C1: " << C1 << endl
+		<< "\nC1 radius " << std::ios::fixed << setprecision(2) <<  C1.Radius()
+		<< "\nC1 centrepoint " << C1.CentrePoint()
 		<< "\nC1 diameter = " << C1.Diameter()
 		<< "\nC1 circumference = " << C1.Circumference()
 		<< "\nC1 area = " << C1.Area() << endl << endl;
@@ -250,35 +249,21 @@ int main(void)
 	C2.CentrePoint(Pc2);
 
 	// print C2
-	cout << "Circle C2: " << C2.ToString() << endl
-		<< "\nC2 radius " << C2.Radius()
-		<< "\nC2 centrepoint " << C2.CentrePoint().ToString()
-		<< "\nC2 diameter = " << C2.Diameter()
-		<< "\nC2 circumference = " << C2.Circumference()
-		<< "\nC2 area = " << C2.Area() << endl << endl;
+	cout << "Circle C2: " << C2 << endl << endl;
 
 	// assignment operator '=': assign C1 to C3
 	Circle C3 = C1;
 
 	// print C3
-	cout << "Circle C3 = C1: " << C3.ToString() << endl
-		<< "\nC3 radius " << C3.Radius()
-		<< "\nC3 centrepoint " << C3.CentrePoint().ToString()
-		<< "\nC3 diameter = " << C3.Diameter()
-		<< "\nC3 circumference = " << C3.Circumference()
-		<< "\nC3 area = " << C3.Area() << endl << endl;
+	cout << "Circle C3 = C1: " << C3 << endl << endl;
 	
 	// assignment operator '=': self assignment check
 	C3 = C3;
 
 	// print C3
 	// print C3
-	cout << "Circle C3: " << C3.ToString() << endl
-		<< "\nC3 radius " << C3.Radius()
-		<< "\nC3 centrepoint " << C3.CentrePoint().ToString()
-		<< "\nC3 diameter = " << C3.Diameter()
-		<< "\nC3 circumference = " << C3.Circumference()
-		<< "\nC3 area = " << C3.Area() << endl << endl;
+	cout << "Circle C3: " << C3 << endl;
+	
 
 	return 0;
 }

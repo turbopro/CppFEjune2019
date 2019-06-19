@@ -1,5 +1,5 @@
 // Point.h
-// Level2.4_Ex1: Add operators to the Point class
+// Level2.4_Ex2: Ostream << Operator
 // 
 // header file for the Point class
 //
@@ -12,12 +12,12 @@
 //	· A ToString() that returns a string description of the point.
 //    Use the std::string class as return type
 //	· Distance() functions for distance from the origin, and, distance between two points
-//  · Operator + () for addition of the points using '+'
-//  · Operator * () for scaling of the points using '*'
-//  · Operator - () for negation of the coordinates
-//  · Operator = () for the assignment operator '='
-//  · Operator *= () for scaling and assigning
-//  · Operator == () compare the points for equality
+//  · Operator+() for addition of the points using '+'
+//  · Operator*() for scaling of the points using '*'
+//  · Operator-() for negation of the coordinates
+//  · Operator=() for the assignment operator '='
+//  · Operator*=() for scaling and assigning
+//  · Operator==() compare the points for equality
 //  ·
 //
 // Member data variables will be prefixed with 'm_' to signify the variable is a class member
@@ -61,6 +61,10 @@
 // operator=(r)				- // assignment operator
 // operator*=()				- // scale the point by factor n
 // operator==()				- // equality operator
+// operator<<()				- // ostream operator (friend function)
+//
+// constructor that accepts one double as an argument. 
+// The implementation should set both the x- and y-coordinate to this value.
 //
 
 #ifndef POINT_H_INCLUDED
@@ -78,6 +82,7 @@ private:
 public:
 	Point();										// default constructor
 	Point(double x_coord, double y_coord);			// constructor
+	explicit Point(double x_coord);					// single argument constructor (explicit)
 	Point(const Point& Other);						// copy constructor
 	~Point();										// destructor
 	const double& X() const { return m_x; }			// inline x coordinate getter
@@ -97,7 +102,10 @@ public:
 	friend Point operator*(double n, const Point& Other);	// multiply n by Point p
 	Point& operator=(const Point& Other);			// assignment operator
 	Point& operator*=(double n);					// scale the point by factor n
-	bool operator==(const Point& Other) const;		// equality operator							
+	bool operator==(const Point& Other) const;		// equality operator
+
+	// ostream operator <<
+	friend std::ostream& operator<<(std::ostream& os, const Point& p);
 };
 
 inline void Point::X(const double& newX) { m_x = newX; }	// inline x coordinate setter

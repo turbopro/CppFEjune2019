@@ -1,5 +1,5 @@
 // Point.cpp
-// Level2.4_Ex1: Add operators to the Point class
+// Level2.4_Ex2: Ostream << Operator
 //
 // Source file that implements the Point class declared in the 
 // Point.h header file.
@@ -32,6 +32,10 @@
 
 // constructor using colon syntax initialiser
 Point::Point(double x_coord, double y_coord) : m_x{ x_coord }, m_y{ y_coord } {}
+
+// single argument constructor using colon syntax initialiser
+// this constructor is used as an implicit conversion operator
+Point::Point(double uni_coord) : m_x{ uni_coord }, m_y{ uni_coord } {}
 
 // default constructor
 Point::Point() : m_x{ 0 }, m_y{ 0 } {}
@@ -135,3 +139,8 @@ bool Point::operator==(const Point& Other) const
 	else { return false; }
 }
 
+// overloaded ostream operator <<
+std::ostream& operator<<(std::ostream& os, const Point& p)
+{
+	return os << "Point(" << p.m_x << ", " << p.m_y << ")";
+}

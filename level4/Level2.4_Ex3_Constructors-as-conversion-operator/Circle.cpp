@@ -1,5 +1,5 @@
 // Circle.cpp
-// Level2.4_Ex1: Add operators to the Point class
+// Level2.4_Ex2: Ostream << Operator
 //
 // Source file that implements the Circle class declared in the 
 // Circle.h header file.
@@ -78,4 +78,11 @@ Circle& Circle::operator=(const Circle& Other)
 		m_centrepoint = Other.m_centrepoint;
 		return *this;
 	}
+}
+
+// overloaded ostream operator <<
+std::ostream& operator<<(std::ostream& os, const Circle& c)
+{
+	return os << "Circle with radius: " << c.m_radius
+		<< ", and centrepoint: " << c.m_centrepoint;
 }

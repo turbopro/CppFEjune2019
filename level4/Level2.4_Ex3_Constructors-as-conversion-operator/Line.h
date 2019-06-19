@@ -1,5 +1,5 @@
 // Line.h
-// Level2.4_Ex1: Add operators to the Point class
+// Level2.4_Ex2: Ostream << Operator
 // 
 // header file for the Line class
 //
@@ -41,6 +41,7 @@
 // All getter/setter functions inlined
 //
 // operator=()		-	overloaded assignment operator
+// operator<<()		-	overloaded ostream operator <<
 //
 
 #ifndef LINE_H_INCLUDED
@@ -72,6 +73,8 @@ public:
 
 	// overloaded operator methods
 	Line& operator=(const Line& Other);								// assignment operator
+	// ostream operator <<
+	friend std::ostream& operator<<(std::ostream& os, const Line& l);
 };
 
 inline void Line::StartPoint(const Point& newP) { m_startpoint = newP; }	// inline startpoint point setter
