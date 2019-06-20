@@ -1,5 +1,5 @@
 // Line.cpp
-// Level2.4_Ex3: Constructors As Conversion Operator
+// Level2.5_Ex2: Creating Array of Pointers
 //
 // Source file that implements the Line class declared in the 
 // Line.h header file.
@@ -78,5 +78,6 @@ Line& Line::operator=(const Line& Other)
 // overloaded ostream operator <<
 std::ostream& operator<<(std::ostream& os, const Line& l)
 {
-	return os << l.ToString();
+	return os << "Line with startpoint: " << l.m_startpoint
+		<< ", and endpoint: " << l.m_endpoint;
 }

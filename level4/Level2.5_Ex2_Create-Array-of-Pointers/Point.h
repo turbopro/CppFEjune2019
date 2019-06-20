@@ -1,5 +1,5 @@
 // Point.h
-// Level2.4_Ex4: Friends
+// Level2.5_Ex2: Creating Array of Pointers
 // 
 // header file for the Point class
 //

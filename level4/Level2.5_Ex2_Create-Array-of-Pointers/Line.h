@@ -1,5 +1,5 @@
 // Line.h
-// Level2.5_Ex1: The Free Store: Dynamically Creating Objects
+// Level2.5_Ex2: Creating Array of Pointers
 // 
 // header file for the Line class
 //

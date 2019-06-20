@@ -1,5 +1,5 @@
 // UserInput.cpp
-// Level2.4_Ex2: Ostream << Operator
+// Level2.5_Ex1: The Free Store: Dynamically Creating Objects
 //
 // Source file with definition for user_input()
 //

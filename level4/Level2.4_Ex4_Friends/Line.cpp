@@ -1,5 +1,5 @@
 // Line.cpp
-// Level2.4_Ex2: Ostream << Operator
+// Level2.4_Ex4: Friends
 //
 // Source file that implements the Line class declared in the 
 // Line.h header file.

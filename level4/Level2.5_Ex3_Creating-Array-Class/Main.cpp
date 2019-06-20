@@ -1,5 +1,5 @@
 // Main.cpp
-// Level2.5_Ex1: The Free Store: Dynamically Creating Objects
+// Level2.5_Ex3: Creating Array Class
 //
 // Test program for the Point, Line and Circle classes 
 // Include "Point.h", "Line.h", and "Circle.h" header files
@@ -58,6 +58,7 @@
 #include "Point.h"			// Point class declaration
 #include "Line.h"			// Line class declaration
 #include "Circle.h"			// Circle class declaration
+#include "Array.h"			// Array class declaration
 
 using namespace std;
 
@@ -75,7 +76,7 @@ int main(void)
 
 	double x{ 0.0 }, y{ 0.0 }, r{ 0.0 };		// declare/initialise geom_values
 	unsigned int arr_size{ 0 };					// array size should be positive ints only
-
+	
 	cout << "\n"
 		<< "|====================================|\n"
 		<< "|       POINTS on the Heap:          |\n"
@@ -121,32 +122,76 @@ int main(void)
 		<< "\nDistance from origin: " << fixed << setprecision(2)
 		<< p_P3->Distance() << endl << endl;
 
-	// cleanup Heap
+	// cleanup Heap: delete Points
 	delete p_P1;
 	delete p_P2;
 	delete p_P3;
 	
+
+	cout << "\n"
+		<< "|====================================|\n"
+		<< "|           ARRAY Class:             |\n"
+		<< "|====================================|\n\n";
+
+	// create array: use default constructor
+	Array A_def;
+
+	// print A_def
+	cout << "Array from default constructor has elements:\n";
+	for (int i = 0; i < sizeof(A_def); i++)		
+		cout << "element[" << i << "]: " << A_def.GetElement(i) << endl;
+	cout << endl;
+
+	/*
+	cout << endl << endl;
 	// build array of Points using Heap
 	// get array size from user
 	// If user_input_array returns false, user entered Ctrl-Z to quit
 	if (!(user_input_array(arr_size))) { return 0; }
 	cout << "user entered: " << arr_size << endl << endl;
-	
-	// create Point array on the Stack
-	// error: arr_size must be set at compile time
-	//Point P_arr[arr_size]{ Point(1, 2), Point(3, 4), Point(5, 6), Point(7, 8), Point(9, 10) };
-	//double dist_p0 = P_arr[0].Distance();
-	//cout << "P_arr[0] distance from origin: " << dist_p0 << endl << endl;
 
 	// create Point array on Heap: use runtime arr_size
 	Point* p_PointArray{ new Point[arr_size] };
-	// set values for p_PointAarray[0] Point
-	p_PointArray[0].X(x);
-	p_PointArray[0].Y(y);
-	cout << "P_arr[0] Point is: " << p_PointArray[0] << endl << endl;
-
-	// cleanup Heap
+	
+	// loop and create Points on the Heap
+	// print each point
+	for (int i = 0; i < arr_size; i++)
+	{
+		p_PointArray[i].X(2.5 * i);
+		p_PointArray[i].Y(1.5 * i);
+		cout << "Point array[" << i << "]: " << p_PointArray[i] << endl;
+	}
+	cout << endl;
+	// cleanup Heap: delete [] array
 	delete[] p_PointArray;
+
+	
+	// create a 3-element array of pointers to Points on the Heap
+	cout << "\n\nCreating a 3-element array of pointers to Points on the Heap:\n";
+	unsigned int p_arr_size = 3;
+	Point** pp_parray = new Point* [p_arr_size];
+	
+	// loop and create a Point for each pointer on the Heap
+	// print each point
+	for (int i = 0; i < p_arr_size; i++)
+	{
+		pp_parray[i] = new Point{ 2.5*i, 1.5*i };		// create Point on the Heap 
+		cout << "pointer to Point pointer array[" << i << "]: " << *pp_parray[i] << endl;
+	}
+
+	cout << endl;
+	// cleanup Heap: delete the points
+	for (int i = 0; i < p_arr_size; i++)
+	{
+		//cout << "deleting " << *pp_parray[i] << "..." << endl;
+		delete pp_parray[i];
+	}
+	
+	// cleanup Heap: delete [] array
+	cout << "deleting 3-element array...\n";
+	delete[] pp_parray;	
+	*/
+
 
 	return 0;
 }

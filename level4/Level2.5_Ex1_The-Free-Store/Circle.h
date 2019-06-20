@@ -1,5 +1,5 @@
 // Circle.h
-// Level2.4_Ex2: Ostream << Operator
+// Level2.5_Ex1: The Free Store: Dynamically Creating Objects
 // 
 // header file for the Circle class
 //

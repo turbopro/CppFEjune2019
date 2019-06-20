@@ -1,5 +1,5 @@
 // Point.cpp
-// Level2.5_Ex1: The Free Store: Dynamically Creating Objects
+// Level2.5_Ex2: Creating Array of Pointers
 //
 // Source file that implements the Point class declared in the 
 // Point.h header file.
@@ -34,7 +34,7 @@
 //Point::Point(double x_coord, double y_coord) : m_x{ x_coord }, m_y{ y_coord } {}
 Point::Point(double x_coord, double y_coord) : m_x{ x_coord }, m_y{ y_coord } 
 {
-	std::cout << "constructor-built\n";
+	//std::cout << "constructor-built\n";
 }
 
 // single argument constructor using colon syntax initialiser
@@ -47,21 +47,21 @@ Point::Point(double uni_coord) : m_x{ uni_coord }, m_y{ uni_coord }
 //Point::Point() : m_x{ 0 }, m_y{ 0 } {}
 Point::Point() : m_x{ 0 }, m_y{ 0 } 
 {
-	std::cout << "default_constructor-built\n";
+	//std::cout << "default_constructor-built\n";
 }
 
 // copy constructor
 //Point::Point(const Point& Other) : m_x{ Other.m_x }, m_y{ Other.m_y } {}
 Point::Point(const Point& Other) : m_x{ Other.m_x }, m_y{ Other.m_y } 
 {
-	std::cout << "COPY_constructor-built\n";
+	//std::cout << "COPY_constructor-built\n";
 }
 
 // Destructor
 //Point::~Point() {}
 Point::~Point() 
 {
-	std::cout << "destructor: " << *this << std::endl;
+	std::cout << "deleting: " << *this << "..." << std::endl;
 }
 
 // ToString()

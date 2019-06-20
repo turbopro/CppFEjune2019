@@ -1,5 +1,5 @@
 // Line.cpp
-// Level2.4_Ex2: Ostream << Operator
+// Level2.5_Ex1: The Free Store: Dynamically Creating Objects
 //
 // Source file that implements the Line class declared in the 
 // Line.h header file.

@@ -1,5 +1,5 @@
 // Circle.h
-// Level2.4_Ex3: Constructors As Conversion Operator
+// Level2.5_Ex2: Creating Array of Pointers
 // 
 // header file for the Circle class
 //
@@ -89,11 +89,11 @@ public:
 
 	// overloaded operator methods
 	Circle& operator=(const Circle& Other);							// assignment operator
+	// ostream operator <<
+	friend std::ostream& operator<<(std::ostream& os, const Circle& c);
 };
 
 inline void Circle::Radius(const double& newR) { m_radius = newR; }				// inline radius setter
 inline void Circle::CentrePoint(const Point& newP) { m_centrepoint = newP; }	// inline centrepoint setter
-
-std::ostream& operator<<(std::ostream& os, const Circle& c);			// overloaded ostream operator>> (global function)
 
 #endif // CIRCLE_H_INCLUDED

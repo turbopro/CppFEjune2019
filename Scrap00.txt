@@ -1,3 +1,26 @@
+Level2.5_Ex2: visualising pointer to Points
+
+cout << endl;
+	// visualising memory map, sorta:
+	// size & address of each pointer to Point
+	for (int i = 0; i < p_arr_size; i++)
+	{
+		cout << "Size of pointer for Pointer array[" << i << "]: " << sizeof(pp_parray[i]) << endl;
+		cout << "Address of pointer for Pointer array[" << i << "]: " << &pp_parray[i] << endl;
+	}
+
+	cout << endl;
+	// size of each Point
+	// size of each pointer to Point
+	for (int i = 0; i < p_arr_size; i++)
+	{
+		cout << "Size of Point for pointer[" << i << "]: " << sizeof(*pp_parray[i]) << endl;
+		cout << "Address of Point for pointer[" << i << "]: " << &(*pp_parray[i]) << endl;
+	}
+
+===================================================================
+===================================================================
+
 Level2.4_Ex3 and 4
 
 ostream with friend

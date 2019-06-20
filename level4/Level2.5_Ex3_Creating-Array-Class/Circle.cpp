@@ -1,5 +1,5 @@
 // Circle.cpp
-// Level2.5_Ex1: The Free Store: Dynamically Creating Objects
+// Level2.5_Ex3: Creating Array Class
 //
 // Source file that implements the Circle class declared in the 
 // Circle.h header file.

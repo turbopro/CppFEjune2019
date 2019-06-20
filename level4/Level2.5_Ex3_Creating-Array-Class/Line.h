@@ -1,5 +1,5 @@
 // Line.h
-// Level2.5_Ex1: The Free Store: Dynamically Creating Objects
+// Level2.5_Ex3: Creating Array Class
 // 
 // header file for the Line class
 //
@@ -50,7 +50,7 @@
 #include <string>			// for return std::string in ToString() member function
 #include "Point.h"
 
-// Point class declaration
+// Line class declaration
 class Line
 {
 private:
@@ -63,10 +63,8 @@ public:
 	Line(const Line& Other);										// copy constructor
 	~Line();														// destructor
 	const Point& StartPoint() const { return m_startpoint; }		// inline startpoint point getter
-	//void StartPoint(const Point& newP) { m_startpoint = newP; }	// inline startpoint point setter
 	void StartPoint(const Point& newP);								// startpoint point setter
 	const Point& EndPoint() const { return m_endpoint; }			// inline endpoint point getter
-	//void EndPoint(const Point& newP) { m_endpoint = newP; }		// inline endpoint point setter
 	void EndPoint(const Point& newP);								// endpoint point setter
 	std::string ToString() const;									// print the Point coordinates
 	double Length() const;											// length of the line

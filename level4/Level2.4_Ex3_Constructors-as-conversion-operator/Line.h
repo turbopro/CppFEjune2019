@@ -1,5 +1,5 @@
 // Line.h
-// Level2.4_Ex2: Ostream << Operator
+// Level2.4_Ex3: Constructors As Conversion Operator
 // 
 // header file for the Line class
 //

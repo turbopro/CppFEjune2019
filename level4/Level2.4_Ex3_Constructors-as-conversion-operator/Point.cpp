@@ -1,5 +1,5 @@
 // Point.cpp
-// Level2.4_Ex2: Ostream << Operator
+// Level2.4_Ex3: Constructors As Conversion Operator
 //
 // Source file that implements the Point class declared in the 
 // Point.h header file.

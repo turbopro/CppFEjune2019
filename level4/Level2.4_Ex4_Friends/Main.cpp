@@ -1,5 +1,5 @@
 // Main.cpp
-// Level2.4_Ex2: Ostream << Operator
+// Level2.4_Ex4: Friends
 //
 // Test program for the Point, Line and Circle classes 
 // Include "Point.h", "Line.h", and "Circle.h" header files

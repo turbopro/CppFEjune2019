@@ -1,5 +1,5 @@
 // UserInput.cpp
-// Level2.4_Ex3: Constructors As Conversion Operator
+// Level2.5_Ex2: Creating Array of Pointers
 //
 // Source file with definition for user_input()
 //
@@ -23,7 +23,7 @@
 
 using namespace std;
 
-bool user_input(double& geom_value, const string& geom_id, const string& geom_description)
+bool user_input_geom(double& geom_value, const string& geom_id, const string& geom_description)
 {
 	// loop until valid user input, or, quit if Ctrl-Z entered
 	while ((cout << "Enter " << geom_description << " value for " << geom_id << " (Ctrl-Z to quit): ")
@@ -35,6 +35,24 @@ bool user_input(double& geom_value, const string& geom_id, const string& geom_de
 			return false;	// user_input() did not complete, return false
 		}
 		cout << "Invalid entry: you must enter a valid number\n\n";
+		cin.clear();		// clear error flag for next input
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');	// clear the rest of line entry
+	}
+	return true;			// user_input() completed successfully, return true
+}
+
+bool user_input_array(unsigned int& array_size)
+{
+	// loop until valid user input, or, quit if Ctrl-Z entered
+	while ((cout << "Enter value for the size of the array (Ctrl-Z to quit): ")
+		&& !(cin >> array_size) || cin.peek() != '\n')
+	{
+		if (cin.eof())		// user entered Ctrl-Z to quit
+		{
+			cout << "\nExiting. Bye...\n";
+			return false;	// user_input() did not complete, return false
+		}
+		cout << "Invalid entry: array size requires a valid integer value\n\n";
 		cin.clear();		// clear error flag for next input
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');	// clear the rest of line entry
 	}
