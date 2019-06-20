@@ -23,20 +23,34 @@ The Length() function makes use of the Point::Distance(const Point&) function
 
 // constructor 
 Array::Array(int arr_size)
-	: m_data{ new Point[arr_size] }, m_arr_size{ arr_size } {}	// size of array set during runtime
+	: m_data{ new Point[arr_size] }, m_arr_size{ arr_size } { std::cout << "constructor built\n"; }	// size of array set during runtime
 
 // default constructor
 Array::Array()
-	: m_data{ new Point[ArraySize] }, m_arr_size{ ArraySize } {}		// size of array = class enum, ArraySize
+	: m_data{ new Point[ArraySize] }, m_arr_size{ ArraySize } {std::cout << "default constructor built\n";}	// size of array = class enum, ArraySize
+/*
+{
+	m_data = new Point[ArraySize];
+	m_arr_size = ArraySize;	// size of array = class enum, ArraySize
+	std::cout << "default constructor built\n";
+}
+*/
 
 // copy constructor
 Array::Array(const Array& Other)
 {
-	int sz_of_other = sizeof(Other);
-	m_data = new Point[sz_of_other] ;		// create new array based on size of Other
-	for (int i = 0; i < sz_of_other; i++)	// deep copy Other's elements
+	//int sz_of_other = Other.Size();
+	m_arr_size = Other.Size();
+	m_data = new Point[m_arr_size];		// create new array based on size of Other
+	for (int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
 		this->SetElement(Other.GetElement(i), i);
-	m_arr_size = sz_of_other;
+	//m_arr_size = sz_of_other;
+
+	//m_data = new Point[sz_of_other] ;		// create new array based on size of Other
+	//for (int i = 0; i < sz_of_other; i++)	// deep copy Other's elements
+	//	this->SetElement(Other.GetElement(i), i);
+	//m_arr_size = sz_of_other;
+	std::cout << "copy constructor built\n";
 }
 
 // destructor
@@ -93,6 +107,7 @@ Array& Array::operator=(const Array& Other)
 			<< "Self assignment is not allowed\n"
 			<< "Assignment aborted\n"
 			<< "Array is unchanged\n";
+		
 		return *this;
 	}
 	else
@@ -101,11 +116,13 @@ Array& Array::operator=(const Array& Other)
 		delete[] m_data;
 
 		// create new m_data with size of Other
-		int sz_of_other = sizeof(Other);
+		int sz_of_other = Other.Size();
 		m_data = new Point[sz_of_other];		// create new array based on size of Other
 		for (int i = 0; i < sz_of_other; i++)	// deep copy Other's elements
 			this->SetElement(Other.GetElement(i), i);
 
+		m_arr_size = sz_of_other;
+		
 		return *this;
 	}
 }

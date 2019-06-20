@@ -77,6 +77,7 @@ int main(void)
 	double x{ 0.0 }, y{ 0.0 }, r{ 0.0 };		// declare/initialise geom_values
 	unsigned int arr_size{ 0 };					// array size should be positive ints only
 	
+	/*
 	cout << "\n"
 		<< "|====================================|\n"
 		<< "|       POINTS on the Heap:          |\n"
@@ -126,7 +127,7 @@ int main(void)
 	delete p_P1;
 	delete p_P2;
 	delete p_P3;
-	
+	*/
 
 	cout << "\n"
 		<< "|====================================|\n"
@@ -137,10 +138,25 @@ int main(void)
 	Array A_def;
 
 	// print A_def
-	cout << "Array from default constructor has elements:\n";
-	for (int i = 0; i < sizeof(A_def); i++)		
-		cout << "element[" << i << "]: " << A_def.GetElement(i) << endl;
-	cout << endl;
+	int sizeofArray = A_def.Size();
+	//cout << "\nsize of A_def: " << int(A_def.Size()) << endl << endl;
+	cout << "\nsize of A_def: " << sizeofArray << endl << endl;
+	//cout << "Array from default constructor has elements:\n";
+	//for (int i = 0; i < A_def.Size(); i++)		
+	//	cout << "element[" << i << "]: " << A_def.GetElement(i) << endl;
+	//cout << endl;
+
+	// create array with constructor
+	Array A_constructor{ 5 };
+	sizeofArray = A_constructor.Size();
+	//cout << "\nsize of A_def: " << int(A_def.Size()) << endl << endl;
+	cout << "\nsize of A_constructor: " << sizeofArray << endl << endl;
+
+	// create array with copy constructor
+	Array A_copy(A_constructor);
+	sizeofArray = A_copy.Size();
+	//cout << "\nsize of A_def: " << int(A_def.Size()) << endl << endl;
+	cout << "\nsize of A_copy: " << sizeofArray << endl << endl;
 
 	/*
 	cout << endl << endl;

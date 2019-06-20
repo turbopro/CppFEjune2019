@@ -103,7 +103,7 @@ public:
 	void SetElement(const Point& p, int index);			// set a Point element to the array
 	Point& GetElement(int index) const;					// return a Point element from the array
 	Array& operator=(const Array& Other);				// overloaded assignment operator
-	Point& operator[](int index);						// overloaded array indexing operator
+	//Point& operator[](int index);						// overloaded array indexing operator
 	
 	// ostream operator <<
 	//friend std::ostream& operator<<(std::ostream& os, const Line& l);
