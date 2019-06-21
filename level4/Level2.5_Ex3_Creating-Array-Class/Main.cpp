@@ -75,139 +75,72 @@ int main(void)
 	const string  radius{ "radius" };
 
 	double x{ 0.0 }, y{ 0.0 }, r{ 0.0 };		// declare/initialise geom_values
-	unsigned int arr_size{ 0 };					// array size should be positive ints only
+	unsigned int arr_size{ 0 };					// array size should be positive only
 	
-	/*
-	cout << "\n"
-		<< "|====================================|\n"
-		<< "|       POINTS on the Heap:          |\n"
-		<< "|====================================|\n\n";
-
-	// get coordinates for first Point object P1
-	string geom_id{ "Point 1" };
-	// check if user hit Ctrl-Z to quit
-	if (!(user_input_geom(x, geom_id, x_coord))) { return 0; }		// If user_input returns false, 
-	if (!(user_input_geom(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
-
-	// create P1 with default constructor on the Heap: use new
-	Point* p_P1 = new Point;
 	
-	// set x, y coordinates with user input values
-	p_P1->X(x);
-	p_P1->Y(y);
-	// print P1
-	cout << "(*p_P1) Point by default constructor is: " << *p_P1
-		<< "\nDistance from origin: " << fixed << setprecision(2) 
-		<< p_P1->Distance() << endl << endl;
-	
-	// create second Point object P2
-	// get user input
-	geom_id = "Point 2";
-	if (!(user_input_geom(x, geom_id, x_coord))) { return 0; }		// If user_input returns false, 
-	if (!(user_input_geom(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
-
-	// create P2 with constructor on the Heap: use new
-	//Point P2{ x, y };
-	Point* p_P2 = new Point{ x, y };
-
-	// print P2
-	cout << "(*p_P2) Point by constructor is: " << *p_P2
-		<< "\nDistance from origin: " << fixed << setprecision(2)
-		<< p_P2->Distance() << endl << endl;
-
-	// create P3 with copy constructor on the Heap: use new
-	Point* p_P3 = new Point(*p_P2);
-
-	// print P3
-	cout << "(*p_P3) Point by copy constructor is: " << *p_P3
-		<< "\nDistance from origin: " << fixed << setprecision(2)
-		<< p_P3->Distance() << endl << endl;
-
-	// cleanup Heap: delete Points
-	delete p_P1;
-	delete p_P2;
-	delete p_P3;
-	*/
-
 	cout << "\n"
 		<< "|====================================|\n"
 		<< "|           ARRAY Class:             |\n"
 		<< "|====================================|\n\n";
 
 	// create array: use default constructor
-	Array A_def;
+	Array A_default;
 
-	// print A_def
-	int sizeofArray = A_def.Size();
-	//cout << "\nsize of A_def: " << int(A_def.Size()) << endl << endl;
-	cout << "\nsize of A_def: " << sizeofArray << endl << endl;
-	//cout << "Array from default constructor has elements:\n";
-	//for (int i = 0; i < A_def.Size(); i++)		
-	//	cout << "element[" << i << "]: " << A_def.GetElement(i) << endl;
-	//cout << endl;
+	// print A_default
+	arr_size = A_default.Size();		// set arr_size with size of A_default
+	cout << "Array, A_default, created from default constructor has " 
+		<< arr_size << " elements:\n";
+	for (unsigned int i = 0; i < arr_size; i++)
+		cout << "element[" << i << "]: " << A_default[i] << endl;
 
-	// create array with constructor
-	Array A_constructor{ 5 };
-	sizeofArray = A_constructor.Size();
-	//cout << "\nsize of A_def: " << int(A_def.Size()) << endl << endl;
-	cout << "\nsize of A_constructor: " << sizeofArray << endl << endl;
+	// assign new Points to Array created from default constructor, and print array
+	cout << "\n\nAssigning Points to A_default\nElements in the Array:\n";
+	for (unsigned int i = 0; i < arr_size; i++)
+	{
+		// create Points via Point constructor; use Array overloaded [] operator
+		A_default[i] = Point{ 1.7 * i, 3.6 * i };
+		cout << "element[" << i << "]: " << A_default[i] << endl;
+	}
+
+
+	// create array: use constructor
+	// get and set arr_size from user
+	cout << "\n\nCreating Array with constructor\n\n";
+	if (!(user_input_array(arr_size))) { return 0; }	// user entered Ctrl-Z to quit
+	cout << "user entered: " << arr_size << endl << endl;
+
+	Array A_constructor{ arr_size };
+
+	// populate and print A_constructor
+	cout << "\nArray, A_constructor, created with constructor has "
+		<< arr_size << " elements:\n";
+	for (unsigned int i = 0; i < arr_size; i++)
+	{
+		A_constructor[i] = Point{ 2.2 * i, 1.5 * i };
+		cout << "element[" << i << "]: " << A_constructor[i] << endl;
+	}
+
 
 	// create array with copy constructor
 	Array A_copy(A_constructor);
-	sizeofArray = A_copy.Size();
-	//cout << "\nsize of A_def: " << int(A_def.Size()) << endl << endl;
-	cout << "\nsize of A_copy: " << sizeofArray << endl << endl;
-
-	/*
-	cout << endl << endl;
-	// build array of Points using Heap
-	// get array size from user
-	// If user_input_array returns false, user entered Ctrl-Z to quit
-	if (!(user_input_array(arr_size))) { return 0; }
-	cout << "user entered: " << arr_size << endl << endl;
-
-	// create Point array on Heap: use runtime arr_size
-	Point* p_PointArray{ new Point[arr_size] };
 	
-	// loop and create Points on the Heap
-	// print each point
-	for (int i = 0; i < arr_size; i++)
-	{
-		p_PointArray[i].X(2.5 * i);
-		p_PointArray[i].Y(1.5 * i);
-		cout << "Point array[" << i << "]: " << p_PointArray[i] << endl;
-	}
-	cout << endl;
-	// cleanup Heap: delete [] array
-	delete[] p_PointArray;
+	// print copy constructor array
+	arr_size = A_copy.Size();
+	cout << "\n\nArray, A_copy, is a copy of A_constructor\nElements in Array:\n";
+	for (unsigned int i = 0; i < arr_size; i++)
+		cout << "element[" << i << "]: " << A_copy[i] << endl;
 
-	
-	// create a 3-element array of pointers to Points on the Heap
-	cout << "\n\nCreating a 3-element array of pointers to Points on the Heap:\n";
-	unsigned int p_arr_size = 3;
-	Point** pp_parray = new Point* [p_arr_size];
-	
-	// loop and create a Point for each pointer on the Heap
-	// print each point
-	for (int i = 0; i < p_arr_size; i++)
-	{
-		pp_parray[i] = new Point{ 2.5*i, 1.5*i };		// create Point on the Heap 
-		cout << "pointer to Point pointer array[" << i << "]: " << *pp_parray[i] << endl;
-	}
 
-	cout << endl;
-	// cleanup Heap: delete the points
-	for (int i = 0; i < p_arr_size; i++)
-	{
-		//cout << "deleting " << *pp_parray[i] << "..." << endl;
-		delete pp_parray[i];
-	}
+	// self assign Array a to iself
+	cout << "\n\nSelf assignment of A_copy:\n";
+	A_copy = A_copy;
 	
-	// cleanup Heap: delete [] array
-	cout << "deleting 3-element array...\n";
-	delete[] pp_parray;	
-	*/
 
+	// use [] operator to set new Point for 2nd element of A_copy
+	//cout << "\nSet 2nd element of A_copy to Point(5, 3.3)\n";
+	//A_copy[1] = Point{ 5, 3.3 };
+	// print Point at 2nd element in A_copy array: use [] array indexing operator
+	//cout << "\n\n\nPoint at 2nd element of A_copy: " << A_copy[1] << endl << endl;
 
 	return 0;
 }

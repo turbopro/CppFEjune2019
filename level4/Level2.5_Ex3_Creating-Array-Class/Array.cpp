@@ -22,35 +22,22 @@ The Length() function makes use of the Point::Distance(const Point&) function
 #include "Array.h"			// Array class declaration
 
 // constructor 
-Array::Array(int arr_size)
-	: m_data{ new Point[arr_size] }, m_arr_size{ arr_size } { std::cout << "constructor built\n"; }	// size of array set during runtime
+Array::Array(unsigned int arr_size)
+	: m_data{ new Point[arr_size] }, m_arr_size{ arr_size } {}	// size of array set during runtime
 
 // default constructor
 Array::Array()
-	: m_data{ new Point[ArraySize] }, m_arr_size{ ArraySize } {std::cout << "default constructor built\n";}	// size of array = class enum, ArraySize
-/*
-{
-	m_data = new Point[ArraySize];
-	m_arr_size = ArraySize;	// size of array = class enum, ArraySize
-	std::cout << "default constructor built\n";
-}
-*/
+	: m_data{ new Point[ArraySize] }, m_arr_size{ ArraySize } {}	// size of array = class enum, ArraySize
 
 // copy constructor
 Array::Array(const Array& Other)
 {
-	//int sz_of_other = Other.Size();
 	m_arr_size = Other.Size();
 	m_data = new Point[m_arr_size];		// create new array based on size of Other
-	for (int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
+	for (unsigned int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
 		this->SetElement(Other.GetElement(i), i);
-	//m_arr_size = sz_of_other;
 
-	//m_data = new Point[sz_of_other] ;		// create new array based on size of Other
-	//for (int i = 0; i < sz_of_other; i++)	// deep copy Other's elements
-	//	this->SetElement(Other.GetElement(i), i);
-	//m_arr_size = sz_of_other;
-	std::cout << "copy constructor built\n";
+	//std::cout << "copy constructor built\n";
 }
 
 // destructor
@@ -60,13 +47,13 @@ Array::~Array()
 }
 
 // Size() method
-int Array::Size() const
+unsigned int Array::Size() const
 {
 	return m_arr_size;
 }
 
 // SetElement() method
-void Array::SetElement(const Point& p, int index)
+void Array::SetElement(const Point& p, unsigned int index)
 {
 	if (index >= 0 && index < m_arr_size)
 	{
@@ -81,7 +68,7 @@ void Array::SetElement(const Point& p, int index)
 }
 
 // GetElement() method
-Point& Array::GetElement(int index) const
+Point& Array::GetElement(unsigned int index) const
 {
 	if (index >= 0 && index < m_arr_size)
 	{
@@ -92,6 +79,8 @@ Point& Array::GetElement(int index) const
 		std::cout << "Invalid index : " << index << " : is out of range\n"
 			<< "Valid range: 0 thru " << (m_arr_size - 1) << " inclusive"
 			<< "\nFirst element of the array returned\n";
+
+		return m_data[0];
 	}
 }
 
@@ -116,19 +105,47 @@ Array& Array::operator=(const Array& Other)
 		delete[] m_data;
 
 		// create new m_data with size of Other
-		int sz_of_other = Other.Size();
-		m_data = new Point[sz_of_other];		// create new array based on size of Other
-		for (int i = 0; i < sz_of_other; i++)	// deep copy Other's elements
+		m_arr_size = Other.Size();				// set member m_arr_size to size of Other
+		m_data = new Point[m_arr_size];			// create new array
+		for (unsigned int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
 			this->SetElement(Other.GetElement(i), i);
-
-		m_arr_size = sz_of_other;
 		
 		return *this;
 	}
 }
 
-//	Point& operator[](int index);
+// overloaded array indexing operator: read/write version
+Point& Array::operator[](unsigned int index)
+{
+	if (index >= 0 && index < m_arr_size)
+	{
+		return m_data[index];
+	}
+	else
+	{
+		std::cout << "Invalid index : " << index << " : is out of range\n"
+			<< "Valid range: 0 thru " << (m_arr_size - 1) << " inclusive"
+			<< "\nFirst element of the array returned\n";
 
+		return m_data[0];
+	}
+}
 
+// overloaded array indexing operator: const version
+const Point& Array::operator[](unsigned int index) const
+{
+	if (index >= 0 && index < m_arr_size)
+	{
+		return m_data[index];
+	}
+	else
+	{
+		std::cout << "Invalid index : " << index << " : is out of range\n"
+			<< "Valid range: 0 thru " << (m_arr_size - 1) << " inclusive"
+			<< "\nFirst element of the array returned\n";
+
+		return m_data[0];
+	}
+}
 
 

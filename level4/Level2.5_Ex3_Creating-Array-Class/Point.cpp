@@ -61,7 +61,7 @@ Point::Point(const Point& Other) : m_x{ Other.m_x }, m_y{ Other.m_y }
 //Point::~Point() {}
 Point::~Point() 
 {
-	std::cout << "deleting: " << *this << "..." << std::endl;
+	//std::cout << "deleting: " << *this << "..." << std::endl;
 }
 
 // ToString()
@@ -110,7 +110,6 @@ Point Point::operator+(const Point& Other) const
 Point Point::operator*(double n) const
 {
 	return Point{ n * m_x, n * m_y };
-	//return Point( n * m_x, n * m_y );
 }
 
 // multiply n by Point p
@@ -127,8 +126,8 @@ Point& Point::operator=(const Point& Other)
 	if (this == p_other)
 	{
 		std::cout << "Attempting to self assign " << this->ToString() 
-				<< " at memory address: " << this << " to " 
-				<< Other.ToString()	<< " at same address: " 
+				<< " at memory address: " << this << " to\n" 
+				<< Other.ToString()	<< " at same address: "
 				<< p_other << "\n" << "Self assignment is not allowed\n"
 				<< "Assignment aborted\n"
 				<< this->ToString() << " is unchanged\n" ;

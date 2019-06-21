@@ -90,20 +90,21 @@ class Array
 {
 private:
 	Point* m_data;
-	int m_arr_size;
+	unsigned int m_arr_size;		// array size should be positive only, so change to unsigned int
 
-	enum {ArraySize = 10};						// size of array for default constructor
+	enum {ArraySize = 10};			// size of array for default constructor
 
 public:
-	Array();											// default constructor
-	Array(int arr_size);								// constructor
-	Array(const Array& Other);							// copy constructor
-	~Array();											// destructor
-	int Size() const;									// return the size of the object's array
-	void SetElement(const Point& p, int index);			// set a Point element to the array
-	Point& GetElement(int index) const;					// return a Point element from the array
-	Array& operator=(const Array& Other);				// overloaded assignment operator
-	//Point& operator[](int index);						// overloaded array indexing operator
+	Array();												// default constructor
+	Array(unsigned int arr_size);							// constructor
+	Array(const Array& Other);								// copy constructor
+	~Array();												// destructor
+	unsigned int Size() const;								// return the size of the object's array
+	void SetElement(const Point& p, unsigned int index);	// set a Point element to the array
+	Point& GetElement(unsigned int index) const;			// return a Point element from the array
+	Array& operator=(const Array& Other);					// overloaded assignment operator
+	Point& operator[](unsigned int index);					// overloaded array indexing operator
+	const Point& operator[](unsigned int index) const;		// overloaded array indexing operator: const version
 	
 	// ostream operator <<
 	//friend std::ostream& operator<<(std::ostream& os, const Line& l);

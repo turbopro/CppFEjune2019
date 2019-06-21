@@ -43,18 +43,26 @@ bool user_input_geom(double& geom_value, const string& geom_id, const string& ge
 
 bool user_input_array(unsigned int& array_size)
 {
-	// loop until valid user input, or, quit if Ctrl-Z entered
-	while ((cout << "Enter value for the size of the array (Ctrl-Z to quit): ")
-		&& !(cin >> array_size) || cin.peek() != '\n')
+	int temp_input;			// temporary store for user input: user input may be negative 
+	while ( 1 )				// loop until user enters valid entry
 	{
-		if (cin.eof())		// user entered Ctrl-Z to quit
+		cout << "Enter positive integer value for the size of the array (Ctrl-Z to quit): "; 
+		if (cin >> temp_input && temp_input >= 0 && cin.get() == '\n')	// valid input
+		{
+			array_size = temp_input;
+			return true;
+		}
+		else if (cin.eof())		// user entered Ctrl-Z to quit
 		{
 			cout << "\nExiting. Bye...\n";
 			return false;	// user_input() did not complete, return false
 		}
-		cout << "Invalid entry: array size requires a valid integer value\n\n";
-		cin.clear();		// clear error flag for next input
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');	// clear the rest of line entry
+		else   // invalid entry: clear input, prompt user for valid input
+		{
+			cout << "Invalid entry: array size requires a positive integer value\n\n";
+			cin.clear();
+			while (cin.get() != '\n'); // 'flush' cin stream
+		}
 	}
-	return true;			// user_input() completed successfully, return true
+	return false;	//if all else fails
 }
