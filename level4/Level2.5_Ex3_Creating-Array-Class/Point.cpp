@@ -41,7 +41,9 @@ Point::Point(double x_coord, double y_coord) : m_x{ x_coord }, m_y{ y_coord }
 // this constructor is used as an implicit conversion operator
 //Point::Point(double uni_coord) : m_x{ uni_coord }, m_y{ uni_coord } {}
 Point::Point(double uni_coord) : m_x{ uni_coord }, m_y{ uni_coord } 
-{}
+{ 
+	//std::cout << "point constructor-built\n"; 
+}
 
 // default constructor
 //Point::Point() : m_x{ 0 }, m_y{ 0 } {}
@@ -54,7 +56,7 @@ Point::Point() : m_x{ 0 }, m_y{ 0 }
 //Point::Point(const Point& Other) : m_x{ Other.m_x }, m_y{ Other.m_y } {}
 Point::Point(const Point& Other) : m_x{ Other.m_x }, m_y{ Other.m_y } 
 {
-	//std::cout << "COPY_constructor-built\n";
+	// std::cout << "point COPY_constructor-built\n";
 }
 
 // Destructor

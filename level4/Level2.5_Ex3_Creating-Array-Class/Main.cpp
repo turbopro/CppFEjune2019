@@ -121,7 +121,7 @@ int main(void)
 	}
 
 
-	// create array with copy constructor
+	// create array: use copy constructor and copy A_constructor
 	Array A_copy(A_constructor);
 	
 	// print copy constructor array
@@ -131,16 +131,37 @@ int main(void)
 		cout << "element[" << i << "]: " << A_copy[i] << endl;
 
 
+	// create new Array with default constructor
+	//Array A_def1;
+	// assign A-default to A_def1: using the overloaded operator=()
+	//A_def1 = A_default;
+
+	// print A_def1 constructor array
+	//arr_size = A_def1.Size();
+	//cout << "\n\nArray, A_def1, was assigned A_default\nElements in Array:\n";
+	//for (unsigned int i = 0; i < arr_size; i++)
+	//	cout << "element[" << i << "]: " << A_def1[i] << endl;
+
+	//cout << endl;
+	//A_def1 = A_def1;
+	//cout << endl;
+
 	// self assign Array a to iself
-	cout << "\n\nSelf assignment of A_copy:\n";
-	A_copy = A_copy;
+	//cout << "\n\nSelf assignment of A_copy:\n";
+	//A_copy = A_copy;
 	
 
 	// use [] operator to set new Point for 2nd element of A_copy
-	//cout << "\nSet 2nd element of A_copy to Point(5, 3.3)\n";
-	//A_copy[1] = Point{ 5, 3.3 };
-	// print Point at 2nd element in A_copy array: use [] array indexing operator
-	//cout << "\n\n\nPoint at 2nd element of A_copy: " << A_copy[1] << endl << endl;
+	cout << "\nSet 2nd element of A_copy to Point(5, 3.3)\n";
+	Point P0 { 5, 3.3 };
+	A_copy[1] = P0;
+
+	// print Array
+	// cout << "\n\nPoint at 2nd element of A_copy: " << A_copy[1] << endl << endl;
+	cout << "\n\nA_copy has elements:\n";
+	arr_size = A_copy.Size();
+	for (unsigned int i = 0; i < arr_size; i++)
+		cout << "element[" << i << "]: " << A_copy[i] << endl;
 
 	return 0;
 }

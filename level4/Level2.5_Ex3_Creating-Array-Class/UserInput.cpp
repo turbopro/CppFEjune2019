@@ -61,7 +61,7 @@ bool user_input_array(unsigned int& array_size)
 		{
 			cout << "Invalid entry: array size requires a positive integer value\n\n";
 			cin.clear();
-			while (cin.get() != '\n'); // 'flush' cin stream
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');	// clear the rest of line entry
 		}
 	}
 	return false;	//if all else fails

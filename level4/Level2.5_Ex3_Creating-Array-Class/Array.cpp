@@ -23,11 +23,11 @@ The Length() function makes use of the Point::Distance(const Point&) function
 
 // constructor 
 Array::Array(unsigned int arr_size)
-	: m_data{ new Point[arr_size] }, m_arr_size{ arr_size } {}	// size of array set during runtime
+	: m_data{ new Point[arr_size] }, m_arr_size{ arr_size } { std::cout << "*** constructor ***\n"; }	// size of array set during runtime
 
 // default constructor
 Array::Array()
-	: m_data{ new Point[ArraySize] }, m_arr_size{ ArraySize } {}	// size of array = class enum, ArraySize
+	: m_data{ new Point[ArraySize] }, m_arr_size{ ArraySize } { std::cout << "*** default constructor***\n"; }	// size of array = class enum, ArraySize
 
 // copy constructor
 Array::Array(const Array& Other)
@@ -37,7 +37,7 @@ Array::Array(const Array& Other)
 	for (unsigned int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
 		this->SetElement(Other.GetElement(i), i);
 
-	//std::cout << "copy constructor built\n";
+	std::cout << "copy constructor built\n";
 }
 
 // destructor
@@ -55,7 +55,8 @@ unsigned int Array::Size() const
 // SetElement() method
 void Array::SetElement(const Point& p, unsigned int index)
 {
-	if (index >= 0 && index < m_arr_size)
+	//if (index >= 0 && index < m_arr_size)
+	if (index < m_arr_size)
 	{
 		m_data[index] = p;
 	}
@@ -70,7 +71,8 @@ void Array::SetElement(const Point& p, unsigned int index)
 // GetElement() method
 Point& Array::GetElement(unsigned int index) const
 {
-	if (index >= 0 && index < m_arr_size)
+	//if (index >= 0 && index < m_arr_size)
+	if (index < m_arr_size)
 	{
 		return m_data[index];
 	}
@@ -108,7 +110,7 @@ Array& Array::operator=(const Array& Other)
 		m_arr_size = Other.Size();				// set member m_arr_size to size of Other
 		m_data = new Point[m_arr_size];			// create new array
 		for (unsigned int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
-			this->SetElement(Other.GetElement(i), i);
+			m_data[i] = Other[i];
 		
 		return *this;
 	}
@@ -117,15 +119,21 @@ Array& Array::operator=(const Array& Other)
 // overloaded array indexing operator: read/write version
 Point& Array::operator[](unsigned int index)
 {
-	if (index >= 0 && index < m_arr_size)
+	//if (index >= 0 && index < m_arr_size)
+	if (index < m_arr_size)
 	{
 		return m_data[index];
 	}
 	else
 	{
+		std::cout << "we're here in: Point& Array::Operator[]()\n\n";
+		
 		std::cout << "Invalid index : " << index << " : is out of range\n"
 			<< "Valid range: 0 thru " << (m_arr_size - 1) << " inclusive"
 			<< "\nFirst element of the array returned\n";
+
+		for (unsigned int i = 0; i < m_arr_size; i++)
+			std::cout << "element[" << i << "]: " << m_data[i] << std::endl;
 
 		return m_data[0];
 	}
@@ -134,7 +142,8 @@ Point& Array::operator[](unsigned int index)
 // overloaded array indexing operator: const version
 const Point& Array::operator[](unsigned int index) const
 {
-	if (index >= 0 && index < m_arr_size)
+	//if (index >= 0 && index < m_arr_size)
+	if (index < m_arr_size)
 	{
 		return m_data[index];
 	}
@@ -144,7 +153,10 @@ const Point& Array::operator[](unsigned int index) const
 			<< "Valid range: 0 thru " << (m_arr_size - 1) << " inclusive"
 			<< "\nFirst element of the array returned\n";
 
-		return m_data[0];
+		
+
+		//return m_data[0];
+		return (*this)[0];
 	}
 }
 
