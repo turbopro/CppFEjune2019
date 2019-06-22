@@ -85,29 +85,32 @@ operator<<()		-	overloaded ostream operator <<
 #include <string>			// for return std::string in ToString() member function
 #include "Point.h"
 
-// Array class declaration
-class Array
+// namespace declaration
+namespace Turbopro
 {
-private:
-	Point* m_data;
-	unsigned int m_arr_size;		// array size should be positive only, so change to unsigned int
+	namespace Containers
+	{
+		// Array class declaration
+		class Array
+		{
+		private:
+			CAD::Point* m_data;
+			unsigned int m_arr_size;		// array size should be positive only: set to unsigned int
 
-	enum {ArraySize = 10};			// size of array for default constructor
+			enum { ArraySize = 10 };			// size of array for default constructor
 
-public:
-	Array();												// default constructor
-	Array(unsigned int arr_size);							// constructor
-	Array(const Array& Other);								// copy constructor
-	~Array();												// destructor
-	unsigned int Size() const { return m_arr_size; }		// inlined: return the size of the object's array
-	void SetElement(const Point& p, unsigned int index);	// set a Point element to the array
-	Point& GetElement(unsigned int index) const;			// return a Point element from the array
-	Array& operator=(const Array& Other);					// overloaded assignment operator
-	Point& operator[](unsigned int index);					// overloaded array indexing operator
-	const Point& operator[](unsigned int index) const;		// overloaded array indexing operator: const version
-};
-
-//inline void Line::StartPoint(const Point& newP) { m_startpoint = newP; }	// inline startpoint point setter
-//inline void Line::EndPoint(const Point& newP) { m_endpoint = newP; }		// inline endpoint point setter
-
+		public:
+			Array();													// default constructor
+			Array(unsigned int arr_size);								// constructor
+			Array(const Array& Other);									// copy constructor
+			~Array();													// destructor
+			unsigned int Size() const { return m_arr_size; }			// inlined: return the size of the object's array
+			void SetElement(const CAD::Point& p, unsigned int index);	// set a Point element to the array
+			CAD::Point& GetElement(unsigned int index) const;			// return a Point element from the array
+			Array& operator=(const Array& Other);						// overloaded assignment operator
+			CAD::Point& operator[](unsigned int index);					// overloaded array indexing operator
+			const CAD::Point& operator[](unsigned int index) const;		// overloaded array indexing operator: const version
+		};
+	}
+}
 #endif // ARRAY_H_INCLUDED

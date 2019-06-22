@@ -23,11 +23,11 @@ The Length() function makes use of the Point::Distance(const Point&) function
 
 // constructor 
 Array::Array(unsigned int arr_size)
-	: m_data{ new Point[arr_size] }, m_arr_size{ arr_size } { std::cout << "*** constructor ***\n"; }	// size of array set during runtime
+	: m_data{ new Point[arr_size] }, m_arr_size{ arr_size } {}	// size of array set during runtime
 
 // default constructor
 Array::Array()
-	: m_data{ new Point[ArraySize] }, m_arr_size{ ArraySize } { std::cout << "*** default constructor***\n"; }	// size of array = class enum, ArraySize
+	: m_data{ new Point[ArraySize] }, m_arr_size{ ArraySize } {}	// size of array = class enum, ArraySize
 
 // copy constructor
 Array::Array(const Array& Other)
@@ -37,19 +37,13 @@ Array::Array(const Array& Other)
 	for (unsigned int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
 		this->SetElement(Other.GetElement(i), i);
 
-	std::cout << "copy constructor built\n";
+	//std::cout << "copy constructor built\n";
 }
 
 // destructor
 Array::~Array()
 {
 	delete[] m_data;
-}
-
-// Size() method
-unsigned int Array::Size() const
-{
-	return m_arr_size;
 }
 
 // SetElement() method
@@ -110,8 +104,12 @@ Array& Array::operator=(const Array& Other)
 		m_arr_size = Other.Size();				// set member m_arr_size to size of Other
 		m_data = new Point[m_arr_size];			// create new array
 		for (unsigned int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
-			m_data[i] = Other[i];
-		
+		{
+			//this->SetElement(Other.GetElement(i), i);
+			m_data[i] = Other[i];	// this assignment uses the const Point& operator[]() const
+									// function in order to proect the "Other" object from being
+									// changed in this function
+		}
 		return *this;
 	}
 }
@@ -122,27 +120,25 @@ Point& Array::operator[](unsigned int index)
 	//if (index >= 0 && index < m_arr_size)
 	if (index < m_arr_size)
 	{
-		return m_data[index];
+		return this->GetElement(index);
 	}
 	else
-	{
-		std::cout << "we're here in: Point& Array::Operator[]()\n\n";
-		
+	{	
 		std::cout << "Invalid index : " << index << " : is out of range\n"
 			<< "Valid range: 0 thru " << (m_arr_size - 1) << " inclusive"
 			<< "\nFirst element of the array returned\n";
 
-		for (unsigned int i = 0; i < m_arr_size; i++)
-			std::cout << "element[" << i << "]: " << m_data[i] << std::endl;
-
-		return m_data[0];
+		return this->GetElement(0);
 	}
 }
 
+
 // overloaded array indexing operator: const version
 const Point& Array::operator[](unsigned int index) const
-{
-	//if (index >= 0 && index < m_arr_size)
+{	
+	// print the name of this function to show when it's called 
+	std::cout << "Call to: " << __func__ << std::endl;
+
 	if (index < m_arr_size)
 	{
 		return m_data[index];

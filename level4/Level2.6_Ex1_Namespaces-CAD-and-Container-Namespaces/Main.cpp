@@ -70,6 +70,12 @@ bool user_input_array(unsigned int& array_size);
 
 int main(void)
 {
+	using namespace Turbopro::Containers;
+	using namespace Turbopro::CAD;
+	using Turbopro::CAD::Line;
+	namespace TCad = Turbopro::CAD;
+
+
 	const string x_coord{ "x-coordinate" };		// for user input: set geom_description
 	const string y_coord{ "y-coordinate" };
 	const string  radius{ "radius" };
