@@ -88,7 +88,6 @@ Point Point::operator+(const Point& Other) const
 Point Point::operator*(double n) const
 {
 	return Point{ n * m_x, n * m_y };
-	//return Point( n * m_x, n * m_y );
 }
 
 // multiply n by Point p

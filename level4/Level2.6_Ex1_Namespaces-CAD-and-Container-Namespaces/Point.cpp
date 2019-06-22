@@ -1,28 +1,31 @@
-// Point.cpp
-// Level2.5_Ex3: Creating Array Class
-//
-// Source file that implements the Point class declared in the 
-// Point.h header file.
-//
-// constructor uses the colon initialiser, and is verbose
-// default constructor also uses the colon initlaiser, and also verbose
-// copy constructor same as above
-// destructor is also verbose
-//
-// All Getter/Setter functions have been inlined within Point.h
-// 
-// The ToString() function converts the double values of the data members 
-// to strings
-// We use a std::stringstream object, and the standard stream operators 
-// (as with iostream) to create the string.  This requires the “sstream” 
-// header file. We also use the str() function to retrieve the string 
-// from the string buffer.  
-// The return format for ToString(): “Point(1.5, 3.9)”
-//
-// The overloaded Distance() function makes use of the Pythagoras theorem to 
-// calculate the distance between the point and the origin, and, the distance
-// between two points
-//
+/* Point.cpp
+Level2.5_Ex3: Creating Array Class
+
+Source file that implements the Point class declared in the 
+Point.h header file.
+
+constructor uses the colon initialiser
+default constructor also uses the colon initlaiser
+copy constructor same as above
+destructor is also verbose
+
+All Getter/Setter functions have been inlined within Point.h
+ 
+The ToString() function converts the double values of the data members 
+to strings
+We use a std::stringstream object, and the standard stream operators 
+(as with iostream) to create the string.  This requires the “sstream” 
+header file. We also use the str() function to retrieve the string 
+from the string buffer.  
+The return format for ToString(): “Point(1.5, 3.9)”
+
+The overloaded Distance() function makes use of the Pythagoras theorem to 
+calculate the distance between the point and the origin, and, the distance
+between two points
+
+the Point class is part of the Turbopro::CAD namespace
+
+*/
 
 #include <iostream>
 #include <sstream>			// for std::ostringstream() function in ToString() member function

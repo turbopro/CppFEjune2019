@@ -27,9 +27,6 @@
 #include "Point.h"			// Point class declaration
 #include "Circle.h"			// Line class declaration
 
-// : m_radius{ radius }, m_centrepoint{ centrepoint.X(), centrepoint.Y() } {}
-// updated after grading; see relevant post in the forum for this HW
-// https://quantnet.com/threads/level-3-hw-vernon-woolford.39463/#post-248880
 // constructor using colon syntax initialiser
 Circle::Circle(const double& radius, const Point& centrepoint)
 	: m_radius{ radius }, m_centrepoint{ centrepoint } {}

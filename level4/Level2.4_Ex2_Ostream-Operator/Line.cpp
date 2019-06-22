@@ -21,9 +21,6 @@
 #include <string>			// for std::string() function in ToString() member function
 #include "Line.h"			// Line class declaration
 
-// 	: m_startpoint{ startpoint.X(), startpoint.Y() }, m_endpoint{ endpoint.X(), endpoint.Y() } {}
-// updated after grading; see relevant post in the forum for this HW
-// https://quantnet.com/threads/level-3-hw-vernon-woolford.39463/#post-248880
 // constructor using colon syntax initialiser
 Line::Line(const Point& startpoint, const Point& endpoint)
 	: m_startpoint{ startpoint }, m_endpoint{ endpoint } {}

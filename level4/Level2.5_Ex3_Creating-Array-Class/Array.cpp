@@ -4,17 +4,29 @@ Level2.5_Ex3: Creating Array Class
 Source file that implements the Array class declared in the 
 Array.h header file.
 
-constructor uses the colon initialiser
-default constructor creates a 10-element array
-copy constructor does a deep copy
-destructor deletes the dynamic array
+constructor builds a dynamic Array object sized according to unsigned int argument
+default constructor builds dynamic Array object with default enum array size value
+copy constructor rebuilds the dynamic Array object based on the Other object to be
+copied: does a deep copy operations
+destructor deletes the Array object
 
- 
- 
-The ToString() function makes use of the ToString() function of the
-constituent points of the Line
+The overloaded operator=() allows for Array a = Array b syntax, and checks for
+self assignment
 
-The Length() function makes use of the Point::Distance(const Point&) function 
+The overloaded ostream operator<<() allows for passing the Array object to an
+ostream object, which includes cout for displaying the Array object
+
+The overloaded operator[]() and operator[]() const methods provide the array
+indexing operations. operator[]() method has an unintended side effect: it
+assigns the Point object during a setter indexing operation when the index is
+out of range. operator[]() const allows for setter indexing operations that
+includes the assignment of const Array objects (rhs) to non-const Array
+objects (lhs): the method prevents the implicit Array object from being
+changed, and returns a const reference to the Point object, so that the Point
+object also cannot be changed by the method
+
+Getter and Setter methods check for an out of range index
+
 */
 
 #include <iostream>
@@ -36,8 +48,6 @@ Array::Array(const Array& Other)
 	m_data = new Point[m_arr_size];		// create new array based on size of Other
 	for (unsigned int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
 		this->SetElement(Other.GetElement(i), i);
-
-	//std::cout << "copy constructor built\n";
 }
 
 // destructor
@@ -49,7 +59,6 @@ Array::~Array()
 // SetElement() method
 void Array::SetElement(const Point& p, unsigned int index)
 {
-	//if (index >= 0 && index < m_arr_size)
 	if (index < m_arr_size)
 	{
 		m_data[index] = p;
@@ -65,7 +74,6 @@ void Array::SetElement(const Point& p, unsigned int index)
 // GetElement() method
 Point& Array::GetElement(unsigned int index) const
 {
-	//if (index >= 0 && index < m_arr_size)
 	if (index < m_arr_size)
 	{
 		return m_data[index];
@@ -117,7 +125,6 @@ Array& Array::operator=(const Array& Other)
 // overloaded array indexing operator: read/write version
 Point& Array::operator[](unsigned int index)
 {
-	//if (index >= 0 && index < m_arr_size)
 	if (index < m_arr_size)
 	{
 		return this->GetElement(index);
@@ -149,9 +156,6 @@ const Point& Array::operator[](unsigned int index) const
 			<< "Valid range: 0 thru " << (m_arr_size - 1) << " inclusive"
 			<< "\nFirst element of the array returned\n";
 
-		
-
-		//return m_data[0];
 		return (*this)[0];
 	}
 }

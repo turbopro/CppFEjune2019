@@ -1,5 +1,5 @@
 /* Array.h
-Level2.5_Ex3: Creating Array Class
+Level2.6_Ex1: Namespaces: CAD and Container Namespaces
  
 header file for the Array class
 
@@ -74,8 +74,10 @@ GetElement()			-	return an element; return by reference
 operator[]				-	return a reference so the [] operator reads/writes
 							return first element if index is out of bounds
 
-operator=()			-	overloaded assignment operator
-operator<<()		-	overloaded ostream operator <<
+operator=()				-	overloaded assignment operator
+operator<<()			-	overloaded ostream operator <<
+
+the Array class is part of the Turbopro::Containers namespace
 
 */
 

@@ -4,36 +4,22 @@
 // Test program for the Point, Line and Circle classes 
 // Include "Point.h", "Line.h", and "Circle.h" header files
 //
-// Point tests as follows:
+// Point tests as follows :
 // · Ask the user for the x - and y - coordinates
-// · Create a Point object using the default constructor
+// · Create a Point object on the Heap using the default constructor
 // · Set the coordinates entered by the user using the setter functions
-// · Print the description of the Point returned by the ToString() function
+// · Print the Point
+// · Ask the user for the new x - and y - coordinates
+// · Create a Point object on the Heap using the constructor
+// · Set the coordinates entered by the user using the setter functions
+// · Print the Point
+// · Create a Point object on the Heap using the copy constructor
+// · Copy the constructor Point
 // · Print the point coordinates using the get functions
-//
-// Line tests as follows:
-// · Create a Line object using the default constructor
-// · Set the coordinates using the setter functions
-//   : use the coordinates of the points created already
-// · Print the description of the point returned by the ToString() function
-// · Print the Line points using the get functions
-// · Print the length of the Line
-// · Create a Line object using the constructor
-// · Print the description of the Line returned by the ToString() function
-// · Print the Line points using the get functions
-// · Print the length of the Line
-//
-// Circle tests as follows:
-// · Create a Circle object using the default constructor
-// · Set the coordinates using the setter functions
-//   : use the coordinates of one of the points created already
-// · Print the description of the Circle returned by the ToString() function
-// · Print the Circle radius and centre point using the get functions
-// · Print the diameter, circumference and area of the Circle
-// · Create a Circle object using the constructor
-// · Print the description of the Circle returned by the ToString() function
-// · Print the Circle radius and centre point using the get functions
-// · Print the diameter, circumference and area of the Circle
+// · Delete the Points to free the memory on the Heap
+// · Create a Point array on the Heap : use user input for array size
+// · Set Points on the arrayand print
+// · Delete the array to free the memory on the Heap
 //
 // user_input() function declaration to get user input for geometric values
 // we use pass by reference to allow the function to change the variable values directly

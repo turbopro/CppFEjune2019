@@ -1,53 +1,50 @@
-// Main.cpp
-// Level2.5_Ex3: Creating Array Class
-//
-// Test program for the Point, Line and Circle classes 
-// Include "Point.h", "Line.h", and "Circle.h" header files
-//
-// Point tests as follows:
-// · Ask the user for the x - and y - coordinates
-// · Create a Point object using the default constructor
-// · Set the coordinates entered by the user using the setter functions
-// · Print the description of the Point returned by the ToString() function
-// · Print the point coordinates using the get functions
-//
-// Line tests as follows:
-// · Create a Line object using the default constructor
-// · Set the coordinates using the setter functions
-//   : use the coordinates of the points created already
-// · Print the description of the point returned by the ToString() function
-// · Print the Line points using the get functions
-// · Print the length of the Line
-// · Create a Line object using the constructor
-// · Print the description of the Line returned by the ToString() function
-// · Print the Line points using the get functions
-// · Print the length of the Line
-//
-// Circle tests as follows:
-// · Create a Circle object using the default constructor
-// · Set the coordinates using the setter functions
-//   : use the coordinates of one of the points created already
-// · Print the description of the Circle returned by the ToString() function
-// · Print the Circle radius and centre point using the get functions
-// · Print the diameter, circumference and area of the Circle
-// · Create a Circle object using the constructor
-// · Print the description of the Circle returned by the ToString() function
-// · Print the Circle radius and centre point using the get functions
-// · Print the diameter, circumference and area of the Circle
-//
-// user_input() function declaration to get user input for geometric values
-// we use pass by reference to allow the function to change the variable values directly
-// the string references are const to make them read-only
-// Arguments:
-// geom_value		-	reference to relevant coordinate value
-// geom_id			-	read-only string reference to the id of the point
-//						used to identify the point in the text output to the screen for the user 
-// geom_description	-	read-only string reference to the relevant coordinate axis
-//						used to identify the axis in the text output to the screen for the user 
-// Argument names updated to reflect more generic terms to include a variety of geometric objects
-//
-// bool return value is used to intercept user entered Ctrl-Z to quit
-//
+/* Main.cpp
+Level2.5_Ex3: Creating Array Class
+
+Test program for the Point, Line and Circle classes 
+Include "Point.h", "Line.h", and "Circle.h" header files
+
+ Array tests as follows:
+ · Create an Array object using the default constructor
+ · Set the Point objects using the operator[]() indexing method
+   : use a loop with an index multiplier to create Point object coordinates
+ · Print the Array
+ · Create another Array with the constructor
+   : get user input for the array size
+   : use a loop with an index multiplier to create Point object coordinates
+ · Print the Array
+ · Create another Array with the copy constructor
+   : copy the constructor Array
+ · Print the Array
+ · Self assign the copy constructor Array
+ · Get an element from the copy constructor Array using a valid index
+ · Get an element from the copy constructor Array using an invalid index
+ · Set an element to the copy constructor Array using a valid index
+ · Set an element to the copy constructor Array using an invalid index
+ · Assign the constructor Array to the copy constructor Array
+
+user_input() function declaration to get user input for geometric values
+we use pass by reference to allow the function to change the variable values directly
+the string references are const to make them read-only
+Arguments:
+geom_value		-	reference to relevant coordinate value
+geom_id			-	read-only string reference to the id of the point
+						used to identify the point in the text output to the screen for the user 
+geom_description	-	read-only string reference to the relevant coordinate axis
+						used to identify the axis in the text output to the screen for the user 
+Argument names updated to reflect more generic terms to include a variety of geometric objects
+
+bool return value is used to intercept user entered Ctrl-Z to quit
+
+user_input_array() function retrieves valid user input for the array size, a positive integer
+Uses the same mechanics / tools as for user_input_geom()
+Arguments:
+unsigned int - array size should be a positive integer
+
+bool return value is used to intercept user entered Ctrl - Z to quit
+
+*/
+
 
 #define _USE_MATH_DEFINES	// for PI
 

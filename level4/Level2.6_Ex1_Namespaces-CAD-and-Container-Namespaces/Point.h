@@ -1,79 +1,81 @@
-// Point.h
-// Level2.5_Ex3: Creating Array Class
-// 
-// header file for the Point class
-//
-// Our Point class has private members for the x- and y-coordinates. 
-// We include the following public functionality (see Figure 1 in this project's image folder):
-//	· Default constructor
-//	· Destructor
-//	· Getter functions for the x - and y - coordinates(GetX() and GetY() functions)
-//	· Settter functions for the x - and y - coordinates(SetX() and SetY() functions)
-//	· A ToString() that returns a string description of the point.
-//    Use the std::string class as return type
-//	· Distance() functions for distance from the origin, and, distance between two points
-//  · Operator+() for addition of the points using '+'
-//  · Operator*() for scaling of the points using '*'
-//  · Operator-() for negation of the coordinates
-//  · Operator=() for the assignment operator '='
-//  · Operator*=() for scaling and assigning
-//  · Operator==() compare the points for equality
-//  ·
-//
-// Member data variables will be prefixed with 'm_' to signify the variable is a class member
-//
-// private members:
-// DATA:
-// m_x	-	x coordinate (type double)
-// m_y	-	y coordinate (type double)
-// 
-// METHODS:
-// ...
-//
-// public members:
-// DATA:
-// ...
-//
-// METHODS:
-// Point()					-	default constructor
-// Point(double x, double y)-	constructor
-// Point(double Other)		-	copy constructor
-// ~Point()					-	destructor
-// X()						-	getter function for m_x	:	return type double
-// Y()						-	getter function for m_y	:	return type double
-// X(double x)				-	setter function for m_x	:	no return, void function
-// Y(double y)				-	setter function for m_y	:	no return, void function
-// ToString()				-	returns a string representation of a Point object :	return type std::string
-// Distance()				-	returns the distance between the point and the origin
-//								formula = sqrt((Point.x)^2 + (Point.y)^2)
-// Distance(const Point& p)		-	returns the distance between two points
-//								formula = sqrt((Point1.x - Point2.x)^2 + (Point1.y - Point2.y)^2)
-//
-// Getter functions should be const functions
-// Return read-only const double references from getter functions
-// All getter/setter functions inlined
-//
-// overloaded operator methods:
-// operator-()				- // reverse the sign of the point
-// operator+()				- // add two points
-// operator*()				- // scale the point by factor n
-// operator*()				- // multiply n by Point p (friend method)
-// operator=(r)				- // assignment operator
-// operator*=()				- // scale the point by factor n
-// operator==()				- // equality operator
-// operator<<()				- // ostream operator (friend method)
-//
-// constructor that accepts one double as an argument. 
-// The implementation should set both the x- and y-coordinate to this value.
-//
+/* Point.h
+Level2.6_Ex1: Namespaces: CAD and Container Namespaces
+ 
+header file for the Point class
 
-// create namespace
+Our Point class has private members for the x- and y-coordinates. 
+We include the following public functionality (see Figure 1 in this project's image folder):
+ · Default constructor
+ · Destructor
+ · Getter functions for the x - and y - coordinates(GetX() and GetY() functions)
+ · Settter functions for the x - and y - coordinates(SetX() and SetY() functions)
+ · A ToString() that returns a string description of the point.
+ · Use the std::string class as return type
+ · Distance() functions for distance from the origin, and, distance between two points
+ · Operator+() for addition of the points using '+'
+ · Operator*() for scaling of the points using '*'
+ · Operator-() for negation of the coordinates
+ · Operator=() for the assignment operator '='
+ · Operator*=() for scaling and assigning
+ · Operator==() compare the points for equality
+ ·
+
+Member data variables will be prefixed with 'm_' to signify the variable is a class member
+
+private members:
+DATA:
+m_x	-	x coordinate (type double)
+m_y	-	y coordinate (type double)
+ 
+METHODS:
+...
+
+public members:
+DATA:
+...
+
+METHODS:
+Point()					-	default constructor
+Point(double x, double y)-	constructor
+Point(double Other)		-	copy constructor
+~Point()				-	destructor
+X()						-	getter function for m_x	:	return type double
+Y()						-	getter function for m_y	:	return type double
+X(double x)				-	setter function for m_x	:	no return, void function
+Y(double y)				-	setter function for m_y	:	no return, void function
+ToString()				-	returns a string representation of a Point object :	return type std::string
+Distance()				-	returns the distance between the point and the origin
+							formula = sqrt((Point.x)^2 + (Point.y)^2)
+Distance(const Point& p)	-	returns the distance between two points
+							formula = sqrt((Point1.x - Point2.x)^2 + (Point1.y - Point2.y)^2)
+
+Getter functions should be const functions
+Return read-only const double references from getter functions
+All getter/setter functions inlined
+
+overloaded operator methods:
+operator-()				- // reverse the sign of the point
+operator+()				- // add two points
+operator*()				- // scale the point by factor n
+operator*()				- // multiply n by Point p (friend method)
+operator=(r)			- // assignment operator
+operator*=()			- // scale the point by factor n
+operator==()			- // equality operator
+operator<<()			- // ostream operator (friend method)
+
+constructor that accepts one double as an argument. 
+The implementation should set both the x- and y-coordinate to this value.
+
+the Point class is part of the Turbopro::CAD namespace
+
+*/
 
 #ifndef POINT_H_INCLUDED
 #define POINT_H_INCLUDED
 
 #include <string>			// for return std::string in ToString() member function
 
+//create namespace
 namespace Turbopro
 {
 	namespace CAD

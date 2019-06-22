@@ -1,21 +1,30 @@
-// Circle.cpp
-// Level2.5_Ex3: Creating Array Class
-//
-// Source file that implements the Circle class declared in the 
-// Circle.h header file.
-//
-// constructor uses the colon initialiser, and is verbose
-// default constructor also uses the colon initlaiser, and also verbose
-// copy constructor same as above
-// destructor is also verbose
-//
-// Getter/Setter functions inlined within Circle.h
-//
-// The ToString() function converts the radius member to a string, and concatenates this with
-// the string values output from the ToString() function of the centrepoint member
-//
-// The Diameter(), Circumference() and Area() functions all inlined within Circle.h
-//
+/* Circle.cpp
+Level2.6_Ex1: Namespaces: CAD and Container Namespaces
+
+Source file that implements the Circle class declared in the 
+Circle.h header file.
+
+constructor uses the colon initialiser
+default constructor also uses the colon initialiser
+copy constructor also uses the colon initialiser
+destructor
+
+Getter/Setter functions inlined within Circle.h
+
+The ToString() function converts the radius member to a string, and concatenates this with
+the string values output from the ToString() function of the centrepoint member
+
+The Diameter(), Circumference() and Area() functions all inlined within Circle.h
+
+The overloaded operator=() allows for Circle a = Circle b syntax, and checks for
+self assignment
+
+The overloaded ostream operator<<() allows for passing the Circle object to an
+ostream object, which includes cout for displaying the Circle object
+
+the Circle class is part of the Turbopro::CAD namespace
+
+*/
 
 #define _USE_MATH_DEFINES	// for PI; must be placed here even for inline 
 							// functions, Circumference() and Area() in Circle.h

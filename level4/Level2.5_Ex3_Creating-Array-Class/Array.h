@@ -107,7 +107,4 @@ public:
 	const Point& operator[](unsigned int index) const;		// overloaded array indexing operator: const version
 };
 
-//inline void Line::StartPoint(const Point& newP) { m_startpoint = newP; }	// inline startpoint point setter
-//inline void Line::EndPoint(const Point& newP) { m_endpoint = newP; }		// inline endpoint point setter
-
 #endif // ARRAY_H_INCLUDED

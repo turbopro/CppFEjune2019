@@ -1,21 +1,30 @@
-// Line.cpp
-// Level2.5_Ex3: Creating Array Class
-//
-// Source file that implements the Line class declared in the 
-// Line.h header file.
-//
-// constructor uses the colon initialiser, and is verbose
-// default constructor also uses the colon initlaiser, and also verbose
-// copy constructor same as above
-// destructor is also verbose
-//
-// All Getter/Setter functions inlined within Line.h
-// 
-// The ToString() function makes use of the ToString() function of the
-// constituent points of the Line
-//
-// The Length() function makes use of the Point::Distance(const Point&) function 
-//
+/* Line.cpp
+Level2.6_Ex1: Namespaces: CAD and Container Namespaces
+
+Source file that implements the Line class declared in the 
+Line.h header file.
+
+constructor uses the colon initialiser
+default constructor also uses the colon initialiser
+copy constructor also uses the colon initialiser
+destructor
+
+All Getter/Setter functions inlined within Line.h
+ 
+The ToString() function makes use of the ToString() function of the
+constituent points of the Line
+
+The Length() function makes use of the Point::Distance(const Point&) function 
+
+The overloaded operator=() allows for Line a = Line b syntax, and checks for
+self assignment
+
+The overloaded ostream operator<<() allows for passing the Line object to an
+ostream object, which includes cout for displaying the Line object
+ 
+the Line class is part of the Turbopro::CAD namespace
+
+*/
 
 #include <iostream>
 #include <string>			// for std::string() function in ToString() member function

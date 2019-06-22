@@ -1,48 +1,51 @@
-// Line.h
-// Level2.5_Ex3: Creating Array Class
-// 
-// header file for the Line class
-//
-// Our Line class has private members for the startpoint and endpoint of the line 
-// We include the following public functionality
-//	· Default constructor
-//	· Constructor
-//	· Copy constructor
-//	· Destructor
-//	· Getter functions for the startpoint and endpoint data members
-//	· Settter functions for the startpoint and endpointx data members
-//	· A ToString() that returns a string description of the Line
-//	· A Length() that returns the length of the Line
-//
-// Member data variables will be prefixed with 'm_' to signify the variable is a class member
-//
-// private members:
-// DATA:
-// m_startpoint	-	type point
-// m_endpoint	-	type point
-// 
-// METHODS:
-// ...
-//
-// public members:
-// DATA:
-// ...
-//
-// METHODS:
-// Line()			-	default constructor
-// Line(const Point&, const Point&)	-	constructor
-// Line(const Point&)				-	copyconstructor
-// ~Point()			-	destructor
-// StartPoint()		-	getter/setter function for m_startpoint: return type const Point& for getter
-// EndPoint()		-	getter/setter function for m_endpoint: return type const Point& for getter
-// ToString()		-	returns a string representation of the Line object:	return type std::string
-// Length()			-	returns the length of the line
-//
-// All getter/setter functions inlined
-//
-// operator=()		-	overloaded assignment operator
-// operator<<()		-	overloaded ostream operator <<
-//
+/* Line.h
+Level2.6_Ex1: Namespaces: CAD and Container Namespaces
+ 
+header file for the Line class
+
+Our Line class has private members for the startpoint and endpoint of the line 
+We include the following public functionality
+ · Default constructor
+ · Constructor
+ · Copy constructor
+ · Destructor
+ · Getter functions for the startpoint and endpoint data members
+ · Settter functions for the startpoint and endpointx data members
+ · A ToString() that returns a string description of the Line
+ · A Length() that returns the length of the Line
+
+Member data variables will be prefixed with 'm_' to signify the variable is a class member
+
+private members:
+DATA:
+m_startpoint	-	type point
+m_endpoint		-	type point
+ 
+METHODS:
+...
+
+public members:
+DATA:
+...
+
+METHODS:
+Line()			-	default constructor
+Line(const Point&, const Point&)	-	constructor
+Line(const Point&)				-	copyconstructor
+~Point()			-	destructor
+StartPoint()		-	getter/setter function for m_startpoint: return type const Point& for getter
+EndPoint()		-	getter/setter function for m_endpoint: return type const Point& for getter
+ToString()		-	returns a string representation of the Line object:	return type std::string
+Length()			-	returns the length of the line
+
+All getter/setter functions inlined
+
+operator=()		-	overloaded assignment operator
+operator<<()		-	overloaded ostream operator <<
+
+the Line class is part of the Turbopro::CAD namespace
+
+*/
 
 #ifndef LINE_H_INCLUDED
 #define LINE_H_INCLUDED
