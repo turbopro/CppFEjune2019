@@ -41,7 +41,7 @@ namespace Turbopro
 		//Point::Point(double x_coord, double y_coord) : m_x{ x_coord }, m_y{ y_coord } {}
 		Point::Point(double x_coord, double y_coord) : m_x{ x_coord }, m_y{ y_coord }
 		{
-			//std::cout << "constructor-built\n";
+			std::cout << "POINT: constructor\n";
 		}
 
 		// single argument constructor using colon syntax initialiser
@@ -49,28 +49,28 @@ namespace Turbopro
 		//Point::Point(double uni_coord) : m_x{ uni_coord }, m_y{ uni_coord } {}
 		Point::Point(double uni_coord) : m_x{ uni_coord }, m_y{ uni_coord }
 		{
-			//std::cout << "point constructor-built\n"; 
+			std::cout << "POINT: single argument constructor\n"; 
 		}
 
 		// default constructor
 		//Point::Point() : m_x{ 0 }, m_y{ 0 } {}
 		Point::Point() : m_x{ 0 }, m_y{ 0 }
 		{
-			//std::cout << "default_constructor-built\n";
+			std::cout << "POINT: default constructor\n";
 		}
 
 		// copy constructor
 		//Point::Point(const Point& Other) : m_x{ Other.m_x }, m_y{ Other.m_y } {}
 		Point::Point(const Point& Other) : m_x{ Other.m_x }, m_y{ Other.m_y }
 		{
-			// std::cout << "point COPY_constructor-built\n";
+			std::cout << "POINT: copy constructor\n";
 		}
 
 		// Destructor
 		//Point::~Point() {}
 		Point::~Point()
 		{
-			//std::cout << "deleting: " << *this << "..." << std::endl;
+			std::cout << "deleting: " << *this << "..." << std::endl;
 		}
 
 		// ToString()
@@ -138,6 +138,7 @@ namespace Turbopro
 				m_x = Other.m_x;
 				m_y = Other.m_y;
 				return *this;
+				std::cout << "POINT: assigned\n";
 			}
 		}
 

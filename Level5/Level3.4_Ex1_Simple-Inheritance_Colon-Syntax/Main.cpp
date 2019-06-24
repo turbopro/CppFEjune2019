@@ -216,25 +216,33 @@ int main(void)
 	// cleanup Heap: delete the points
 	for (unsigned int i = 0; i < p_arr_size; i++)
 	{
-		cout << "deleting " << *pp_parray[i] << "..." << endl;
+		//cout << "deleting " << *pp_parray[i] << "..." << endl;
 		delete pp_parray[i];
 	}
 
 	// cleanup Heap: delete [] array
-	cout << "deleting 3-element array...\n";
+	cout << "deleting 3-element array...\n\n";
 	delete[] pp_parray;
 
 	// test euality
+	// create points with same coordinates and test equality
+	cout << "Create Points Pa and Pb with same coordinates:\n";
 	Point Pa{ 1, 1 };
 	Point Pb{ 1, 1 };
 	cout << "Pa: " << Pa << endl;
 	cout << "Pb: " << Pb << endl;
-	if (Pa == Pb) {cout << "yes, Pa == Pb\n\n"; }
-	else { cout << "nope, Pa != Pb\n\n"; }
+	if (Pa == Pb) {cout << "Pa == Pb\n\n"; }
+	else { cout << "Pa != Pb\n\n"; }
 
 	// test self assign
 	cout << "Self assigning Pb to itself:\n\n";
 	Pb = Pb;
+
+	// assign Pa to Pc
+	cout << "assign Pa to new Point Pc\n";
+	Point Pc;
+	Pc = Pa;
+	cout << "Pc: " << Pc << "\n\n";
 
 
 	cout << "\n\n"
@@ -267,12 +275,20 @@ int main(void)
 	// print L2
 	cout << "Line L2: " << L2 << endl << endl;
 
-	// assign L1 to new L3
-	cout << "Assign L1 to L3:\n";
-	Line L3 = L1;
-
+	// create a line: use copy constructor 
+	cout << "Copy L1 to new Line, L3, using copy constructor:\n";
+	Line L3(L1);
+	
 	// print L3
-	cout << "Line L3 = L1: " << L3 << endl << endl;
+	cout << "Line L3: " << L3 << endl << endl;
+
+
+	// assign L2 to new L4
+	cout << "Assign L2 to L4:\n";
+	Line L4 = L2;
+
+	// print L4
+	cout << "Line L4 = L2: " << L4 << endl << endl;
 
 	// assignment operator '=': self assignment check
 	cout << "Self assignment: L3 to L3:\n";

@@ -43,7 +43,8 @@ namespace Turbopro
 		Line::Line() : m_startpoint{ Point{ 0, 0 } }, m_endpoint{ Point{ 0, 0 } } {}
 
 		// copy constructor
-		Line::Line(const Line& Other) : m_startpoint{ Other.m_startpoint }, m_endpoint{ Other.m_endpoint } {}
+		Line::Line(const Line& Other) 
+			: m_startpoint{ Other.m_startpoint }, m_endpoint{ Other.m_endpoint } {}
 
 		// Destructor
 		Line::~Line() {}
