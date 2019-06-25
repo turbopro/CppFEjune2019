@@ -402,11 +402,12 @@ int main(void)
 
 
 	// create array: use copy constructor and copy A_constructor
+	cout << "\n\nCreating Array with copy constructor\n\n";
 	Array A_copy(A_constructor);
 	
 	// print copy constructor array
 	arr_size = A_copy.Size();
-	cout << "\n\nArray, A_copy, is a copy of A_constructor\nElements in Array:\n";
+	cout << "Array, A_copy, is a copy of A_constructor\nElements in Array:\n";
 	for (unsigned int i = 0; i < arr_size; i++)
 		cout << "element[" << i << "]: " << A_copy[i] << endl;
 

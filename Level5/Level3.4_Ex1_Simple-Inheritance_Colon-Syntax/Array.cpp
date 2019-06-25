@@ -49,10 +49,10 @@ namespace Turbopro
 			: m_data{ new CAD::Point[ArraySize] }, m_arr_size{ ArraySize } {}	// size of array = class enum, ArraySize
 
 		// copy constructor
-		Array::Array(const Array& Other) : m_arr_size { Other.Size() }
+		Array::Array(const Array& Other) : m_arr_size{ Other.Size() }
 		{
 			// create new array based on size of Other
-			// m_arr_size must be assigned before m_data, so this data member cannot use colon syntax
+			// m_arr_size must be assigned before m_data, so this data member may not use colon syntax
 			m_data = new CAD::Point[m_arr_size];			
 			for (unsigned int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
 				(*this)[i] = Other[i];						// calls the const Point& operator[]() const method
@@ -110,7 +110,6 @@ namespace Turbopro
 				m_data = new CAD::Point[m_arr_size];			// create new array
 				for (unsigned int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
 				{
-					//this->SetElement(Other.GetElement(i), i);
 					m_data[i] = Other[i];
 				}
 				return *this;
