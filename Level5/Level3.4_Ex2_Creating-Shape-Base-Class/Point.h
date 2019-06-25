@@ -74,6 +74,7 @@ the Point class is part of the Turbopro::CAD namespace
 #define POINT_H_INCLUDED
 
 #include <string>			// for return std::string in ToString() member function
+#include "Shape.h"
 
 //create namespace
 namespace Turbopro
@@ -81,7 +82,7 @@ namespace Turbopro
 	namespace CAD
 	{
 		// Point class declaration
-		class Point
+		class Point	:	public Shape
 		{
 		private:
 			double m_x;

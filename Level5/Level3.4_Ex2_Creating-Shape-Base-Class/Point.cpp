@@ -39,38 +39,43 @@ namespace Turbopro
 	{
 		// constructor using colon syntax initialiser
 		//Point::Point(double x_coord, double y_coord) : m_x{ x_coord }, m_y{ y_coord } {}
-		Point::Point(double x_coord, double y_coord) : m_x{ x_coord }, m_y{ y_coord }
+		Point::Point(double x_coord, double y_coord) : Shape{}, m_x{ x_coord }, m_y{ y_coord }
 		{
-			//std::cout << "POINT: constructor\n";
+			//m_x = x_coord;
+			//m_y = y_coord;
+			std::cout << "POINT: constructor\n";
 		}
 
 		// single argument constructor using colon syntax initialiser
 		// this constructor is used as an implicit conversion operator
 		//Point::Point(double uni_coord) : m_x{ uni_coord }, m_y{ uni_coord } {}
-		Point::Point(double uni_coord) : m_x{ uni_coord }, m_y{ uni_coord }
+		Point::Point(double uni_coord) : Shape{}, m_x{ uni_coord }, m_y{ uni_coord }
 		{
-			//std::cout << "POINT: single argument constructor\n"; 
+			std::cout << "POINT: single argument constructor\n"; 
 		}
 
 		// default constructor
 		//Point::Point() : m_x{ 0 }, m_y{ 0 } {}
-		Point::Point() : m_x{ 0 }, m_y{ 0 }
+		Point::Point() : Shape{}, m_x { 0 }, m_y{ 0 }
 		{
-			//std::cout << "POINT: default constructor\n";
+			std::cout << "POINT: default constructor\n";
 		}
 
 		// copy constructor
 		//Point::Point(const Point& Other) : m_x{ Other.m_x }, m_y{ Other.m_y } {}
-		Point::Point(const Point& Other) : m_x{ Other.m_x }, m_y{ Other.m_y }
+		Point::Point(const Point& Other) : Shape(.ID) //, m_x { Other.m_x }, m_y{ Other.m_y }
 		{
-			//std::cout << "POINT: copy constructor\n";
+			//this. = Other.ID;
+			m_x = Other.m_x;
+			m_y = Other.m_y;
+			std::cout << "POINT: copy constructor\n";
 		}
 
 		// Destructor
 		//Point::~Point() {}
 		Point::~Point()
 		{
-			//std::cout << "deleting: " << *this << "..." << std::endl;
+			std::cout << "deleting: " << *this << "..." << std::endl;
 		}
 
 		// ToString()

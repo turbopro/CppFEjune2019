@@ -293,9 +293,37 @@ int main(void)
 
 	// multiply 6 by Pc
 	cout << "6 * Pc:\n"
-		<< "6 * Pc = " << (6 * Pc) << "\n\n";
+		<< "6 * Pc = " << (6 * Pc) << "\n\n\n";
+
+	cout << "------------------------------\n";
+	Shape s; // Create shape.
+	Point p(10, 20); // Create point.
+	Line l(Point(1, 2), Point(3, 4)); // Create line.
+
+	cout << s.ToString() << endl; // Print shape.
+	cout << p.ToString() << endl; // Print point.
+	cout << l.ToString() << endl; // Print line
+
+	cout << "------------------------------\n";
+
+/*
+	cout << "Shape ID: " << s.ID() << endl; // ID of the shape.
+	cout << "Point ID: " << p.ID() << endl; // ID of the point. Does this work?
+	//cout << "Line ID: " << l.ID() << endl; // ID of the line. Does this work?
+
+	Shape* sp; // Create pointer to a shape variable.
+	sp = &p; // Point in a shape variable. Possible?
+	cout << sp->ToString() << endl; // What is printed?
+
+	// Create and copy Point p to new point.
+	Point p2;
+	p2 = p;
+	cout << p2 << ", " << p2.ID() << endl; // Is the ID copied if you do not call the base class assignment in point?
+
+	*/
 
 
+	/*
 	cout << "\n\n"
 		<< "|========================|\n"
 		<< "|        LINES:          |\n"
@@ -511,7 +539,7 @@ int main(void)
 		<< "A_copy = A_constructor;\n";
 	A_copy = A_constructor;
 
-	/*
+	
 	//	For exception handling phase
 	// create array: use constructor
 	// set arr_size as negative
