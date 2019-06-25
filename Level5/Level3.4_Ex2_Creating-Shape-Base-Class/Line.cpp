@@ -1,5 +1,5 @@
 /* Line.cpp
-Level3.4_Ex1: Simple Inheritance: Colon Syntax
+Level3.4_Ex2: Simple Inheritance: Creating Shape Base Class
 
 Source file that implements the Line class declared in the 
 Line.h header file.

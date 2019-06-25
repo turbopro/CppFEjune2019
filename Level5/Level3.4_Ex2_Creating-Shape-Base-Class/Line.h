@@ -1,5 +1,5 @@
 /* Line.h
-Level3.4_Ex1: Simple Inheritance: Colon Syntax
+Level3.4_Ex2: Simple Inheritance: Creating Shape Base Class
  
 header file for the Line class
 
@@ -29,14 +29,14 @@ DATA:
 ...
 
 METHODS:
-Line()			-	default constructor
+Line()								-	default constructor
 Line(const Point&, const Point&)	-	constructor
-Line(const Point&)				-	copyconstructor
-~Point()			-	destructor
-StartPoint()		-	getter/setter function for m_startpoint: return type const Point& for getter
-EndPoint()		-	getter/setter function for m_endpoint: return type const Point& for getter
-ToString()		-	returns a string representation of the Line object:	return type std::string
-Length()			-	returns the length of the line
+Line(const Point&)					-	copyconstructor
+~Line()								-	destructor
+StartPoint()						-	getter/setter function: return type const Point& for getter
+EndPoint()							-	getter/setter function: return type const Point& for getter
+ToString()							-	returns a string representation of the Line object:	return type std::string
+Length()							-	returns the length of the line
 
 All getter/setter functions inlined
 

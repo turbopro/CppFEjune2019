@@ -1,5 +1,5 @@
 /* Array.cpp
-Level3.4_Ex1: Simple Inheritance: Colon Syntax
+Level3.4_Ex2: Simple Inheritance: Creating Shape Base Class
 
 Source file that implements the Array class declared in the 
 Array.h header file.

@@ -1,5 +1,5 @@
 /* Main.cpp
-Level3.4_Ex1: Simple Inheritance: Colon Syntax
+Level3.4_Ex2: Simple Inheritance: Creating Shape Base Class
 
 Test program for the Point, Line and Circle classes 
 Include "Point.h", "Line.h", and "Circle.h" header files
@@ -98,6 +98,7 @@ using directives and declarations for Turbopro::CAD and Turbopro::Container name
 #include "Line.h"			// Line class declaration
 #include "Circle.h"			// Circle class declaration
 #include "Array.h"			// Array class declaration
+#include "Shape.h"			// Shape class declaration
 
 using namespace std;
 
@@ -123,6 +124,41 @@ int main(void)
 	double x{ 0.0 }, y{ 0.0 }, r{ 0.0 };		// declare/initialise geom_values
 	unsigned int arr_size{ 0 };					// array size should be positive only
 	
+
+	cout << "\n"
+		<< "|====================================|\n"
+		<< "|              SHAPES                |\n"
+		<< "|====================================|\n\n";
+
+	// get coordinates for first Point object P1
+	//string geom_id{ "Point 1" };
+	// check if user hit Ctrl-Z to quit
+	//if (!(user_input_geom(x, geom_id, x_coord))) { return 0; }		// If user_input returns false, 
+	//if (!(user_input_geom(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
+
+	// create P1 with default constructor on the Heap: use new
+	Shape S1, S2, S3;
+
+	// get ID
+	cout << "Shape S1 ID: " << S1.ID() << endl;
+	cout << "Shape S2 ID: " << S2.ID() << endl;
+	cout << "Shape S3 ID: " << S3.ID() << endl << endl;
+
+	// print S1
+	cout << "S1 has " << S1.ToString() << endl;
+	cout << "S2 has " << S2.ToString() << endl;
+	cout << "S3 has " << S3.ToString() << endl << endl;
+
+	// assign S3 to S2
+	cout << "S2 = S3: " << (S3 = S2).ToString() << endl;
+	cout << "S3 has " << S3.ToString() << endl << endl;
+
+	// copy S1 to S3
+	Shape S4(S1);
+	cout << "S4: " << S4.ToString() << endl << endl;
+
+
+
 
 	cout << "\n"
 		<< "|====================================|\n"
@@ -475,8 +511,8 @@ int main(void)
 		<< "A_copy = A_constructor;\n";
 	A_copy = A_constructor;
 
-
-	/*	For exception handling phase
+	/*
+	//	For exception handling phase
 	// create array: use constructor
 	// set arr_size as negative
 	cout << "\n\nCreating Array with constructor\n\n";
@@ -491,8 +527,8 @@ int main(void)
 		A_negsize[i] = Point{ 2.2 * i, 1.5 * i };
 		cout << "element[" << i << "]: " << A_negsize[i] << endl;
 	}
+	//
 	*/
-
 
 	return 0;
 }
