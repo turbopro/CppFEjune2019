@@ -53,19 +53,22 @@ namespace Turbopro
 			: Shape{ Other.ID() }, m_radius{ Other.m_radius }, m_centrepoint{ Other.m_centrepoint } {}
 
 		// Destructor definition
-		Circle::~Circle() {}
+		Circle::~Circle() { std::cout << "Deleting: " << *this << std::endl; }
 
 		// ToString() definition
 		// use Point::ToString() to print Point object values
 		std::string Circle::ToString() const
 		{
+			// get string representation of base Shape object
+			std::string s = Shape::ToString();
+
 			// convert Circle object's radius to a string
 			std::ostringstream m_radius_conv;
 			m_radius_conv << m_radius;
 			std::string str_m_radius = m_radius_conv.str();
 
-			return ("Circle with radius: " + str_m_radius +
-				", and centrepoint: " + m_centrepoint.ToString());
+			return ("Circle" + s + " => Radius: " + str_m_radius +
+				", Centre" + m_centrepoint.ToString() + ")");
 		}
 
 		// overloaded operator methods

@@ -47,7 +47,7 @@ namespace Turbopro
 			: Shape{ Other.ID() }, m_startpoint{ Other.m_startpoint }, m_endpoint{ Other.m_endpoint } {}
 
 		// Destructor
-		Line::~Line() {}
+		Line::~Line() { std::cout << "Deleting: " << *this << std::endl; }
 
 		// ToString() 
 		// use Point::ToString() of the Point objects
@@ -56,8 +56,8 @@ namespace Turbopro
 			// get string representation of base Shape object
 			std::string s = Shape::ToString();
 
-			return (s + " :: Line(" + m_startpoint.ToString() +
-				", " + m_endpoint.ToString() + ")");
+			return ("Line" + s + " => (Start" + m_startpoint.ToString() +
+				", End" + m_endpoint.ToString() + ")");
 		}
 
 		// Length()

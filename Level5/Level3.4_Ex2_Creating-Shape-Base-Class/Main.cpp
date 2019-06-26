@@ -136,7 +136,6 @@ int main(void)
 	//if (!(user_input_geom(x, geom_id, x_coord))) { return 0; }		// If user_input returns false, 
 	//if (!(user_input_geom(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
 
-	/*
 	// create P1 with default constructor on the Heap: use new
 	Shape S1, S2, S3;
 
@@ -151,14 +150,19 @@ int main(void)
 	cout << "S3 has " << S3.ToString() << endl << endl;
 
 	// assign S3 to S2
-	cout << "S2 = S3: " << (S3 = S2).ToString() << endl;
-	cout << "S3 has " << S3.ToString() << endl << endl;
+	cout << "\nS2 = S3 results in:\n";
+	S2 = S3;
+	cout << "S2 ID: " << S2.ID() << endl << endl;
 
 	// copy S1 to S3
+	cout << "\nCopy S1 to new Shape S4:\n";
 	Shape S4(S1);
 	cout << "S4: " << S4.ToString() << endl << endl;
-	*/
-	cout << "\n------------------------------\n";
+	
+	
+	cout << "\nExercise Tests:\n"
+		<< "------------------------------\n\n";
+	
 	Shape s; // Create shape.
 	Point p(10, 20); // Create point.
 	Line l(Point(1, 2), Point(3, 4)); // Create line.
@@ -167,12 +171,10 @@ int main(void)
 	cout << "p.ToString(): " << p.ToString() << endl; // Print point.
 	cout << "l.ToString(): " << l.ToString() << endl; // Print line
 
-	cout << "------------------------------\n";
-
-
-	cout << "\nShape ID: " << s.ID() << endl; // ID of the shape.
-	cout << "Point ID: " << p.ID() << endl; // ID of the point. Does this work?
-	cout << "Line ID: " << l.ID() << endl; // ID of the line. Does this work?
+	
+	cout << "\n   Shape s ID: " << s.ID() << endl; // ID of the shape.
+	cout << "Yes, Point p ID: " << p.ID() << endl; // ID of the point. Does this work?
+	cout << "Yes,  Line l ID: " << l.ID() << endl; // ID of the line. Does this work?
 
 	Shape* sp; // Create pointer to a shape variable.
 	sp = &p; // Point in a shape variable. Possible?
@@ -186,10 +188,10 @@ int main(void)
 	cout << "\n\nlast P: " << p << ", " << p.ID() << endl;
 	cout << "\n\nlast P2: " << p2 << ", " << p2.ID() << endl;
 
+	cout << "------------------------------\n";
 
 
-
-	/*
+	
 	cout << "\n"
 		<< "|====================================|\n"
 		<< "|       POINTS on the Heap:          |\n"
@@ -197,6 +199,7 @@ int main(void)
 
 	// get coordinates for first Point object P1
 	string geom_id{ "Point 1" };
+	/*
 	// check if user hit Ctrl-Z to quit
 	if (!(user_input_geom(x, geom_id, x_coord))) { return 0; }		// If user_input returns false, 
 	if (!(user_input_geom(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
@@ -386,7 +389,7 @@ int main(void)
 	cout << "\nLine L3: " << L3 << endl << endl;
 	cout << "Line L3: " << L3.ToString() << endl << endl;
 
-	/*
+	
 	
 	cout << "\n"
 		<< "|========================|\n"
@@ -446,130 +449,9 @@ int main(void)
 	C3 = C3;
 
 	// print C3
-	cout << "\nCircle C3: " << C3 << endl;
+	cout << "\nCircle C3: " << C3 
+		<< "\n\nCircle 3 to string: " << C3.ToString() << endl;
 
-
-	
-	cout << "\n\n"
-		<< "|====================================|\n"
-		<< "|           ARRAY Class:             |\n"
-		<< "|====================================|\n\n";
-
-	// create array: use default constructor
-	Array A_default;
-
-	// print A_default
-	arr_size = A_default.Size();		// set arr_size with size of A_default
-	cout << "Array, A_default, created from default constructor has " 
-		<< arr_size << " elements:\n";
-	for (unsigned int i = 0; i < arr_size; i++)
-		cout << "element[" << i << "]: " << A_default[i] << endl;
-
-	// assign new Points to Array created from default constructor, and print array
-	cout << "\n\nAssigning Points to A_default\nElements in the Array:\n";
-	for (unsigned int i = 0; i < arr_size; i++)
-	{
-		// create Points via Point constructor; use Array overloaded [] operator
-		A_default[i] = Point{ 1.7 * i, 3.6 * i };
-		cout << "element[" << i << "]: " << A_default[i] << endl;
-	}
-
-
-	// create array: use constructor
-	// get and set arr_size from user
-	cout << "\n\nCreating Array with constructor\n\n";
-	if (!(user_input_array(arr_size))) { return 0; }	// user entered Ctrl-Z to quit
-	cout << "user entered: " << arr_size << endl;
-
-	Array A_constructor{ arr_size };
-
-	// populate and print A_constructor
-	cout << "\nArray, A_constructor, created with constructor has "
-		<< arr_size << " elements:\n";
-	for (unsigned int i = 0; i < arr_size; i++)
-	{
-		A_constructor[i] = Point{ 2.2 * i, 1.5 * i };
-		cout << "element[" << i << "]: " << A_constructor[i] << endl;
-	}
-
-
-	// create array: use copy constructor and copy A_constructor
-	cout << "\n\nCreating Array with copy constructor\n\n";
-	Array A_copy(A_constructor);
-	
-	// print copy constructor array
-	arr_size = A_copy.Size();
-	cout << "Array, A_copy, is a copy of A_constructor\nElements in Array:\n";
-	for (unsigned int i = 0; i < arr_size; i++)
-		cout << "element[" << i << "]: " << A_copy[i] << endl;
-
-
-	// self assign Array a to iself
-	cout << "\n\nSelf assignment of A_copy:\n";
-	A_copy = A_copy;
-	
-	cout << "\n\nnon-const Point& Array::operator[]()\n"
-		<< "get an element from the array using a valid index (0, ..., 2)\n"
-		<< "\nA_copy[2]: " << A_copy[2] << endl << endl;
-
-	cout << "\nnon-const Point& Array::operator[]()\n"
-		<< "get an element from the array using an invalid index (>2)\n"
-		<< "\nA_copy[5]: \n";
-	cout << A_copy[5] << endl << endl;
-
-	
-	cout << "\nnon-const Point& Array::operator[]()\n"
-		<< "set an element to the array using a valid index (0, ..., 2)\n"
-		<< "A_copy[1] = P0;			(P0 = Point(5, 3.3)\n";
-	Point P0{ 5, 3.3 };
-	A_copy[1] = P0;
-	// print Array
-	cout << "\nA_copy[1]: " << A_copy[1] << endl << endl;
-
-	cout << "\nnon-const Point& Array::operator[]()\n"
-		<< "set an element to the array using an invalid index (>2)\n"
-		<< "A_copy[5] = P0;			(P0 = Point(5, 3.3)\n";
-	A_copy[5] = P0;
-	// print Array
-	cout << "\n\nA_copy has elements:\n";
-	arr_size = A_copy.Size();
-	for (unsigned int i = 0; i < arr_size; i++)
-		cout << "element[" << i << "]: " << A_copy[i] << endl;
-
-	// unwanted side effect of Point& Array::operator[](unsigned int) function during a
-	// setter indexing operation
-	cout << "\nnon-const Point & Array::operator[](unsigned int) produces the unwanted\n"
-		<< "side effect of assigning the Point to the Array element 0 when the index\n"
-		<< "is out of range\n"
-		<< "Array element 0 should remain unchanged if the index is out of range\n"
-		<< "for a setter indexing operation\n";
-
-	// const Point& Array::operator(unsigned int) const function
-	cout << "\n\nassign A_constructor to A_copy\n"
-		<< "this assignment makes use of the const Point& operator[]() const function\n"
-		<< "to protect the const Other& object in the Array& operator=(const Array&)\n"
-		<< "assignment function:\n"
-		<< "A_copy = A_constructor;\n";
-	A_copy = A_constructor;
-
-	///*
-	//	For exception handling phase
-	// create array: use constructor
-	// set arr_size as negative
-	cout << "\n\nCreating Array with constructor\n\n";
-	arr_size = -5;
-	Array A_negsize{ arr_size };
-
-	// populate and print A_constructor
-	cout << "\nArray, A_constructor, created with constructor has "
-		<< arr_size << " elements:\n";
-	for (unsigned int i = 0; i < arr_size; i++)
-	{
-		A_negsize[i] = Point{ 2.2 * i, 1.5 * i };
-		cout << "element[" << i << "]: " << A_negsize[i] << endl;
-	}
-	//
-	*/
-
+		
 	return 0;
 }

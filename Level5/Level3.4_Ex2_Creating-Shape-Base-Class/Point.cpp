@@ -43,7 +43,7 @@ namespace Turbopro
 		{
 			//m_x = x_coord;
 			//m_y = y_coord;
-			std::cout << "POINT: constructor\n";
+			//std::cout << "POINT: param constructor\n";
 		}
 
 		// single argument constructor using colon syntax initialiser
@@ -51,21 +51,21 @@ namespace Turbopro
 		//Point::Point(double uni_coord) : m_x{ uni_coord }, m_y{ uni_coord } {}
 		Point::Point(double uni_coord) : Shape{}, m_x{ uni_coord }, m_y{ uni_coord }
 		{
-			std::cout << "POINT: single argument constructor\n"; 
+			//std::cout << "POINT: single argument constructor\n"; 
 		}
 
 		// default constructor
 		//Point::Point() : m_x{ 0 }, m_y{ 0 } {}
 		Point::Point() : Shape{}, m_x { 0 }, m_y{ 0 }
 		{
-			std::cout << "POINT: default constructor\n";
+			//std::cout << "POINT: default constructor\n";
 		}
 
 		// copy constructor
 		//Point::Point(const Point& Other) : m_x{ Other.m_x }, m_y{ Other.m_y } {}
 		Point::Point(const Point& Other) : Shape{ Other.ID() } , m_x { Other.m_x }, m_y{ Other.m_y }
 		{
-			std::cout << "POINT: copy constructor\n";
+			// std::cout << "POINT: copy constructor\n";
 		}
 
 		// Destructor
@@ -91,7 +91,7 @@ namespace Turbopro
 			std::string str_m_y = m_y_conv.str();
 
 			// return string with format: "Point(x, y)"
-			return (s + " :: Point(" + str_m_x + ", " + str_m_y + ")");
+			return ("Point" + s + " => Point(" + str_m_x + ", " + str_m_y + ")");
 		}
 
 		// Distance() point from origin
