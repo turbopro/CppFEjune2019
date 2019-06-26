@@ -136,6 +136,7 @@ int main(void)
 	//if (!(user_input_geom(x, geom_id, x_coord))) { return 0; }		// If user_input returns false, 
 	//if (!(user_input_geom(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
 
+	/*
 	// create P1 with default constructor on the Heap: use new
 	Shape S1, S2, S3;
 
@@ -156,10 +157,39 @@ int main(void)
 	// copy S1 to S3
 	Shape S4(S1);
 	cout << "S4: " << S4.ToString() << endl << endl;
+	*/
+	cout << "\n------------------------------\n";
+	Shape s; // Create shape.
+	Point p(10, 20); // Create point.
+	Line l(Point(1, 2), Point(3, 4)); // Create line.
+
+	cout << "s.ToString(): " << s.ToString() << endl; // Print shape.
+	cout << "p.ToString(): " << p.ToString() << endl; // Print point.
+	cout << "l.ToString(): " << l.ToString() << endl; // Print line
+
+	cout << "------------------------------\n";
+
+
+	cout << "\nShape ID: " << s.ID() << endl; // ID of the shape.
+	cout << "Point ID: " << p.ID() << endl; // ID of the point. Does this work?
+	cout << "Line ID: " << l.ID() << endl; // ID of the line. Does this work?
+
+	Shape* sp; // Create pointer to a shape variable.
+	sp = &p; // Point in a shape variable. Possible?
+	cout << "\nsp->ToString():" << sp->ToString() << endl; // What is printed?
+
+	// Create and copy Point p to new point.
+	Point p2;
+	cout << "\n\nP2 after default start: " << p2 << ", " << p2.ID() << endl;
+	p2 = p;
+	// Is the ID copied if you do not call the base class assignment in point?
+	cout << "\n\nlast P: " << p << ", " << p.ID() << endl;
+	cout << "\n\nlast P2: " << p2 << ", " << p2.ID() << endl;
 
 
 
 
+	/*
 	cout << "\n"
 		<< "|====================================|\n"
 		<< "|       POINTS on the Heap:          |\n"
@@ -295,35 +325,12 @@ int main(void)
 	cout << "6 * Pc:\n"
 		<< "6 * Pc = " << (6 * Pc) << "\n\n\n";
 
-	cout << "------------------------------\n";
-	Shape s; // Create shape.
-	Point p(10, 20); // Create point.
-	Line l(Point(1, 2), Point(3, 4)); // Create line.
-
-	cout << s.ToString() << endl; // Print shape.
-	cout << p.ToString() << endl; // Print point.
-	cout << l.ToString() << endl; // Print line
-
-	cout << "------------------------------\n";
-
-/*
-	cout << "Shape ID: " << s.ID() << endl; // ID of the shape.
-	cout << "Point ID: " << p.ID() << endl; // ID of the point. Does this work?
-	//cout << "Line ID: " << l.ID() << endl; // ID of the line. Does this work?
-
-	Shape* sp; // Create pointer to a shape variable.
-	sp = &p; // Point in a shape variable. Possible?
-	cout << sp->ToString() << endl; // What is printed?
-
-	// Create and copy Point p to new point.
-	Point p2;
-	p2 = p;
-	cout << p2 << ", " << p2.ID() << endl; // Is the ID copied if you do not call the base class assignment in point?
-
 	*/
+	 
 
+	
 
-	/*
+	
 	cout << "\n\n"
 		<< "|========================|\n"
 		<< "|        LINES:          |\n"
@@ -352,7 +359,8 @@ int main(void)
 	L2.EndPoint(P2);
 
 	// print L2
-	cout << "Line L2: " << L2 << endl << endl;
+	cout << "Line L2: " << L2 
+		<< "\nas derived from Shape, L2: " << L2.ID() << endl << endl;
 
 	// create a line: use copy constructor 
 	cout << "Copy L1 to new Line, L3, using copy constructor:\n";
@@ -367,7 +375,8 @@ int main(void)
 	Line L4 = L2;
 
 	// print L4
-	cout << "Line L4 = L2: " << L4 << endl << endl;
+	cout << "Line L4 = L2: " << L4 
+		<< "\nas derived from Shape, L4: " << L4.ID() << endl << endl;
 
 	// assignment operator '=': self assignment check
 	cout << "Self assignment: L3 to L3:\n";
@@ -375,9 +384,10 @@ int main(void)
 
 	// print L3
 	cout << "\nLine L3: " << L3 << endl << endl;
+	cout << "Line L3: " << L3.ToString() << endl << endl;
 
-
-
+	/*
+	
 	cout << "\n"
 		<< "|========================|\n"
 		<< "|      CIRCLES:          |\n"
@@ -401,7 +411,8 @@ int main(void)
 		<< "\nC1 centrepoint " << C1.CentrePoint()
 		<< "\nC1 diameter = " << C1.Diameter()
 		<< "\nC1 circumference = " << C1.Circumference()
-		<< "\nC1 area = " << C1.Area() << endl << endl;
+		<< "\nC1 area = " << C1.Area() 
+		<< "\nas derived from Shape, C1: " << C1.ID() << endl << endl;
 
 	// get coordinates for Point object Pc2 for Circle object C2
 	geom_id = "Circle 2";
@@ -419,14 +430,16 @@ int main(void)
 	C2.CentrePoint(Pc2);
 
 	// print C2
-	cout << "Circle C2: " << C2 << endl << endl;
+	cout << "Circle C2: " << C2 
+		<< "\nas derived from Shape, C2: " << C2.ID() << endl << endl;
 
 	// assignment operator '=': assign C1 to C3
 	cout << "Assign C1 to C3\n";
 	Circle C3 = C1;
 
 	// print C3
-	cout << "Circle C3 = C1: " << C3 << endl << endl;
+	cout << "Circle C3 = C1: " << C3 
+		<< "\nas derived from Shape, C3: " << C3.ID() << endl << endl;
 
 	// assignment operator '=': self assignment check
 	cout << "Self assignment: C3 to C3:\n";
@@ -539,7 +552,7 @@ int main(void)
 		<< "A_copy = A_constructor;\n";
 	A_copy = A_constructor;
 
-	
+	///*
 	//	For exception handling phase
 	// create array: use constructor
 	// set arr_size as negative

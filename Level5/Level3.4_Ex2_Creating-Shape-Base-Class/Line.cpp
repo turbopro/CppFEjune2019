@@ -37,14 +37,14 @@ namespace Turbopro
 	{
 		// constructor using colon syntax initialiser
 		Line::Line(const Point& startpoint, const Point& endpoint)
-			: m_startpoint{ startpoint }, m_endpoint{ endpoint } {}
+			: Shape {}, m_startpoint{ startpoint }, m_endpoint{ endpoint } {}
 
 		// default constructor
-		Line::Line() : m_startpoint{ Point{ 0, 0 } }, m_endpoint{ Point{ 0, 0 } } {}
+		Line::Line() : Shape{}, m_startpoint{ Point{ 0, 0 } }, m_endpoint{ Point{ 0, 0 } } {}
 
 		// copy constructor
 		Line::Line(const Line& Other) 
-			: m_startpoint{ Other.m_startpoint }, m_endpoint{ Other.m_endpoint } {}
+			: Shape{ Other.ID() }, m_startpoint{ Other.m_startpoint }, m_endpoint{ Other.m_endpoint } {}
 
 		// Destructor
 		Line::~Line() {}
@@ -53,8 +53,11 @@ namespace Turbopro
 		// use Point::ToString() of the Point objects
 		std::string Line::ToString() const
 		{
-			return ("Line with startpoint: " + m_startpoint.ToString() +
-				", and endpoint: " + m_endpoint.ToString());
+			// get string representation of base Shape object
+			std::string s = Shape::ToString();
+
+			return (s + " :: Line(" + m_startpoint.ToString() +
+				", " + m_endpoint.ToString() + ")");
 		}
 
 		// Length()
@@ -71,6 +74,7 @@ namespace Turbopro
 			if (this == &Other) { return *this; }
 			else
 			{
+				Shape::operator=(Other.ID());
 				m_startpoint = Other.m_startpoint;
 				m_endpoint = Other.m_endpoint;
 				return *this;

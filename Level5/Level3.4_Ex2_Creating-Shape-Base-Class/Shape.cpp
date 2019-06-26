@@ -56,7 +56,7 @@ namespace Turbopro
 			std::string str_m_id_number = m_id_number_conv.str();
 
 			// return string with format: "ID: 123"
-			return ("ID: " + str_m_id_number);
+			return ("ID# " + str_m_id_number);
 		}
 
 		// overloaded operator methods

@@ -63,11 +63,8 @@ namespace Turbopro
 
 		// copy constructor
 		//Point::Point(const Point& Other) : m_x{ Other.m_x }, m_y{ Other.m_y } {}
-		Point::Point(const Point& Other) : Shape(.ID) //, m_x { Other.m_x }, m_y{ Other.m_y }
+		Point::Point(const Point& Other) : Shape{ Other.ID() } , m_x { Other.m_x }, m_y{ Other.m_y }
 		{
-			//this. = Other.ID;
-			m_x = Other.m_x;
-			m_y = Other.m_y;
 			std::cout << "POINT: copy constructor\n";
 		}
 
@@ -81,6 +78,9 @@ namespace Turbopro
 		// ToString()
 		std::string Point::ToString() const
 		{
+			// get string representation of base Shape object
+			std::string s = Shape::ToString();
+
 			// create stream objects for conversion of data members
 			std::ostringstream m_x_conv, m_y_conv;
 			m_x_conv << m_x;
@@ -91,7 +91,7 @@ namespace Turbopro
 			std::string str_m_y = m_y_conv.str();
 
 			// return string with format: "Point(x, y)"
-			return ("Point(" + str_m_x + ", " + str_m_y + ")");
+			return (s + " :: Point(" + str_m_x + ", " + str_m_y + ")");
 		}
 
 		// Distance() point from origin
@@ -140,10 +140,11 @@ namespace Turbopro
 			if (this == &Other) { return *this; }
 			else
 			{
+				Shape::operator=(Other.ID());
 				m_x = Other.m_x;
 				m_y = Other.m_y;
+				std::cout << "POINT: assigned\n";
 				return *this;
-				//std::cout << "POINT: assigned\n";
 			}
 		}
 

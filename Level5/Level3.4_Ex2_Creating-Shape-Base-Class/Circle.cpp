@@ -43,14 +43,14 @@ namespace Turbopro
 	{
 		// constructor using colon syntax initialiser
 		Circle::Circle(const double& radius, const Point& centrepoint)
-			: m_radius{ radius }, m_centrepoint{ centrepoint } {}
+			: Shape{}, m_radius{ radius }, m_centrepoint{ centrepoint } {}
 
 		// default constructor
-		Circle::Circle() : m_radius{ 0.0 }, m_centrepoint{ Point{ 0, 0 } } {}
+		Circle::Circle() : Shape{}, m_radius{ 0.0 }, m_centrepoint{ Point{ 0, 0 } } {}
 
 		// copy constructor
 		Circle::Circle(const Circle& Other)
-			: m_radius{ Other.m_radius }, m_centrepoint{ Other.m_centrepoint } {}
+			: Shape{ Other.ID() }, m_radius{ Other.m_radius }, m_centrepoint{ Other.m_centrepoint } {}
 
 		// Destructor definition
 		Circle::~Circle() {}
@@ -75,6 +75,7 @@ namespace Turbopro
 			if (this == &Other) { return *this; }
 			else
 			{
+				Shape::operator=(Other.ID());
 				m_radius = Other.m_radius;
 				m_centrepoint = Other.m_centrepoint;
 				return *this;

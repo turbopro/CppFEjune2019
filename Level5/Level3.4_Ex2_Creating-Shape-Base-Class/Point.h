@@ -3,7 +3,9 @@ Level3.4_Ex2: Simple Inheritance: Creating Shape Base Class
  
 header file for the Point class
 
-Our Point class has private members for the x- and y-coordinates. 
+Our Point class is now derived from the Shape class
+Point class has private members for the x- and y-coordinates
+
 We include the following public functionality (see Figure 1 in this project's image folder):
  · Default constructor
  · Destructor
@@ -82,7 +84,7 @@ namespace Turbopro
 	namespace CAD
 	{
 		// Point class declaration
-		class Point	:	public Shape
+		class Point	:	public Shape			// derived from Turbopro::CAD::Shape
 		{
 		private:
 			double m_x;
@@ -100,7 +102,7 @@ namespace Turbopro
 			const double& Y() const { return m_y; }			// inline y coordinate getter
 			//void Y(const double& newY) { m_y = newY; }	// inline y coordinate setter
 			void Y(const double& newY);						// y coordinate setter
-			std::string ToString() const;					// print the Point coordinates
+			virtual std::string ToString() const;			// print the Point coordinates
 			double Distance() const;						// distance from the origin
 			double Distance(const Point& Other) const;		// distance between two points
 
