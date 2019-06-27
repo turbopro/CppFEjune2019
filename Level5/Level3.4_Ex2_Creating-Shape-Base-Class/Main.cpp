@@ -130,12 +130,6 @@ int main(void)
 		<< "|              SHAPES                |\n"
 		<< "|====================================|\n\n";
 
-	// get coordinates for first Point object P1
-	//string geom_id{ "Point 1" };
-	// check if user hit Ctrl-Z to quit
-	//if (!(user_input_geom(x, geom_id, x_coord))) { return 0; }		// If user_input returns false, 
-	//if (!(user_input_geom(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
-
 	// create P1 with default constructor on the Heap: use new
 	Shape S1, S2, S3;
 
@@ -192,152 +186,10 @@ int main(void)
 	cout << "\nP2: " << p2 << ", " << p2.ID() << endl;
 	cout << "\nNo, the ID is not copied if you do not call the base class assignment\n";
 
-	cout << "------------------------------\n";
+	cout << "\nEnd Exercise Tests:\n"
+		<< "------------------------------\n\n";
 
 
-	
-	cout << "\n"
-		<< "|====================================|\n"
-		<< "|       POINTS on the Heap:          |\n"
-		<< "|====================================|\n\n";
-
-	// get coordinates for first Point object P1
-	string geom_id{ "Point 1" };
-	/*
-	// check if user hit Ctrl-Z to quit
-	if (!(user_input_geom(x, geom_id, x_coord))) { return 0; }		// If user_input returns false, 
-	if (!(user_input_geom(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
-
-	// create P1 with default constructor on the Heap: use new
-	Point* p_P1 = new Point;
-
-	// set x, y coordinates with user input values
-	p_P1->X(x);
-	p_P1->Y(y);
-	// print P1
-	cout << "(*p_P1) Point by default constructor is: " << *p_P1
-		<< "\nDistance from origin: " << fixed << setprecision(2)
-		<< p_P1->Distance() << endl << endl;
-
-	// create second Point object P2
-	// get user input
-	geom_id = "Point 2";
-	if (!(user_input_geom(x, geom_id, x_coord))) { return 0; }		// If user_input returns false, 
-	if (!(user_input_geom(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
-
-	// create P2 with constructor on the Heap: use new
-	//Point P2{ x, y };
-	Point* p_P2 = new Point{ x, y };
-
-	// print P2
-	cout << "(*p_P2) Point by constructor is: " << *p_P2
-		<< "\nDistance from origin: " << fixed << setprecision(2)
-		<< p_P2->Distance() << endl << endl;
-
-	// create P3 with copy constructor on the Heap: use new
-	Point* p_P3 = new Point(*p_P2);
-
-	// print P3
-	cout << "(*p_P3) Point by copy constructor is: " << *p_P3
-		<< "\nDistance from origin: " << fixed << setprecision(2)
-		<< p_P3->Distance() << endl << endl;
-
-	// cleanup Heap: delete Points
-	cout << "deleting Points...\n";
-	delete p_P1;
-	delete p_P2;
-	delete p_P3;
-
-	cout << endl;
-	// build array of Points using Heap
-	// get array size from user
-	// If user_input_array returns false, user entered Ctrl-Z to quit
-	if (!(user_input_array(arr_size))) { return 0; }
-
-	// create Point array on Heap: use runtime arr_size
-	cout << "Creating Point array on the Heap:\n";
-	Point* p_PointArray{ new Point[arr_size] };
-
-	// loop and create Points on the Heap
-	// print each point
-	for (unsigned int i = 0; i < arr_size; i++)
-	{
-		p_PointArray[i].X(2.5 * i);
-		p_PointArray[i].Y(1.5 * i);
-		cout << "Point array[" << i << "]: " << p_PointArray[i] << endl;
-	}
-	cout << endl;
-	// cleanup Heap: delete [] array
-	cout << "deleting Point array...\n";
-	delete[] p_PointArray;
-
-
-	// create a 3-element array of pointers to Points on the Heap
-	cout << "\nCreating a 3-element array of pointers to Points on the Heap:\n";
-	unsigned int p_arr_size = 3;
-	Point** pp_parray = new Point * [p_arr_size];
-
-	// loop and create a Point for each pointer on the Heap
-	// print each point
-	for (unsigned int i = 0; i < p_arr_size; i++)
-	{
-		pp_parray[i] = new Point{ 1.25 * i, 2.15 * i };		// create Point on the Heap 
-		cout << "pointer to Point pointer array[" << i << "]: " << *pp_parray[i] << endl;
-	}
-
-	cout << endl;
-	// cleanup Heap: delete the points
-	for (unsigned int i = 0; i < p_arr_size; i++)
-	{
-		//cout << "deleting " << *pp_parray[i] << "..." << endl;
-		delete pp_parray[i];
-	}
-
-	// cleanup Heap: delete [] array
-	cout << "deleting 3-element array...\n\n";
-	delete[] pp_parray;
-
-	// test euality
-	// create points with same coordinates and test equality
-	cout << "Create Points Pa and Pb with same coordinates:\n";
-	Point Pa{ 1, 1 };
-	Point Pb{ 1, 1 };
-	cout << "Pa: " << Pa << endl;
-	cout << "Pb: " << Pb << endl;
-	if (Pa == Pb) {cout << "Pa == Pb\n\n"; }
-	else { cout << "Pa != Pb\n\n"; }
-
-	// test self assign
-	cout << "Self assigning Pb to itself:\n\n";
-	Pb = Pb;
-
-	// assign Pa to Pc
-	cout << "assign Pa to new Point Pc\n";
-	Point Pc;
-	Pc = Pa;
-	cout << "Pc: " << Pc << "\n\n";
-
-	// negate Pa
-	cout << "Negating Point Pa:\n"
-		<< -Pa << "\n\n";
-
-	// add Pa + Pb
-	cout << "Pa + Pb = " << (Pa + Pb) << "\n\n";
-
-	// scale Pa by 3
-	cout << "scale Pa by 3:\n"
-		<< "Pa * 3 = " << (Pa * 3) << "\n\n";
-
-	// multiply 6 by Pc
-	cout << "6 * Pc:\n"
-		<< "6 * Pc = " << (6 * Pc) << "\n\n\n";
-
-	*/
-	 
-
-	
-
-	
 	cout << "\n\n"
 		<< "|========================|\n"
 		<< "|        LINES:          |\n"
@@ -401,7 +253,7 @@ int main(void)
 		<< "|========================|\n\n";
 
 	// get coordinates for Point object Pc1 for Circle object C1
-	geom_id = "Circle 1";
+	string geom_id = "Circle 1";
 	if (!(user_input_geom(x, geom_id, x_coord))) { return 0; }		// If user_input returns false,
 	if (!(user_input_geom(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
 	if (!(user_input_geom(r, geom_id, radius))) { return 0; }

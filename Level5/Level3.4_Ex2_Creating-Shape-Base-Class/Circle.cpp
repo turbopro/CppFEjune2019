@@ -50,10 +50,10 @@ namespace Turbopro
 
 		// copy constructor
 		Circle::Circle(const Circle& Other)
-			: Shape{ Other.ID() }, m_radius{ Other.m_radius }, m_centrepoint{ Other.m_centrepoint } {}
+			: Shape{ Other }, m_radius{ Other.m_radius }, m_centrepoint{ Other.m_centrepoint } {}
 
 		// Destructor definition
-		Circle::~Circle() { std::cout << "Deleting: " << *this << std::endl; }
+		Circle::~Circle() {}
 
 		// ToString() definition
 		// use Point::ToString() to print Point object values
@@ -78,7 +78,7 @@ namespace Turbopro
 			if (this == &Other) { return *this; }
 			else
 			{
-				Shape::operator=(Other.ID());
+				Shape::operator=(Other);
 				m_radius = Other.m_radius;
 				m_centrepoint = Other.m_centrepoint;
 				return *this;

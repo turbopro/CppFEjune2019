@@ -79,8 +79,7 @@ namespace Turbopro
 
 			// overloaded operator methods
 			Line& operator=(const Line& Other);								// assignment operator
-			// ostream operator <<
-			friend std::ostream& operator<<(std::ostream& os, const Line& l);
+			friend std::ostream& operator<<(std::ostream& os, const Line& l);	// ostream operator <<
 		};
 
 		inline void Line::StartPoint(const Point& newP) { m_startpoint = newP; }	// inline startpoint point setter

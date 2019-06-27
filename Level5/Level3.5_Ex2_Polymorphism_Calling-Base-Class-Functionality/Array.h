@@ -1,5 +1,5 @@
 /* Array.h
-Level3.4_Ex2: Simple Inheritance: Creating Shape Base Class
+Level3.5_Ex2: Polymorphism - Calling Base Class Functionality
  
 header file for the Array class
 

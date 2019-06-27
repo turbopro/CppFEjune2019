@@ -131,7 +131,7 @@ int main(void)
 
 	// get coordinates for first Point object P1
 	string geom_id{ "Point 1" };
-	// check if user hit Ctrl-Z to quit
+	// check if user entered Ctrl-Z to quit
 	if (!(user_input_geom(x, geom_id, x_coord))) { return 0; }		// If user_input returns false, 
 	if (!(user_input_geom(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
 
@@ -492,7 +492,6 @@ int main(void)
 		cout << "element[" << i << "]: " << A_negsize[i] << endl;
 	}
 	*/
-
-
+	
 	return 0;
 }

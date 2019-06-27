@@ -1,5 +1,5 @@
 /* UserInput.cpp
-Level3.4_Ex2: Simple Inheritance: Creating Shape Base Class
+Level3.5_Ex1: Polymorphism - Polymorphic ToString() Function
 
 Source file with definition for user_input()
 

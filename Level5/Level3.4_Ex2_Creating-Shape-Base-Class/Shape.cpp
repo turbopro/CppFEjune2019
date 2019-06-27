@@ -22,7 +22,7 @@ the Shape class is part of the Turbopro::CAD namespace
 
 #include <iostream>
 #include <sstream>			// for std::ostringstream() function in ToString() member function
-//#include <string>			// for std::string() function in ToString() member function
+#include <string>			// for std::string() function in ToString() member function
 #include "Shape.h"			// Shape class declaration
 #include <stdlib.h>			// for rand() function
 
@@ -70,12 +70,5 @@ namespace Turbopro
 				return *this;
 			}
 		}
-
-		// overloaded ostream operator <<
-		//std::ostream& operator<<(std::ostream& os, const Line& l)
-		//{
-		//	return os << "Line with startpoint: " << l.m_startpoint
-		//		<< ", and endpoint: " << l.m_endpoint;
-		//}
 	}
 }

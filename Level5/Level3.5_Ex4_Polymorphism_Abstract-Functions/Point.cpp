@@ -63,7 +63,7 @@ namespace Turbopro
 
 		// copy constructor
 		//Point::Point(const Point& Other) : m_x{ Other.m_x }, m_y{ Other.m_y } {}
-		Point::Point(const Point& Other) : Shape{ Other.ID() } , m_x { Other.m_x }, m_y{ Other.m_y }
+		Point::Point(const Point& Other) : Shape{ Other } , m_x { Other.m_x }, m_y{ Other.m_y }
 		{
 			// std::cout << "POINT: copy constructor\n";
 		}
@@ -140,7 +140,7 @@ namespace Turbopro
 			if (this == &Other) { return *this; }
 			else
 			{
-				Shape::operator=(Other.ID());
+				Shape::operator=(Other);
 				m_x = Other.m_x;
 				m_y = Other.m_y;
 				//std::cout << "POINT: assigned\n";

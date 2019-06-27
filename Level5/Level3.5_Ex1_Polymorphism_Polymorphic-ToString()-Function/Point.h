@@ -1,5 +1,5 @@
 /* Point.h
-Level3.4_Ex2: Simple Inheritance: Creating Shape Base Class
+Level3.5_Ex1: Polymorphism - Polymorphic ToString() Function
  
 header file for the Point class
 
@@ -97,10 +97,8 @@ namespace Turbopro
 			Point(const Point& Other);						// copy constructor
 			~Point();										// destructor
 			const double& X() const { return m_x; }			// inline x coordinate getter
-			//void X(const double& newX) { m_x = newX; }	// inline x coordinate setter
 			void X(const double& newX);						// x coordinate setter
 			const double& Y() const { return m_y; }			// inline y coordinate getter
-			//void Y(const double& newY) { m_y = newY; }	// inline y coordinate setter
 			void Y(const double& newY);						// y coordinate setter
 			virtual std::string ToString() const;			// print the Point coordinates
 			double Distance() const;						// distance from the origin

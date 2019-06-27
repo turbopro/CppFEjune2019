@@ -1,5 +1,5 @@
 /* Circle.h
-Level3.4_Ex2: Simple Inheritance: Creating Shape Base Class
+Level3.5_Ex1: Polymorphism - Polymorphic ToString() Function
  
 header file for the Circle class
 
@@ -72,7 +72,7 @@ namespace Turbopro
 {
 	namespace CAD
 	{
-		// Point class declaration
+		// Circle class declaration
 		class Circle	:	public Shape			// derived from Turbopro::CAD::Shape
 		{
 		private:
@@ -85,10 +85,8 @@ namespace Turbopro
 			Circle(const Circle& Other);									// copy constructor
 			~Circle();														// destructor
 			const double& Radius() const { return m_radius; }				// inline radius getter
-			//void Radius(const double& newR) { m_radius = newR; }			// inline radius setter
 			void Radius(const double& newR);								// radius setter
 			const Point& CentrePoint() const { return m_centrepoint; }		// inline centrepoint getter
-			//void CentrePoint(const Point& newP) { m_centrepoint = newP; }	// inline centrepoint setter
 			void CentrePoint(const Point& newP);							// centrepoint setter
 			virtual std::string ToString() const;							// print the Circle radius and coordinates
 			double Diameter() const { return 2 * m_radius; }				// inline distance through the centre between two points on the circle
@@ -97,8 +95,7 @@ namespace Turbopro
 
 			// overloaded operator methods
 			Circle& operator=(const Circle& Other);							// assignment operator
-			// ostream operator <<
-			friend std::ostream& operator<<(std::ostream& os, const Circle& c);
+			friend std::ostream& operator<<(std::ostream& os, const Circle& c);	// ostream operator <<
 		};
 
 		inline void Circle::Radius(const double& newR) { m_radius = newR; }				// inline radius setter

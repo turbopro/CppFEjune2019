@@ -1,5 +1,5 @@
 /* Circle.cpp
-Level3.4_Ex2: Simple Inheritance: Creating Shape Base Class
+Level3.5_Ex1: Polymorphism - Polymorphic ToString() Function
 
 Source file that implements the Circle class declared in the 
 Circle.h header file.
@@ -50,24 +50,21 @@ namespace Turbopro
 
 		// copy constructor
 		Circle::Circle(const Circle& Other)
-			: Shape{ Other.ID() }, m_radius{ Other.m_radius }, m_centrepoint{ Other.m_centrepoint } {}
+			: Shape{ Other }, m_radius{ Other.m_radius }, m_centrepoint{ Other.m_centrepoint } {}
 
 		// Destructor definition
-		Circle::~Circle() { std::cout << "Deleting: " << *this << std::endl; }
+		Circle::~Circle() {}
 
 		// ToString() definition
 		// use Point::ToString() to print Point object values
 		std::string Circle::ToString() const
 		{
-			// get string representation of base Shape object
-			std::string s = Shape::ToString();
-
 			// convert Circle object's radius to a string
 			std::ostringstream m_radius_conv;
 			m_radius_conv << m_radius;
 			std::string str_m_radius = m_radius_conv.str();
 
-			return ("Circle" + s + " => (Radius: " + str_m_radius +
+			return ("Circle => (Radius: " + str_m_radius +
 				", Centre" + m_centrepoint.ToString() + ")");
 		}
 
@@ -78,7 +75,7 @@ namespace Turbopro
 			if (this == &Other) { return *this; }
 			else
 			{
-				Shape::operator=(Other.ID());
+				Shape::operator=(Other);
 				m_radius = Other.m_radius;
 				m_centrepoint = Other.m_centrepoint;
 				return *this;

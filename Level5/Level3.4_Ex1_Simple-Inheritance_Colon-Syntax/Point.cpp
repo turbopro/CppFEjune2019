@@ -38,7 +38,6 @@ namespace Turbopro
 	namespace CAD
 	{
 		// constructor using colon syntax initialiser
-		//Point::Point(double x_coord, double y_coord) : m_x{ x_coord }, m_y{ y_coord } {}
 		Point::Point(double x_coord, double y_coord) : m_x{ x_coord }, m_y{ y_coord }
 		{
 			//std::cout << "POINT: constructor\n";
@@ -46,32 +45,16 @@ namespace Turbopro
 
 		// single argument constructor using colon syntax initialiser
 		// this constructor is used as an implicit conversion operator
-		//Point::Point(double uni_coord) : m_x{ uni_coord }, m_y{ uni_coord } {}
-		Point::Point(double uni_coord) : m_x{ uni_coord }, m_y{ uni_coord }
-		{
-			//std::cout << "POINT: single argument constructor\n"; 
-		}
+		Point::Point(double uni_coord) : m_x{ uni_coord }, m_y{ uni_coord } {}
 
 		// default constructor
-		//Point::Point() : m_x{ 0 }, m_y{ 0 } {}
-		Point::Point() : m_x{ 0 }, m_y{ 0 }
-		{
-			//std::cout << "POINT: default constructor\n";
-		}
+		Point::Point() : m_x{ 0 }, m_y{ 0 } {}
 
 		// copy constructor
-		//Point::Point(const Point& Other) : m_x{ Other.m_x }, m_y{ Other.m_y } {}
-		Point::Point(const Point& Other) : m_x{ Other.m_x }, m_y{ Other.m_y }
-		{
-			//std::cout << "POINT: copy constructor\n";
-		}
+		Point::Point(const Point& Other) : m_x{ Other.m_x }, m_y{ Other.m_y } {}
 
 		// Destructor
-		//Point::~Point() {}
-		Point::~Point()
-		{
-			//std::cout << "deleting: " << *this << "..." << std::endl;
-		}
+		Point::~Point() {}
 
 		// ToString()
 		std::string Point::ToString() const
@@ -102,34 +85,7 @@ namespace Turbopro
 				(Other.m_y - m_y) * (Other.m_y - m_y));
 		}
 
-		// overloading operators
-		// reverse the sign of the point
-		//Point Point::operator-() const
-		//{
-		//	return Point{ -m_x, -m_y };
-		//}
-
-		// add two points
-		//Point Point::operator+(const Point& Other) const
-		//{
-		//	return Point{ (m_x + Other.m_x), (m_y + Other.m_y) };
-		//}
-
-		// scale the point by factor n
-		//Point Point::operator*(double n) const
-		//{
-		//	return Point{ n * m_x, n * m_y };
-		//}
-
-		// multiply n by Point p
-		//Point operator*(double n, const Point& Other)
-		//{
-		//	return Other * n;
-		//}
-
-		// assignment operator
-		// check for self assignment
-		// return the Point, no need for output
+		// assignment operator: check for self assignment
 		Point& Point::operator=(const Point& Other)
 		{
 			if (this == &Other) { return *this; }
@@ -138,7 +94,6 @@ namespace Turbopro
 				m_x = Other.m_x;
 				m_y = Other.m_y;
 				return *this;
-				//std::cout << "POINT: assigned\n";
 			}
 		}
 
@@ -149,12 +104,6 @@ namespace Turbopro
 			m_y *= n;
 			return *this;
 		}
-
-		// equality operator
-		//bool Point::operator==(const Point& Other) const
-		//{
-		//	return (m_x == Other.m_x && m_y == Other.m_y);
-		//}
 
 		// overloaded ostream operator <<
 		std::ostream& operator<<(std::ostream& os, const Point& p)

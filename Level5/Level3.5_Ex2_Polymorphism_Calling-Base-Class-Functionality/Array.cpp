@@ -1,5 +1,5 @@
 /* Array.cpp
-Level3.4_Ex2: Simple Inheritance: Creating Shape Base Class
+Level3.5_Ex2: Polymorphism - Calling Base Class Functionality
 
 Source file that implements the Array class declared in the 
 Array.h header file.

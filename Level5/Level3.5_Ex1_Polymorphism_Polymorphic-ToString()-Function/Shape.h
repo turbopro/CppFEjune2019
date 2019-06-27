@@ -1,5 +1,5 @@
 /* Shape.h
-Level3.4_Ex2: Simple Inheritance: Creating Shape Base Class
+Level3.5_Ex1: Polymorphism - Polymorphic ToString() Function
 
 header file for the Shape class
 
@@ -66,22 +66,17 @@ namespace Turbopro
 			int m_id_number;
 
 		public:
-			Shape();														// default constructor
-			Shape(int ID);													// constructor
-			Shape(const Shape& Other);										// copy constructor
-			~Shape();														// destructor
-			//const int& ID() const { return m_id_number; }					// inline Shape ID getter
-			int ID() const { return m_id_number; }							// inline Shape ID getter
-			virtual std::string ToString() const;							// print the Shape ID ("ID:123")
+			Shape();											// default constructor
+			Shape(int ID);										// constructor
+			Shape(const Shape& Other);							// copy constructor
+			~Shape();											// destructor
+			//const int& ID() const { return m_id_number; }		// inline Shape ID getter
+			int ID() const { return m_id_number; }				// inline Shape ID getter
+			virtual std::string ToString() const;				// print the Shape ID ("ID:123")
 
 			// overloaded operator methods
-			Shape& operator=(const Shape& Other);							// assignment operator
-			// ostream operator <<
-			//friend std::ostream& operator<<(std::ostream& os, const Line& l);
+			Shape& operator=(const Shape& Other);				// assignment operator
 		};
-
-		//inline void Line::StartPoint(const Point& newP) { m_startpoint = newP; }	// inline startpoint point setter
-		//inline void Line::EndPoint(const Point& newP) { m_endpoint = newP; }		// inline endpoint point setter
 	}
 }
 

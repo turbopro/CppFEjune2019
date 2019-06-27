@@ -74,10 +74,10 @@ namespace Turbopro
 			int ID() const { return m_id_number; }							// inline Shape ID getter
 			// print the Shape ID ("ID:123"): declared virtual to enable the 
 			// selection of the appropriate object by a Shape reference or pointer
-			virtual std::string ToString() const;
+			std::string ToString() const;
 
 			// overloaded operator methods
-			Shape& operator=(const Shape& Other);							// assignment operator
+			virtual Shape& operator=(const Shape& Other);							// assignment operator
 
 			// abstract methods
 			virtual void Draw() const = 0;									// pure virtual function

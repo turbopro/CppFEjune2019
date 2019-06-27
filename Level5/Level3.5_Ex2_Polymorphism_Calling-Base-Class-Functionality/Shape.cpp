@@ -1,5 +1,5 @@
 /* Shape.cpp
-Level3.4_Ex2: Simple Inheritance: Creating Shape Base Class
+Level3.5_Ex2: Polymorphism - Calling Base Class Functionality
 
 Source file that implements the Shape class declared in the
 Shape.h header file.
@@ -70,12 +70,5 @@ namespace Turbopro
 				return *this;
 			}
 		}
-
-		// overloaded ostream operator <<
-		//std::ostream& operator<<(std::ostream& os, const Line& l)
-		//{
-		//	return os << "Line with startpoint: " << l.m_startpoint
-		//		<< ", and endpoint: " << l.m_endpoint;
-		//}
 	}
 }

@@ -197,27 +197,28 @@ int main(void)
 		<< "------------------------------\n\n";
 
 
-	/*
-	cout << "\n"
-		<< "|====================================|\n"
-		<< "|       POINTS on the Heap:          |\n"
-		<< "|====================================|\n\n";
-
-	cout << "\nExercise Tests: Virtual Destructors\n"
+	cout << "\nExercise Tests: Abstract Functions\n"
 		<< "------------------------------\n\n";
 
-	cout << "Create array of pointers to Shape objects, then delete them:\n\n";
+	cout << "Create array of pointers to Shape objects\n"
+		<< "This is valid since Shape ABC pointers and references may point to\n"
+		<< "and reference derived calsses objects (Points, Lines, Circles):\n\n";
 	Shape* shapes[3];
-	shapes[0] = new Shape;
-	shapes[1] = new Point;
-	shapes[2] = new Line;
+	shapes[0] = new Point;
+	shapes[1] = new Line;
+	shapes[2] = new Circle;
 
+	// use the Draw() method
+	for (int i = 0; i != 3; i++) shapes[i]->Draw();
+
+	// delete the Shape objects
 	for (int i = 0; i != 3; i++) delete shapes[i];
 
-	cout << "\nEnd Exercise Tests: Virtual Destructors\n"
+
+	cout << "\nEnd Exercise Tests: Abstract Functions\n"
 		<< "------------------------------\n\n";
 
-	
+	/*
 	cout << "\n\n"
 		<< "|========================|\n"
 		<< "|        LINES:          |\n"
@@ -235,6 +236,8 @@ int main(void)
 		<< "\nL1 endpoint " << L1.EndPoint()
 		<< "\nL1 length = " << fixed << setprecision(2)
 		<< L1.Length() << endl << endl;
+
+	
 
 	// create a line with P1 and P2: use default constructor 
 	cout << "Create Line, L2, using default constructor:\n";

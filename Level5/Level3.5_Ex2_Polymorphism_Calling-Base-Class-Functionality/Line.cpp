@@ -1,5 +1,5 @@
 /* Line.cpp
-Level3.4_Ex2: Simple Inheritance: Creating Shape Base Class
+Level3.5_Ex2: Polymorphism - Calling Base Class Functionality
 
 Source file that implements the Line class declared in the 
 Line.h header file.
@@ -44,10 +44,10 @@ namespace Turbopro
 
 		// copy constructor
 		Line::Line(const Line& Other) 
-			: Shape{ Other.ID() }, m_startpoint{ Other.m_startpoint }, m_endpoint{ Other.m_endpoint } {}
+			: Shape{ Other }, m_startpoint{ Other.m_startpoint }, m_endpoint{ Other.m_endpoint } {}
 
 		// Destructor
-		Line::~Line() { std::cout << "Deleting: " << *this << std::endl; }
+		Line::~Line() {}
 
 		// ToString() 
 		// use Point::ToString() of the Point objects
@@ -74,7 +74,7 @@ namespace Turbopro
 			if (this == &Other) { return *this; }
 			else
 			{
-				Shape::operator=(Other.ID());
+				Shape::operator=(Other);
 				m_startpoint = Other.m_startpoint;
 				m_endpoint = Other.m_endpoint;
 				return *this;

@@ -1,5 +1,5 @@
 /* Line.h
-Level3.4_Ex2: Simple Inheritance: Creating Shape Base Class
+Level3.5_Ex1: Polymorphism - Polymorphic ToString() Function
  
 header file for the Line class
 
@@ -79,8 +79,7 @@ namespace Turbopro
 
 			// overloaded operator methods
 			Line& operator=(const Line& Other);								// assignment operator
-			// ostream operator <<
-			friend std::ostream& operator<<(std::ostream& os, const Line& l);
+			friend std::ostream& operator<<(std::ostream& os, const Line& l);	// ostream operator <<
 		};
 
 		inline void Line::StartPoint(const Point& newP) { m_startpoint = newP; }	// inline startpoint point setter

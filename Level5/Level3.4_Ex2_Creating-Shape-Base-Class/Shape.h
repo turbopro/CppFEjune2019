@@ -52,36 +52,30 @@ the Shape class is part of the Turbopro::CAD namespace
 #define SHAPE_H_INCLUDED
 
 #include <string>			// for return std::string in ToString() member function
-//#include "Point.h"
 
 // create namespace
 namespace Turbopro
 {
 	namespace CAD
 	{
-		// Line class declaration
+		// Shape class declaration:	Base class
 		class Shape
 		{
 		private:
 			int m_id_number;
 
 		public:
-			Shape();														// default constructor
-			Shape(int ID);													// constructor
-			Shape(const Shape& Other);										// copy constructor
-			~Shape();														// destructor
-			//const int& ID() const { return m_id_number; }					// inline Shape ID getter
-			int ID() const { return m_id_number; }							// inline Shape ID getter
-			std::string ToString() const;							// print the Shape ID ("ID:123")
+			Shape();											// default constructor
+			Shape(int ID);										// constructor
+			Shape(const Shape& Other);							// copy constructor
+			~Shape();											// destructor
+			//const int& ID() const { return m_id_number; }		// inline Shape ID getter
+			int ID() const { return m_id_number; }				// inline Shape ID getter
+			std::string ToString() const;						// print the Shape ID ("ID:123")
 
 			// overloaded operator methods
-			Shape& operator=(const Shape& Other);							// assignment operator
-			// ostream operator <<
-			//friend std::ostream& operator<<(std::ostream& os, const Line& l);
+			Shape& operator=(const Shape& Other);				// assignment operator
 		};
-
-		//inline void Line::StartPoint(const Point& newP) { m_startpoint = newP; }	// inline startpoint point setter
-		//inline void Line::EndPoint(const Point& newP) { m_endpoint = newP; }		// inline endpoint point setter
 	}
 }
 
