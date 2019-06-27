@@ -70,12 +70,5 @@ namespace Turbopro
 				return *this;
 			}
 		}
-
-		// overloaded ostream operator <<
-		//std::ostream& operator<<(std::ostream& os, const Line& l)
-		//{
-		//	return os << "Line with startpoint: " << l.m_startpoint
-		//		<< ", and endpoint: " << l.m_endpoint;
-		//}
 	}
 }

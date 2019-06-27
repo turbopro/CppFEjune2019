@@ -1,5 +1,5 @@
 /* Main.cpp
-Level3.5_Ex3: Polymorphism: Virtual Destructors
+Level3.5_Ex4: Polymorphism: Abstract Functions
 
 Test program for the Point, Line and Circle classes 
 Include "Point.h", "Line.h", and "Circle.h" header files
@@ -129,37 +129,6 @@ int main(void)
 		<< "|====================================|\n"
 		<< "|              SHAPES                |\n"
 		<< "|====================================|\n\n";
-
-	// get coordinates for first Point object P1
-	//string geom_id{ "Point 1" };
-	// check if user hit Ctrl-Z to quit
-	//if (!(user_input_geom(x, geom_id, x_coord))) { return 0; }		// If user_input returns false, 
-	//if (!(user_input_geom(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
-
-	// create P1 with default constructor on the Heap: use new
-	//Shape S1, S2, S3;
-
-	/*
-	// get ID
-	cout << "Shape S1 ID: " << S1.ID() << endl;
-	cout << "Shape S2 ID: " << S2.ID() << endl;
-	cout << "Shape S3 ID: " << S3.ID() << endl << endl;
-
-	// print S1
-	cout << "S1 has " << S1.ToString() << endl;
-	cout << "S2 has " << S2.ToString() << endl;
-	cout << "S3 has " << S3.ToString() << endl << endl;
-
-	// assign S3 to S2
-	cout << "\nS2 = S3 results in:\n";
-	S2 = S3;
-	cout << "S2 ID: " << S2.ID() << endl << endl;
-
-	// copy S1 to S3
-	cout << "\nCopy S1 to new Shape S4:\n";
-	Shape S4(S1);
-	cout << "S4: " << S4.ToString() << endl << endl;
-	*/
 	
 	cout << "\nExercise Tests: Shape Base Class\n"
 		<< "------------------------------\n\n";
@@ -176,13 +145,6 @@ int main(void)
 	//cout << "\nShape s ID: " << s.ID() << endl; // ID of the shape.
 	cout << "Yes, Point p ID: " << p.ID() << endl; // ID of the point. Does this work?
 	cout << "Yes,  Line l ID: " << l.ID() << endl; // ID of the line. Does this work?
-
-	//cout << "\n\nCreate a pointer to a Shape variable, sp:\n";
-	//Shape* sp; // Create pointer to a shape variable.
-	//sp = &p; // Point in a shape variable. Possible?
-	//cout << "Yes, we may assign a Shape Pointer to a Point\n";
-	//cout << "\nsp->ToString(): " << sp->ToString() << endl; // What is printed?
-	//cout << "The Shape's ID\n";
 
 	// Create and copy Point p to new point.
 	cout << "\nCreate a new Point, P2, use default constructor:\n";

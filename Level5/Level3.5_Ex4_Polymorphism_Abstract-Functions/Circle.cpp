@@ -1,5 +1,5 @@
 /* Circle.cpp
-Level3.5_Ex3: Polymorphism: Virtual Destructors
+Level3.5_Ex4: Polymorphism: Abstract Functions
 
 Source file that implements the Circle class declared in the 
 Circle.h header file.

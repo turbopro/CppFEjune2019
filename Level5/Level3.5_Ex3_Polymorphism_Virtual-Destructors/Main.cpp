@@ -130,11 +130,6 @@ int main(void)
 		<< "|              SHAPES                |\n"
 		<< "|====================================|\n\n";
 
-	// get coordinates for first Point object P1
-	//string geom_id{ "Point 1" };
-	// check if user hit Ctrl-Z to quit
-	//if (!(user_input_geom(x, geom_id, x_coord))) { return 0; }		// If user_input returns false, 
-	//if (!(user_input_geom(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
 
 	// create P1 with default constructor on the Heap: use new
 	Shape S1, S2, S3;
@@ -196,11 +191,6 @@ int main(void)
 		<< "------------------------------\n\n";
 
 
-	
-	cout << "\n"
-		<< "|====================================|\n"
-		<< "|       POINTS on the Heap:          |\n"
-		<< "|====================================|\n\n";
 
 	cout << "\nExercise Tests: Virtual Destructors\n"
 		<< "------------------------------\n\n";
@@ -216,7 +206,7 @@ int main(void)
 	cout << "\nEnd Exercise Tests: Virtual Destructors\n"
 		<< "------------------------------\n\n";
 
-	/*
+	
 	cout << "\n\n"
 		<< "|========================|\n"
 		<< "|        LINES:          |\n"
@@ -334,7 +324,7 @@ int main(void)
 	// print C3
 	cout << "\nCircle C3: " << C3 
 		<< "\n\nCircle 3 to string: " << C3.ToString() << endl;
-	*/
+	
 		
 	return 0;
 }

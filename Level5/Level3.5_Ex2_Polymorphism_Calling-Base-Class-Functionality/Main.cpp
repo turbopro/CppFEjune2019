@@ -130,7 +130,7 @@ int main(void)
 	
 	Shape s; // Create shape.
 	Point p(10, 20); // Create point.
-	Line l(Point(1, 2), Point(3, 4)); // Create line.
+	Line l{ Point(1, 2), Point(3, 4) }; // Create line.
 
 	cout << "s.ToString(): " << s.ToString() << endl; // Print shape.
 	cout << "p.ToString(): " << p.ToString() << endl; // Print point.
@@ -158,7 +158,129 @@ int main(void)
 	cout << "\nNo, the ID is not copied if you do not call the base class assignment\n";
 
 	cout << "\nEnd Exercise Tests:\n"
-		<< "------------------------------\n\n";	
+		<< "------------------------------\n\n";
+
+
+	
+	cout << "\n\n"
+		<< "|========================|\n"
+		<< "|        LINES:          |\n"
+		<< "|========================|\n\n";
+
+	// create a line: use constructor
+	cout << "Create Line, L1, using constructor:\n";
+	Point P1{ 1, 1 };
+	Point P2{ 4, 5 };
+	Line L1{ P1, P2 };	
+	
+	// print L1
+	cout << "Line L1: " << L1 << endl
+		<< "\nL1 startpoint " << L1.StartPoint()
+		<< "\nL1 endpoint " << L1.EndPoint()
+		<< "\nL1 length = " << fixed << setprecision(2)
+		<< L1.Length() << endl << endl;
+	
+	// create a line with P1 and P2: use default constructor 
+	cout << "Create Line, L2, using default constructor:\n";
+	Line L2;
+	// set Points with new values for P1 and P2
+	P1 = { -3, -4 };
+	P2 = { 3, 4 };
+	L2.StartPoint(P1);
+	L2.EndPoint(P2);
+	
+	// print L2
+	cout << "Line L2: " << L2
+		<< "\nas derived from Shape, L2: " << L2.ID() << endl << endl;
+
+	// create a line: use copy constructor 
+	cout << "Copy L1 to new Line, L3, using copy constructor:\n";
+	Line L3(L1);
+
+	// print L3
+	cout << "Line L3: " << L3 << endl << endl;
+
+	
+	// assign L2 to new L4
+	cout << "Assign L2 to L4:\n";
+	Line L4 = L2;
+
+	// print L4
+	cout << "Line L4 = L2: " << L4
+		<< "\nas derived from Shape, L4: " << L4.ID() << endl << endl;
+
+	// assignment operator '=': self assignment check
+	cout << "Self assignment: L3 to L3:\n";
+	L3 = L3;
+
+	// print L3
+	cout << "\nLine L3: " << L3 << endl << endl;
+	cout << "Line L3: " << L3.ToString() << endl << endl;
+
+	
+
+	cout << "\n"
+		<< "|========================|\n"
+		<< "|      CIRCLES:          |\n"
+		<< "|========================|\n\n";
+
+	// get coordinates for Point object Pc1 for Circle object C1
+	string geom_id = "Circle 1";
+	if (!(user_input_geom(x, geom_id, x_coord))) { return 0; }		// If user_input returns false,
+	if (!(user_input_geom(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
+	if (!(user_input_geom(r, geom_id, radius))) { return 0; }
+
+	// create centre point Pc1 for C1
+	Point Pc1{ x, y };
+	// create Circle C1: use constructor
+	cout << "Create Circle, C1, using constructor:\n";
+	Circle C1{ r, Pc1 };
+
+	// print C1
+	cout << "Circle C1: " << C1 << endl
+		<< "\nC1 radius " << std::ios::fixed << setprecision(2) << C1.Radius()
+		<< "\nC1 centrepoint " << C1.CentrePoint()
+		<< "\nC1 diameter = " << C1.Diameter()
+		<< "\nC1 circumference = " << C1.Circumference()
+		<< "\nC1 area = " << C1.Area()
+		<< "\nas derived from Shape, C1: " << C1.ID() << endl << endl;
+
+	// get coordinates for Point object Pc2 for Circle object C2
+	geom_id = "Circle 2";
+	if (!(user_input_geom(x, geom_id, x_coord))) { return 0; }		// If user_input returns false,
+	if (!(user_input_geom(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
+	if (!(user_input_geom(r, geom_id, radius))) { return 0; }
+
+	// create centre point Pc2 for C2
+	Point Pc2{ x, y };
+	// create a circle, use default constructor
+	cout << "Create Circle, C2, using default constructor:\n";
+	Circle C2;
+	// set radius, centre point with user input values
+	C2.Radius(r);
+	C2.CentrePoint(Pc2);
+
+	// print C2
+	cout << "Circle C2: " << C2
+		<< "\nas derived from Shape, C2: " << C2.ID() << endl << endl;
+
+	// assignment operator '=': assign C1 to C3
+	cout << "Assign C1 to C3\n";
+	Circle C3 = C1;
+
+	// print C3
+	cout << "Circle C3 = C1: " << C3
+		<< "\nas derived from Shape, C3: " << C3.ID() << endl << endl;
+
+	// assignment operator '=': self assignment check
+	cout << "Self assignment: C3 to C3:\n";
+	C3 = C3;
+
+	// print C3
+	cout << "\nCircle C3: " << C3
+		<< "\n\nCircle 3 to string: " << C3.ToString() << endl;
+
+	
 	
 	return 0;
 }

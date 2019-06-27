@@ -1,5 +1,5 @@
 /* Array.cpp
-Level3.5_Ex3: Polymorphism: Virtual Destructors
+Level3.5_Ex4: Polymorphism: Abstract Functions
 
 Source file that implements the Array class declared in the 
 Array.h header file.

@@ -95,7 +95,7 @@ namespace Turbopro
 			Point(double x_coord, double y_coord);			// constructor
 			explicit Point(double x_coord);					// single argument constructor (explicit)
 			Point(const Point& Other);						// copy constructor
-			virtual ~Point();										// destructor
+			virtual ~Point();								// destructor
 			const double& X() const { return m_x; }			// inline x coordinate getter
 			//void X(const double& newX) { m_x = newX; }	// inline x coordinate setter
 			void X(const double& newX);						// x coordinate setter

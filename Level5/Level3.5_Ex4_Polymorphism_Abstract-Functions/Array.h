@@ -1,5 +1,5 @@
 /* Array.h
-Level3.5_Ex3: Polymorphism: Virtual Destructors
+Level3.5_Ex4: Polymorphism: Abstract Functions
  
 header file for the Array class
 

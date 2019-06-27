@@ -1,5 +1,5 @@
 /* Line.h
-Level3.5_Ex3: Polymorphism: Virtual Destructors
+Level3.5_Ex4: Polymorphism: Abstract Functions
  
 header file for the Line class
 
@@ -79,8 +79,7 @@ namespace Turbopro
 
 			// overloaded operator methods
 			Line& operator=(const Line& Other);								// assignment operator
-			// ostream operator <<
-			friend std::ostream& operator<<(std::ostream& os, const Line& l);
+			friend std::ostream& operator<<(std::ostream& os, const Line& l);	// ostream operator <<
 
 			// override methods
 			void Draw() const { std::cout << "Draw a Line\n"; }

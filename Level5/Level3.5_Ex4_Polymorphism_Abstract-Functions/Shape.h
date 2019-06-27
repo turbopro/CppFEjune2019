@@ -1,5 +1,5 @@
 /* Shape.h
-Level3.5_Ex3: Polymorphism: Virtual Destructors
+Level3.5_Ex4: Polymorphism: Abstract Functions
 
 header file for the Shape class
 
@@ -52,14 +52,13 @@ the Shape class is part of the Turbopro::CAD namespace
 #define SHAPE_H_INCLUDED
 
 #include <string>			// for return std::string in ToString() member function
-//#include "Point.h"
 
 // create namespace
 namespace Turbopro
 {
 	namespace CAD
 	{
-		// Line class declaration
+		// Shape class declaration
 		class Shape
 		{
 		private:
@@ -72,12 +71,10 @@ namespace Turbopro
 			virtual ~Shape();												// destructor
 			//const int& ID() const { return m_id_number; }					// inline Shape ID getter
 			int ID() const { return m_id_number; }							// inline Shape ID getter
-			// print the Shape ID ("ID:123"): declared virtual to enable the 
-			// selection of the appropriate object by a Shape reference or pointer
-			std::string ToString() const;
+			virtual std::string ToString() const;
 
 			// overloaded operator methods
-			virtual Shape& operator=(const Shape& Other);							// assignment operator
+			Shape& operator=(const Shape& Other);							// assignment operator
 
 			// abstract methods
 			virtual void Draw() const = 0;									// pure virtual function

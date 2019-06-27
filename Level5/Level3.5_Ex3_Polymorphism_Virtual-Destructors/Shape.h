@@ -59,7 +59,7 @@ namespace Turbopro
 {
 	namespace CAD
 	{
-		// Line class declaration
+		// Shape class declaration
 		class Shape
 		{
 		private:
@@ -78,12 +78,7 @@ namespace Turbopro
 
 			// overloaded operator methods
 			Shape& operator=(const Shape& Other);							// assignment operator
-			// ostream operator <<
-			//friend std::ostream& operator<<(std::ostream& os, const Line& l);
 		};
-
-		//inline void Line::StartPoint(const Point& newP) { m_startpoint = newP; }	// inline startpoint point setter
-		//inline void Line::EndPoint(const Point& newP) { m_endpoint = newP; }		// inline endpoint point setter
 	}
 }
 

@@ -1,5 +1,5 @@
 /* Shape.cpp
-Level3.5_Ex3: Polymorphism: Virtual Destructors
+Level3.5_Ex4: Polymorphism: Abstract Functions
 
 Source file that implements the Shape class declared in the
 Shape.h header file.
@@ -70,12 +70,5 @@ namespace Turbopro
 				return *this;
 			}
 		}
-
-		// overloaded ostream operator <<
-		//std::ostream& operator<<(std::ostream& os, const Line& l)
-		//{
-		//	return os << "Line with startpoint: " << l.m_startpoint
-		//		<< ", and endpoint: " << l.m_endpoint;
-		//}
 	}
 }
