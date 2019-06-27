@@ -1,5 +1,5 @@
 /* Point.h
-Level3.4_Ex2: Simple Inheritance: Creating Shape Base Class
+Level3.5_Ex3: Polymorphism: Virtual Destructors
  
 header file for the Point class
 
@@ -95,14 +95,14 @@ namespace Turbopro
 			Point(double x_coord, double y_coord);			// constructor
 			explicit Point(double x_coord);					// single argument constructor (explicit)
 			Point(const Point& Other);						// copy constructor
-			~Point();										// destructor
+			virtual ~Point();										// destructor
 			const double& X() const { return m_x; }			// inline x coordinate getter
 			//void X(const double& newX) { m_x = newX; }	// inline x coordinate setter
 			void X(const double& newX);						// x coordinate setter
 			const double& Y() const { return m_y; }			// inline y coordinate getter
 			//void Y(const double& newY) { m_y = newY; }	// inline y coordinate setter
 			void Y(const double& newY);						// y coordinate setter
-			std::string ToString() const;			// print the Point coordinates
+			virtual std::string ToString() const;			// print the Point coordinates
 			double Distance() const;						// distance from the origin
 			double Distance(const Point& Other) const;		// distance between two points
 
@@ -116,7 +116,12 @@ namespace Turbopro
 			bool operator==(const Point& Other) const;		// equality operator
 			// ostream operator <<
 			friend std::ostream& operator<<(std::ostream& os, const Point& p);
+
+			// override methods
+			void Draw() const { std::cout << "Draw a Point\n";}
 		};
+
+
 
 		inline void Point::X(const double& newX) { m_x = newX; }	// inline x coordinate setter
 		inline void Point::Y(const double& newY) { m_y = newY; }	// inline y coordinate setter

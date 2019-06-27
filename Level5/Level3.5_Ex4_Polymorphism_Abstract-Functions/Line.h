@@ -1,5 +1,5 @@
 /* Line.h
-Level3.4_Ex2: Simple Inheritance: Creating Shape Base Class
+Level3.5_Ex3: Polymorphism: Virtual Destructors
  
 header file for the Line class
 
@@ -69,18 +69,21 @@ namespace Turbopro
 			Line();															// default constructor
 			Line(const Point& startpoint, const Point& endpoint);			// constructor
 			Line(const Line& Other);										// copy constructor
-			~Line();														// destructor
+			virtual ~Line();														// destructor
 			const Point& StartPoint() const { return m_startpoint; }		// inline startpoint point getter
 			void StartPoint(const Point& newP);								// startpoint point setter
 			const Point& EndPoint() const { return m_endpoint; }			// inline endpoint point getter
 			void EndPoint(const Point& newP);								// endpoint point setter
-			std::string ToString() const;							// print the Point coordinates
+			virtual std::string ToString() const;							// print the Point coordinates
 			double Length() const;											// length of the line
 
 			// overloaded operator methods
 			Line& operator=(const Line& Other);								// assignment operator
 			// ostream operator <<
 			friend std::ostream& operator<<(std::ostream& os, const Line& l);
+
+			// override methods
+			void Draw() const { std::cout << "Draw a Line\n"; }
 		};
 
 		inline void Line::StartPoint(const Point& newP) { m_startpoint = newP; }	// inline startpoint point setter

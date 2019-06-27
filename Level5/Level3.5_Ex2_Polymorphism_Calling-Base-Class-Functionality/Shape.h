@@ -72,7 +72,7 @@ namespace Turbopro
 			~Shape();														// destructor
 			//const int& ID() const { return m_id_number; }					// inline Shape ID getter
 			int ID() const { return m_id_number; }							// inline Shape ID getter
-			std::string ToString() const;							// print the Shape ID ("ID:123")
+			virtual std::string ToString() const;							// print the Shape ID ("ID:123")
 
 			// overloaded operator methods
 			Shape& operator=(const Shape& Other);							// assignment operator

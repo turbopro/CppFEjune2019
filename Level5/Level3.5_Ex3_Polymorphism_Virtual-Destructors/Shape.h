@@ -1,5 +1,5 @@
 /* Shape.h
-Level3.4_Ex2: Simple Inheritance: Creating Shape Base Class
+Level3.5_Ex3: Polymorphism: Virtual Destructors
 
 header file for the Shape class
 
@@ -69,10 +69,12 @@ namespace Turbopro
 			Shape();														// default constructor
 			Shape(int ID);													// constructor
 			Shape(const Shape& Other);										// copy constructor
-			~Shape();														// destructor
+			virtual ~Shape();												// destructor
 			//const int& ID() const { return m_id_number; }					// inline Shape ID getter
 			int ID() const { return m_id_number; }							// inline Shape ID getter
-			std::string ToString() const;							// print the Shape ID ("ID:123")
+			// print the Shape ID ("ID:123"): declared virtual to enable the 
+			// selection of the appropriate object by a Shape reference or pointer
+			virtual std::string ToString() const;
 
 			// overloaded operator methods
 			Shape& operator=(const Shape& Other);							// assignment operator

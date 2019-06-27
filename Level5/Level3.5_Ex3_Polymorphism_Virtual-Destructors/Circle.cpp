@@ -1,5 +1,5 @@
 /* Circle.cpp
-Level3.4_Ex2: Simple Inheritance: Creating Shape Base Class
+Level3.5_Ex3: Polymorphism: Virtual Destructors
 
 Source file that implements the Circle class declared in the 
 Circle.h header file.
@@ -53,7 +53,7 @@ namespace Turbopro
 			: Shape{ Other.ID() }, m_radius{ Other.m_radius }, m_centrepoint{ Other.m_centrepoint } {}
 
 		// Destructor definition
-		Circle::~Circle() { std::cout << "Deleting: " << *this << std::endl; }
+		Circle::~Circle() { std::cout << "Deleting: " << this->ToString() << " ..." << std::endl; }
 
 		// ToString() definition
 		// use Point::ToString() to print Point object values

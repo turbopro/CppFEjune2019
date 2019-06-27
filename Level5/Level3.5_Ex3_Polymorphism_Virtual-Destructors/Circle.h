@@ -1,5 +1,5 @@
 /* Circle.h
-Level3.4_Ex2: Simple Inheritance: Creating Shape Base Class
+Level3.5_Ex3: Polymorphism: Virtual Destructors
  
 header file for the Circle class
 
@@ -83,14 +83,14 @@ namespace Turbopro
 			Circle();														// default constructor
 			Circle(const double& m_radius, const Point& centre);			// constructor
 			Circle(const Circle& Other);									// copy constructor
-			~Circle();														// destructor
+			virtual ~Circle();														// destructor
 			const double& Radius() const { return m_radius; }				// inline radius getter
 			//void Radius(const double& newR) { m_radius = newR; }			// inline radius setter
 			void Radius(const double& newR);								// radius setter
 			const Point& CentrePoint() const { return m_centrepoint; }		// inline centrepoint getter
 			//void CentrePoint(const Point& newP) { m_centrepoint = newP; }	// inline centrepoint setter
 			void CentrePoint(const Point& newP);							// centrepoint setter
-			std::string ToString() const;							// print the Circle radius and coordinates
+			virtual std::string ToString() const;							// print the Circle radius and coordinates
 			double Diameter() const { return 2 * m_radius; }				// inline distance through the centre between two points on the circle
 			double Circumference() const { return 2 * M_PI * m_radius; }	// inline distance around the circle
 			double Area()const { return M_PI * m_radius * m_radius; }		// inline area of the circle

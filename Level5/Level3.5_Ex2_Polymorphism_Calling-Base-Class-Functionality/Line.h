@@ -74,7 +74,7 @@ namespace Turbopro
 			void StartPoint(const Point& newP);								// startpoint point setter
 			const Point& EndPoint() const { return m_endpoint; }			// inline endpoint point getter
 			void EndPoint(const Point& newP);								// endpoint point setter
-			std::string ToString() const;							// print the Point coordinates
+			virtual std::string ToString() const;							// print the Point coordinates
 			double Length() const;											// length of the line
 
 			// overloaded operator methods

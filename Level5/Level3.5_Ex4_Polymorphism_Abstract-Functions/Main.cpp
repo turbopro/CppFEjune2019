@@ -1,5 +1,5 @@
 /* Main.cpp
-Level3.4_Ex2: Simple Inheritance: Creating Shape Base Class
+Level3.5_Ex3: Polymorphism: Virtual Destructors
 
 Test program for the Point, Line and Circle classes 
 Include "Point.h", "Line.h", and "Circle.h" header files
@@ -137,8 +137,9 @@ int main(void)
 	//if (!(user_input_geom(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
 
 	// create P1 with default constructor on the Heap: use new
-	Shape S1, S2, S3;
+	//Shape S1, S2, S3;
 
+	/*
 	// get ID
 	cout << "Shape S1 ID: " << S1.ID() << endl;
 	cout << "Shape S2 ID: " << S2.ID() << endl;
@@ -158,30 +159,30 @@ int main(void)
 	cout << "\nCopy S1 to new Shape S4:\n";
 	Shape S4(S1);
 	cout << "S4: " << S4.ToString() << endl << endl;
+	*/
 	
-	
-	cout << "\nExercise Tests:\n"
+	cout << "\nExercise Tests: Shape Base Class\n"
 		<< "------------------------------\n\n";
 	
-	Shape s; // Create shape.
+	//Shape s; // Create shape.
 	Point p(10, 20); // Create point.
 	Line l(Point(1, 2), Point(3, 4)); // Create line.
 
-	cout << "s.ToString(): " << s.ToString() << endl; // Print shape.
+	//cout << "s.ToString(): " << s.ToString() << endl; // Print shape.
 	cout << "p.ToString(): " << p.ToString() << endl; // Print point.
 	cout << "l.ToString(): " << l.ToString() << endl; // Print line
 
 	
-	cout << "\nShape s ID: " << s.ID() << endl; // ID of the shape.
+	//cout << "\nShape s ID: " << s.ID() << endl; // ID of the shape.
 	cout << "Yes, Point p ID: " << p.ID() << endl; // ID of the point. Does this work?
 	cout << "Yes,  Line l ID: " << l.ID() << endl; // ID of the line. Does this work?
 
-	cout << "\n\nCreate a pointer to a Shape variable, sp:\n";
-	Shape* sp; // Create pointer to a shape variable.
-	sp = &p; // Point in a shape variable. Possible?
-	cout << "Yes, we may assign a Shape Pointer to a Point\n";
-	cout << "\nsp->ToString(): " << sp->ToString() << endl; // What is printed?
-	cout << "The Shape's ID\n";
+	//cout << "\n\nCreate a pointer to a Shape variable, sp:\n";
+	//Shape* sp; // Create pointer to a shape variable.
+	//sp = &p; // Point in a shape variable. Possible?
+	//cout << "Yes, we may assign a Shape Pointer to a Point\n";
+	//cout << "\nsp->ToString(): " << sp->ToString() << endl; // What is printed?
+	//cout << "The Shape's ID\n";
 
 	// Create and copy Point p to new point.
 	cout << "\nCreate a new Point, P2, use default constructor:\n";
@@ -192,150 +193,29 @@ int main(void)
 	cout << "\nP2: " << p2 << ", " << p2.ID() << endl;
 	cout << "\nNo, the ID is not copied if you do not call the base class assignment\n";
 
-	cout << "------------------------------\n";
+	cout << "\nEnd Exercise Tests: Shape Base Class\n"
+		<< "------------------------------\n\n";
 
 
-	
+	/*
 	cout << "\n"
 		<< "|====================================|\n"
 		<< "|       POINTS on the Heap:          |\n"
 		<< "|====================================|\n\n";
 
-	// get coordinates for first Point object P1
-	string geom_id{ "Point 1" };
-	/*
-	// check if user hit Ctrl-Z to quit
-	if (!(user_input_geom(x, geom_id, x_coord))) { return 0; }		// If user_input returns false, 
-	if (!(user_input_geom(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
+	cout << "\nExercise Tests: Virtual Destructors\n"
+		<< "------------------------------\n\n";
 
-	// create P1 with default constructor on the Heap: use new
-	Point* p_P1 = new Point;
+	cout << "Create array of pointers to Shape objects, then delete them:\n\n";
+	Shape* shapes[3];
+	shapes[0] = new Shape;
+	shapes[1] = new Point;
+	shapes[2] = new Line;
 
-	// set x, y coordinates with user input values
-	p_P1->X(x);
-	p_P1->Y(y);
-	// print P1
-	cout << "(*p_P1) Point by default constructor is: " << *p_P1
-		<< "\nDistance from origin: " << fixed << setprecision(2)
-		<< p_P1->Distance() << endl << endl;
+	for (int i = 0; i != 3; i++) delete shapes[i];
 
-	// create second Point object P2
-	// get user input
-	geom_id = "Point 2";
-	if (!(user_input_geom(x, geom_id, x_coord))) { return 0; }		// If user_input returns false, 
-	if (!(user_input_geom(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
-
-	// create P2 with constructor on the Heap: use new
-	//Point P2{ x, y };
-	Point* p_P2 = new Point{ x, y };
-
-	// print P2
-	cout << "(*p_P2) Point by constructor is: " << *p_P2
-		<< "\nDistance from origin: " << fixed << setprecision(2)
-		<< p_P2->Distance() << endl << endl;
-
-	// create P3 with copy constructor on the Heap: use new
-	Point* p_P3 = new Point(*p_P2);
-
-	// print P3
-	cout << "(*p_P3) Point by copy constructor is: " << *p_P3
-		<< "\nDistance from origin: " << fixed << setprecision(2)
-		<< p_P3->Distance() << endl << endl;
-
-	// cleanup Heap: delete Points
-	cout << "deleting Points...\n";
-	delete p_P1;
-	delete p_P2;
-	delete p_P3;
-
-	cout << endl;
-	// build array of Points using Heap
-	// get array size from user
-	// If user_input_array returns false, user entered Ctrl-Z to quit
-	if (!(user_input_array(arr_size))) { return 0; }
-
-	// create Point array on Heap: use runtime arr_size
-	cout << "Creating Point array on the Heap:\n";
-	Point* p_PointArray{ new Point[arr_size] };
-
-	// loop and create Points on the Heap
-	// print each point
-	for (unsigned int i = 0; i < arr_size; i++)
-	{
-		p_PointArray[i].X(2.5 * i);
-		p_PointArray[i].Y(1.5 * i);
-		cout << "Point array[" << i << "]: " << p_PointArray[i] << endl;
-	}
-	cout << endl;
-	// cleanup Heap: delete [] array
-	cout << "deleting Point array...\n";
-	delete[] p_PointArray;
-
-
-	// create a 3-element array of pointers to Points on the Heap
-	cout << "\nCreating a 3-element array of pointers to Points on the Heap:\n";
-	unsigned int p_arr_size = 3;
-	Point** pp_parray = new Point * [p_arr_size];
-
-	// loop and create a Point for each pointer on the Heap
-	// print each point
-	for (unsigned int i = 0; i < p_arr_size; i++)
-	{
-		pp_parray[i] = new Point{ 1.25 * i, 2.15 * i };		// create Point on the Heap 
-		cout << "pointer to Point pointer array[" << i << "]: " << *pp_parray[i] << endl;
-	}
-
-	cout << endl;
-	// cleanup Heap: delete the points
-	for (unsigned int i = 0; i < p_arr_size; i++)
-	{
-		//cout << "deleting " << *pp_parray[i] << "..." << endl;
-		delete pp_parray[i];
-	}
-
-	// cleanup Heap: delete [] array
-	cout << "deleting 3-element array...\n\n";
-	delete[] pp_parray;
-
-	// test euality
-	// create points with same coordinates and test equality
-	cout << "Create Points Pa and Pb with same coordinates:\n";
-	Point Pa{ 1, 1 };
-	Point Pb{ 1, 1 };
-	cout << "Pa: " << Pa << endl;
-	cout << "Pb: " << Pb << endl;
-	if (Pa == Pb) {cout << "Pa == Pb\n\n"; }
-	else { cout << "Pa != Pb\n\n"; }
-
-	// test self assign
-	cout << "Self assigning Pb to itself:\n\n";
-	Pb = Pb;
-
-	// assign Pa to Pc
-	cout << "assign Pa to new Point Pc\n";
-	Point Pc;
-	Pc = Pa;
-	cout << "Pc: " << Pc << "\n\n";
-
-	// negate Pa
-	cout << "Negating Point Pa:\n"
-		<< -Pa << "\n\n";
-
-	// add Pa + Pb
-	cout << "Pa + Pb = " << (Pa + Pb) << "\n\n";
-
-	// scale Pa by 3
-	cout << "scale Pa by 3:\n"
-		<< "Pa * 3 = " << (Pa * 3) << "\n\n";
-
-	// multiply 6 by Pc
-	cout << "6 * Pc:\n"
-		<< "6 * Pc = " << (6 * Pc) << "\n\n\n";
-
-	*/
-	 
-
-	
+	cout << "\nEnd Exercise Tests: Virtual Destructors\n"
+		<< "------------------------------\n\n";
 
 	
 	cout << "\n\n"
@@ -401,7 +281,7 @@ int main(void)
 		<< "|========================|\n\n";
 
 	// get coordinates for Point object Pc1 for Circle object C1
-	geom_id = "Circle 1";
+	string geom_id{ "Circle 1" };
 	if (!(user_input_geom(x, geom_id, x_coord))) { return 0; }		// If user_input returns false,
 	if (!(user_input_geom(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
 	if (!(user_input_geom(r, geom_id, radius))) { return 0; }
@@ -455,7 +335,7 @@ int main(void)
 	// print C3
 	cout << "\nCircle C3: " << C3 
 		<< "\n\nCircle 3 to string: " << C3.ToString() << endl;
-
+	*/
 		
 	return 0;
 }
