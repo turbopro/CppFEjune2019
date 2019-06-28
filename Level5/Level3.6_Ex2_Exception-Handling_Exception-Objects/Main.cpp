@@ -128,26 +128,66 @@ int main(void)
 
 	cout << "Testing Bounds Checking Array\n\n";
 
-	Array arr0(3);
-	for (unsigned int i = 0; i < 3; i++)
+	arr_size = 3;
+	Array arr0(arr_size);
+	for (unsigned int i = 0; i < arr_size; i++)
 		cout << "arr0[" << i << "]" << arr0[i] << endl;
 	cout << "\n";
 
+	Point P0{ 2, 3 };
+
+	// try/catch Array::GetElement() indexing error
 	try
 	{
-		cout << "Try to access arr0[4]: " << arr0.GetElement(4) << endl;
+		cout << "Try to access arr0 element 5: " << arr0.GetElement(4) << endl;
+		//cout << "\nTry to access arr0[4]: " << arr0[4] << endl;
 	}
 	catch (OutOfBoundsException& error_index_msg)
 	{
 		cout << error_index_msg.GetMessage() << endl;
 	}
 
+	// try/catch Array::SetElement(Pt&, int) indexing error
+	try
+	{
+		cout << "Try to set arr0 element 5: " << endl;
+		arr0.SetElement(P0, 4);
+		//cout << "\nTry to access arr0[4]: " << arr0[4] << endl;
+	}
+	catch (OutOfBoundsException& error_index_msg)
+	{
+		cout << error_index_msg.GetMessage() << endl;
+	}
+
+	// try/catch Array::operator[]() get indexing error
+	try
+	{
+		cout << "Try to access arr0[4]: " << arr0[4] << endl;
+	}
+	catch (OutOfBoundsException& error_index_msg)
+	{
+		cout << error_index_msg.GetMessage() << endl;
+	}
+
+	// try/catch Array::operator[]() set indexing error
+	try
+	{
+		cout << "Try to set arr0[4]= (0, 0): " << endl;
+		arr0[4] = P0;
+	}
+	catch (OutOfBoundsException& error_index_msg)
+	{
+		cout << error_index_msg.GetMessage() << endl;
+	}
+
+
+
 	cout << "\n";
 
-	
+	/*
 	cout << "\n"
 		<< "|====================================|\n"
-		<< "|              SHAPES                |\n"
+		<< "|              POINTS                |\n"
 		<< "|====================================|\n\n";
 	
 	cout << "\nExercise Tests: Shape Base Class\n"
@@ -333,7 +373,7 @@ int main(void)
 	// print C3
 	cout << "\nCircle C3: " << C3 
 		<< "\n\nCircle 3 to string: " << C3.ToString() << endl;
-	
+	*/
 		
 	return 0;
 }

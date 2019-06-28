@@ -132,11 +132,13 @@ namespace Turbopro
 			}
 			else
 			{
-				std::cout << "Invalid index : " << index << " : is out of range\n"
-					<< "Valid range: 0 thru " << (m_arr_size - 1) << " inclusive"
-					<< "\nFirst element of the array returned\n";
+				throw Containers::OutOfBoundsException(index);
 
-				return this->GetElement(0);
+				//std::cout << "Invalid index : " << index << " : is out of range\n"
+					//<< "Valid range: 0 thru " << (m_arr_size - 1) << " inclusive"
+					//<< "\nFirst element of the array returned\n";
+
+				//return this->GetElement(0);
 			}
 		}
 
@@ -152,11 +154,13 @@ namespace Turbopro
 			}
 			else
 			{
-				std::cout << "Invalid index : " << index << " : is out of range\n"
-					<< "Valid range: 0 thru " << (m_arr_size - 1) << " inclusive"
-					<< "\nFirst element of the array returned\n";
+				throw Containers::OutOfBoundsException(index);
+				
+				//std::cout << "Invalid index : " << index << " : is out of range\n"
+				//	<< "Valid range: 0 thru " << (m_arr_size - 1) << " inclusive"
+				//	<< "\nFirst element of the array returned\n";
 
-				return (*this)[0];
+				//return (*this)[0];
 			}
 		}
 	}
