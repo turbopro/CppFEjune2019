@@ -1,5 +1,5 @@
 /* Point.cpp
-Level3.6_Ex1: Exception Handling - Bounds Checking Array
+Level3.6_Ex2: Exception Handling - Exception Objects
 
 Source file that implements the Point class declared in the 
 Point.h header file.

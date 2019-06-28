@@ -1,5 +1,5 @@
 /* Array.cpp
-Level3.6_Ex1: Exception Handling - Bounds Checking Array
+Level3.6_Ex2: Exception Handling - Exception Objects
 
 Source file that implements the Array class declared in the 
 Array.h header file.
@@ -34,6 +34,7 @@ the Array class is part of the Turbopro::Container namespace
 #include <iostream>
 #include <string>			// for std::string() function in ToString() member function
 #include "Array.h"			// Array class declaration
+#include "ArrayException.h"	// ArrayException class declaration
 
 // create namespace
 namespace Turbopro
@@ -73,7 +74,8 @@ namespace Turbopro
 			}
 			else
 			{
-				throw (-1);
+				//throw (-1);
+				throw Containers::OutOfBoundsException(index);
 				
 				//std::cout << "Invalid index : " << index << " : is out of range\n"
 				//	<< "Valid range: 0 thru " << (m_arr_size - 1) << " inclusive"
@@ -90,7 +92,8 @@ namespace Turbopro
 			}
 			else
 			{
-				throw (-1);
+				//throw (-1);
+				throw Containers::OutOfBoundsException(index);
 				
 				//std::cout << "Invalid index : " << index << " : is out of range\n"
 				//	<< "Valid range: 0 thru " << (m_arr_size - 1) << " inclusive"

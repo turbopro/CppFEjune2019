@@ -1,5 +1,5 @@
 /* Point.h
-Level3.6_Ex1: Exception Handling - Bounds Checking Array
+Level3.6_Ex2: Exception Handling - Exception Objects
  
 header file for the Point class
 

@@ -1,5 +1,5 @@
 /* Main.cpp
-Level3.6_Ex1: Exception Handling - Bounds Checking Array
+Level3.6_Ex2: Exception Handling - Exception Objects
 
 Test program for the Point, Line and Circle classes 
 Include "Point.h", "Line.h", and "Circle.h" header files
@@ -99,6 +99,7 @@ using directives and declarations for Turbopro::CAD and Turbopro::Container name
 #include "Circle.h"			// Circle class declaration
 #include "Array.h"			// Array class declaration
 #include "Shape.h"			// Shape class declaration
+#include "ArrayException.h"	// ArrayException class declaration
 
 using namespace std;
 
@@ -136,14 +137,14 @@ int main(void)
 	{
 		cout << "Try to access arr0[4]: " << arr0.GetElement(4) << endl;
 	}
-	catch (int e)
+	catch (OutOfBoundsException& error_index_msg)
 	{
-		std::cout << "Invalid index\nIndex out of range\n";
+		cout << error_index_msg.GetMessage() << endl;
 	}
 
 	cout << "\n";
 
-	/*
+	
 	cout << "\n"
 		<< "|====================================|\n"
 		<< "|              SHAPES                |\n"
@@ -332,7 +333,7 @@ int main(void)
 	// print C3
 	cout << "\nCircle C3: " << C3 
 		<< "\n\nCircle 3 to string: " << C3.ToString() << endl;
-	*/
+	
 		
 	return 0;
 }
