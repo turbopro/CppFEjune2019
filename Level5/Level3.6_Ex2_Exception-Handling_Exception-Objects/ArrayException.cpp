@@ -4,9 +4,13 @@ Level3.6_Ex2: Exception Handling - Exception Objects
 Source file that implements the ArrayException class declared in the
 ArrayException.h header file.
 
+All constructors and the destructor use the colon syntax initialisation
 
-the ArrayException and OutOfBoundsException classes are part of the 
-Turbopro::Container namespace
+The sstream and string libraries are used to convert the data member to 
+its string representation
+
+The ArrayException and OutOfBoundsException classes are part of the 
+Turbopro::Containers namespace
 
 */
 
@@ -27,12 +31,8 @@ namespace Turbopro
 		OutOfBoundsException::OutOfBoundsException() : m_error_index{ 0 } {}
 
 		// destructor
-		OutOfBoundsException::~OutOfBoundsException()
-		{
-			std::cout << "destructor: OutOfBoundsException\n";
-		}
-		
-		
+		OutOfBoundsException::~OutOfBoundsException() {}
+
 		// GetMessage() method
 		std::string OutOfBoundsException::GetMessage()const
 		{

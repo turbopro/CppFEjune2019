@@ -58,7 +58,7 @@ namespace Turbopro
 {
 	namespace CAD
 	{
-		// Shape class declaration
+		// Shape class declaration: abstract base class (ABC)
 		class Shape
 		{
 		private:

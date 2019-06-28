@@ -102,7 +102,7 @@ namespace Turbopro
 			const double& Y() const { return m_y; }			// inline y coordinate getter
 			//void Y(const double& newY) { m_y = newY; }	// inline y coordinate setter
 			void Y(const double& newY);						// y coordinate setter
-			std::string ToString() const;			// print the Point coordinates
+			std::string ToString() const;					// print the Point coordinates
 			double Distance() const;						// distance from the origin
 			double Distance(const Point& Other) const;		// distance between two points
 

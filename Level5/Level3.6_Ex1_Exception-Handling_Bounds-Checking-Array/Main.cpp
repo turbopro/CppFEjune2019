@@ -127,21 +127,24 @@ int main(void)
 
 	cout << "Testing Bounds Checking Array\n\n";
 
+	// create Array
+	cout << "Creating Array, arr0, with 3 elements:\n";
 	Array arr0(3);
 	for (unsigned int i = 0; i < 3; i++)
 		cout << "arr0[" << i << "]" << arr0[i] << endl;
 	cout << "\n";
 
+	// create try/catch block to intercept indexing error
 	try
 	{
-		cout << "Try to access arr0[4]: " << arr0.GetElement(4) << endl;
+		cout << "Try to access element 5 of arr0:\n"; 
+		arr0.GetElement(4);
 	}
 	catch (int e)
 	{
-		std::cout << "Invalid index\nIndex out of range\n";
+		std::cout << "Invalid index\nIndex out of range\n\n";
 	}
 
-	cout << "\n";
 
 	/*
 	cout << "\n"

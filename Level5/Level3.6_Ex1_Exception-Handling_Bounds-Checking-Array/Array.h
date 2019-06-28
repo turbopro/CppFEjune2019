@@ -99,7 +99,7 @@ namespace Turbopro
 			CAD::Point* m_data;
 			unsigned int m_arr_size;		// array size should be positive only: set to unsigned int
 
-			enum { ArraySize = 10 };			// size of array for default constructor
+			enum { ArraySize = 10 };		// size of array for default constructor
 
 		public:
 			Array();													// default constructor

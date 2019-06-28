@@ -46,15 +46,15 @@ namespace Turbopro
 {
 	namespace Containers
 	{
-		// ArrayException class declaration: abstract base class
+		// ArrayException class declaration: abstract base class (ABC)
 		class ArrayException
 		{
 		private:
 			
 		public:
-			ArrayException() {};									// do-nothing default constructor
-			virtual ~ArrayException() {};							// destructor
-			virtual std::string GetMessage() const = 0;				// pure virtual function
+			ArrayException() {};							// do-nothing default constructor
+			virtual ~ArrayException() {};					// destructor
+			virtual std::string GetMessage() const = 0;		// pure virtual function: returns a string
 		};
 
 		// OutOfBoundsException class to handle array indexing errors
@@ -64,10 +64,10 @@ namespace Turbopro
 			int m_error_index;
 
 		public:
-			OutOfBoundsException();									// default constructor
-			OutOfBoundsException(int error_index);					// constructor
-			virtual ~OutOfBoundsException();						// destructor
-			virtual std::string GetMessage() const;
+			OutOfBoundsException();							// default constructor
+			OutOfBoundsException(int error_index);			// constructor
+			virtual ~OutOfBoundsException();				// destructor
+			virtual std::string GetMessage() const;			// getter method
 		};
 	}
 }

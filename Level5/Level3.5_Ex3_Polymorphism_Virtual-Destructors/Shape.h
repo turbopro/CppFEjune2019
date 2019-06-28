@@ -70,10 +70,9 @@ namespace Turbopro
 			Shape(int ID);													// constructor
 			Shape(const Shape& Other);										// copy constructor
 			virtual ~Shape();												// destructor
-			//const int& ID() const { return m_id_number; }					// inline Shape ID getter
 			int ID() const { return m_id_number; }							// inline Shape ID getter
-			// print the Shape ID ("ID:123"): declared virtual to enable the 
-			// selection of the appropriate object by a Shape reference or pointer
+			// print the Shape ID ("ID:123")
+			// declared virtual to enable the selection of the appropriate object by a Shape reference or pointer
 			virtual std::string ToString() const;
 
 			// overloaded operator methods

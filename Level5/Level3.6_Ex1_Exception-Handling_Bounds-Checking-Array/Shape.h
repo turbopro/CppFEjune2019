@@ -58,7 +58,7 @@ namespace Turbopro
 {
 	namespace CAD
 	{
-		// Shape class declaration
+		// Shape class declaration: abstract base clas (ABC)
 		class Shape
 		{
 		private:
@@ -69,7 +69,6 @@ namespace Turbopro
 			Shape(int ID);											// constructor
 			Shape(const Shape& Other);								// copy constructor
 			virtual ~Shape();										// destructor
-			//const int& ID() const { return m_id_number; }			// inline Shape ID getter
 			int ID() const { return m_id_number; }					// inline Shape ID getter
 			virtual std::string ToString() const;					// convert Shape object to string
 			void Print() const;										// print Shape object using ToString(): Template Method pattern

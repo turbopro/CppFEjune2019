@@ -69,7 +69,7 @@ namespace Turbopro
 			Line();															// default constructor
 			Line(const Point& startpoint, const Point& endpoint);			// constructor
 			Line(const Line& Other);										// copy constructor
-			virtual ~Line();														// destructor
+			virtual ~Line();												// destructor
 			const Point& StartPoint() const { return m_startpoint; }		// inline startpoint point getter
 			void StartPoint(const Point& newP);								// startpoint point setter
 			const Point& EndPoint() const { return m_endpoint; }			// inline endpoint point getter

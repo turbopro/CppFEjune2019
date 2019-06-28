@@ -53,7 +53,7 @@ namespace Turbopro
 			: Shape{ Other }, m_radius{ Other.m_radius }, m_centrepoint{ Other.m_centrepoint } {}
 
 		// Destructor definition
-		Circle::~Circle() { std::cout << "Deleting: " << this->ToString() << " ..." << std::endl; }
+		Circle::~Circle() {}
 
 		// ToString() definition
 		// use Point::ToString() to print Point object values

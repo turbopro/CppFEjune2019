@@ -32,18 +32,16 @@ namespace Turbopro
 	namespace CAD
 	{
 		// constructor using colon syntax initialiser
-		Shape::Shape(int id_number)
-			: m_id_number{ id_number } {}
+		Shape::Shape(int id_number)	: m_id_number{ id_number } {}
 
 		// default constructor
 		Shape::Shape() : m_id_number { rand() } {}
 
 		// copy constructor
-		Shape::Shape(const Shape& Other)
-			: m_id_number { Other.m_id_number  } {}
+		Shape::Shape(const Shape& Other) : m_id_number { Other.m_id_number  } {}
 
 		// Destructor
-		Shape::~Shape() { std::cout << "Deleting: Shape" << this->ToString() << " ..." << std::endl; }
+		Shape::~Shape() {}
 
 		// ToString() 
 		std::string Shape::ToString() const

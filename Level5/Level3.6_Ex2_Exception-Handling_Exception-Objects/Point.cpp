@@ -37,11 +37,9 @@ namespace Turbopro
 {
 	namespace CAD
 	{
-		// constructor using colon syntax initialiser
-		Point::Point(double x_coord, double y_coord) : Shape{}, m_x{ x_coord }, m_y{ y_coord }
-		{
-			//std::cout << "POINT: param constructor\n";
-		}
+		// use colon initialiser for Base Class object initialisation for constructors
+		// constructor
+		Point::Point(double x_coord, double y_coord) : Shape{}, m_x{ x_coord }, m_y{ y_coord } {}
 
 		// single argument constructor using colon syntax initialiser
 		// this constructor is used as an implicit conversion operator
@@ -54,10 +52,9 @@ namespace Turbopro
 		Point::Point(const Point& Other) : Shape{ Other } , m_x { Other.m_x }, m_y{ Other.m_y } {}
 
 		// Destructor
-		//Point::~Point() {}
 		Point::~Point() {}
 
-		// ToString()
+		// ToString(): polymorphic method defined by the relevant class object, Point in this case
 		std::string Point::ToString() const
 		{
 			// get string representation of base Shape object
@@ -95,10 +92,11 @@ namespace Turbopro
 			if (this == &Other) { return *this; }
 			else
 			{
+				// use Base Class overloaded operator with scope resolution operator 
+				// to copy Base Class object: Other, a Point, is a Shape
 				Shape::operator=(Other);
 				m_x = Other.m_x;
 				m_y = Other.m_y;
-				//std::cout << "POINT: assigned\n";
 				return *this;
 			}
 		}

@@ -280,7 +280,5 @@ int main(void)
 	cout << "\nCircle C3: " << C3
 		<< "\n\nCircle 3 to string: " << C3.ToString() << endl;
 
-	
-	
 	return 0;
 }

@@ -83,7 +83,7 @@ namespace Turbopro
 			Circle();														// default constructor
 			Circle(const double& m_radius, const Point& centre);			// constructor
 			Circle(const Circle& Other);									// copy constructor
-			virtual ~Circle();														// destructor
+			virtual ~Circle();												// destructor
 			const double& Radius() const { return m_radius; }				// inline radius getter
 			void Radius(const double& newR);								// radius setter
 			const Point& CentrePoint() const { return m_centrepoint; }		// inline centrepoint getter

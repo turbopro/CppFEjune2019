@@ -126,12 +126,22 @@ int main(void)
 	unsigned int arr_size{ 0 };					// array size should be positive only
 	
 
+	cout << "\n\n"
+		<< "|============================|\n"
+		<< "|        EXCEPTIONS:         |\n"
+		<< "|============================|\n\n";
+
 	cout << "Testing Bounds Checking Array\n\n";
 
+	// create Array and populate
+	cout << "Create Array, arr0, with 3 elements:\n";
 	arr_size = 3;
 	Array arr0(arr_size);
 	for (unsigned int i = 0; i < arr_size; i++)
+	{
+		arr0[i] = Point(i * 2.2, i * 1.5);
 		cout << "arr0[" << i << "]" << arr0[i] << endl;
+	}
 	cout << "\n";
 
 	Point P0{ 2, 3 };
@@ -139,8 +149,8 @@ int main(void)
 	// try/catch Array::GetElement() indexing error
 	try
 	{
-		cout << "Try to access arr0 element 5: " << arr0.GetElement(4) << endl;
-		//cout << "\nTry to access arr0[4]: " << arr0[4] << endl;
+		cout << "Try to get element in arr0 element 5:\n";
+		arr0.GetElement(4);
 	}
 	catch (OutOfBoundsException& error_index_msg)
 	{
@@ -150,29 +160,29 @@ int main(void)
 	// try/catch Array::SetElement(Pt&, int) indexing error
 	try
 	{
-		cout << "Try to set arr0 element 5: " << endl;
+		cout << "\nTry to set element into arr0 element 5:\n";
 		arr0.SetElement(P0, 4);
-		//cout << "\nTry to access arr0[4]: " << arr0[4] << endl;
 	}
 	catch (OutOfBoundsException& error_index_msg)
 	{
-		cout << error_index_msg.GetMessage() << endl;
+		cout << error_index_msg.GetMessage() << endl << endl;
 	}
 
 	// try/catch Array::operator[]() get indexing error
 	try
 	{
-		cout << "Try to access arr0[4]: " << arr0[4] << endl;
+		cout << "Try to access arr0[4]:\n";
+		arr0[4];
 	}
 	catch (OutOfBoundsException& error_index_msg)
 	{
-		cout << error_index_msg.GetMessage() << endl;
+		cout << error_index_msg.GetMessage() << endl << endl;
 	}
-
+		
 	// try/catch Array::operator[]() set indexing error
 	try
 	{
-		cout << "Try to set arr0[4]= (0, 0): " << endl;
+		cout << "Try to set arr0[4]= (0, 0):\n";
 		arr0[4] = P0;
 	}
 	catch (OutOfBoundsException& error_index_msg)
@@ -180,11 +190,7 @@ int main(void)
 		cout << error_index_msg.GetMessage() << endl;
 	}
 
-
-
-	cout << "\n";
-
-	/*
+	
 	cout << "\n"
 		<< "|====================================|\n"
 		<< "|              POINTS                |\n"
@@ -245,15 +251,14 @@ int main(void)
 	Line L10(P10, P11);
 	Circle C10(5, P10);
 
+	P10.Print();
+
 	cout << "P10: "; P10.Print();
 	cout << "P11: "; P11.Print();
 	cout << "L10: "; L10.Print();
 	cout << "C10: "; C10.Print();
 
-	cout << endl;
 
-
-	
 	cout << "\n\n"
 		<< "|========================|\n"
 		<< "|        LINES:          |\n"
@@ -373,7 +378,6 @@ int main(void)
 	// print C3
 	cout << "\nCircle C3: " << C3 
 		<< "\n\nCircle 3 to string: " << C3.ToString() << endl;
-	*/
 		
 	return 0;
 }

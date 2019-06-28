@@ -98,7 +98,6 @@ namespace Turbopro
 				Shape::operator=(Other);
 				m_x = Other.m_x;
 				m_y = Other.m_y;
-				//std::cout << "POINT: assigned\n";
 				return *this;
 			}
 		}
