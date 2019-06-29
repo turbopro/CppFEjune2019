@@ -1,0 +1,165 @@
+Q1
+Which statement is false about interfaces?
+
+A function working with an interface can work with any set of unrelated classes as long as they implement that interface.
+*** Interfaces are allowed to provide default implementations.
+There is not interface construct in C++ but they can be emulated using abstract classes/functions.
+Interfaces can be used instead of inheritance when there is no 'ISA' relation.
+
+
+Question 2
+Which statement is true about destructors and inheritance?
+
+Destructors must be virtual so that the base class destructor is called when a derived class object is removed from memory.
+Destructors must be virtual because the canonical header file requires that.
+***Destructors must be virtual so that derived class objects in a base class variable will be deleted correctly.
+The system provided destructor is always called correctly.
+
+
+Question 3
+Which statement is true about aggregation (open diamond shape in UML) and composition (filled diamond shape in UML)
+
+With aggregation the lifetime of the embedded object is the same as the 'outer' object while with composition the lifetime can be different.
+There is no difference between aggregation and composition.
+***With composition the lifetime of the embedded object is the same as the 'outer' object while with aggregation the lifetime can be different.
+Aggregation embeds multiple objects while composition only embeds one object.
+
+
+Question 4
+Which statement is true about inheritance?
+
+Friends of the base class are also friends of the derived class.
+All members of the base class are inherited except the constructors, destructor and assignment operator.
+*** Operator functions of the base class are not inherited.
+All member of the base class are inherited.
+
+
+Question 5
+Which statement is false about an abstract class?
+
+Abstract classes can contain member data.
+Abstract classes enable us to work uniformly with a set of related classes.
+***Abstract classes can only have function declarations, no function implementations.
+Abstract classes cannot be instantiated.
+
+
+Question 6
+What is the output of the following program?
+C++:
+class A
+{
+private:
+  int m_da;
+public:
+  A(int da): m_da(da) {}
+  int GetA() { return m_da; }
+  A& operator = (const A& source) 
+  { m_da=source.m_da; return *this; }
+};
+class B: public A
+{
+private:
+  int m_db;
+public:
+  B(int da, int db): A(da), m_db(db) {}
+  int GetB() { return m_db; }
+  B& operator = (const B& source) 
+  { m_db=source.m_db; return *this; }
+};
+int main()
+{
+  B b1(10, 20); B b2(30, 40);
+  b1=b2;
+  std::cout<<b1.GetA()<<", "<<b1.GetB()<<std::endl;
+  return 0;
+}
+
+10, 20
+***10, 40
+30, 20
+30, 40
+
+
+Question 7
+What is the output of the following program?
+C++:
+class A
+{
+public:
+  virtual std::string F() { return "A"; }
+};
+class B: public A
+{
+public:
+  std::string F() { return "B"; }
+};
+int main()
+{
+  A a; B b;
+  A* ap;
+  std::cout<<a.F()<<", ";
+  std::cout<<b.F()<<", ";
+  ap=&a; std::cout<<ap->F()<<", ";
+  ap=&b; std::cout<<ap->F()<<std::endl;
+  return 0;
+}
+
+A, A, A, A
+***A, B, A, B
+This code does not compile because the derived class function F() must also be virtual.
+A, B, A, A
+
+
+Question 8
+What is the output of the following program?
+C++:
+class A
+{
+private:
+  int m_data;
+public:
+  A(): m_data(GetValue()) {}
+  int Calculate() { return m_data*1.5; }
+  virtual int GetValue() { return 10; }
+};
+class B: public A
+{
+public:
+  virtual int GetValue() { return 20; }
+};
+int main()
+{
+  A a; B b; A* ap;
+  ap=&a; std::cout<<ap->GetValue()<<", "<<ap->Calculate()<<", ";
+  ap=&b; std::cout<<ap->GetValue()<<", "<<ap->Calculate()<<std::endl;
+  return 0;
+}
+
+***10, 15, 20, 15
+
+10, 15, 20, 30
+This code does not compile.
+10, 15, 10, 15
+
+
+Question 9
+Which statement is false about the colon syntax?
+
+The colon syntax is more efficient when initialising complex data members.
+The colon syntax must be used to initialise reference data members.
+The colon syntax must be used to initialise const data members.
+***The colon syntax is just another way to initialise your data members. No performance advantages.
+
+
+Question 10
+Which statement is false about aggregation?
+
+Aggregation can hide the functionality of the aggregated object.
+With aggregation you create an object that consists of one or more other objects.
+***Aggregation is a special kind of inheritance.
+Aggregation is often combined with delegation to delegate functionality to another object.
+
+
+
+Blue Nile:	Exchange orders can only be created by phone Vernon on 800 242 2728
+Order number: 77416949 
