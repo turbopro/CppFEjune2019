@@ -1,5 +1,5 @@
 /* Main.cpp
-Level4.2a_Ex1: Introduction to Templates - Templated Array Class
+Level4.2b_Ex1: Advanced Templates - Static Variable for Array Default Size
 
 Test program for the Point, Line and Circle classes 
 Include "Point.h", "Line.h", and "Circle.h" header files
@@ -141,6 +141,50 @@ int main(void)
 		<< "|============================|\n"
 		<< "|        TEMPLATES:          |\n"
 		<< "|============================|\n\n";
+
+	cout << "Testing static data member and static methods\n\n";
+
+	// Create intArray1, intArray2, doubleArray
+	// use Array Template Class default constructor"
+	try
+	{
+		cout << "Step 1:\nCreate three Arrays using Array Template Class\n"
+			<< "Use default constructor:\n\n";
+		Array<unsigned int> intArray1;
+		Array<int> intArray2;
+		Array<double> doubleArray;
+
+		cout << "intArray1 size:   " << intArray1.DefaultSize() << endl;
+		cout << "intArray2 size:   " << intArray2.DefaultSize() << endl;
+		cout << "doubleArray size: " << doubleArray.DefaultSize() << endl;
+
+		cout << "\nStep 2:\nSet intArray1 default size to 15";
+		intArray1.DefaultSize(15);
+
+		cout << "\nintArray1 size:   " << intArray1.DefaultSize() << endl;
+		cout << "intArray2 size:   " << intArray2.DefaultSize() << endl;
+		cout << "doubleArray size: " << doubleArray.DefaultSize() << endl;
+
+		cout << "\nThe vaules displayed in Step 1 are the default size values for the Arrays.\n"
+			<< "The default size is stored as a static data member of the Array Template Class.\n"
+			<< "We obtain these values through the overloaded static member method, DefaultSize()\n\n";
+
+		cout << "In Step 2, we set the default size value through the overloaded static member method,"
+			<< "DefaultSize(int),\n and display the default size of the three Arrays again\n";
+
+		cout << "\nStep 3:\nSet intArray1 default size to -1:\n";
+		intArray1.DefaultSize(-1);
+
+		cout << "\nintArray1 size:   " << intArray1.DefaultSize() << endl;
+		cout << "intArray2 size:   " << intArray2.DefaultSize() << endl;
+		cout << "doubleArray size: " << doubleArray.DefaultSize() << endl;
+	}
+	catch (ArrayException& error_index_msg)
+	{
+		cout << error_index_msg.GetMessage() << endl;
+	}
+
+	/*
 
 	cout << "Testing Bounds Checking Array<typename T>\n\n";
 
@@ -390,7 +434,7 @@ int main(void)
 	cout << "\nCircle C3: " << C3 
 		<< "\n\nCircle 3 to string: " << C3.ToString() << endl;
 	
-	//*/
+	*/
 
 	return 0;
 }

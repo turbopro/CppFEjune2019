@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{19200189-0B1F-4E17-9003-8DDF7AD6FADC}</ProjectGuid>
-    <RootNamespace>Level42aEx1TemplatesTemplatedArrayClass</RootNamespace>
+    <ProjectGuid>{32509664-3F6C-40D5-88B9-EDA82D55F884}</ProjectGuid>
+    <RootNamespace>Level42bEx2ATNumericArrayGenericInheritance</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -134,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array.h" />
+    <ClInclude Include="ArrayException.h" />
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="Point.h" />

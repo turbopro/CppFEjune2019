@@ -49,48 +49,38 @@ namespace Turbopro
 		Array::Array()
 			: m_data{ new CAD::Point[ArraySize] }, m_arr_size{ ArraySize } {}	// size of array = class enum, ArraySize
 
-		// copy constructor
-		Array::Array(const Array& Other) : m_arr_size{ Other.Size() }
+		// copy constructor: set m_arr_size, create m_data, deep copy elements
+		Array::Array(const Array& Other) : m_arr_size{ Other.Size() }, m_data{ new CAD::Point[m_arr_size] }
 		{
-			// create new array based on size of Other
-			// m_arr_size must be assigned before m_data, so this data member may not use colon syntax
-			m_data = new CAD::Point[m_arr_size];			
 			for (unsigned int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
 				(*this)[i] = Other[i];						// calls the const Point& operator[]() const method
 		}
 
 		// destructor
-		Array::~Array()
-		{
-			delete[] m_data;
-		}
+		Array::~Array() { delete[] m_data; }
 
 		// SetElement() method
 		void Array::SetElement(const CAD::Point& p, unsigned int index)
 		{
-			if (index >= 0 && index < m_arr_size)
-			{
-				m_data[index] = p;
-			}
-			else
+			if (index < 0 || index >= m_arr_size)
 			{
 				// if index out of range, throw exception
 				throw Containers::OutOfBoundsException(index);
 			}
+			
+			m_data[index] = p;
 		}
 
 		// GetElement() method
 		CAD::Point& Array::GetElement(unsigned int index) const
 		{
-			if (index >= 0 && index < m_arr_size)
-			{
-				return m_data[index];
-			}
-			else
+			if (index < 0 || index >= m_arr_size)
 			{
 				// if index out of range, throw exception
 				throw Containers::OutOfBoundsException(index);
 			}
+			
+			return m_data[index];
 		}
 
 		// overloaded assignment operator
@@ -116,32 +106,26 @@ namespace Turbopro
 		// overloaded array indexing operator: read/write version
 		CAD::Point& Array::operator[](unsigned int index)
 		{
-			if (index >= 0 && index < m_arr_size)
-			{
-				return this->GetElement(index);
-			}
-			else
+			if (index < 0 || index >= m_arr_size)
 			{
 				// if index out of range, throw exception
 				throw Containers::OutOfBoundsException(index);
 			}
+			
+			return this->GetElement(index);
 		}
 
 
 		// overloaded array indexing operator: const version
-		// the implicit Array object and the returned const Point object
-		// cannot be changed by the method
 		const CAD::Point& Array::operator[](unsigned int index) const
 		{
-			if (index >= 0 && index < m_arr_size)
-			{
-				return m_data[index];
-			}
-			else
+			if (index < 0 || index >= m_arr_size)
 			{
 				// if index out of range, throw exception
 				throw Containers::OutOfBoundsException(index);
 			}
+			
+			return m_data[index];
 		}
 	}
 }

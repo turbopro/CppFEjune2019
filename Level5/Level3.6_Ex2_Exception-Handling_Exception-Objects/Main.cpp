@@ -152,29 +152,31 @@ int main(void)
 		cout << "Try to get element in arr0 element 5:\n";
 		arr0.GetElement(4);
 	}
-	catch (OutOfBoundsException& error_index_msg)
+	catch (ArrayException& error_index_msg)
 	{
 		cout << error_index_msg.GetMessage() << endl;
 	}
+	
 
 	// try/catch Array::SetElement(Pt&, int) indexing error
 	try
 	{
-		cout << "\nTry to set element into arr0 element 5:\n";
-		arr0.SetElement(P0, 4);
+		cout << "\nTry to set element into arr0 element -2:\n";
+		arr0.SetElement(P0, -2);
 	}
-	catch (OutOfBoundsException& error_index_msg)
+	catch (ArrayException& error_index_msg)
 	{
 		cout << error_index_msg.GetMessage() << endl << endl;
 	}
 
+	
 	// try/catch Array::operator[]() get indexing error
 	try
 	{
 		cout << "Try to access arr0[4]:\n";
 		arr0[4];
 	}
-	catch (OutOfBoundsException& error_index_msg)
+	catch (ArrayException& error_index_msg)
 	{
 		cout << error_index_msg.GetMessage() << endl << endl;
 	}
@@ -185,12 +187,12 @@ int main(void)
 		cout << "Try to set arr0[4]= (0, 0):\n";
 		arr0[4] = P0;
 	}
-	catch (OutOfBoundsException& error_index_msg)
+	catch (ArrayException& error_index_msg)
 	{
 		cout << error_index_msg.GetMessage() << endl;
 	}
 
-	
+	/*
 	cout << "\n"
 		<< "|====================================|\n"
 		<< "|              POINTS                |\n"
@@ -378,6 +380,8 @@ int main(void)
 	// print C3
 	cout << "\nCircle C3: " << C3 
 		<< "\n\nCircle 3 to string: " << C3.ToString() << endl;
-		
+	
+	//*/
+
 	return 0;
 }

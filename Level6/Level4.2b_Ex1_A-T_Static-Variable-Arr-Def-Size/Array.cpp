@@ -1,5 +1,5 @@
 /* Array.cpp
-Level4.2a_Ex1: Introduction to Templates - Templated Array Class
+Level4.2b_Ex1: Advanced Templates - Static Variable for Array Default Size
 
 Source file that implements the Array Template class declared in the 
 Array.h header file.
@@ -39,26 +39,41 @@ the Array class is part of the Turbopro::Container namespace
 #include "Array.h"			// Array class declaration
 #include "ArrayException.h"	// ArrayException class declaration
 
+
 // create namespace
 namespace Turbopro
 {
 	namespace Containers
 	{
+		// initialise static data member ArraySize to default size = 10
+		template <typename T>
+		int Array<T>::ArraySize = 10;
+
+		// static data member ArraySize set method definition: check for size value
+		template <typename T>
+		void Array<T>::DefaultSize(int size)
+		{
+			// if sz is negative, throw exception
+			if (size < 0) { throw Containers::OutOfBoundsException(size); }
+
+			Array<T>::ArraySize = size;
+		}
+
 		// constructor 
 		template <typename T>
-		Array<T>::Array(unsigned int arr_size)
+		Array<T>::Array(int arr_size)
 			: m_data{ new T[arr_size] }, m_arr_size{ arr_size } {}	// size of array set during runtime
 
 		// default constructor
 		template <typename T>
 		Array<T>::Array()
-			: m_data{ new T[ArraySize] }, m_arr_size{ ArraySize } {}	// size of array = class enum, ArraySize
+			: m_data{ new T[ArraySize] }, m_arr_size{ ArraySize } {}	// size of array = ArraySize
 
 		// copy constructor: set m_arr_size, create m_data, deep copy elements
 		template <typename T>
 		Array<T>::Array(const Array<T>& Other) : m_arr_size{ Other.Size() }, m_data{ new T[m_arr_size] }
 		{
-			for (unsigned int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
+			for (int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
 				(*this)[i] = Other[i];						// calls the const Point& operator[]() const method
 		}
 
@@ -68,7 +83,7 @@ namespace Turbopro
 		
 		// SetElement() method
 		template <typename T>
-		void Array<T>::SetElement(const T& p, unsigned int index)
+		void Array<T>::SetElement(const T& p, int index)
 		{
 			if (index < 0 || index >= m_arr_size)
 			{
@@ -81,7 +96,7 @@ namespace Turbopro
 
 		// GetElement() method
 		template <typename T>
-		T& Array<T>::GetElement(unsigned int index) const
+		T& Array<T>::GetElement(int index) const
 		{
 			if (index < 0 || index >= m_arr_size)
 			{
@@ -103,10 +118,9 @@ namespace Turbopro
 				delete[] m_data;
 
 				// create new m_data with size of Other
-				m_arr_size = Other.Size();						// set member m_arr_size to size of Other
-				//m_data = new CAD::Point[m_arr_size];			// create new array
-				m_data = new T[m_arr_size];						// create new array
-				for (unsigned int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
+				m_arr_size = Other.Size();				// set member m_arr_size to size of Other
+				m_data = new T[m_arr_size];				// create new array
+				for (int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
 				{
 					m_data[i] = Other[i];
 				}
@@ -116,7 +130,7 @@ namespace Turbopro
 
 		// overloaded array indexing operator: read/write version
 		template <typename T>
-		T& Array<T>::operator[](unsigned int index)
+		T& Array<T>::operator[](int index)
 		{
 			if (index < 0 || index >= m_arr_size)
 			{
@@ -130,7 +144,7 @@ namespace Turbopro
 
 		// overloaded array indexing operator: const version
 		template <typename T>
-		const T& Array<T>::operator[](unsigned int index) const
+		const T& Array<T>::operator[](int index) const
 		{
 			if (index < 0 || index >= m_arr_size)
 			{
@@ -140,112 +154,6 @@ namespace Turbopro
 
 			return m_data[index];
 		}
-
-		/*
-		// constructor 
-		Array::Array(unsigned int arr_size)
-			: m_data{ new CAD::Point[arr_size] }, m_arr_size{ arr_size } {}	// size of array set during runtime
-
-		// default constructor
-		Array::Array()
-			: m_data{ new CAD::Point[ArraySize] }, m_arr_size{ ArraySize } {}	// size of array = class enum, ArraySize
-
-		// copy constructor
-		Array::Array(const Array& Other) : m_arr_size{ Other.Size() }
-		{
-			// create new array based on size of Other
-			// m_arr_size must be assigned before m_data, so this data member may not use colon syntax
-			m_data = new CAD::Point[m_arr_size];			
-			for (unsigned int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
-				(*this)[i] = Other[i];						// calls the const Point& operator[]() const method
-		}
-
-		// destructor
-		Array::~Array()
-		{
-			delete[] m_data;
-		}
-
-		// SetElement() method
-		template <typename T>
-		void Array::SetElement(const CAD::Point& p, unsigned int index)
-		{
-			if (index >= 0 && index < m_arr_size)
-			{
-				m_data[index] = p;
-			}
-			else
-			{
-				// if index out of range, throw exception
-				throw Containers::OutOfBoundsException(index);
-			}
-		}
-
-		// GetElement() method
-		CAD::Point& Array::GetElement(unsigned int index) const
-		{
-			if (index >= 0 && index < m_arr_size)
-			{
-				return m_data[index];
-			}
-			else
-			{
-				// if index out of range, throw exception
-				throw Containers::OutOfBoundsException(index);
-			}
-		}
-
-		// overloaded assignment operator
-		Array& Array::operator=(const Array& Other)
-		{
-			if (this == &Other) { return *this; }
-			else
-			{
-				// delete current array m_data;
-				delete[] m_data;
-
-				// create new m_data with size of Other
-				m_arr_size = Other.Size();				// set member m_arr_size to size of Other
-				m_data = new CAD::Point[m_arr_size];			// create new array
-				for (unsigned int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
-				{
-					m_data[i] = Other[i];
-				}
-				return *this;
-			}
-		}
-
-		// overloaded array indexing operator: read/write version
-		CAD::Point& Array::operator[](unsigned int index)
-		{
-			if (index >= 0 && index < m_arr_size)
-			{
-				return this->GetElement(index);
-			}
-			else
-			{
-				// if index out of range, throw exception
-				throw Containers::OutOfBoundsException(index);
-			}
-		}
-
-
-		// overloaded array indexing operator: const version
-		// the implicit Array object and the returned const Point object
-		// cannot be changed by the method
-		const CAD::Point& Array::operator[](unsigned int index) const
-		{
-			if (index >= 0 && index < m_arr_size)
-			{
-				return m_data[index];
-			}
-			else
-			{
-				// if index out of range, throw exception
-				throw Containers::OutOfBoundsException(index);
-			}
-		}
-		*/
 	}
 }
 #endif // ARRAY_CPP_INCLUDED
