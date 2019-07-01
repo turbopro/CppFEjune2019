@@ -100,20 +100,20 @@ namespace Turbopro
 		class NumericArray	:	public Array<TNum>
 		{
 		private:
-			TNum* m_data;
-			int m_arr_size;					// using int: handling indexing errors with exceptions  
+			//TNum* m_data;
+			//int m_arr_size;					// using int: handling indexing errors with exceptions  
 
-			static int ArraySize;
+			//static int ArraySize;
 			//enum { ArraySize = 10 };		// size of array for default constructor
 
 		public:
 			NumericArray();											// default constructor
 			NumericArray(int arr_size);								// constructor
-			NumericArray(const NumericArray<TNum>& Other);					// copy constructor
+			NumericArray(const NumericArray<TNum>& Other);			// copy constructor
 			virtual ~NumericArray();								// destructor
-			int Size() const { return m_arr_size; }					// inlined: return the size of the object's array
-			//void SetElement(const TNum& p, int index);				// set a Point element to the array
-			//TNum& GetElement(int index) const;						// return a Point element from the array
+			//int Size() const { return m_arr_size; }					// inlined: return the size of the object's array
+			//void SetElement(const TNum& p, int index);			// set a Point element to the array
+			//TNum& GetElement(int index) const;					// return a Point element from the array
 			NumericArray<TNum>& operator=(const NumericArray<TNum>& Other);		// overloaded assignment operator
 			//TNum& operator[](int index);							// overloaded array indexing operator
 			//const TNum& operator[](int index) const;				// overloaded array indexing operator: const version
@@ -124,8 +124,8 @@ namespace Turbopro
 			//friend Point operator*(double n, const Point& Other);	// multiply n by Point p
 
 			// static methods
-			static int DefaultSize() { return ArraySize; }
-			static void DefaultSize(int size);
+			//static int DefaultSize() { return ArraySize; }
+			//static void DefaultSize(int size);
 		};
 	}
 }

@@ -231,10 +231,12 @@ int main(void)
 
 		
 		cout << "\nStep 5b:\nAssign intNumArr0 to intNumArr1:\n";
-		intNumArr1 = intNumArr0;
+		intNumArr0 = intNumArr1;
 		for (int i = 0; i < intNumArr1.Size(); i++)
 		{
-			cout << "intNumArr1[" << i << "]: " << intNumArr1.GetElement(i) << endl;
+			//cout << "intNumArr1[" << i << "]: " << intNumArr1.GetElement(i) << endl;
+			cout << "intNumArr1[" << i << "]: " << intNumArr1[i] << endl;
+			cout << "intNumArr0[" << i << "]: " << intNumArr0[i] << endl;
 		}
 
 		/*
