@@ -100,6 +100,7 @@ using directives and declarations for Turbopro::CAD and Turbopro::Container name
 #include "Array.h"			// Array class declaration
 #include "Shape.h"			// Shape class declaration
 #include "ArrayException.h"	// ArrayException class declaration
+#include "NumericArray.h"	// NumericArray class declaration
 
 using namespace std;
 
@@ -148,36 +149,78 @@ int main(void)
 	// use Array Template Class default constructor"
 	try
 	{
-		cout << "Step 1:\nCreate three Arrays using Array Template Class\n"
+		cout << "Step 1a:\nCreate three Arrays using Array Template Class\n"
 			<< "Use default constructor:\n\n";
-		Array<unsigned int> intArray1;
+		Array<int> intArray1;
 		Array<int> intArray2;
 		Array<double> doubleArray;
 
-		cout << "intArray1 size:   " << intArray1.DefaultSize() << endl;
-		cout << "intArray2 size:   " << intArray2.DefaultSize() << endl;
-		cout << "doubleArray size: " << doubleArray.DefaultSize() << endl;
+		cout << "intArray1 size:   " << intArray1.DefaultSize() << endl
+			<< "intArray2 size:   " << intArray2.DefaultSize() << endl
+			<< "doubleArray size: " << doubleArray.DefaultSize() << endl;
 
-		cout << "\nStep 2:\nSet intArray1 default size to 15";
+		cout << "Step 1a:\nCreate three NumericArrays using NumericArray Template Class\n"
+			<< "Use default constructor:\n\n";
+		NumericArray<int> intNumArray1;
+		Array<int> intNumArray2;
+		Array<double> doubleNumArray;
+
+		cout << "intNumArray1 size:   " << intNumArray1.DefaultSize() << endl
+			<< "intNumArray2 size:   " << intNumArray2.DefaultSize() << endl
+			<< "doubleNumArray size: " << doubleNumArray.DefaultSize() << endl;
+		
+
+		cout << "\nStep 2:\nSet intArray1 default size to 15"
+			<< "\nSet intArray2 default size to 3"
+			<< "\nSet intNumArray1 default size to 3";
 		intArray1.DefaultSize(15);
+		intArray2.DefaultSize(3);
+		intNumArray1.DefaultSize(5);
 
-		cout << "\nintArray1 size:   " << intArray1.DefaultSize() << endl;
-		cout << "intArray2 size:   " << intArray2.DefaultSize() << endl;
-		cout << "doubleArray size: " << doubleArray.DefaultSize() << endl;
+		cout << "\nintArray1 size:   " << intArray1.DefaultSize() << endl
+			<< "intArray2 size:   " << intArray2.DefaultSize() << endl
+			<< "intNumArray size:   " << intNumArray1.DefaultSize() << endl;
+
+
+		cout << "\nStep 3:\nSet element values for intArray2\n";
+		for (int i = 0; i < intArray2.Size(); i++)
+		{
+			//rnd_int = (i + (rand() % 100));
+			intArray2.SetElement((i + (rand() % 10)), i);
+			cout << "intArr2[" << i << "]: " << intArray2.GetElement(i) << endl;
+		}
+
+		cout << "\nStep 3a:\nSet element values for intNumArray1\n";
+		for (int i = 0; i < intNumArray1.Size(); i++)
+		{
+			//rnd_int = (i + (rand() % 100));
+			intNumArray1.SetElement((i + (rand() % 10)), i);
+			cout << "intNumArray1[" << i << "]: " << intNumArray1.GetElement(i) << endl;
+		}
+
+		cout << "\nStep 4a:\nAssign intArray2 to intArray1\n";
+		//Array<int> intArray3;
+		intArray1 = intArray2;
+		for (int i = 0; i < intNumArray1.Size(); i++)
+		{
+			//rnd_int = (i + (rand() % 100));
+			//intArray1.SetElement((i + (rand() % 10)), i);
+			cout << "intArray1[" << i << "]: " << intArray1.GetElement(i) << endl;
+		}
 
 		cout << "\nThe vaules displayed in Step 1 are the default size values for the Arrays.\n"
 			<< "The default size is stored as a static data member of the Array Template Class.\n"
 			<< "We obtain these values through the overloaded static member method, DefaultSize()\n\n";
 
 		cout << "In Step 2, we set the default size value through the overloaded static member method,"
-			<< "DefaultSize(int),\n and display the default size of the three Arrays again\n";
+			<< "DefaultSize(int), and display the default size of the three Arrays again\n\n";
 
-		cout << "\nStep 3:\nSet intArray1 default size to -1:\n";
-		intArray1.DefaultSize(-1);
+		//cout << "\nStep 3:\nSet intArray1 default size to -1:\n";
+		//intArray1.DefaultSize(-1);
 
-		cout << "\nintArray1 size:   " << intArray1.DefaultSize() << endl;
-		cout << "intArray2 size:   " << intArray2.DefaultSize() << endl;
-		cout << "doubleArray size: " << doubleArray.DefaultSize() << endl;
+		//cout << "\nintArray1 size:   " << intArray1.DefaultSize() << endl;
+		//cout << "intArray2 size:   " << intArray2.DefaultSize() << endl;
+		//cout << "doubleArray size: " << doubleArray.DefaultSize() << endl;
 	}
 	catch (ArrayException& error_index_msg)
 	{

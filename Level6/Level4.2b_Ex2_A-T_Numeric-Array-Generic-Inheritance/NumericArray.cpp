@@ -53,7 +53,7 @@ namespace Turbopro
 		template <typename TNum>
 		void NumericArray<TNum>::DefaultSize(int size)
 		{
-			// if sz is negative, throw exception
+			// if size is negative, throw exception
 			if (size < 0) { throw Containers::OutOfBoundsException(size); }
 
 			NumericArray<TNum>::ArraySize = size;
@@ -80,7 +80,11 @@ namespace Turbopro
 
 		// destructor
 		template <typename TNum>
-		NumericArray<TNum>::~NumericArray() { delete[] m_data; }
+		NumericArray<TNum>::~NumericArray() 
+		{ 
+			std::cout << "Deleting NumericArray...\n";
+			delete[] m_data; 
+		}
 
 		// add the elements of two NumericArrays
 		template <typename TNum>

@@ -80,7 +80,11 @@ namespace Turbopro
 
 		// destructor
 		template <typename TArray>
-		Array<TArray>::~Array() { delete[] m_data; }
+		Array<TArray>::~Array() 
+		{ 
+			std::cout << "Deleting Array...\n";
+			delete[] m_data; 
+		}
 		
 		// SetElement() method
 		template <typename TArray>
