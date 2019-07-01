@@ -1,5 +1,5 @@
 /* Point.h
-Level4.2b_Ex1: Advanced Templates - Static Variable for Array Default Size
+Level4.2b_Ex2: Advanced Templates - Numeric Array (generic inheritance)
  
 header file for the Point class
 

@@ -1,5 +1,5 @@
 /* Circle.cpp
-Level4.2b_Ex1: Advanced Templates - Static Variable for Array Default Size
+Level4.2b_Ex2: Advanced Templates - Numeric Array (generic inheritance)
 
 Source file that implements the Circle class declared in the 
 Circle.h header file.

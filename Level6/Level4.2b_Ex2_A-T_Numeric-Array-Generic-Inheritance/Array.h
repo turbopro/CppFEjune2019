@@ -1,5 +1,5 @@
 /* Array.h
-Level4.2b_Ex1: Advanced Templates - Static Variable for Array Default Size
+Level4.2b_Ex2: Advanced Templates - Numeric Array (generic inheritance)
  
 header file for the Templated Array class
 
@@ -95,12 +95,11 @@ namespace Turbopro
 	namespace Containers
 	{
 		// Template Array class declaration
-		template <typename T>
+		template <typename TArray>
 		class Array
 		{
 		private:
-			//CAD::T* m_data;
-			T* m_data;
+			TArray* m_data;
 			int m_arr_size;					// using int: handling indexing errors with exceptions  
 			
 			static int ArraySize;
@@ -109,18 +108,14 @@ namespace Turbopro
 		public:
 			Array();													// default constructor
 			Array(int arr_size);										// constructor
-			Array(const Array<T>& Other);								// copy constructor
+			Array(const Array<TArray>& Other);							// copy constructor
 			virtual ~Array();											// destructor
 			int Size() const { return m_arr_size; }						// inlined: return the size of the object's array
-			//void SetElement(const CAD::Point& p, unsigned int index);	// set a Point element to the array
-			void SetElement(const T& p, int index);						// set a Point element to the array
-			//CAD::Point& GetElement(unsigned int index) const;			// return a Point element from the array
-			T& GetElement(int index) const;								// return a Point element from the array
-			Array<T>& operator=(const Array<T>& Other);					// overloaded assignment operator
-			//CAD::Point& operator[](unsigned int index);				// overloaded array indexing operator
-			T& operator[](int index);									// overloaded array indexing operator
-			//const CAD::Point& operator[](unsigned int index) const;	// overloaded array indexing operator: const version
-			const T& operator[](int index) const;						// overloaded array indexing operator: const version
+			void SetElement(const TArray& p, int index);				// set a Point element to the array
+			TArray& GetElement(int index) const;						// return a Point element from the array
+			virtual Array<TArray>& operator=(const Array<TArray>& Other);	// overloaded assignment operator: virtual, derived classes to change
+			TArray& operator[](int index);								// overloaded array indexing operator
+			const TArray& operator[](int index) const;					// overloaded array indexing operator: const version
 
 			// static methods
 			static int DefaultSize() { return ArraySize; }

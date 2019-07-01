@@ -1,5 +1,5 @@
 /* Shape.cpp
-Level4.2b_Ex1: Advanced Templates - Static Variable for Array Default Size
+Level4.2b_Ex2: Advanced Templates - Numeric Array (generic inheritance)
 
 Source file that implements the Shape class declared in the
 Shape.h header file.

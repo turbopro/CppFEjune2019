@@ -1,5 +1,5 @@
 /* Main.cpp
-Level4.2b_Ex1: Advanced Templates - Static Variable for Array Default Size
+Level4.2b_Ex2: Advanced Templates - Numeric Array (generic inheritance)
 
 Test program for the Point, Line and Circle classes 
 Include "Point.h", "Line.h", and "Circle.h" header files
