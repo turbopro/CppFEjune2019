@@ -114,8 +114,8 @@ namespace Turbopro
 			void SetElement(const TArray& p, int index);				// set a Point element to the array
 			TArray& GetElement(int index) const;						// return a Point element from the array
 			virtual Array<TArray>& operator=(const Array<TArray>& Other);	// overloaded assignment operator: virtual, derived classes to change
-			TArray& operator[](int index);								// overloaded array indexing operator
-			const TArray& operator[](int index) const;					// overloaded array indexing operator: const version
+			TArray& operator[](int index);						// overloaded array indexing operator
+			const TArray& operator[](int index) const;			// overloaded array indexing operator: const version
 
 			// static methods
 			static int DefaultSize() { return ArraySize; }

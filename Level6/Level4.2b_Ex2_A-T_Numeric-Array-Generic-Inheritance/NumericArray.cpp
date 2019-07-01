@@ -82,7 +82,7 @@ namespace Turbopro
 		template <typename TNum>
 		NumericArray<TNum>::~NumericArray() 
 		{ 
-			std::cout << "Deleting NumericArray...\n";
+			//std::cout << "Deleting NumericArray...\n";
 			delete[] m_data; 
 		}
 
@@ -155,10 +155,11 @@ namespace Turbopro
 
 				// create new m_data with size of Other
 				m_arr_size = Other.Size();				// set member m_arr_size to size of Other
-				m_data = new TNum[m_arr_size];				// create new array
+				m_data = new TNum[m_arr_size];			// create new array
 				for (int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
 				{
-					m_data[i] = Other[i];
+					//m_data[i] = Other[i];
+					m_data[i] = Other[i] ;
 				}
 				return *this;
 			}
@@ -166,8 +167,8 @@ namespace Turbopro
 
 		/*
 		// overloaded array indexing operator: read/write version
-		template <typename T>
-		T& Array<T>::operator[](int index)
+		template <typename TNum>
+		TNum& NumericArray<TNum>::operator[](int index)
 		{
 			if (index < 0 || index >= m_arr_size)
 			{
@@ -180,8 +181,8 @@ namespace Turbopro
 
 
 		// overloaded array indexing operator: const version
-		template <typename T>
-		const T& Array<T>::operator[](int index) const
+		template <typename TNum>
+		const TNum& NumericArray<TNum>::operator[](int index) const
 		{
 			if (index < 0 || index >= m_arr_size)
 			{
