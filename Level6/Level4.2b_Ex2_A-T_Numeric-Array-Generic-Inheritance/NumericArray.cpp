@@ -77,7 +77,7 @@ namespace Turbopro
 		NumericArray<TNum>::~NumericArray() 
 		{ 
 			//std::cout << "Deleting NumericArray...\n";
-			//delete[] this->GetElement()
+			//delete[] *this;
 		}
 
 		// add the elements of two NumericArrays
@@ -89,7 +89,7 @@ namespace Turbopro
 			if (this->Size() != Other.Size())
 			{
 				// if NumericArrays are not the same size, throw exception
-				throw Containers::OutOfBoundsException(Other.Size());
+				throw Containers::SizeMismatchException(0);
 			}
 
 			//NumericArray<TNum> res{ m_arr_size };

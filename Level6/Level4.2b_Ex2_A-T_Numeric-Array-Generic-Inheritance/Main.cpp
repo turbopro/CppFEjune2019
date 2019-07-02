@@ -174,79 +174,94 @@ int main(void)
 			<< "intNumArr0 DefaultSize: " << intNumArr0.DefaultSize() << endl
 			<< "dblNumArr0 DefaultSize: " << dblNumArr0.DefaultSize() << endl;
 
-
+		//// Array<TArray> Tests
 		cout << "Step 3a:\nSet element values for intArr0\n";
 		for (int i = 0; i < intArr0.Size(); i++)
 		{
-			//intArr0.SetElement((rand() % 10), i);
 			intArr0[i] = rand() % 10;
-			cout << "intArr0[" << i << "]: " << intArr0.GetElement(i) << endl;
+			cout << "intArr0[" << i << "]: " << intArr0[i] << endl;
 		}
 
-		
-		cout << "\nStep 3b:\nSet element values for intNumArr0\n";
-		for (int i = 0; i < intNumArr0.Size(); i++)
-		{
-			//intNumArr0.SetElement((rand() % 10), i);
-			intNumArr0[i] = rand() % 10;
-			cout << "intNumArray0[" << i << "]: " << intNumArr0.GetElement(i) << endl;
-		}
-
-		
-		cout << "\nStep 4a:\nCreate new intArr1: assign intArr0 to intArr1:\n";
+				
+		cout << "\nStep 3b:\nCreate new intArr1: use copy constructor to copy intArr0:\n";
 		Array<int> intArr1(intArr0);
-		//intArr1 = intArr0;
 		for (int i = 0; i < intArr1.Size(); i++)
 		{
 			cout << "intArr1[" << i << "]: " << intArr1.GetElement(i) << endl;
 		}
 
+
+		cout << "\nStep 3c:\nCreate new intArr2: assign intArr0 to intArr1:\n";
+		Array<int> intArr2 = intArr1;
+		for (int i = 0; i < intArr1.Size(); i++)
+		{
+			cout << "intArr2[" << i << "]: " << intArr2.GetElement(i) << endl;
+		}
 		
 		
-		cout << "\nStep 5a:\nCreate new intNumArr1:\n";
+		// NumericArray<TNum> Tests
+		cout << "\nStep 4a:\nSet element values for intNumArr0\n";
+		for (int i = 0; i < intNumArr0.Size(); i++)
+		{
+			intNumArr0[i] = rand() % 10;
+			cout << "intNumArray0[" << i << "]: " << intNumArr0.GetElement(i) << endl;
+		}
+
+
+		cout << "\nStep 4b:\nCreate new intNumArr1, and set values:\n";
 		NumericArray<int> intNumArr1;
-		cout << "\nset values for intNumArr1, print with operator[]():\n";
 		for (int i = 0; i < intNumArr1.Size(); i++)
 		{
 			intNumArr1.SetElement((rand() % 10), i);
-			cout << "intNumArr1[" << i << "]: " << intNumArr1.GetElement(i) << endl;
-			//cout << "intNumArray1[" << i << "]: " << intNumArr1[i] << endl;
+			//cout << "intNumArr1[" << i << "]: " << intNumArr1.GetElement(i) << endl;
+			cout << "intNumArray1[" << i << "]: " << intNumArr1[i] << endl;
 		}
 
 		
-		cout << "\nStep 5b:\nCreate new intNumArr2, and assign intNumArr1 to intNumArr2:\n";
+		cout << "\nStep 4c:\nCreate new intNumArr2, and assign intNumArr1 to intNumArr2:\n";
 		NumericArray<int> intNumArr2 = intNumArr1;
-		//intNumArr2 = intNumArr1;
 		for (int i = 0; i < intNumArr2.Size(); i++)
 		{
 			cout << "intNumArr2[" << i << "]: " << intNumArr2[i] << endl;
-			cout << "intNumArr1[" << i << "]: " << intNumArr1[i] << endl;
 		}
 
 		
-		cout << "\nCreate new intNumArr3, and set intNumArr3 = intNumArr0 + intNumArr1:\n";
+		cout << "\nStep 4d:\nCreate new intNumArr3, and set intNumArr3 = intNumArr0 + intNumArr1:\n";
 		NumericArray<int> intNumArr3 = intNumArr0 + intNumArr1;
 		for (int i = 0; i < intNumArr3.Size(); i++)
 		{
 			cout << "intNumArr3[" << i << "]: " << intNumArr3[i] << endl;
 		}
 
-
-		cout << "\nCreate new intNumArr4, and set to intNumArr3 * 3:\n";
+				
+		cout << "\nStep 4e:\nCreate new intNumArr4, and assign intNumArr3 * 3 to intNumArr4:\n";
 		NumericArray<int> intNumArr4 = intNumArr3 * 3;
 		for (int i = 0; i < intNumArr4.Size(); i++)
 		{
 			cout << "intNumArr4[" << i << "]: " << intNumArr4[i] << endl;
 		}
 
-
-		cout << "\nCreate new intNumArr5: use copy constructor, copy intNumArr4:\n";
+		
+		cout << "\nStep 4f:\nCreate new intNumArr5: use copy constructor, copy intNumArr4:\n";
 		NumericArray<int> intNumArr5(intNumArr4);
 		for (int i = 0; i < intNumArr5.Size(); i++)
 		{
 			cout << "intNumArr5[" << i << "]: " << intNumArr5[i] << endl;
 		}
 
+		cout << "\nStep 5a:\nCreate new intNumArr6 of size 5, set values:\n";
+		arr_size = 5;
+		NumericArray<int> intNumArr6(arr_size);
+		for (int i = 0; i < intNumArr5.Size(); i++)
+		{
+			intNumArr6.SetElement((rand() % 10), i);
+			cout << "intNumArr6[" << i << "]: " << intNumArr5[i] << endl;
+		}
+
+		cout << "\nStep 5b:\nSet intNumArr2 = intNumArr0 + intNumArr6:\n";
+		intNumArr2 = intNumArr0 + intNumArr6;
+
+		cout << endl;
 
 		/*
 		//cout << "\nStep 4b:\nCopy intArray2 to new intArray3\n";
@@ -274,9 +289,9 @@ int main(void)
 		cout << "doubleArray size: " << doubleArray.DefaultSize() << endl;
 		*/
 	}
-	catch (ArrayException& error_index_msg)
+	catch (ArrayException& mismatch_msg)
 	{
-		cout << error_index_msg.GetMessage() << endl;
+		cout << mismatch_msg.GetMisMatchMsg() << endl;
 	}
 
 	/*

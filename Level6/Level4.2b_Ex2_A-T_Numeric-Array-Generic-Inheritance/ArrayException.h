@@ -54,7 +54,8 @@ namespace Turbopro
 		public:
 			ArrayException() {};							// do-nothing default constructor
 			virtual ~ArrayException() {};					// destructor
-			virtual std::string GetMessage() const = 0;		// pure virtual function: returns a string
+			virtual std::string GetErrIdxMsg() const = 0;	// pure virtual function: returns a string
+			//virtual std::string GetMisMatchMsg() const = 0;		// virtual function: returns a string
 		};
 
 		// OutOfBoundsException class to handle array indexing errors
@@ -67,7 +68,21 @@ namespace Turbopro
 			OutOfBoundsException();							// default constructor
 			OutOfBoundsException(int error_index);			// constructor
 			virtual ~OutOfBoundsException();				// destructor
-			virtual std::string GetMessage() const;			// getter method
+			virtual std::string GetErrIdxMsg() const;		// getter method
+		};
+
+		// SizeMismatchException class to handle size mismatch between Arrays
+		class SizeMismatchException : public ArrayException
+		{
+		private:
+			int m_size_mismatch;
+
+		public:
+			SizeMismatchException();						// default constructor
+			SizeMismatchException(int size_mismatch);		// constructor
+			virtual ~SizeMismatchException();				// destructor
+			std::string GetMisMatchMsg() const;				// getter method
+			virtual std::string GetErrIdxMsg() const = 0;		// getter method
 		};
 	}
 }

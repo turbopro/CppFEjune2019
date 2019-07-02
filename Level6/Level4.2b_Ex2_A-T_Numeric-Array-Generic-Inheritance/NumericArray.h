@@ -111,17 +111,13 @@ namespace Turbopro
 			NumericArray(int arr_size);								// constructor
 			NumericArray(const NumericArray<TNum>& Other);			// copy constructor
 			virtual ~NumericArray();								// destructor
-			//int Size() const { return m_arr_size; }					// inlined: return the size of the object's array
-			//void SetElement(const TNum& p, int index);			// set a Point element to the array
-			//TNum& GetElement(int index) const;					// return a Point element from the array
 			NumericArray<TNum>& operator=(const NumericArray<TNum>& Other);		// overloaded assignment operator
-			//TNum& operator[](int index);							// overloaded array indexing operator
-			//const TNum& operator[](int index) const;				// overloaded array indexing operator: const version
-
+			
 			// NumericArray specific methods
 			NumericArray<TNum> operator+(const NumericArray<TNum>& Other) const;	// add the elements of two NumericArrays
 			NumericArray<TNum> operator*(double n) const;					// scale the elements of the NumericArray by factor n
 			//friend Point operator*(double n, const Point& Other);	// multiply n by Point p
+			NumericArray<TNum> DotProd(const NumericArray<TNum>& Other) const;
 		};
 	}
 }

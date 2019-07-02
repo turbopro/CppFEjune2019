@@ -33,8 +33,17 @@ namespace Turbopro
 		// destructor
 		OutOfBoundsException::~OutOfBoundsException() {}
 
+		// constructor SizeMismatchException
+		SizeMismatchException::SizeMismatchException(int size_mismatch) : m_size_mismatch{ size_mismatch } {}
+
+		// default constructor
+		SizeMismatchException::SizeMismatchException() : m_size_mismatch{ 0 } {}
+
+		// destructor
+		SizeMismatchException::~SizeMismatchException() {}
+
 		// GetMessage() method
-		std::string OutOfBoundsException::GetMessage()const
+		std::string OutOfBoundsException::GetErrIdxMsg() const
 		{
 			// create stream objects for conversion of data members
 			std::ostringstream m_error_index_conv;
@@ -50,6 +59,26 @@ namespace Turbopro
 			//return ("Invalid index: " + std::to_string(m_error_index) +
 				//"\nIndex is out of range\n");
 		}
+
+		std::string SizeMismatchException::GetMisMatchMsg() const
+		{
+			// create stream objects for conversion of data members
+			//std::ostringstream m_size_mismatch_conv;
+			//m_size_mismatch_conv << m_size_mismatch ;
+
+			// get str values for data members
+			//std::string str_m_size_mismatch_conv = m_size_mismatch_conv.str();
+
+			//return ("Error: Array Size Mismatch\nSize" + str_m_size_mismatch_conv +
+			//	"\nArray must be the same size\n");
+
+			return "Error: Array Size Mismatch\nArrays must be of same size\n";
+
+			// alternative: convert m_error_index to a string using std::to_string()
+			//return ("Invalid index: " + std::to_string(m_size_mismatch) +
+				//"\nIndex is out of range\n");
+		}
+
 
 	}
 }
