@@ -124,19 +124,8 @@ int main(void)
 	const string  radius{ "radius" };
 
 	double x{ 0.0 }, y{ 0.0 }, r{ 0.0 };		// declare/initialise geom_values
-	unsigned int arr_size{ 0 };					// array size should be positive only
+	int arr_size{ 0 };					// array size should be positive only
 	
-	//arr_size = 5;
-	//Array<Point> arr0(arr_size);
-	//for (unsigned int i = 0; i < arr_size; i++)
-	//{
-	//	arr0[i] = Point(i * 2.2, i * 1.5);
-	//	cout << "arr0[" << i << "]" << arr0[i] << endl;
-	//}
-	//cout << "\n";
-	
-	//cout << points[0] << endl;
-
 	
 	cout << "\n\n"
 		<< "|============================|\n"
@@ -156,18 +145,19 @@ int main(void)
 		NumericArray<int> intNumArr;
 		NumericArray<double> dblNumArr;
 
-		cout << "intArr DefaultSize:   " << intArr.DefaultSize() << endl
+		cout << "intArr DefaultSize:    " << intArr.DefaultSize() << endl
 			<< "dblArr DefaultSize:    " << dblArr.DefaultSize() << endl
 			<< "intNumArr DefaultSize: " << intNumArr.DefaultSize() << endl
 			<< "dblNumArr DefaultSize: " << dblNumArr.DefaultSize() << endl;
 
 		cout << "\nStep 1b:\nSet DefaultSize for all Arrays and NumArrays to 3:\n";
-		intArr.DefaultSize(3);
-		dblArr.DefaultSize(3);
-		intNumArr.DefaultSize(3);
-		dblNumArr.DefaultSize(3);
+		arr_size = 3;
+		intArr.DefaultSize(arr_size);
+		dblArr.DefaultSize(arr_size);
+		intNumArr.DefaultSize(arr_size);
+		dblNumArr.DefaultSize(arr_size);
 		
-		cout << "intArr DefaultSize:   " << intArr.DefaultSize() << endl
+		cout << "intArr DefaultSize:    " << intArr.DefaultSize() << endl
 			<< "dblArr DefaultSize:    " << dblArr.DefaultSize() << endl
 			<< "intNumArr DefaultSize: " << intNumArr.DefaultSize() << endl
 			<< "dblNumArr DefaultSize: " << dblNumArr.DefaultSize() << endl;
@@ -179,74 +169,82 @@ int main(void)
 		NumericArray<int> intNumArr0;
 		NumericArray<double> dblNumArr0;
 
-		cout << "intArr0 DefaultSize:   " << intArr0.DefaultSize() << endl
+		cout << "intArr0 DefaultSize:    " << intArr0.DefaultSize() << endl
 			<< "dblArr0 DefaultSize:    " << dblArr0.DefaultSize() << endl
 			<< "intNumArr0 DefaultSize: " << intNumArr0.DefaultSize() << endl
 			<< "dblNumArr0 DefaultSize: " << dblNumArr0.DefaultSize() << endl;
 
 
-		cout << "\nStep 3a:\nSet element values for intArr0\n";
+		cout << "Step 3a:\nSet element values for intArr0\n";
 		for (int i = 0; i < intArr0.Size(); i++)
 		{
-			//rnd_int = (i + (rand() % 100));
-			intArr0.SetElement((rand() % 10), i);
+			//intArr0.SetElement((rand() % 10), i);
+			intArr0[i] = rand() % 10;
 			cout << "intArr0[" << i << "]: " << intArr0.GetElement(i) << endl;
 		}
 
+		
 		cout << "\nStep 3b:\nSet element values for intNumArr0\n";
 		for (int i = 0; i < intNumArr0.Size(); i++)
 		{
-			//rnd_int = (i + (rand() % 100));
-			intNumArr0.SetElement((rand() % 10), i);
+			//intNumArr0.SetElement((rand() % 10), i);
+			intNumArr0[i] = rand() % 10;
 			cout << "intNumArray0[" << i << "]: " << intNumArr0.GetElement(i) << endl;
 		}
 
-		cout << "\nStep 4a:\nCreate new intArray:\n";
+		
+		cout << "\nStep 4a:\nCreate new intArr1: assign intArr0 to intArr1:\n";
 		Array<int> intArr1;
-		cout << "intArr1 Size:   " << intArr1.Size() << endl;
-
-		cout << "\nStep 4b:\nAssign intArr0 to intArr1:\n";
 		intArr1 = intArr0;
 		for (int i = 0; i < intArr1.Size(); i++)
 		{
 			cout << "intArr1[" << i << "]: " << intArr1.GetElement(i) << endl;
 		}
 
-		cout << "\nStep 5a:\nCreate new intNumArray:\n";
+		
+		/*
+		cout << "\nStep 5a:\nCreate new intNumArr1:\n";
 		NumericArray<int> intNumArr1;
-		cout << "intNumArr1 Size:   " << intNumArr1.Size() << endl;
-
+		cout << "\nset values for intNumArr1, print with operator[]():\n";
 		for (int i = 0; i < intNumArr1.Size(); i++)
 		{
-			//rnd_int = (i + (rand() % 100));
 			intNumArr1.SetElement((rand() % 10), i);
-			cout << "intNumArray1[" << i << "]: " << intNumArr1.GetElement(i) << endl;
-		}
-		
-		cout << "\nthis time with operator[]():\n";
-		for (int i = 0; i < intNumArr0.Size(); i++)
-		{
-			cout << "intNumArray1[" << i << "]: " << intNumArr1[i] << endl;
+			cout << "intNumArr1[" << i << "]: " << intNumArr1.GetElement(i) << endl;
+			//cout << "intNumArray1[" << i << "]: " << intNumArr1[i] << endl;
 		}
 
 		
-		cout << "\nStep 5b:\nAssign intNumArr0 to intNumArr1:\n";
-		intNumArr0 = intNumArr1;
-		for (int i = 0; i < intNumArr1.Size(); i++)
+		cout << "\nStep 5b:\nCreate new intNumArr2, and assign intNumArr1 to intNumArr2:\n";
+		NumericArray<int> intNumArr2 = intNumArr1;
+		//intNumArr2 = intNumArr1;
+		for (int i = 0; i < intNumArr2.Size(); i++)
 		{
-			//cout << "intNumArr1[" << i << "]: " << intNumArr1.GetElement(i) << endl;
-			cout << "intNumArr1[" << i << "]: " << intNumArr1[i] << endl;
-			cout << "intNumArr0[" << i << "]: " << intNumArr0[i] << endl;
-		}
-
-		cout << "\n\nintArr0 + intArr1:\n";
-		NumericArray<int> intNumArr2;
-		intNumArr2 = intNumArr0 + intNumArr1;
-		for (int i = 0; i < intNumArr1.Size(); i++)
-		{
-			//cout << "intNumArr1[" << i << "]: " << intNumArr1.GetElement(i) << endl;
 			cout << "intNumArr2[" << i << "]: " << intNumArr2[i] << endl;
-			//cout << "intNumArr0[" << i << "]: " << intNumArr0[i] << endl;
+			cout << "intNumArr1[" << i << "]: " << intNumArr1[i] << endl;
+		}
+
+		
+		cout << "\nCreate new intNumArr3, and set intNumArr3 = intNumArr0 + intNumArr1:\n";
+		NumericArray<int> intNumArr3 = intNumArr0 + intNumArr1;
+		for (int i = 0; i < intNumArr3.Size(); i++)
+		{
+			cout << "intNumArr3[" << i << "]: " << intNumArr3[i] << endl;
+		}
+
+
+		cout << "\nCreate new intNumArr4, and set to intNumArr3 * 3:\n";
+		NumericArray<int> intNumArr4 = intNumArr3 * 3;
+		for (int i = 0; i < intNumArr4.Size(); i++)
+		{
+			cout << "intNumArr4[" << i << "]: " << intNumArr4[i] << endl;
+		}
+
+
+		cout << "\nCreate new intNumArr5: use copy constructor, copy intNumArr4:\n";
+		NumericArray<int> intNumArr5(intNumArr4);
+		for (int i = 0; i < intNumArr5.Size(); i++)
+		{
+			cout << "intNumArr5[" << i << "]: " << intNumArr5[i] << endl;
 		}
 
 

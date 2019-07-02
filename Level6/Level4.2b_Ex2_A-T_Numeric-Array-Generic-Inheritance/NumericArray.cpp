@@ -45,39 +45,29 @@ namespace Turbopro
 {
 	namespace Containers
 	{
-		// initialise static data member ArraySize to default size = 10
-		//template <typename TNum>
-		//int NumericArray<TNum>::ArraySize = 10;
-
-		// static data member ArraySize set method definition: check for size value
-		//template <typename TNum>
-		//void NumericArray<TNum>::DefaultSize(int size)
-		//{
-			// if size is negative, throw exception
-			//if (size < 0) { throw Containers::OutOfBoundsException(size); }
-
-			//NumericArray<TNum>::ArraySize = size;
-		//}
-
 		// constructor 
 		template <typename TNum>
 		NumericArray<TNum>::NumericArray(int arr_size)
 			//: Array<TNum>{ arr_size }, m_data{ new TNum[arr_size] }, m_arr_size{ arr_size } {}	// size of array set during runtime
-			: Array<TNum>{ arr_size } {}
+			: Array<TNum>{ arr_size } { std::cout << "NumericArray constructor\n"; }
 
 		// default constructor
 		template <typename TNum>
 		NumericArray<TNum>::NumericArray()
 			//: Array<TNum>{}, m_data{ new TNum[ArraySize] }, m_arr_size{ ArraySize } {}	// size of array = ArraySize
-			: Array<TNum>{} {}
+			: Array<TNum>() 
+		{ 
+			std::cout << "NumericArray default constructor\n"; 
+		}
 
 		// copy constructor: set m_arr_size, create m_data, deep copy elements
 		template <typename TNum>
 		NumericArray<TNum>::NumericArray(const NumericArray<TNum>& Other) 
 			//: Array<TNum>{ Other }, m_arr_size{ Other.Size() }, m_data{ new TNum[m_arr_size] }
-			: Array<TNum>{ Other }
+			: Array<TNum>{ Other.Size() }
 		{
 			//for (int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
+			std::cout << "NumericArray copy constructor\n";
 			for (int i = 0; i < Other.Size(); i++)	// deep copy Other's elements
 				(*this)[i] = Other[i];				// calls the const Point& operator[]() const method
 		}
@@ -86,7 +76,7 @@ namespace Turbopro
 		template <typename TNum>
 		NumericArray<TNum>::~NumericArray() 
 		{ 
-			std::cout << "Deleting NumericArray...\n";
+			//std::cout << "Deleting NumericArray...\n";
 			//delete[] this->GetElement()
 		}
 
@@ -125,34 +115,6 @@ namespace Turbopro
 			return res;
 		}
 
-
-		/*
-		// SetElement() method
-		template <typename TNum>
-		void NumericArray<TNum>::SetElement(const TNum& p, int index)
-		{
-			if (index < 0 || index >= m_arr_size)
-			{
-				// if index out of range, throw exception
-				throw Containers::OutOfBoundsException(index);
-			}
-
-			m_data[index] = p;
-		}
-
-		// GetElement() method
-		template <typename TNum>
-		TNum& NumericArray<TNum>::GetElement(int index) const
-		{
-			if (index < 0 || index >= m_arr_size)
-			{
-				// if index out of range, throw exception
-				throw Containers::OutOfBoundsException(index);
-			}
-
-			return m_data[index];
-		}
-		*/
 		// overloaded assignment operator
 		template <typename TNum>
 		NumericArray<TNum>& NumericArray<TNum>::operator=(const NumericArray<TNum>& Other)
@@ -165,59 +127,8 @@ namespace Turbopro
 					this->SetElement(Other[i], i);
 					
 				return *this;
-				
-				/*
-				//std::cout << "here: m_data[0]: " << this->m_data[1]
-					//<< "\nOther[0]: " << Other[1] << std::endl;
-				// delete current array m_data;
-				//delete[] Array<TArray>:: ;
-
-				// create new m_data with size of Other
-				(*this).m_arr_size = Other.Size();		// set member m_arr_size to size of Other
-				(*this).m_data = new TNum[Other.Size()];			// create new array
-				for (int i = 0; i < Other.Size(); i++)	// deep copy Other's elements
-				{
-					//m_data[i] = Other[i];
-					std::cout << "before this->m_data[" << i << "]: " << this->GetElement(i)
-						<< "\nbefore Other[" << i << "]: " << Other[i] << std::endl;
-					(*this).SetElement(Other[i], i);
-					std::cout << "after this->m_data[" << i << "]: " << this->Getelement(i)
-						<< "\nsfter Other[" << i << "]: " << Other[i] << std::endl;
-				}
-				//std::cout << "\njust before return: this->m_data[1]: " << m_data[1] << std::endl;
-				return *this;
-				*/
 			}
 		}
-
-		/*
-		// overloaded array indexing operator: read/write version
-		template <typename TNum>
-		TNum& NumericArray<TNum>::operator[](int index)
-		{
-			if (index < 0 || index >= m_arr_size)
-			{
-				// if index out of range, throw exception
-				throw Containers::OutOfBoundsException(index);
-			}
-
-			return this->GetElement(index);
-		}
-
-
-		// overloaded array indexing operator: const version
-		template <typename TNum>
-		const TNum& NumericArray<TNum>::operator[](int index) const
-		{
-			if (index < 0 || index >= m_arr_size)
-			{
-				// if index out of range, throw exception
-				throw Containers::OutOfBoundsException(index);
-			}
-
-			return m_data[index];
-		}
-		*/
 	}
 }
 #endif // NUMERICARRAY_CPP_INCLUDED

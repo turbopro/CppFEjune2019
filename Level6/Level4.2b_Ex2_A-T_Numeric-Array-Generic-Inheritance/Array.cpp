@@ -62,18 +62,25 @@ namespace Turbopro
 		// constructor 
 		template <typename TArray>
 		Array<TArray>::Array(int arr_size)
-			: m_data{ new TArray[arr_size] }, m_arr_size{ arr_size } {}	// size of array set during runtime
+			: m_data{ new TArray[arr_size] }, m_arr_size{ arr_size } 
+		{
+			std::cout << "Array constructor\n";
+		}	// size of array set during runtime
 
 		// default constructor
 		template <typename TArray>
 		Array<TArray>::Array()
-			: m_data{ new TArray[ArraySize] }, m_arr_size{ ArraySize } {}	// size of array = ArraySize
+			: m_data{ new TArray[ArraySize] }, m_arr_size{ ArraySize } 
+		{
+			std::cout << "Array default constructor\n";
+		}	// size of array = ArraySize
 
 		// copy constructor: set m_arr_size, create m_data, deep copy elements
 		template <typename TArray>
 		Array<TArray>::Array(const Array<TArray>& Other) 
 			: m_arr_size{ Other.Size() }, m_data{ new TArray[m_arr_size] }
 		{
+			std::cout << "Array copy constructor, other: " << Other.Size() << "m_arr:" << m_arr_size << "\n";
 			for (int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
 				(*this)[i] = Other[i];				// calls the const Point& operator[]() const method
 		}
@@ -116,6 +123,7 @@ namespace Turbopro
 		template <typename TArray>
 		Array<TArray>& Array<TArray>::operator=(const Array<TArray>& Other)
 		{
+			std::cout << "we are in: " << __FUNCTION__ << std::endl;
 			if (this == &Other) { return *this; }
 			else
 			{
@@ -123,8 +131,9 @@ namespace Turbopro
 				delete[] m_data;
 
 				// create new m_data with size of Other
+				std::cout << "Other.Size() = " << Other.Size() << std::endl;
 				m_arr_size = Other.Size();				// set member m_arr_size to size of Other
-				m_data = new TArray[m_arr_size];				// create new array
+				m_data = new TArray[m_arr_size];		// create new array
 				for (int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
 				{
 					m_data[i] = Other[i];

@@ -122,10 +122,6 @@ namespace Turbopro
 			NumericArray<TNum> operator+(const NumericArray<TNum>& Other) const;	// add the elements of two NumericArrays
 			NumericArray<TNum> operator*(double n) const;					// scale the elements of the NumericArray by factor n
 			//friend Point operator*(double n, const Point& Other);	// multiply n by Point p
-
-			// static methods
-			//static int DefaultSize() { return ArraySize; }
-			//static void DefaultSize(int size);
 		};
 	}
 }
