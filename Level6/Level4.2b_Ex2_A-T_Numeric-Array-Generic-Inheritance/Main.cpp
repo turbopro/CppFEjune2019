@@ -194,15 +194,15 @@ int main(void)
 
 		
 		cout << "\nStep 4a:\nCreate new intArr1: assign intArr0 to intArr1:\n";
-		Array<int> intArr1;
-		intArr1 = intArr0;
+		Array<int> intArr1(intArr0);
+		//intArr1 = intArr0;
 		for (int i = 0; i < intArr1.Size(); i++)
 		{
 			cout << "intArr1[" << i << "]: " << intArr1.GetElement(i) << endl;
 		}
 
 		
-		/*
+		
 		cout << "\nStep 5a:\nCreate new intNumArr1:\n";
 		NumericArray<int> intNumArr1;
 		cout << "\nset values for intNumArr1, print with operator[]():\n";
