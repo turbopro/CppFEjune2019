@@ -239,6 +239,17 @@ int main(void)
 			cout << "intNumArr0[" << i << "]: " << intNumArr0[i] << endl;
 		}
 
+		cout << "\n\nintArr0 + intArr1:\n";
+		NumericArray<int> intNumArr2;
+		intNumArr2 = intNumArr0 + intNumArr1;
+		for (int i = 0; i < intNumArr1.Size(); i++)
+		{
+			//cout << "intNumArr1[" << i << "]: " << intNumArr1.GetElement(i) << endl;
+			cout << "intNumArr2[" << i << "]: " << intNumArr2[i] << endl;
+			//cout << "intNumArr0[" << i << "]: " << intNumArr0[i] << endl;
+		}
+
+
 		/*
 		//cout << "\nStep 4b:\nCopy intArray2 to new intArray3\n";
 		//Array<int> intArray3(intArray2);

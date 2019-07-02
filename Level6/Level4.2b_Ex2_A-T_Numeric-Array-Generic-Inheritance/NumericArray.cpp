@@ -87,7 +87,7 @@ namespace Turbopro
 		NumericArray<TNum>::~NumericArray() 
 		{ 
 			std::cout << "Deleting NumericArray...\n";
-			//delete[] this->m_data; 
+			//delete[] this->GetElement()
 		}
 
 		// add the elements of two NumericArrays
@@ -160,14 +160,11 @@ namespace Turbopro
 			if (this == &Other) { return *this; }
 			else
 			{
-				NumericArray<TNum> res{ Other.Size() };
+				Array<TNum>::operator=(Other);
 				for (int i = 0; i < Other.Size(); i++)
-					res.SetElement(Other[i], i);
-				//res.m_data[i] = m_data[i] * n;
-				for (int i = 0; i < Other.Size(); i++)
-					std::cout << "res[" << i << "]: " << res[i] << std::endl;
-
-				return res;
+					this->SetElement(Other[i], i);
+					
+				return *this;
 				
 				/*
 				//std::cout << "here: m_data[0]: " << this->m_data[1]
