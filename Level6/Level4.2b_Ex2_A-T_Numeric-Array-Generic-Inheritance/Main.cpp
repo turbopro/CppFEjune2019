@@ -126,7 +126,7 @@ int main(void)
 	double x{ 0.0 }, y{ 0.0 }, r{ 0.0 };		// declare/initialise geom_values
 	int arr_size{ 0 };					// array size should be positive only
 	
-	
+	/*
 	cout << "\n\n"
 		<< "|============================|\n"
 		<< "|        TEMPLATES:          |\n"
@@ -304,10 +304,10 @@ int main(void)
 	int dot_prod = intNumArr11.DotProd(intNumArr12);
 	cout << "Dot Product of intNumArr11 and intNumArr12 = " << dot_prod << endl;
 	
+	*/
 
 
-
-	/*
+	
 
 	cout << "Testing Bounds Checking Array<typename T>\n\n";
 
@@ -315,15 +315,31 @@ int main(void)
 	cout << "Create Array, arr0, with 3 elements:\n";
 	arr_size = 3;
 	Array<Point> arr0(arr_size);
-	for (unsigned int i = 0; i < arr_size; i++)
+	for (int i = 0; i < arr_size; i++)
 	{
 		arr0[i] = Point(i * 2.2, i * 1.5);
-		cout << "arr0[" << i << "]" << arr0[i] << endl;
+		cout << "arr0[" << i << "]: " << arr0[i].ToString() << endl;
 	}
 	cout << "\n";
 
 	Point P0{ 2, 3 };
 
+
+	// create NumericArray and populate
+	cout << "Create NumericArray, numarr0, with 3 elements:\n";
+	arr_size = 3;
+	NumericArray<Point> numarr0(arr_size);
+	for (int i = 0; i < arr_size; i++)
+	{
+		numarr0[i] = Point(rand() % 10, rand() % 10);
+		cout << "numarr0[" << i << "]: " << numarr0[i].ToString() << endl;
+	}
+	cout << "\n";
+
+	Point P1{ 4, 1 };
+
+
+	/*
 	// try/catch Array::GetElement() indexing error
 	try
 	{
@@ -335,6 +351,7 @@ int main(void)
 		cout << error_index_msg.GetMessage() << endl;
 	}
 
+	
 	// try/catch Array::SetElement(Pt&, int) indexing error
 	try
 	{

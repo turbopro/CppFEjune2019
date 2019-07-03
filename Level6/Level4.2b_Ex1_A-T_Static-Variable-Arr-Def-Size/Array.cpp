@@ -1,7 +1,7 @@
 /* Array.cpp
 Level4.2b_Ex1: Advanced Templates - Static Variable for Array Default Size
 
-Source file that implements the Array Template class declared in the 
+Source file that implements the Array Template class declared in the
 Array.h header file.
 
 constructor builds a dynamic Array object sized according to unsigned int argument
@@ -20,12 +20,13 @@ The overloaded operator[]() and operator[]() const methods provide the array
 indexing operations. operator[]() method has an unintended side effect: it
 assigns the Point object during a setter indexing operation when the index is
 out of range. operator[]() const allows for setter indexing operations that
-includes the assignment of const Array objects (rhs) to non-const Array 
-objects (lhs): the method prevents the implicit Array object from being 
-changed, and returns a const reference to the Point object, so that the Point 
+includes the assignment of const Array objects (rhs) to non-const Array
+objects (lhs): the method prevents the implicit Array object from being
+changed, and returns a const reference to the Point object, so that the Point
 object also cannot be changed by the method
 
-Getter and Setter methods check for an out of range index
+Getter and Setter methods check for an out of range index, and throws an
+exception
 
 the Array class is part of the Turbopro::Container namespace
 
@@ -53,7 +54,7 @@ namespace Turbopro
 		template <typename T>
 		void Array<T>::DefaultSize(int size)
 		{
-			// if sz is negative, throw exception
+			// if size is negative, throw exception
 			if (size < 0) { throw Containers::OutOfBoundsException(size); }
 
 			Array<T>::ArraySize = size;

@@ -125,17 +125,6 @@ int main(void)
 	double x{ 0.0 }, y{ 0.0 }, r{ 0.0 };		// declare/initialise geom_values
 	unsigned int arr_size{ 0 };					// array size should be positive only
 	
-	//arr_size = 5;
-	//Array<Point> arr0(arr_size);
-	//for (unsigned int i = 0; i < arr_size; i++)
-	//{
-	//	arr0[i] = Point(i * 2.2, i * 1.5);
-	//	cout << "arr0[" << i << "]" << arr0[i] << endl;
-	//}
-	//cout << "\n";
-	
-	//cout << points[0] << endl;
-
 	
 	cout << "\n\n"
 		<< "|============================|\n"
@@ -184,7 +173,7 @@ int main(void)
 		cout << error_index_msg.GetMessage() << endl;
 	}
 
-	/*
+	
 
 	cout << "Testing Bounds Checking Array<typename T>\n\n";
 
@@ -246,7 +235,8 @@ int main(void)
 	}
 
 	
-	cout << "\n"
+	cout << "\nTest mostly everything else to be sure the new features tested above\n"
+		<< "will not have changed things for the other parts of the project:\n\n"
 		<< "|====================================|\n"
 		<< "|              POINTS                |\n"
 		<< "|====================================|\n\n";
@@ -434,7 +424,5 @@ int main(void)
 	cout << "\nCircle C3: " << C3 
 		<< "\n\nCircle 3 to string: " << C3.ToString() << endl;
 	
-	*/
-
 	return 0;
 }

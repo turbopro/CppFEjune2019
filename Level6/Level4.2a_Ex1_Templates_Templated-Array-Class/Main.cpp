@@ -202,7 +202,8 @@ int main(void)
 	}
 
 	
-	cout << "\n"
+	cout << "\nTest mostly everything else to be sure the new features tested above\n"
+		<< "will not have changed things for the other parts of the project:\n\n"
 		<< "|====================================|\n"
 		<< "|              POINTS                |\n"
 		<< "|====================================|\n\n";
