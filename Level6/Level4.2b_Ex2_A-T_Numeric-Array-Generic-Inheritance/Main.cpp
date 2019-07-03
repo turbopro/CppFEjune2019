@@ -289,9 +289,8 @@ int main(void)
 	}
 
 	cout << "\nStep 7a:\nCreate new intNumArr11 and intNumArr12:\n";
-	NumericArray<int> intNumArr11;
-	NumericArray<int> intNumArr12;
-	NumericArray<int> intNumArr13;
+	NumericArray<int> intNumArr11(3);
+	NumericArray<int> intNumArr12(3);
 	cout << "\nSet values to intNumArr11 and intNumArr12:\n";
 	for (int i = 0; i < intNumArr11.Size(); i++)
 	{
@@ -301,7 +300,7 @@ int main(void)
 		cout << "intNumArray12[" << i << "]: " << intNumArr12.GetElement(i) << endl;
 	}
 
-	cout << "\nStep 7b:\nAssign the dot product of intNumArr11 and intNumArr12 to intNumArr13:\n";
+	cout << "\nStep 7b:\nCalculate the dot product of intNumArr11 and intNumArr12:\n";
 	int dot_prod = intNumArr11.DotProd(intNumArr12);
 	cout << "Dot Product of intNumArr11 and intNumArr12 = " << dot_prod << endl;
 	
@@ -559,6 +558,8 @@ int main(void)
 		<< "\n\nCircle 3 to string: " << C3.ToString() << endl;
 	
 	*/
+
+
 
 	return 0;
 }

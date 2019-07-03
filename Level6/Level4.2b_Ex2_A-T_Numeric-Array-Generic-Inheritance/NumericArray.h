@@ -100,11 +100,6 @@ namespace Turbopro
 		class NumericArray	:	public Array<TNum>
 		{
 		private:
-			//TNum* m_data;
-			//int m_arr_size;					// using int: handling indexing errors with exceptions  
-
-			//static int ArraySize;
-			//enum { ArraySize = 10 };		// size of array for default constructor
 
 		public:
 			NumericArray();											// default constructor

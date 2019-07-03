@@ -77,7 +77,6 @@ namespace Turbopro
 		NumericArray<TNum>::~NumericArray() 
 		{ 
 			//std::cout << "Deleting NumericArray...\n";
-			//delete[] *this;
 		}
 
 		// add the elements of two NumericArrays
@@ -88,15 +87,13 @@ namespace Turbopro
 			if (this->Size() != Other.Size())
 			{
 				// if NumericArrays are not the same size, throw exception
-				throw Containers::SizeMismatchException(0);
+				throw Containers::SizeMismatchException(this->Size() - Other.Size());
 			}
 
-			//NumericArray<TNum> res{ m_arr_size };
 			NumericArray<TNum> res{ Other.Size() };
 			for (int i = 0; i < Other.Size(); i++)
 			{
-				//res.SetElement((this->GetElement(i) + Other.GetElement(i)), i);
-				res.SetElement(((*this)[i] + Other[i]), i);
+				res[i] = (*this)[i] + Other[i];
 			}
 				
 			return res;
@@ -106,12 +103,13 @@ namespace Turbopro
 		template <typename TNum>
 		NumericArray<TNum> NumericArray<TNum>::operator*(double n) const
 		{
-			NumericArray<TNum> res{ this->Size() };
+			NumericArray<TNum> scaled_arr{ this->Size() };
 			for (int i = 0; i < this->Size(); i++)
-				res.SetElement(((*this)[i] * n), i);
+				//scaled_arr.SetElement(((*this)[i] * n), i);
+				scaled_arr[i] = (*this)[i] * n;
 				//res.m_data[i] = m_data[i] * n;
 
-			return res;
+			return scaled_arr;
 		}
 
 		// DotProduct()
@@ -122,7 +120,7 @@ namespace Turbopro
 			if (this->Size() != Other.Size())
 			{
 				// if NumericArrays are not the same size, throw exception
-				throw Containers::SizeMismatchException(0);
+				throw Containers::SizeMismatchException(this->Size() - Other.Size());
 			}
 
 			TNum dot_prod = 0;
