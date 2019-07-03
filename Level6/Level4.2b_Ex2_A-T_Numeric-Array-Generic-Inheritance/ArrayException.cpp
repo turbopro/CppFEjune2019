@@ -42,41 +42,28 @@ namespace Turbopro
 		// destructor
 		SizeMismatchException::~SizeMismatchException() {}
 
-		// GetMessage() method
-		std::string OutOfBoundsException::GetErrIdxMsg() const
+		// OutOfBoundsException::GetMessage() method
+		std::string OutOfBoundsException::GetMessage() const
 		{
 			// create stream objects for conversion of data members
-			std::ostringstream m_error_index_conv;
-			m_error_index_conv << m_error_index;
+			//std::ostringstream m_error_index_conv;
+			//m_error_index_conv << m_error_index;
 
 			// get str values for data members
-			std::string str_m_error_index_conv = m_error_index_conv.str();
+			//std::string str_m_error_index_conv = m_error_index_conv.str();
 
-			return ("Invalid index: " + str_m_error_index_conv +
-				"\nIndex is out of range\n");
+			//return ("Invalid index: " + str_m_error_index_conv +
+				//"\nIndex is out of range\n");
 
 			// alternative: convert m_error_index to a string using std::to_string()
-			//return ("Invalid index: " + std::to_string(m_error_index) +
-				//"\nIndex is out of range\n");
+			return ("Invalid index: " + std::to_string(m_error_index) +
+				"\nIndex is out of range\n");
 		}
 
-		std::string SizeMismatchException::GetMisMatchMsg() const
+		// SizeMismatchException::GetMessage() method
+		std::string SizeMismatchException::GetMessage() const
 		{
-			// create stream objects for conversion of data members
-			//std::ostringstream m_size_mismatch_conv;
-			//m_size_mismatch_conv << m_size_mismatch ;
-
-			// get str values for data members
-			//std::string str_m_size_mismatch_conv = m_size_mismatch_conv.str();
-
-			//return ("Error: Array Size Mismatch\nSize" + str_m_size_mismatch_conv +
-			//	"\nArray must be the same size\n");
-
 			return "Error: Array Size Mismatch\nArrays must be of same size\n";
-
-			// alternative: convert m_error_index to a string using std::to_string()
-			//return ("Invalid index: " + std::to_string(m_size_mismatch) +
-				//"\nIndex is out of range\n");
 		}
 
 

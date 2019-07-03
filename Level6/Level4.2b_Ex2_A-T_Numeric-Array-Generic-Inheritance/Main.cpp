@@ -258,41 +258,55 @@ int main(void)
 			cout << "intNumArr6[" << i << "]: " << intNumArr5[i] << endl;
 		}
 
+
 		cout << "\nStep 5b:\nSet intNumArr2 = intNumArr0 + intNumArr6:\n";
 		intNumArr2 = intNumArr0 + intNumArr6;
-
-		cout << endl;
-
-		/*
-		//cout << "\nStep 4b:\nCopy intArray2 to new intArray3\n";
-		//Array<int> intArray3(intArray2);
-		//for (int i = 0; i < intArray3.Size(); i++)
-		//{
-		//	cout << "intArray3[" << i << "]: " << intArray3.GetElement(i) << endl;
-		//}
-
-
-
-		/*
-		cout << "\nThe vaules displayed in Step 1 are the default size values for the Arrays.\n"
-			<< "The default size is stored as a static data member of the Array Template Class.\n"
-			<< "We obtain these values through the overloaded static member method, DefaultSize()\n\n";
-
-		cout << "In Step 2, we set the default size value through the overloaded static member method,"
-			<< "\nDefaultSize(int), and display the default size of the three Arrays again\n\n";
-
-		cout << "\nStep 3:\nSet intArray1 default size to -1:\n";
-		intArray1.DefaultSize(-1);
-		
-		cout << "\nintArray1 size:   " << intArray1.DefaultSize() << endl;
-		cout << "intArray2 size:   " << intArray2.DefaultSize() << endl;
-		cout << "doubleArray size: " << doubleArray.DefaultSize() << endl;
-		*/
 	}
 	catch (ArrayException& mismatch_msg)
 	{
-		cout << mismatch_msg.GetMisMatchMsg() << endl;
+		cout << mismatch_msg.GetMessage() << endl;
 	}
+	
+	try
+	{
+		// OutOfBoundsException Tests
+		cout << "\nStep 6a:\nCreate intNumArr10, set values:\n";
+		NumericArray<int> intNumArr10;
+		for (int i = 0; i < intNumArr10.Size(); i++)
+		{
+			intNumArr10[i] = rand() % 10;
+			cout << "intNumArray10[" << i << "]: " << intNumArr10.GetElement(i) << endl;
+		}
+
+		cout << "\nStep 6b:\nSet intNumArr10[10] to 10:\n";
+		intNumArr10[10] = 10;
+
+		cout << endl;
+	}
+	catch (ArrayException& error_index_msg)
+	{
+		cout << error_index_msg.GetMessage() << endl;
+	}
+
+	cout << "\nStep 7a:\nCreate new intNumArr11 and intNumArr12:\n";
+	NumericArray<int> intNumArr11;
+	NumericArray<int> intNumArr12;
+	NumericArray<int> intNumArr13;
+	cout << "\nSet values to intNumArr11 and intNumArr12:\n";
+	for (int i = 0; i < intNumArr11.Size(); i++)
+	{
+		intNumArr11[i] = rand() % 10;
+		intNumArr12[i] = rand() % 10;
+		cout << "intNumArray11[" << i << "]: " << intNumArr11.GetElement(i) << endl;
+		cout << "intNumArray12[" << i << "]: " << intNumArr12.GetElement(i) << endl;
+	}
+
+	cout << "\nStep 7b:\nAssign the dot product of intNumArr11 and intNumArr12 to intNumArr13:\n";
+	int dot_prod = intNumArr11.DotProd(intNumArr12);
+	cout << "Dot Product of intNumArr11 and intNumArr12 = " << dot_prod << endl;
+	
+
+
 
 	/*
 

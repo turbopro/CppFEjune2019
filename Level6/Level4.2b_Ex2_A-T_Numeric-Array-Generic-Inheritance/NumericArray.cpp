@@ -84,7 +84,6 @@ namespace Turbopro
 		template <typename TNum>
 		NumericArray<TNum> NumericArray<TNum>::operator+(const NumericArray<TNum>& Other) const
 		{
-			//return Point{ (m_x + Other.m_x), (m_y + Other.m_y) };
 			//if (m_arr_size != Other.m_arr_size)
 			if (this->Size() != Other.Size())
 			{
@@ -113,6 +112,26 @@ namespace Turbopro
 				//res.m_data[i] = m_data[i] * n;
 
 			return res;
+		}
+
+		// DotProduct()
+		template <typename TNum>
+		TNum NumericArray<TNum>::DotProd(const NumericArray<TNum>& Other) const
+		{
+			//if (m_arr_size != Other.m_arr_size)
+			if (this->Size() != Other.Size())
+			{
+				// if NumericArrays are not the same size, throw exception
+				throw Containers::SizeMismatchException(0);
+			}
+
+			TNum dot_prod = 0;
+			for (int i = 0; i < Other.Size(); i++)
+			{
+				dot_prod += (*this)[i] * Other[i];
+			}
+
+			return dot_prod;
 		}
 
 		// overloaded assignment operator
