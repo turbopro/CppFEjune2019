@@ -1,5 +1,5 @@
 /* Main.cpp
-Level4.2b_Ex3: Advanced Templates - Point Array (concrete inheritance)
+Level4.2b_Ex4: Advanced Templates - Stack Class (composition)
 
 Test program for the Point, Line and Circle classes 
 Include "Point.h", "Line.h", and "Circle.h" header files

@@ -1,23 +1,30 @@
-/* PointArray.h
-Level4.2b_Ex3: Advanced Templates - Point Array(concrete inheritance)
+/* Stack.h
+Level4.2b_Ex4: Advanced Templates - Stack Class (composition)
 
-header file for the PointArray class
+header file for the Stack class
 
-Our PointArray class is derived from the Array Class with concrete
-inheritance
+Our Stack class is composed of an Array
 
-In this exercise we will create a PointArray which is derived from 
-Array with the template argument set to Point.
+"In this exercise we will make a Stack class. For the data storage we 
+can use the Array class. Deriving from Array is not a good idea because 
+there is no relation between Array and Stack. The stack would then 
+inherit indexed operations which should not be a functionality of a 
+stack. But we can use the Array class as a data member as shown in Figure 4:
 
-	Add a new source and header file for the PointArray class to 
-	your project.  	Create a regular class called PointArray which 
-	is derived from Array. The template argument given to Array is 
-	Point.  Since they are not inherited, create proper constructors, 
-	destructor and assignment operator and call the base class where 
-	appropriate.  Now we can add functionality specific for a point 
-	array. For example add a Length() function that returns the 
-	total length between the points in the array.  Change the main 
-	program to test the point array.
+	Add a new source and header file for the Stack class to your project.
+	Create a template class called Stack. It is not a derived class but 
+	it uses an Array as data member. You also need a data member for the 
+	current index in the array. Create the regular constructors, destructor 
+	and assignment operator. Add a Push() function. It should store the 
+	element at the current position in the embedded array. Increment the 
+	current position afterwards. There is no need for checking the current 
+	index because the array will throw an exception when the stack is full. 
+	Make sure the current index is not changed when the Array class threw 
+	an exception. Add a Pop() function that decrements the current position 
+	and then returns the element at that position. Make sure the current 
+	index is not changed when the Array class throws an exception.
+	Change the main function to test the stack.
+
 "
 We include the following public functionality
 · Default constructor (allocate 10 elements)
@@ -75,13 +82,13 @@ namespace Turbopro
 			PointArray(int arr_size);							// constructor
 			PointArray(const PointArray<Point>& Other);			// copy constructor
 			~PointArray();										// destructor
-			
+
 			// overloaded assignment operator
-			PointArray<Point>& operator=(const PointArray<Point>& Other);		
+			PointArray<Point>& operator=(const PointArray<Point>& Other);
 
 			// PointArray specific methods
 			// total length between the points in the PointArray
-			double Length() const;								
+			double Length() const;
 			// add the Points of two PointArrays
 			PointArray<Point> operator+(const PointArray<Point>& Other) const;
 			// scale the Points of the PointArray by factor n

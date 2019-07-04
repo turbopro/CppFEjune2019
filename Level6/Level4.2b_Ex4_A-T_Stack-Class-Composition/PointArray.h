@@ -1,5 +1,5 @@
 /* PointArray.h
-Level4.2b_Ex3: Advanced Templates - Point Array(concrete inheritance)
+Level4.2b_Ex4: Advanced Templates - Stack Class (composition)
 
 header file for the PointArray class
 

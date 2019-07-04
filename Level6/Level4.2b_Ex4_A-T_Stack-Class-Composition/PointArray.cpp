@@ -1,5 +1,5 @@
 /* PointArray.cpp
-Level4.2b_Ex3: Advanced Templates - Point Array(concrete inheritance)
+Level4.2b_Ex4: Advanced Templates - Stack Class (composition)
 
 Source file that implements the PointArray Template class declared in the
 PointArray.h header file.
