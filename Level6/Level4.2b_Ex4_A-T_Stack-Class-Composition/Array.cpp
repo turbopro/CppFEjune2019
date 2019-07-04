@@ -65,7 +65,7 @@ namespace Turbopro
 		Array<TArray>::Array(int arr_size)
 			: m_data{ new TArray[arr_size] }, m_arr_size{ arr_size } 
 		{
-			//std::cout << "Array constructor\n";
+			std::cout << "Array constructor\n";
 		}	// size of array set during runtime
 
 		// default constructor
@@ -73,7 +73,7 @@ namespace Turbopro
 		Array<TArray>::Array()
 			: m_data{ new TArray[ArraySize] }, m_arr_size{ ArraySize } 
 		{
-			//std::cout << "Array default constructor\n";
+			std::cout << "Array default constructor\n";
 		}	// size of array = ArraySize
 
 		// copy constructor: set m_arr_size, create m_data, deep copy elements
@@ -81,7 +81,7 @@ namespace Turbopro
 		Array<TArray>::Array(const Array<TArray>& Other) 
 			: m_arr_size{ Other.Size() }, m_data{ new TArray[m_arr_size] }
 		{
-			//std::cout << "Array copy constructor, other: " << Other.Size() << "m_arr:" << m_arr_size << "\n";
+			std::cout << "Array copy constructor, other: " << Other.Size() << "m_arr:" << m_arr_size << "\n";
 			for (int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
 				(*this)[i] = Other[i];				// calls the const Point& operator[]() const method
 		}
@@ -90,7 +90,7 @@ namespace Turbopro
 		template <typename TArray>
 		Array<TArray>::~Array() 
 		{ 
-			//std::cout << "Deleting Array...\n";
+			std::cout << "Deleting Array...\n";
 			delete[] m_data; 
 		}
 		

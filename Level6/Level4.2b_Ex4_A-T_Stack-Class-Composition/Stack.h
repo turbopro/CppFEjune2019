@@ -31,13 +31,19 @@ We include the following public functionality
 · Constructor
 · Copy constructor
 · Destructor
+· GetIndex
+· Size
 · Assignment operator
-· Length
+· Push
+· Pop
 
 Member data variables will be prefixed with 'm_' to signify the variable is a class member
 
 private members:
 DATA:
+
+m_array		-	type Array
+m_current	-	type int
 
 METHODS:
 ...
@@ -47,19 +53,23 @@ DATA:
 ...
 
 METHODS:
-PointArray()					-	default constructor
-PointArray(int arr_size)		-	constructor
-PointArray(const Point&)		-	copyconstructor
-~PointArray()					-	destructor
-operator=()						-	overloaded assignment operator=
-Length()						-	return the size of the array
+Stack()					-	default constructor
+Stack(Array, int)		-	constructor
+Stack(const Stack&)		-	copyconstructor
+~Stack()				-	destructor
+GetSize()				-	get Array Size
+SetSize()				-	set Array Size
+GetIndex()				-	get Array index
+operator=()				-	overloaded assignment operator=
+Push()					-	add element to the stack
+Pop()					-	remove element from the stack
 
-the Array class is part of the Turbopro::Containers namespace
+the Stack class is part of the Turbopro::Containers namespace
 
 */
 
-#ifndef POINTARRAY_H_INCLUDED
-#define POINTARRAY_H_INCLUDED
+#ifndef STACK_H_INCLUDED
+#define STACK_H_INCLUDED
 
 #include <string>			// for return std::string in ToString() member function
 #include "Point.h"
@@ -71,35 +81,32 @@ namespace Turbopro
 {
 	namespace Containers
 	{
-		// Template PointArray class declaration
-		template <typename Point>
-		class PointArray : public Array<Point>
+		// Stack class declaration
+		template <typename TStack, int sz>
+		class Stack
 		{
 		private:
-			//Point m_p;
+			Array<TStack> m_array;
+			int m_index;
+
 		public:
-			PointArray();										// default constructor
-			PointArray(int arr_size);							// constructor
-			PointArray(const PointArray<Point>& Other);			// copy constructor
-			~PointArray();										// destructor
-
-			// overloaded assignment operator
-			PointArray<Point>& operator=(const PointArray<Point>& Other);
-
-			// PointArray specific methods
-			// total length between the points in the PointArray
-			double Length() const;
-			// add the Points of two PointArrays
-			PointArray<Point> operator+(const PointArray<Point>& Other) const;
-			// scale the Points of the PointArray by factor n
-			PointArray<Point> operator*(double n) const;
+			Stack();									// default constructor
+			//Stack(const Array<TStack>& arr);			// constructor
+			Stack(const Stack& Other);					// copy constructor
+			~Stack();									// destructor
+			int Size() const { return m_array.Size(); }	// size of Array
+			Stack& operator=(const Stack& Other);		// overloaded assignment operator
+			int GetIndex() const { return m_index; }	// get Stack index
+			//void SetIndex(int index);					// get Stack index
+			TStack pop(int index);						// remove element from Stack
+			TStack push(int index);						// add element to Stack
 		};
 	}
 }
 
 // include Array.cpp implementation source file for Template class
-#ifndef PointArray_cpp // Must be the same name as in source file #define
-#include "PointArray.cpp"
+#ifndef Stack_cpp // Must be the same name as in source file #define
+#include "Stack.cpp"
 #endif
 
-#endif // POINTARRAY_H_INCLUDED
+#endif // STACK_H_INCLUDED

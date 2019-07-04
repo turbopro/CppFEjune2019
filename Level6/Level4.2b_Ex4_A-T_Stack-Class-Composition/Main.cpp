@@ -102,6 +102,7 @@ using directives and declarations for Turbopro::CAD and Turbopro::Container name
 #include "ArrayException.h"	// ArrayException class declaration
 #include "NumericArray.h"	// NumericArray class declaration
 #include "PointArray.h"		// PointArray class declaration
+#include "Stack.h"			// Stack class declaration
 
 using namespace std;
 
@@ -127,7 +128,24 @@ int main(void)
 	double x{ 0.0 }, y{ 0.0 }, r{ 0.0 };		// declare/initialise geom_values
 	int arr_size{ 0 };					// array size should be positive only
 	
+
+	// create default Stack
+	const int stack_size = 3;
+	cout << "\nCreate a default stack:\n";
+	Stack<int, stack_size> st0;
+	cout << "\nst0 size: " << st0.Size() << endl << endl;
+	cout << "\nst0 GetIndex(): " << st0.GetIndex() << endl << endl;
+	//cout << "\nst0.m_array[0]: " << st0 << endl << endl;
+
+
+	// create copy Stack
+	cout << "\nCreate a copy of st0:\n";
+	Stack<int, stack_size> st1 = st0;
+	cout << "\nst1 size: " << st1.Size() << endl << endl;
+
 	
+	/*
+
 	cout << "\n\n"
 		<< "|============================|\n"
 		<< "|        TEMPLATES:          |\n"
@@ -308,7 +326,7 @@ int main(void)
 	
 
 
-	
+	/*
 
 	cout << "Testing Array, NumericArray and PointArray\n";
 
@@ -338,6 +356,7 @@ int main(void)
 	cout << "\n";
 
 
+	/*
 	// create PointArray and populate
 	cout << "Create PointArray, parr0, with 3 elements:\n";
 	arr_size = 3;
@@ -424,7 +443,8 @@ int main(void)
 		cout << error_index_msg.GetMessage() << endl;
 	}
 
-	
+
+	/*
 	cout << "\n"
 		<< "|====================================|\n"
 		<< "|              POINTS                |\n"
@@ -493,6 +513,7 @@ int main(void)
 	cout << "C10: "; C10.Print();
 
 
+	/*
 	cout << "\n\n"
 		<< "|========================|\n"
 		<< "|        LINES:          |\n"
@@ -550,7 +571,7 @@ int main(void)
 	cout << "\nLine L3: " << L3 << endl << endl;
 	cout << "Line L3: " << L3.ToString() << endl << endl;
 
-	
+	/*
 	
 	cout << "\n"
 		<< "|========================|\n"
@@ -614,7 +635,7 @@ int main(void)
 		<< "\n\nCircle 3 to string: " << C3.ToString() << endl;
 	
 	
-
+	*/
 
 
 	return 0;
