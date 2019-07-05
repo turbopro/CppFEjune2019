@@ -183,7 +183,7 @@ int main(void)
 		
 		
 		//cout << "\nst1 GetIndex(): " << st1.GetIndex() << endl << endl;
-		/*
+		
 		// create default Point Stack
 		cout << "\nCreate a default Point Stack:\n";
 		Stack<Point, stack_size> stpt0;
@@ -211,17 +211,21 @@ int main(void)
 		cout << "\nstpt1 size: " << stpt1.Size() << endl;
 		cout << "\nstpt1 GetIndex(): " << stpt1.GetIndex() << endl << endl;
 
-
+		/*
 		
 		cout << "\nPop stpt1\n";
-		Point poppt;
-		poppt = stpt1.pop();
-		cout << "\npoppt: " << poppt.ToString() << endl;
+		Point poppt0;
+		poppt0 = stpt1.pop();
+		cout << "\npoppt0: " << poppt0.ToString() << endl;
 		cout << "\nstpt1 GetIndex(): " << stpt1.GetIndex() << endl;
+		/*
 		cout << "\nPop stpt1\n";
-		poppt = stpt1.pop();
-		cout << "\npoppt: " << poppt.ToString() << endl;
+		Point poppt1;
+		poppt1 = stpt1.pop();
+		cout << "\npoppt1: " << poppt1.ToString() << endl;
 		cout << "\nstpt1 GetIndex(): " << stpt1.GetIndex() << endl;
+		
+		/*
 		cout << "\nPop stpt1\n";
 		poppt = stpt1.pop();
 		cout << "\npoppt: " << poppt.ToString() << endl;

@@ -80,8 +80,11 @@ namespace Turbopro
 			if (this == &Other) { return *this; }
 			else
 			{
+				// delete current array m_array;
+				delete[] m_array;
+				
 				// create new m_array with size of Other
-				int arr_size = Other.Size();			// set member m_arr_size to size of Other
+				size_t arr_size = Other.Size();			// set member m_arr_size to size of Other
 				m_array = new Array<TStack>(arr_size);	// create new array
 				for (int i = 0; i < arr_size; i++)		// deep copy Other's elements
 				{
