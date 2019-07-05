@@ -126,7 +126,7 @@ int main(void)
 	double x{ 0.0 }, y{ 0.0 }, r{ 0.0 };		// declare/initialise geom_values
 	int arr_size{ 0 };					// array size should be positive only
 	
-	/*
+	
 	cout << "\n\n"
 		<< "|============================|\n"
 		<< "|        TEMPLATES:          |\n"
@@ -262,9 +262,10 @@ int main(void)
 		cout << "\nStep 5b:\nSet intNumArr2 = intNumArr0 + intNumArr6:\n";
 		intNumArr2 = intNumArr0 + intNumArr6;
 	}
-	catch (ArrayException& mismatch_msg)
+	//catch (ArrayException& mismatch_msg)
+	catch (ArrayException& e)
 	{
-		cout << mismatch_msg.GetMessage() << endl;
+		cout << e.GetMessage() << endl;
 	}
 	
 	try
@@ -304,7 +305,7 @@ int main(void)
 	int dot_prod = intNumArr11.DotProd(intNumArr12);
 	cout << "Dot Product of intNumArr11 and intNumArr12 = " << dot_prod << endl;
 	
-	*/
+	//*/
 
 
 	

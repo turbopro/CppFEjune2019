@@ -81,7 +81,7 @@ namespace Turbopro
 		Array<TArray>::Array(const Array<TArray>& Other) 
 			: m_arr_size{ Other.Size() }, m_data{ new TArray[m_arr_size] }
 		{
-			std::cout << "Array copy constructor, other: " << Other.Size() << "m_arr:" << m_arr_size << "\n";
+			std::cout << "Array copy constructor\n";	// << Other.Size() << "m_arr:" << m_arr_size << "\n";
 			for (int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
 				(*this)[i] = Other[i];				// calls the const Point& operator[]() const method
 		}
@@ -96,15 +96,18 @@ namespace Turbopro
 		
 		// SetElement() method
 		template <typename TArray>
-		void Array<TArray>::SetElement(const TArray& p, int index)
+		//void Array<TArray>::SetElement(const TArray& p, int index)
+		bool Array<TArray>::SetElement(const TArray& p, int index)
 		{
 			if (index < 0 || index >= m_arr_size)
 			{
 				// if index out of range, throw exception
 				throw Containers::OutOfBoundsException(index);
+				return false;
 			}
 
 			m_data[index] = p;
+			return true;
 		}
 
 		// GetElement() method

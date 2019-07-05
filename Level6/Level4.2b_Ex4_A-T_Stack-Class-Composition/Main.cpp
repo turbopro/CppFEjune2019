@@ -128,22 +128,122 @@ int main(void)
 	double x{ 0.0 }, y{ 0.0 }, r{ 0.0 };		// declare/initialise geom_values
 	int arr_size{ 0 };					// array size should be positive only
 	
+	try
+	{
 
-	// create default Stack
-	const int stack_size = 3;
-	cout << "\nCreate a default stack:\n";
-	Stack<int, stack_size> st0;
-	cout << "\nst0 size: " << st0.Size() << endl << endl;
-	cout << "\nst0 GetIndex(): " << st0.GetIndex() << endl << endl;
-	//cout << "\nst0.m_array[0]: " << st0 << endl << endl;
+		// create default int Stack
+		const int stack_size = 3;
+		cout << "\nCreate a default int Stack:\n";
+		Stack<int, stack_size> stint0;
+		cout << "\nstint0 size: " << stint0.Size() << endl << endl;
+		cout << "\nstint0 GetIndex(): " << stint0.GetIndex() << endl << endl;
+		//cout << "\nst0.m_array[0]: " << st0 << endl << endl;
 
 
-	// create copy Stack
-	cout << "\nCreate a copy of st0:\n";
-	Stack<int, stack_size> st1 = st0;
-	cout << "\nst1 size: " << st1.Size() << endl << endl;
+		// create copy Stack
+		cout << "\nAssign stint0 to stint1:\n";
+		Stack<int, stack_size> stint1 = stint0;
+		cout << "\nstint1 size: " << stint1.Size() << endl;
+		cout << "\nstint1 GetIndex(): " << stint1.GetIndex() << endl << endl;
 
-	
+		cout << "\nPush 10 onto stint1\n";
+		stint1.push(10);
+		cout << "\nstint1 GetIndex(): " << stint1.GetIndex() << endl;
+		cout << "\nPush 20 onto stint1\n";
+		stint1.push(20);
+		cout << "\nstint1 GetIndex(): " << stint1.GetIndex() << endl;
+		cout << "\nPush 30 onto stint1\n";
+		stint1.push(30);
+		cout << "\nstint1 GetIndex(): " << stint1.GetIndex() << endl << endl;
+		//cout << "\nPush 40 onto st1\n";
+		//st1.push(40);
+
+		// copy Stack
+		cout << "\nCopy stint1 to stint2:\n";
+		Stack<int, stack_size> stint2(stint1);
+		cout << "\nstint2 size: " << stint2.Size() << endl;
+		cout << "\nstint2 GetIndex(): " << stint2.GetIndex() << endl << endl;
+				
+		cout << "\nPop stint2\n";
+		int pop0 = stint2.pop();
+		cout << "\npop0: " << pop0 << endl;
+		cout << "\nstint2 GetIndex(): " << stint2.GetIndex() << endl;
+		cout << "\nPop stint2\n";
+		pop0 = stint2.pop();
+		cout << "\npop0: " << pop0 << endl;
+		cout << "\nstint2 GetIndex(): " << stint2.GetIndex() << endl;
+		cout << "\nPop stint2\n";
+		pop0 = stint2.pop();
+		cout << "\npop0: " << pop0 << endl;
+		cout << "\nstint2 GetIndex(): " << stint2.GetIndex() << endl;
+		cout << "\nPop stint2\n";
+		//pop0 = stint2.pop();
+		//cout << "\npop0: " << pop0 << endl;
+		//cout << "\nstint2 GetIndex(): " << stint2.GetIndex() << endl;
+		
+		
+		//cout << "\nst1 GetIndex(): " << st1.GetIndex() << endl << endl;
+
+		// create default Point Stack
+		cout << "\nCreate a default Point Stack:\n";
+		Stack<Point, stack_size> stpt0;
+		cout << "\nstpt0 size: " << stpt0.Size() << endl << endl;
+		cout << "\nstpt0 GetIndex(): " << stpt0.GetIndex() << endl << endl;
+		//cout << "\nst0.m_array[0]: " << st0 << endl << endl;
+
+		cout << "\nCreate Point to push onto stpt0:\n";
+		Point p0{ 3, 5 };
+		cout << "\nPush p0 onto stpt0\n";
+		stpt0.push(p0);
+		cout << "\nstpt0 GetIndex(): " << stpt0.GetIndex() << endl << endl;
+		Point p1{ -2, 1 };
+		cout << "\nPush p1 onto stpt0\n";
+		stpt0.push(p1);
+		cout << "\nstpt0 GetIndex(): " << stpt0.GetIndex() << endl << endl;
+		Point p2{ 10, 2.25 };
+		cout << "\nPush p2 onto stpt0\n";
+		stpt0.push(p2);
+		cout << "\nstpt0 GetIndex(): " << stpt0.GetIndex() << endl << endl;
+
+		// copy Stack
+		cout << "\nCopy stpt0 to stpt1:\n";
+		Stack<Point, stack_size> stpt1(stpt0);
+		cout << "\nstpt1 size: " << stpt1.Size() << endl;
+		cout << "\nstpt1 GetIndex(): " << stpt1.GetIndex() << endl << endl;
+
+
+		
+		cout << "\nPop stpt1\n";
+		Point poppt;
+		poppt = stpt1.pop();
+		cout << "\npoppt: " << poppt.ToString() << endl;
+		cout << "\nstpt1 GetIndex(): " << stpt1.GetIndex() << endl;
+		cout << "\nPop stpt1\n";
+		poppt = stpt1.pop();
+		cout << "\npoppt: " << poppt.ToString() << endl;
+		cout << "\nstpt1 GetIndex(): " << stpt1.GetIndex() << endl;
+		cout << "\nPop stpt1\n";
+		poppt = stpt1.pop();
+		cout << "\npoppt: " << poppt.ToString() << endl;
+		cout << "\nstpt1 GetIndex(): " << stpt1.GetIndex() << endl;
+		//cout << "\nPop stint2\n";
+		
+
+
+	}
+	catch (ArrayException& error_msg)
+	{
+		cout << error_msg.GetMessage() << endl;
+	}
+	catch (...)
+	{
+		cout << "Unknown exception caught\n";
+	}
+
+
+
+
+
 	/*
 
 	cout << "\n\n"
@@ -636,6 +736,11 @@ int main(void)
 	
 	
 	*/
+	
+	//catch (...)
+	//{
+	//	std::cerr << "Abnormal termination\n";
+	//}
 
 
 	return 0;

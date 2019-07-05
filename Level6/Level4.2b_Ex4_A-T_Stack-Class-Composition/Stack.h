@@ -98,8 +98,8 @@ namespace Turbopro
 			Stack& operator=(const Stack& Other);		// overloaded assignment operator
 			int GetIndex() const { return m_index; }	// get Stack index
 			//void SetIndex(int index);					// get Stack index
-			TStack pop(int index);						// remove element from Stack
-			TStack push(int index);						// add element to Stack
+			TStack pop();								// remove element from Stack
+			void push(const TStack& ele);				// add element to Stack
 		};
 	}
 }
