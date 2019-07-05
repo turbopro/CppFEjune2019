@@ -1,8 +1,9 @@
 /* Main.cpp
 Level4.2a_Ex1: Introduction to Templates - Templated Array Class
 
-Test program for the Point, Line and Circle classes 
-Include "Point.h", "Line.h", and "Circle.h" header files
+Test program for the Point, Line and Circle classes, including
+Array Classes, Templates, and Exception classes
+Include "Point.h", "Line.h", and "Circle.h" and other header files
 
 Point tests as follows:
  · Ask the user for the x - and y - coordinates
@@ -125,17 +126,6 @@ int main(void)
 	double x{ 0.0 }, y{ 0.0 }, r{ 0.0 };		// declare/initialise geom_values
 	unsigned int arr_size{ 0 };					// array size should be positive only
 	
-	//arr_size = 5;
-	//Array<Point> arr0(arr_size);
-	//for (unsigned int i = 0; i < arr_size; i++)
-	//{
-	//	arr0[i] = Point(i * 2.2, i * 1.5);
-	//	cout << "arr0[" << i << "]" << arr0[i] << endl;
-	//}
-	//cout << "\n";
-	
-	//cout << points[0] << endl;
-
 	
 	cout << "\n\n"
 		<< "|============================|\n"

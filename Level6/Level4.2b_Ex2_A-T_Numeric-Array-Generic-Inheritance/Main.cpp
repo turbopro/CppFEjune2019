@@ -261,11 +261,12 @@ int main(void)
 
 		cout << "\nStep 5b:\nSet intNumArr2 = intNumArr0 + intNumArr6:\n";
 		intNumArr2 = intNumArr0 + intNumArr6;
+		cout << "\n";
 	}
-	//catch (ArrayException& mismatch_msg)
-	catch (ArrayException& e)
+	
+	catch (ArrayException& error_message)
 	{
-		cout << e.GetMessage() << endl;
+		cout << error_message.GetMessage() << endl;
 	}
 	
 	try
@@ -304,9 +305,6 @@ int main(void)
 	cout << "\nStep 7b:\nCalculate the dot product of intNumArr11 and intNumArr12:\n";
 	int dot_prod = intNumArr11.DotProd(intNumArr12);
 	cout << "Dot Product of intNumArr11 and intNumArr12 = " << dot_prod << endl;
-	
-	//*/
-
 
 	
 
@@ -337,10 +335,10 @@ int main(void)
 	}
 	cout << "\n";
 
-	Point P1{ 4, 1 };
+	//Point P1{ 4, 1 };
 
 
-	/*
+	
 	// try/catch Array::GetElement() indexing error
 	try
 	{
@@ -572,10 +570,7 @@ int main(void)
 	C3 = C3;
 
 	// print C3
-	cout << "\nCircle C3: " << C3 
-		<< "\n\nCircle 3 to string: " << C3.ToString() << endl;
-	
-	*/
+	cout << "\nCircle C3: " << C3 << endl << endl;
 
 
 

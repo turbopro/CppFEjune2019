@@ -1,5 +1,5 @@
 /* Stack.cpp
-Level4.2b_Ex4: Advanced Templates - Stack Class (composition)
+Level4.2b_Ex5: Advanced Templates - Layering Exceptions
 
 Source file that implements the Stack class declared in the
 Stack.h header file.
@@ -14,7 +14,7 @@ the Stack class is part of the Turbopro::Container namespace
 #include <iostream>
 #include <string>			// for std::string() function in ToString() member function
 #include "Stack.h"			// Array class declaration
-#include "ArrayException.h"	// ArrayException class declaration
+#include "StackException.h"	// ArrayException class declaration
 
 
 // create namespace
@@ -50,19 +50,34 @@ namespace Turbopro
 		template <typename TStack, int sz>
 		TStack Stack<TStack, sz>::pop()
 		{
-			TStack ele = m_array.GetElement(m_current - 1);
-			m_current--;
-			
-			return ele;
+			std::cout << "m_current: " << m_current << ", Size: " << Size() << std::endl;
+			if (m_current <= 0)
+				throw StackEmptyException(m_current);
+			else
+			{
+				TStack ele = m_array.GetElement(m_current - 1);
+				m_current--;
+				
+				return ele;
+				//m_array.SetElement(ele, m_current);
+				//m_current++;
+				//else { std::cout << "[push after] m_index: " << m_current << std::endl; }
+			}
 		}
 
 		// push() an element onto the Stack
 		template <typename TStack, int sz>
 		void Stack<TStack, sz>::push(const TStack& ele)
 		{
-			if (m_array.SetElement(ele, m_current))
+			std::cout << "m_current: " << m_current << ", Size: " << Size() << std::endl;
+			if (m_current >= Size())
+				throw StackFullException(m_current);
+			else
+			{
+				m_array.SetElement(ele, m_current);
 				m_current++;
-			else { std::cout << "[push after] m_index: " << m_current << std::endl; }
+				//else { std::cout << "[push after] m_index: " << m_current << std::endl; }
+			}
 		}
 		
 		// overloaded assignment operator

@@ -80,12 +80,9 @@ namespace Turbopro
 			PointArray<Point>& operator=(const PointArray<Point>& Other);		
 
 			// PointArray specific methods
-			// total length between the points in the PointArray
-			double Length() const;								
-			// add the Points of two PointArrays
-			PointArray<Point> operator+(const PointArray<Point>& Other) const;
-			// scale the Points of the PointArray by factor n
-			PointArray<Point> operator*(double n) const;
+			double Length() const;								// total length between the points in the PointArray
+			PointArray<Point> operator+(const PointArray<Point>& Other) const;	// add the Points of two PointArrays
+			PointArray<Point> operator*(double n) const;		// scale the Points of the PointArray by factor n
 		};
 	}
 }

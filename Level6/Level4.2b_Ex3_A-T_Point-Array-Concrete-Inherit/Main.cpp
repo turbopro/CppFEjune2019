@@ -127,7 +127,7 @@ int main(void)
 	double x{ 0.0 }, y{ 0.0 }, r{ 0.0 };		// declare/initialise geom_values
 	int arr_size{ 0 };					// array size should be positive only
 	
-	
+	/*
 	cout << "\n\n"
 		<< "|============================|\n"
 		<< "|        TEMPLATES:          |\n"
@@ -337,7 +337,7 @@ int main(void)
 	}
 	cout << "\n";
 
-
+	*/
 	// create PointArray and populate
 	cout << "Create PointArray, parr0, with 3 elements:\n";
 	arr_size = 3;
@@ -345,7 +345,7 @@ int main(void)
 	for (int i = 0; i < arr_size; i++)
 	{
 		parr0[i] = Point(rand() % 10, rand() % 10);
-		cout << "parr0[" << i << "]: " << parr0[i].ToString() << endl;
+		cout << "parr0[" << i << "]: " << parr0[i] << endl;
 	}
 	cout << "\n";
 
@@ -354,7 +354,7 @@ int main(void)
 	parr0[2] = parr0[0] + parr0[1];
 	for (int i = 0; i < arr_size; i++)
 	{
-		cout << "parr0[" << i << "]: " << parr0[i].ToString() << endl;
+		cout << "parr0[" << i << "]: " << parr0[i] << endl;
 	}
 	cout << "\n";
 
@@ -363,7 +363,7 @@ int main(void)
 	parr0[1] = parr0[0];
 	for (int i = 0; i < arr_size; i++)
 	{
-		cout << "parr0[" << i << "]: " << parr0[i].ToString() << endl;
+		cout << "parr0[" << i << "]: " << parr0[i] << endl;
 	}
 	cout << "\n";
 
@@ -372,12 +372,14 @@ int main(void)
 	parr0[0] = parr0[1] * 5;
 	for (int i = 0; i < arr_size; i++)
 	{
-		cout << "parr0[" << i << "]: " << parr0[i].ToString() << endl;
+		cout << "parr0[" << i << "]: " << parr0[i] << endl;
 	}
 	
+	double tot_len = parr0.Length();
 	cout << "\ntotal length of the Points in parr0: " << fixed
-		<< setprecision(2) << parr0.Length() << endl;
-  	 
+		<< setprecision(2) << tot_len << endl;
+  	
+	/*
 	
 	// try/catch Array::GetElement() indexing error
 	try
@@ -613,7 +615,7 @@ int main(void)
 	cout << "\nCircle C3: " << C3 
 		<< "\n\nCircle 3 to string: " << C3.ToString() << endl;
 	
-	
+	*/
 
 
 

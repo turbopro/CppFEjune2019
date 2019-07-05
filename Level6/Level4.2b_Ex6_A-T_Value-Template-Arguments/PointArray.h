@@ -1,5 +1,5 @@
 /* PointArray.h
-Level4.2b_Ex3: Advanced Templates - Point Array(concrete inheritance)
+Level4.2b_Ex5: Advanced Templates - Layering Exceptions
 
 header file for the PointArray class
 
@@ -69,13 +69,16 @@ namespace Turbopro
 		class PointArray : public Array<Point>
 		{
 		private:
-
+			//Point m_p;
 		public:
 			PointArray();										// default constructor
 			PointArray(int arr_size);							// constructor
 			PointArray(const PointArray<Point>& Other);			// copy constructor
 			~PointArray();										// destructor
-			PointArray<Point>& operator=(const PointArray<Point>& Other);		// overloaded assignment operator
+			
+			// overloaded assignment operator
+			PointArray<Point>& operator=(const PointArray<Point>& Other);		
+
 			// PointArray specific methods
 			double Length() const;								// total length between the points in the PointArray
 			PointArray<Point> operator+(const PointArray<Point>& Other) const;	// add the Points of two PointArrays

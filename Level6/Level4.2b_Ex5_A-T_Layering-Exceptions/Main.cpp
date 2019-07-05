@@ -1,5 +1,5 @@
 /* Main.cpp
-Level4.2b_Ex4: Advanced Templates - Stack Class (composition)
+Level4.2b_Ex5: Advanced Templates - Layering Exceptions
 
 Test program for the Point, Line and Circle classes 
 Include "Point.h", "Line.h", and "Circle.h" header files
@@ -103,6 +103,7 @@ using directives and declarations for Turbopro::CAD and Turbopro::Container name
 #include "NumericArray.h"	// NumericArray class declaration
 #include "PointArray.h"		// PointArray class declaration
 #include "Stack.h"			// Stack class declaration
+#include "StackException.h"	// StackException class declaration
 
 using namespace std;
 
@@ -156,8 +157,9 @@ int main(void)
 		cout << "\nPush 30 onto stint1\n";
 		stint1.push(30);
 		cout << "\nstint1 GetIndex(): " << stint1.GetIndex() << endl << endl;
-		//cout << "\nPush 40 onto st1\n";
-		//st1.push(40);
+		
+		//cout << "Generate StackFullException:\nPush 40 onto st1\n";
+		//stint1.push(40);
 
 		// copy Stack
 		cout << "\nCopy stint1 to stint2:\n";
@@ -177,13 +179,15 @@ int main(void)
 		pop0 = stint2.pop();
 		cout << "\npop0: " << pop0 << endl;
 		cout << "\nstint2 GetIndex(): " << stint2.GetIndex() << endl;
-		cout << "\nPop stint2\n";
+		
+		//cout << "\nCreate StackEmptyException:\nPop stint2\n";
 		//pop0 = stint2.pop();
 		//cout << "\npop0: " << pop0 << endl;
 		//cout << "\nstint2 GetIndex(): " << stint2.GetIndex() << endl;
 		
 		
 		//cout << "\nst1 GetIndex(): " << st1.GetIndex() << endl << endl;
+		
 		
 		// create default Point Stack
 		cout << "\nCreate a default Point Stack:\n";
@@ -218,24 +222,33 @@ int main(void)
 		cout << "\nPop stpt1\n";
 		Point poppt0;
 		poppt0 = stpt1.pop();
-		cout << "\npoppt0: " << poppt0.ToString() << endl;
-		cout << "\nstpt1 GetIndex(): " << stpt1.GetIndex() << endl;
-		/*
-		cout << "\nPop stpt1\n";
-		Point poppt1;
-		poppt1 = stpt1.pop();
-		cout << "\npoppt1: " << poppt1.ToString() << endl;
+		cout << "\npoppt0: " << poppt0 << endl;
 		cout << "\nstpt1 GetIndex(): " << stpt1.GetIndex() << endl;
 		
-		/*
 		cout << "\nPop stpt1\n";
-		poppt = stpt1.pop();
-		cout << "\npoppt: " << poppt.ToString() << endl;
+		//Point poppt1;
+		poppt0 = stpt1.pop();
+		cout << "\npoppt0: " << poppt0 << endl;
 		cout << "\nstpt1 GetIndex(): " << stpt1.GetIndex() << endl;
-		//cout << "\nPop stint2\n";
-		*/
+		
+		
+		cout << "\nPop stpt1\n";
+		//Point poppt2;
+		poppt0 = stpt1.pop();
+		cout << "\npoppt0: " << poppt0 << endl << endl;
+		cout << "\nstpt1 GetIndex(): " << stpt1.GetIndex() << endl << endl;
+		
+		cout << "\nCreate StackEmptyException:\nPop stint2\n";
+		poppt0 = stpt1.pop();
+		cout << "\npoppt0: " << poppt0 << endl << endl;
+		cout << "\nstpt1 GetIndex(): " << stpt1.GetIndex() << endl << endl;
+		//*/
 
 
+	}
+	catch (StackException& error_msg)
+	{
+		cout << error_msg.GetMessage() << endl;
 	}
 	catch (ArrayException& error_msg)
 	{
@@ -251,7 +264,7 @@ int main(void)
 
 
 	
-
+	
 	cout << "\n\n"
 		<< "|============================|\n"
 		<< "|        TEMPLATES:          |\n"

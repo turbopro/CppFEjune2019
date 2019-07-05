@@ -1,5 +1,5 @@
 /* ArrayException.cpp
-Level4.2b_Ex1: Advanced Templates - Static Variable for Array Default Size
+Level4.2b_Ex5: Advanced Templates - Layering Exceptions
 
 Source file that implements the ArrayException class declared in the
 ArrayException.h header file.
@@ -33,19 +33,39 @@ namespace Turbopro
 		// destructor
 		OutOfBoundsException::~OutOfBoundsException() {}
 
-		// GetMessage() method
-		std::string OutOfBoundsException::GetMessage()const
+		// constructor SizeMismatchException
+		SizeMismatchException::SizeMismatchException(int size_mismatch) : m_size_mismatch{ size_mismatch } {}
+
+		// default constructor
+		SizeMismatchException::SizeMismatchException() : m_size_mismatch{ 0 } {}
+
+		// destructor
+		SizeMismatchException::~SizeMismatchException() {}
+
+		// OutOfBoundsException::GetMessage() method
+		std::string OutOfBoundsException::GetMessage() const
 		{
 			// create stream objects for conversion of data members
-			std::ostringstream m_error_index_conv;
-			m_error_index_conv << m_error_index;
+			//std::ostringstream m_error_index_conv;
+			//m_error_index_conv << m_error_index;
 
 			// get str values for data members
-			std::string str_m_error_index_conv = m_error_index_conv.str();
+			//std::string str_m_error_index_conv = m_error_index_conv.str();
 
-			return ("Invalid index: " + str_m_error_index_conv +
+			//return ("Invalid index: " + str_m_error_index_conv +
+				//"\nIndex is out of range\n");
+
+			// alternative: convert m_error_index to a string using std::to_string()
+			return ("Invalid index: " + std::to_string(m_error_index) +
 				"\nIndex is out of range\n");
 		}
+
+		// SizeMismatchException::GetMessage() method
+		std::string SizeMismatchException::GetMessage() const
+		{
+			return "Error: Array Size Mismatch\nArrays must be of same size\n";
+		}
+
 
 	}
 }

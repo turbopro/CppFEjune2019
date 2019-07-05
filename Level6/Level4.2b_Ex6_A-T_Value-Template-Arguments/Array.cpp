@@ -1,5 +1,5 @@
 /* Array.cpp
-Level4.2b_Ex1: Advanced Templates - Static Variable for Array Default Size
+Level4.2b_Ex5: Advanced Templates - Layering Exceptions
 
 Source file that implements the Array Template class declared in the
 Array.h header file.
@@ -47,57 +47,72 @@ namespace Turbopro
 	namespace Containers
 	{
 		// initialise static data member ArraySize to default size = 10
-		template <typename T>
-		int Array<T>::ArraySize = 10;
+		template <typename TArray>
+		int Array<TArray>::ArraySize = 10;
 
 		// static data member ArraySize set method definition: check for size value
-		template <typename T>
-		void Array<T>::DefaultSize(int size)
+		template <typename TArray>
+		void Array<TArray>::DefaultSize(int size)
 		{
-			// if size is negative, throw exception
+			// if sz is negative, throw exception
 			if (size < 0) { throw Containers::OutOfBoundsException(size); }
 
-			Array<T>::ArraySize = size;
+			Array<TArray>::ArraySize = size;
 		}
 
 		// constructor 
-		template <typename T>
-		Array<T>::Array(int arr_size)
-			: m_data{ new T[arr_size] }, m_arr_size{ arr_size } {}	// size of array set during runtime
+		template <typename TArray>
+		Array<TArray>::Array(int arr_size)
+			: m_data{ new TArray[arr_size] }, m_arr_size{ arr_size } 
+		{
+			std::cout << "Array constructor\n";
+		}	// size of array set during runtime
 
 		// default constructor
-		template <typename T>
-		Array<T>::Array()
-			: m_data{ new T[ArraySize] }, m_arr_size{ ArraySize } {}	// size of array = ArraySize
+		template <typename TArray>
+		Array<TArray>::Array()
+			: m_data{ new TArray[ArraySize] }, m_arr_size{ ArraySize } 
+		{
+			std::cout << "Array default constructor\n";
+		}	// size of array = ArraySize
 
 		// copy constructor: set m_arr_size, create m_data, deep copy elements
-		template <typename T>
-		Array<T>::Array(const Array<T>& Other) : m_arr_size{ Other.Size() }, m_data{ new T[m_arr_size] }
+		template <typename TArray>
+		Array<TArray>::Array(const Array<TArray>& Other) 
+			: m_arr_size{ Other.Size() }, m_data{ new TArray[m_arr_size] }
 		{
+			std::cout << "Array copy constructor\n";	// << Other.Size() << "m_arr:" << m_arr_size << "\n";
 			for (int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
 				(*this)[i] = Other[i];				// calls the const Point& operator[]() const method
 		}
 
 		// destructor
-		template <typename T>
-		Array<T>::~Array() { delete[] m_data; }
+		template <typename TArray>
+		Array<TArray>::~Array() 
+		{ 
+			std::cout << "Deleting Array...\n";
+			delete[] m_data; 
+		}
 		
 		// SetElement() method
-		template <typename T>
-		void Array<T>::SetElement(const T& p, int index)
+		template <typename TArray>
+		//void Array<TArray>::SetElement(const TArray& p, int index)
+		bool Array<TArray>::SetElement(const TArray& p, int index)
 		{
 			if (index < 0 || index >= m_arr_size)
 			{
 				// if index out of range, throw exception
 				throw Containers::OutOfBoundsException(index);
+				return false;
 			}
 
 			m_data[index] = p;
+			return true;
 		}
 
 		// GetElement() method
-		template <typename T>
-		T& Array<T>::GetElement(int index) const
+		template <typename TArray>
+		TArray& Array<TArray>::GetElement(int index) const
 		{
 			if (index < 0 || index >= m_arr_size)
 			{
@@ -109,8 +124,8 @@ namespace Turbopro
 		}
 
 		// overloaded assignment operator
-		template <typename T>
-		Array<T>& Array<T>::operator=(const Array<T>& Other)
+		template <typename TArray>
+		Array<TArray>& Array<TArray>::operator=(const Array<TArray>& Other)
 		{
 			if (this == &Other) { return *this; }
 			else
@@ -120,7 +135,7 @@ namespace Turbopro
 
 				// create new m_data with size of Other
 				m_arr_size = Other.Size();				// set member m_arr_size to size of Other
-				m_data = new T[m_arr_size];				// create new array
+				m_data = new TArray[m_arr_size];		// create new array
 				for (int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
 				{
 					m_data[i] = Other[i];
@@ -130,8 +145,8 @@ namespace Turbopro
 		}
 
 		// overloaded array indexing operator: read/write version
-		template <typename T>
-		T& Array<T>::operator[](int index)
+		template <typename TArray>
+		TArray& Array<TArray>::operator[](int index)
 		{
 			if (index < 0 || index >= m_arr_size)
 			{
@@ -144,8 +159,8 @@ namespace Turbopro
 
 
 		// overloaded array indexing operator: const version
-		template <typename T>
-		const T& Array<T>::operator[](int index) const
+		template <typename TArray>
+		const TArray& Array<TArray>::operator[](int index) const
 		{
 			if (index < 0 || index >= m_arr_size)
 			{
