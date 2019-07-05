@@ -87,7 +87,7 @@ namespace Turbopro
 		{
 		private:
 			Array<TStack> m_array;
-			int m_index;
+			int m_current;
 
 		public:
 			Stack();									// default constructor
@@ -96,7 +96,7 @@ namespace Turbopro
 			~Stack();									// destructor
 			int Size() const { return m_array.Size(); }	// size of Array
 			Stack& operator=(const Stack& Other);		// overloaded assignment operator
-			int GetIndex() const { return m_index; }	// get Stack index
+			int GetIndex() const { return m_current; }	// get Stack index
 			//void SetIndex(int index);					// get Stack index
 			TStack pop();								// remove element from Stack
 			void push(const TStack& ele);				// add element to Stack

@@ -25,7 +25,7 @@ namespace Turbopro
 		// default constructor 
 		template <typename TStack, int sz>
 		Stack<TStack, sz>::Stack()
-			: m_array { Array<TStack>(sz) }, m_index{ 0 }		//{}	// size of array set during runtime
+			: m_array { Array<TStack>(sz) }, m_current{ 0 }		//{}	// size of array set during runtime
 		{
 			std::cout << "Stack default constructor\n";
 		}
@@ -33,16 +33,10 @@ namespace Turbopro
 		// copy constructor: set m_arr_size, create m_data, deep copy elements
 		template <typename TStack, int sz>
 		Stack<TStack, sz>::Stack(const Stack<TStack, sz>& Other)
-			: m_array { Other.m_array }, m_index { Other.m_index }
+			: m_array { Other.m_array }, m_current { Other.m_current }
 		{
-			std::cout << "Stack copy constructor: Other m_index: " << Other.m_index
-				<< ", this m_index: " << m_index << std::endl;
-			//for (int i = 0; i < Other.Size(); i++)		// deep copy Other's elements
-			//{
-				//m_array[i] = Other.m_array;
-				//m_array.SetElement(Other.m_array, i);
-			//}
-			//return *this;
+			std::cout << "Stack copy constructor: Other m_index: " << Other.m_current
+				<< ", this m_index: " << m_current << std::endl;
 		}
 
 		// destructor
@@ -56,8 +50,8 @@ namespace Turbopro
 		template <typename TStack, int sz>
 		TStack Stack<TStack, sz>::pop()
 		{
-			TStack ele = m_array.GetElement(m_index - 1);
-			m_index--;
+			TStack ele = m_array.GetElement(m_current - 1);
+			m_current--;
 			return ele;
 			//if (TStack ele = m_array.GetElement(m_index - 1))
 			//TStack ele;
@@ -74,9 +68,9 @@ namespace Turbopro
 		template <typename TStack, int sz>
 		void Stack<TStack, sz>::push(const TStack& ele)
 		{
-			if (m_array.SetElement(ele, m_index))
-				m_index++;
-			else { std::cout << "[push after] m_index: " << m_index << std::endl; }
+			if (m_array.SetElement(ele, m_current))
+				m_current++;
+			else { std::cout << "[push after] m_index: " << m_current << std::endl; }
 		}
 		
 		// overloaded assignment operator
