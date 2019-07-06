@@ -46,18 +46,18 @@ namespace Turbopro
 		std::string OutOfBoundsException::GetMessage() const
 		{
 			// create stream objects for conversion of data members
-			//std::ostringstream m_error_index_conv;
-			//m_error_index_conv << m_error_index;
+			std::ostringstream m_error_index_conv;
+			m_error_index_conv << m_error_index;
 
 			// get str values for data members
-			//std::string str_m_error_index_conv = m_error_index_conv.str();
+			std::string str_m_error_index_conv = m_error_index_conv.str();
 
-			//return ("Invalid index: " + str_m_error_index_conv +
-				//"\nIndex is out of range\n");
+			return ("Invalid index: " + str_m_error_index_conv +
+				"\nIndex is out of range\n");
 
 			// alternative: convert m_error_index to a string using std::to_string()
-			return ("Invalid index: " + std::to_string(m_error_index) +
-				"\nIndex is out of range\n");
+			//return ("Invalid index: " + std::to_string(m_error_index) +
+				//"\nIndex is out of range\n");
 		}
 
 		// SizeMismatchException::GetMessage() method

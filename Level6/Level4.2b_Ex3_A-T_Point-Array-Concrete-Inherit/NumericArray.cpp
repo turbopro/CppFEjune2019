@@ -48,25 +48,19 @@ namespace Turbopro
 		// constructor 
 		template <typename TNum>
 		NumericArray<TNum>::NumericArray(int arr_size)
-			//: Array<TNum>{ arr_size }, m_data{ new TNum[arr_size] }, m_arr_size{ arr_size } {}	// size of array set during runtime
-			: Array<TNum>{ arr_size } { std::cout << "NumericArray constructor\n"; }
+			: Array<TNum>{ arr_size } {}
 
 		// default constructor
 		template <typename TNum>
 		NumericArray<TNum>::NumericArray()
-			//: Array<TNum>{}, m_data{ new TNum[ArraySize] }, m_arr_size{ ArraySize } {}	// size of array = ArraySize
-			: Array<TNum>() 
-		{ 
-			std::cout << "NumericArray default constructor\n"; 
-		}
+			: Array<TNum>{} {}
 
 		// copy constructor: set m_arr_size, create m_data, deep copy elements
 		template <typename TNum>
 		NumericArray<TNum>::NumericArray(const NumericArray<TNum>& Other) 
-			//: Array<TNum>{ Other }, m_arr_size{ Other.Size() }, m_data{ new TNum[m_arr_size] }
 			: Array<TNum>{ Other.Size() }
 		{
-			//for (int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
+			// deep copy Other's elements
 			std::cout << "NumericArray copy constructor\n";
 			for (int i = 0; i < Other.Size(); i++)	// deep copy Other's elements
 				(*this)[i] = Other[i];				// calls the const Point& operator[]() const method
@@ -74,10 +68,7 @@ namespace Turbopro
 
 		// destructor
 		template <typename TNum>
-		NumericArray<TNum>::~NumericArray() 
-		{ 
-			//std::cout << "Deleting NumericArray...\n";
-		}
+		NumericArray<TNum>::~NumericArray() {}
 
 		// add the elements of two NumericArrays
 		template <typename TNum>
@@ -90,13 +81,13 @@ namespace Turbopro
 				throw Containers::SizeMismatchException(this->Size() - Other.Size());
 			}
 
-			NumericArray<TNum> res{ Other.Size() };
+			NumericArray<TNum> sum{ Other.Size() };
 			for (int i = 0; i < Other.Size(); i++)
 			{
-				res[i] = (*this)[i] + Other[i];
+				sum[i] = (*this)[i] + Other[i];
 			}
 				
-			return res;
+			return sum;
 		}
 		
 		// scale the elements of the NumericArray by factor n
@@ -105,9 +96,7 @@ namespace Turbopro
 		{
 			NumericArray<TNum> scaled_arr{ this->Size() };
 			for (int i = 0; i < this->Size(); i++)
-				//scaled_arr.SetElement(((*this)[i] * n), i);
 				scaled_arr[i] = (*this)[i] * n;
-				//res.m_data[i] = m_data[i] * n;
 
 			return scaled_arr;
 		}

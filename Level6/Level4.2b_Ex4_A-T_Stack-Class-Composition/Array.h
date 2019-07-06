@@ -149,7 +149,7 @@ namespace Turbopro
 			virtual ~Array();											// destructor
 			int Size() const { return m_arr_size; }						// inlined: return the size of the object's array
 			//void SetElement(const TArray& p, int index);				// set a Point element to the array
-			bool SetElement(const TArray& p, int index);				// set a Point element to the array
+			void SetElement(const TArray& p, int index);				// set a Point element to the array
 			TArray& GetElement(int index) const;						// return a Point element from the array
 			virtual Array<TArray>& operator=(const Array<TArray>& Other);	// overloaded assignment operator: virtual, derived classes to change
 			TArray& operator[](int index);						// overloaded array indexing operator

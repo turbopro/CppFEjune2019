@@ -82,7 +82,8 @@ namespace Turbopro
 	namespace Containers
 	{
 		// Stack class declaration
-		template <typename TStack, int sz>
+		//template <typename TStack, int sz>
+		template <typename TStack>
 		class Stack
 		{
 		private:
@@ -91,7 +92,7 @@ namespace Turbopro
 
 		public:
 			Stack();									// default constructor
-			//Stack(const Array<TStack>& arr);			// constructor
+			explicit Stack(int arr_size);				// constructor
 			Stack(const Stack& Other);					// copy constructor
 			~Stack();									// destructor
 			int Size() const { return m_array.Size(); }	// size of Array

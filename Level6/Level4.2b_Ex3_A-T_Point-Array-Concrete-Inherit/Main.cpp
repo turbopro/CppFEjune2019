@@ -127,7 +127,7 @@ int main(void)
 	double x{ 0.0 }, y{ 0.0 }, r{ 0.0 };		// declare/initialise geom_values
 	int arr_size{ 0 };					// array size should be positive only
 	
-	/*
+
 	cout << "\n\n"
 		<< "|============================|\n"
 		<< "|        TEMPLATES:          |\n"
@@ -262,6 +262,7 @@ int main(void)
 
 		cout << "\nStep 5b:\nSet intNumArr2 = intNumArr0 + intNumArr6:\n";
 		intNumArr2 = intNumArr0 + intNumArr6;
+		cout << endl << endl;
 	}
 	catch (ArrayException& mismatch_msg)
 	{
@@ -307,9 +308,6 @@ int main(void)
 	
 	
 
-
-	
-
 	cout << "Testing Array, NumericArray and PointArray\n";
 
 	// create Array and populate
@@ -337,7 +335,7 @@ int main(void)
 	}
 	cout << "\n";
 
-	*/
+	
 	// create PointArray and populate
 	cout << "Create PointArray, parr0, with 3 elements:\n";
 	arr_size = 3;
@@ -374,12 +372,12 @@ int main(void)
 	{
 		cout << "parr0[" << i << "]: " << parr0[i] << endl;
 	}
-	
+
 	double tot_len = parr0.Length();
 	cout << "\ntotal length of the Points in parr0: " << fixed
 		<< setprecision(2) << tot_len << endl;
   	
-	/*
+	
 	
 	// try/catch Array::GetElement() indexing error
 	try
@@ -612,12 +610,9 @@ int main(void)
 	C3 = C3;
 
 	// print C3
-	cout << "\nCircle C3: " << C3 
-		<< "\n\nCircle 3 to string: " << C3.ToString() << endl;
+	cout << "\nCircle C3: " << C3 << endl;
 	
-	*/
-
-
+	
 
 	return 0;
 }

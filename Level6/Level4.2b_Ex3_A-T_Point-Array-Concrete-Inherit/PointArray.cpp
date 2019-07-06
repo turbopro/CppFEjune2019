@@ -52,13 +52,13 @@ namespace Turbopro
 				throw Containers::SizeMismatchException(Other.Size());
 			}
 
-			PointArray<Point> res{ Other.Size() };
+			PointArray<Point> sum{ Other.Size() };
 			for (int i = 0; i < Other.Size(); i++)
 			{
-				res[i] = (*this)[i] + Other[i];
+				sum[i] = (*this)[i] + Other[i];
 			}
 
-			return res;
+			return sum;
 		}
 
 		// scale the elements of the NumericArray by factor n
@@ -82,9 +82,7 @@ namespace Turbopro
 			{
 				p0 = this->GetElement(i);
 				p1 = this->GetElement(i+1);
-				std::cout << "p0: " << p0 << ", p1: " << p1 << std::endl;
 				length += p0.Distance(p1);
-				//length += (*this)[i].Distance(*(this + 1));
 			}
 
 			return length;
