@@ -70,7 +70,7 @@ namespace Turbopro
 		template <typename TNum>
 		NumericArray<TNum> NumericArray<TNum>::operator+(const NumericArray<TNum>& Other) const
 		{
-			//if Array sizes are uneual, throw SizeMismatchException
+			//if Array sizes are unqeual, throw SizeMismatchException
 			if (this->Size() != Other.Size())
 			{
 				throw Containers::SizeMismatchException(this->Size() - Other.Size());
@@ -102,7 +102,7 @@ namespace Turbopro
 		template <typename TNum>
 		TNum NumericArray<TNum>::DotProd(const NumericArray<TNum>& Other) const
 		{
-			//if Arrays are uneual, throw SizeMisMatchException
+			//if Arrays are unqeual, throw SizeMisMatchException
 			if (this->Size() != Other.Size())
 			{
 				throw Containers::SizeMismatchException(this->Size() - Other.Size());

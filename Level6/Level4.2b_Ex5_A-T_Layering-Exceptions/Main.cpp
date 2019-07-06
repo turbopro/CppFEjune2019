@@ -462,10 +462,6 @@ int main(void)
 	int dot_prod = intNumArr11.DotProd(intNumArr12);
 	cout << "Dot Product of intNumArr11 and intNumArr12 = " << dot_prod << endl;
 	
-	
-
-
-	/*
 
 	cout << "Testing Array, NumericArray and PointArray\n";
 
@@ -495,7 +491,6 @@ int main(void)
 	cout << "\n";
 
 
-	/*
 	// create PointArray and populate
 	cout << "Create PointArray, parr0, with 3 elements:\n";
 	arr_size = 3;
@@ -583,7 +578,7 @@ int main(void)
 	}
 
 
-	/*
+	
 	cout << "\n"
 		<< "|====================================|\n"
 		<< "|              POINTS                |\n"
@@ -650,9 +645,8 @@ int main(void)
 	cout << "P11: "; P11.Print();
 	cout << "L10: "; L10.Print();
 	cout << "C10: "; C10.Print();
-
-
-	/*
+	
+	
 	cout << "\n\n"
 		<< "|========================|\n"
 		<< "|        LINES:          |\n"
@@ -710,8 +704,7 @@ int main(void)
 	cout << "\nLine L3: " << L3 << endl << endl;
 	cout << "Line L3: " << L3.ToString() << endl << endl;
 
-	/*
-	
+		
 	cout << "\n"
 		<< "|========================|\n"
 		<< "|      CIRCLES:          |\n"
@@ -770,17 +763,7 @@ int main(void)
 	C3 = C3;
 
 	// print C3
-	cout << "\nCircle C3: " << C3 
-		<< "\n\nCircle 3 to string: " << C3.ToString() << endl;
-	
-	
-	*/
-	
-	//catch (...)
-	//{
-	//	std::cerr << "Abnormal termination\n";
-	//}
-
+	cout << "\nCircle C3: " << C3 << endl;	
 
 	return 0;
 }

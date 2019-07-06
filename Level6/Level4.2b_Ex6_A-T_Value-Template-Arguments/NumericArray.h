@@ -99,19 +99,16 @@ namespace Turbopro
 		template <typename TNum>
 		class NumericArray	:	public Array<TNum>
 		{
-		private:
-
 		public:
 			NumericArray();											// default constructor
-			NumericArray(int arr_size);								// constructor
+			explicit NumericArray(int arr_size);					// constructor
 			NumericArray(const NumericArray<TNum>& Other);			// copy constructor
 			virtual ~NumericArray();								// destructor
 			NumericArray<TNum>& operator=(const NumericArray<TNum>& Other);		// overloaded assignment operator
 			
 			// NumericArray specific methods
-			NumericArray<TNum> operator+(const NumericArray<TNum>& Other) const;	// add the elements of two NumericArrays
-			NumericArray<TNum> operator*(double n) const;					// scale the elements of the NumericArray by factor n
-			//friend Point operator*(double n, const Point& Other);	// multiply n by Point p
+			NumericArray<TNum> operator+(const NumericArray<TNum>& Other) const;// add the elements of two NumericArrays
+			NumericArray<TNum> operator*(double n) const;			// scale the elements of the NumericArray by factor n
 			TNum DotProd(const NumericArray<TNum>& Other) const;
 		};
 	}

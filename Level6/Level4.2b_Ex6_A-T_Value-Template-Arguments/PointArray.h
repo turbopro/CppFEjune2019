@@ -68,11 +68,9 @@ namespace Turbopro
 		template <typename Point>
 		class PointArray : public Array<Point>
 		{
-		private:
-			//Point m_p;
 		public:
 			PointArray();										// default constructor
-			PointArray(int arr_size);							// constructor
+			explicit PointArray(int arr_size);					// constructor
 			PointArray(const PointArray<Point>& Other);			// copy constructor
 			~PointArray();										// destructor
 			
