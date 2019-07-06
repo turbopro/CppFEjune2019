@@ -68,8 +68,6 @@ namespace Turbopro
 		template <typename Point>
 		class PointArray : public Array<Point>
 		{
-		private:
-			//Point m_p;
 		public:
 			PointArray();										// default constructor
 			PointArray(int arr_size);							// constructor

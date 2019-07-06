@@ -54,10 +54,6 @@ namespace Turbopro
 
 			return ("Invalid index: " + str_m_error_index_conv +
 				"\nIndex is out of range\n");
-
-			// alternative: convert m_error_index to a string using std::to_string()
-			//return ("Invalid index: " + std::to_string(m_error_index) +
-				//"\nIndex is out of range\n");
 		}
 
 		// SizeMismatchException::GetMessage() method

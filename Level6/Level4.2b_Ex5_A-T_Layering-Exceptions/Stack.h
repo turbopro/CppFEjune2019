@@ -54,7 +54,7 @@ DATA:
 
 METHODS:
 Stack()					-	default constructor
-Stack(Array, int)		-	constructor
+Stack(int)				-	constructor
 Stack(const Stack&)		-	copyconstructor
 ~Stack()				-	destructor
 GetSize()				-	get Array Size
@@ -82,22 +82,21 @@ namespace Turbopro
 	namespace Containers
 	{
 		// Stack class declaration
-		template <typename TStack, int sz>
+		template <typename TStack>
 		class Stack
 		{
 		private:
-			Array<TStack> m_array;
-			int m_current;
+			Array<TStack> m_array;						// storage Array of typename TStack
+			int m_current;								// current index
 
 		public:
 			Stack();									// default constructor
-			//Stack(const Array<TStack>& arr);			// constructor
+			explicit Stack(int arr_size);				// constructor: explicit to guard against implicit conversion
 			Stack(const Stack& Other);					// copy constructor
 			~Stack();									// destructor
 			int Size() const { return m_array.Size(); }	// size of Array
 			Stack& operator=(const Stack& Other);		// overloaded assignment operator
 			int GetIndex() const { return m_current; }	// get Stack index
-			//void SetIndex(int index);					// get Stack index
 			TStack pop();								// remove element from Stack
 			void push(const TStack& ele);				// add element to Stack
 		};

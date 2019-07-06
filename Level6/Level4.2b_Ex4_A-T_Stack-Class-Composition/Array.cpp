@@ -88,18 +88,15 @@ namespace Turbopro
 		
 		// SetElement() method
 		template <typename TArray>
-		//void Array<TArray>::SetElement(const TArray& p, int index)
 		void Array<TArray>::SetElement(const TArray& p, int index)
 		{
 			if (index < 0 || index >= m_arr_size)
 			{
 				// if index out of range, throw exception
 				throw Containers::OutOfBoundsException(index);
-				//return false;
 			}
 
 			m_data[index] = p;
-			//return true;
 		}
 
 		// GetElement() method

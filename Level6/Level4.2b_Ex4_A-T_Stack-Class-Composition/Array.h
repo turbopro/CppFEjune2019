@@ -139,8 +139,7 @@ namespace Turbopro
 			TArray* m_data;
 			int m_arr_size;					// using int: handling indexing errors with exceptions  
 			
-			static int ArraySize;
-			//enum { ArraySize = 10 };		// size of array for default constructor
+			static int ArraySize;			// size of array for default constructor
 
 		public:
 			Array();													// default constructor
@@ -148,7 +147,6 @@ namespace Turbopro
 			Array(const Array<TArray>& Other);							// copy constructor
 			virtual ~Array();											// destructor
 			int Size() const { return m_arr_size; }						// inlined: return the size of the object's array
-			//void SetElement(const TArray& p, int index);				// set a Point element to the array
 			void SetElement(const TArray& p, int index);				// set a Point element to the array
 			TArray& GetElement(int index) const;						// return a Point element from the array
 			virtual Array<TArray>& operator=(const Array<TArray>& Other);	// overloaded assignment operator: virtual, derived classes to change
@@ -156,8 +154,8 @@ namespace Turbopro
 			const TArray& operator[](int index) const;			// overloaded array indexing operator: const version
 
 			// static methods
-			static int DefaultSize() { return ArraySize; }
-			static void DefaultSize(int size);
+			static int DefaultSize() { return ArraySize; }				// get default array size
+			static void DefaultSize(int size);							// set default array size
 		};
 	}
 }

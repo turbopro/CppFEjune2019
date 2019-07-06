@@ -76,6 +76,9 @@ namespace Turbopro
 		template <typename Point>
 		double PointArray<Point>::Length() const
 		{
+			// loop until 1 less than PointArray size
+			// get Points from this and the next elements
+			// accumulate lengths from Point.Distance(const Point&)
 			double length = 0.0;
 			Point p0, p1;
 			for (int i = 0; i < (this->Size() - 1); i++)

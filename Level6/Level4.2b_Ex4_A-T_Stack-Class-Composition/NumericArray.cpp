@@ -47,58 +47,50 @@ namespace Turbopro
 	{
 		// constructor 
 		template <typename TNum>
-		NumericArray<TNum>::NumericArray(int arr_size)
-			: Array<TNum>{ arr_size } { std::cout << "NumericArray constructor\n"; }
+		NumericArray<TNum>::NumericArray(int arr_size) : Array<TNum>{ arr_size } {}
 
 		// default constructor
 		template <typename TNum>
-		NumericArray<TNum>::NumericArray()
-			: Array<TNum>() 
-		{ 
-			std::cout << "NumericArray default constructor\n"; 
-		}
+		NumericArray<TNum>::NumericArray() : Array<TNum>() {}
 
 		// copy constructor: set m_arr_size, create m_data, deep copy elements
 		template <typename TNum>
 		NumericArray<TNum>::NumericArray(const NumericArray<TNum>& Other) 
 			: Array<TNum>{ Other.Size() }
 		{
-			std::cout << "NumericArray copy constructor\n";
 			for (int i = 0; i < Other.Size(); i++)	// deep copy Other's elements
 				(*this)[i] = Other[i];				// calls the const Point& operator[]() const method
 		}
 
 		// destructor
 		template <typename TNum>
-		NumericArray<TNum>::~NumericArray() 
-		{ 
-			//std::cout << "Deleting NumericArray...\n";
-		}
+		NumericArray<TNum>::~NumericArray() {}
 
 		// add the elements of two NumericArrays
 		template <typename TNum>
 		NumericArray<TNum> NumericArray<TNum>::operator+(const NumericArray<TNum>& Other) const
 		{
-			//if (m_arr_size != Other.m_arr_size)
+			//if Array sizes are uneual, throw SizeMismatchException
 			if (this->Size() != Other.Size())
 			{
-				// if NumericArrays are not the same size, throw exception
-				throw Containers::SizeMismatchException(this->Size() - Other.Size());
+				throw Containers::SizeMismatchException(Other.Size());
 			}
 
-			NumericArray<TNum> res{ Other.Size() };
+			// create new NumericArray: sum elements, return sum_arr
+			NumericArray<TNum> sum_arr{ Other.Size() };
 			for (int i = 0; i < Other.Size(); i++)
 			{
-				res[i] = (*this)[i] + Other[i];
+				sum_arr[i] = (*this)[i] + Other[i];
 			}
 				
-			return res;
+			return sum_arr;
 		}
 		
 		// scale the elements of the NumericArray by factor n
 		template <typename TNum>
 		NumericArray<TNum> NumericArray<TNum>::operator*(double n) const
 		{
+			// create new NumericArray: scale elements, return scaled_arr
 			NumericArray<TNum> scaled_arr{ this->Size() };
 			for (int i = 0; i < this->Size(); i++)
 				scaled_arr[i] = (*this)[i] * n;
@@ -110,13 +102,13 @@ namespace Turbopro
 		template <typename TNum>
 		TNum NumericArray<TNum>::DotProd(const NumericArray<TNum>& Other) const
 		{
-			//if (m_arr_size != Other.m_arr_size)
+			//if Arrays are uneual, throw SizeMisMatchException
 			if (this->Size() != Other.Size())
 			{
-				// if NumericArrays are not the same size, throw exception
-				throw Containers::SizeMismatchException(this->Size() - Other.Size());
+				throw Containers::SizeMismatchException(Other.Size());
 			}
 
+			// calculate and return dot product
 			TNum dot_prod = 0;
 			for (int i = 0; i < Other.Size(); i++)
 			{

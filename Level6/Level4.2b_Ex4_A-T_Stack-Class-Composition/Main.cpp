@@ -128,19 +128,24 @@ int main(void)
 	double x{ 0.0 }, y{ 0.0 }, r{ 0.0 };		// declare/initialise geom_values
 	int arr_size{ 0 };					// array size should be positive only
 
+
+	cout << "\n\n"
+		<< "|============================|\n"
+		<< "|        TEMPLATES:          |\n"
+		<< "|============================|\n\n";
+
+
 	try
 	{
 
-		// create default int Stack
+		// create int Stack
 		const int stack_size = 3;
-		cout << "\nCreate a default int Stack:\n";
+		cout << "\nCreate an int Stack:\n";
 		Stack<int> stint0{ stack_size };
 		cout << "\nstint0 size: " << stint0.Size() << endl << endl;
 		cout << "\nstint0 GetIndex(): " << stint0.GetIndex() << endl << endl;
-		//cout << "\nst0.m_array[0]: " << st0 << endl << endl;
 
-
-		// create copy Stack
+		// assign stint0 to stint1
 		cout << "\nAssign stint0 to stint1:\n";
 		Stack<int> stint1{ stack_size };
 		stint1 = stint0;
@@ -168,9 +173,9 @@ int main(void)
 
 	try
 	{
-		// create default int Stack
+		// create int Stack
 		const int stack_size = 3;
-		cout << "\nCreate a default int Stack:\n";
+		cout << "\nCreate an int Stack:\n";
 		Stack<int> stint0{ stack_size };
 		cout << "\nstint0 size: " << stint0.Size() << endl << endl;
 		cout << "\nstint0 GetIndex(): " << stint0.GetIndex() << endl << endl;
@@ -181,7 +186,7 @@ int main(void)
 		cout << "\nstint1 size: " << stint1.Size() << endl;
 		cout << "\nstint1 GetIndex(): " << stint1.GetIndex() << endl << endl;
 
-		// create stack
+		// assign stint1 to stint2
 		cout << "\nAssign stint1 to stint2" << endl;
 		Stack<int> stint2 = stint1;
 		cout << "\nstint2 size: " << stint2.Size() << endl;
@@ -210,7 +215,7 @@ int main(void)
 
 	try
 	{
-		// Stack and PointArray push
+		// Stack and PointArray: push()
 		const int stack_size = 3;
 		// create Point Stack
 		cout << "\nCreate Point Stack:\n";
@@ -245,7 +250,7 @@ int main(void)
 
 	try
 	{
-		// Stack and PointArray push/pop
+		// Stack and PointArray: push() / pop()
 		const int stack_size = 3;
 		// create Point Stack
 		cout << "\nCreate Point Stack:\n";
@@ -278,51 +283,8 @@ int main(void)
 		}
 		
 		cout << "\nCreate OutOfBoundsException: pop one more time\n";
-		stpt0.pop();
+		Point p10 = stpt0.pop();
 		cout << endl << endl;
-		
-		
-		
-		/*
-		cout << "\nPush p0 onto stpt0\n";
-		stpt0.push(p0);
-		cout << "\nstpt0 GetIndex(): " << stpt0.GetIndex() << endl << endl;
-		Point p1{ -2, 1 };
-		cout << "\nPush p1 onto stpt0\n";
-		stpt0.push(p1);
-		cout << "\nstpt0 GetIndex(): " << stpt0.GetIndex() << endl << endl;
-		Point p2{ 10, 2.25 };
-		cout << "\nPush p2 onto stpt0\n";
-		stpt0.push(p2);
-		cout << "\nstpt0 GetIndex(): " << stpt0.GetIndex() << endl << endl;
-
-		// copy Stack
-		cout << "\nCopy stpt0 to stpt1:\n";
-		Stack<Point> stpt1{ stack_size };
-		stpt1 = stpt0;
-		cout << "\nstpt1 size: " << stpt1.Size() << endl;
-		cout << "\nstpt1 GetIndex(): " << stpt1.GetIndex() << endl << endl;
-		
-
-		cout << "\nPop stpt1\n";
-		Point poppt0;
-		poppt0 = stpt1.pop();
-		cout << "\npoppt0: " << poppt0.ToString() << endl;
-		cout << "\nstpt1 GetIndex(): " << stpt1.GetIndex() << endl;
-		/*
-		cout << "\nPop stpt1\n";
-		Point poppt1;
-		poppt1 = stpt1.pop();
-		cout << "\npoppt1: " << poppt1.ToString() << endl;
-		cout << "\nstpt1 GetIndex(): " << stpt1.GetIndex() << endl;
-
-		/*
-		cout << "\nPop stpt1\n";
-		poppt = stpt1.pop();
-		cout << "\npoppt: " << poppt.ToString() << endl;
-		cout << "\nstpt1 GetIndex(): " << stpt1.GetIndex() << endl;
-		//cout << "\nPop stint2\n";
-		*/
 	}
 	
 	catch (ArrayException& error_msg)
@@ -335,15 +297,10 @@ int main(void)
 		cout << "Unknown exception caught\n";
 	}
 
-
-	/*
-
-
-	
-
+		
 	cout << "\n\n"
 		<< "|============================|\n"
-		<< "|        TEMPLATES:          |\n"
+		<< "|     TEMPLATES cont'd:      |\n"
 		<< "|============================|\n\n";
 
 	cout << "Testing static data member and static methods\n\n";
@@ -518,11 +475,7 @@ int main(void)
 	int dot_prod = intNumArr11.DotProd(intNumArr12);
 	cout << "Dot Product of intNumArr11 and intNumArr12 = " << dot_prod << endl;
 	
-	
-
-
-	/*
-
+		
 	cout << "Testing Array, NumericArray and PointArray\n";
 
 	// create Array and populate
@@ -550,8 +503,7 @@ int main(void)
 	}
 	cout << "\n";
 
-
-	/*
+		
 	// create PointArray and populate
 	cout << "Create PointArray, parr0, with 3 elements:\n";
 	arr_size = 3;
@@ -638,8 +590,7 @@ int main(void)
 		cout << error_index_msg.GetMessage() << endl;
 	}
 
-
-	/*
+		
 	cout << "\n"
 		<< "|====================================|\n"
 		<< "|              POINTS                |\n"
@@ -707,8 +658,7 @@ int main(void)
 	cout << "L10: "; L10.Print();
 	cout << "C10: "; C10.Print();
 
-
-	/*
+		
 	cout << "\n\n"
 		<< "|========================|\n"
 		<< "|        LINES:          |\n"
@@ -766,7 +716,6 @@ int main(void)
 	cout << "\nLine L3: " << L3 << endl << endl;
 	cout << "Line L3: " << L3.ToString() << endl << endl;
 
-	/*
 	
 	cout << "\n"
 		<< "|========================|\n"
@@ -826,16 +775,7 @@ int main(void)
 	C3 = C3;
 
 	// print C3
-	cout << "\nCircle C3: " << C3 
-		<< "\n\nCircle 3 to string: " << C3.ToString() << endl;
-	
-	
-	*/
-	
-	//catch (...)
-	//{
-	//	std::cerr << "Abnormal termination\n";
-	//}
+	cout << "\nCircle C3: " << C3 << endl;
 
 
 	return 0;

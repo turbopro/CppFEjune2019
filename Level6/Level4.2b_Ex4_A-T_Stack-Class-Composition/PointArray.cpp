@@ -24,55 +24,43 @@ namespace Turbopro
 	{
 		// constructor 
 		template <typename Point>
-		PointArray<Point>::PointArray(int arr_size)
-			: Array<Point>{ arr_size }
-		{ 
-			std::cout << "PointArray constructor\n"; 
-		}
+		PointArray<Point>::PointArray(int arr_size) : Array<Point>{ arr_size } {}
 
 		// default constructor
 		template <typename Point>
 		PointArray<Point>::PointArray()
-			: Array<Point>() 
-		{
-			std::cout << "PointArray default constructor\n";
-		}
+			: Array<Point>() {}
 
 		// copy constructor: set m_arr_size, create m_data, deep copy elements
 		template <typename Point>
 		PointArray<Point>::PointArray(const PointArray<Point>& Other)
 			: Array<Point>{ Other.Size() }
 		{
-			std::cout << "PointArray copy constructor\n";
 			for (int i = 0; i < Other.Size(); i++)	// deep copy Other's elements
 				(*this)[i] = Other[i];				// calls the const Point& operator[]() const method
 		}
 
 		// destructor
 		template <typename Point>
-		PointArray<Point>::~PointArray()
-		{
-			//std::cout << "Deleting NumericArray...\n";
-		}
+		PointArray<Point>::~PointArray() {}
 
 		// add the elements of two NumericArrays
 		template <typename Point>
 		PointArray<Point> PointArray<Point>::operator+(const PointArray<Point>& Other) const
 		{
-			//if (m_arr_size != Other.m_arr_size)
+			//if Arrays sizes are uneual, throw SizeMismatchException
 			if (this->Size() != Other.Size())
 			{
-				// if NumericArrays are not the same size, throw exception
 				throw Containers::SizeMismatchException(this->Size() - Other.Size());
 			}
 
-			PointArray<Point> res{ Other.Size() };
+			PointArray<Point> sum_arr{ Other.Size() };
 			for (int i = 0; i < Other.Size(); i++)
 			{
-				res[i] = (*this)[i] + Other[i];
+				sum_arr[i] = (*this)[i] + Other[i];
 			}
 
-			return res;
+			return sum_arr;
 		}
 
 		// scale the elements of the NumericArray by factor n
@@ -90,9 +78,17 @@ namespace Turbopro
 		template <typename Point>
 		double PointArray<Point>::Length() const
 		{
+			// loop until 1 less than PointArray size
+			// get Points from this and the next elements
+			// accumulate lengths with Point.Distance(const Point&)
 			double length = 0.0;
-			for (int i = 0; i < this->Size(); i++)
-				length += (*this)[i].Distance();
+			Point p0, p1;
+			for (int i = 0; i < (this->Size() - 1); i++)
+			{
+				p0 = this->GetElement(i);
+				p1 = this->GetElement(i + 1);
+				length += p0.Distance(p1);
+			}
 
 			return length;
 		}
