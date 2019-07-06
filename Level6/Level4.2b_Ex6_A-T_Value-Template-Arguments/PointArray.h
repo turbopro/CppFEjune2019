@@ -69,10 +69,10 @@ namespace Turbopro
 		class PointArray : public Array<Point>
 		{
 		public:
-			PointArray();										// default constructor
-			explicit PointArray(int arr_size);					// constructor
-			PointArray(const PointArray<Point>& Other);			// copy constructor
-			~PointArray();										// destructor
+			PointArray();								// default constructor
+			explicit PointArray(int arr_size);			// constructor: guard against implicit conversion
+			PointArray(const PointArray<Point>& Other);	// copy constructor
+			~PointArray();								// destructor
 			
 			// overloaded assignment operator
 			PointArray<Point>& operator=(const PointArray<Point>& Other);		

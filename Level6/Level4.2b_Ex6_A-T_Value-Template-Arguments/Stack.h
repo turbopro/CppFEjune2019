@@ -86,18 +86,16 @@ namespace Turbopro
 		class Stack
 		{
 		private:
-			Array<TStack> m_array;
-			int m_current;
+			Array<TStack> m_array;						// storage Array of typename TStack
+			int m_current;								// current index
 
 		public:
-			Stack();									// default constructor
-			//Stack(const Array<TStack>& arr);			// constructor
+			Stack();									// default constructor / constructor
 			Stack(const Stack& Other);					// copy constructor
 			~Stack();									// destructor
 			int Size() const { return m_array.Size(); }	// size of Array
 			Stack& operator=(const Stack& Other);		// overloaded assignment operator
 			int GetIndex() const { return m_current; }	// get Stack index
-			//void SetIndex(int index);					// get Stack index
 			TStack pop();								// remove element from Stack
 			void push(const TStack& ele);				// add element to Stack
 		};

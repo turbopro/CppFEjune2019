@@ -46,7 +46,7 @@ namespace Turbopro
 		template <typename Point>
 		PointArray<Point> PointArray<Point>::operator+(const PointArray<Point>& Other) const
 		{
-			//if Arrays sizes are uneual, throw SizeMismatchException
+			// if Arrays sizes are unqeual, throw SizeMismatchException
 			if (this->Size() != Other.Size())
 			{
 				throw Containers::SizeMismatchException(this->Size() - Other.Size());
@@ -65,6 +65,7 @@ namespace Turbopro
 		template <typename Point>
 		PointArray<Point> PointArray<Point>::operator*(double n) const
 		{
+			// create new PointArray: scale elements, return scaled_arr
 			PointArray<Point> scaled_arr{ this->Size() };
 			for (int i = 0; i < this->Size(); i++)
 				scaled_arr[i] = (*this)[i] * n;
@@ -87,6 +88,8 @@ namespace Turbopro
 				p1 = this->GetElement(i + 1);
 				length += p0.Distance(p1);
 			}
+
+			return length;
 		}
 
 		// overloaded assignment operator

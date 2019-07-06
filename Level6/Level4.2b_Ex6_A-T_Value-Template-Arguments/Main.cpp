@@ -129,19 +129,22 @@ int main(void)
 	double x{ 0.0 }, y{ 0.0 }, r{ 0.0 };		// declare/initialise geom_values
 	int arr_size{ 0 };					// array size should be positive only
 	
+
+	cout << "\n\n"
+		<< "|============================|\n"
+		<< "|        TEMPLATES:          |\n"
+		<< "|============================|\n\n";
+
 	try
 	{
-
 		// create default int Stack
 		const int stack_size = 3;
-		cout << "\nCreate a default int Stack:\n";
+		cout << "\nCreate an int Stack:\n";
 		Stack<int, stack_size> stint0;
 		cout << "\nstint0 size: " << stint0.Size() << endl << endl;
 		cout << "\nstint0 GetIndex(): " << stint0.GetIndex() << endl << endl;
-		//cout << "\nst0.m_array[0]: " << st0 << endl << endl;
 
-
-		// create copy Stack
+		// assign stint0 to stint1
 		cout << "\nAssign stint0 to stint1:\n";
 		Stack<int, stack_size> stint1;
 		stint1 = stint0;
@@ -158,10 +161,40 @@ int main(void)
 		stint1.push(30);
 		cout << "\nstint1 GetIndex(): " << stint1.GetIndex() << endl << endl;
 		
-		//cout << "Generate StackFullException:\nPush 40 onto st1\n";
-		//stint1.push(40);
+		cout << "Generate StackFullException:\nPush 40 onto st1\n";
+		stint1.push(40);
+		cout << endl << endl;
+	}
+	catch (StackException& error_msg)
+	{
+		cout << error_msg.GetMessage() << endl;
+	}
+	catch (ArrayException& error_msg)
+	{
+		cout << error_msg.GetMessage() << endl;
+	}
+	catch (...)
+	{
+		cout << "Unknown exception caught\n";
+	}
 
-		// copy Stack
+	try
+	{
+		// create default int Stack
+		const int stack_size = 3;
+		cout << "\nCreate an int Stack:\n";
+		Stack<int, stack_size> stint0;
+		cout << "\nstint0 size: " << stint0.Size() << endl << endl;
+		cout << "\nstint0 GetIndex(): " << stint0.GetIndex() << endl << endl;
+		
+		// assign stint0 to stint1
+		cout << "\nAssign stint0 to stint1:\n";
+		Stack<int, stack_size> stint1;
+		stint1 = stint0;
+		cout << "\nstint1 size: " << stint1.Size() << endl;
+		cout << "\nstint1 GetIndex(): " << stint1.GetIndex() << endl << endl;
+
+		// copy stint1 to stint2
 		cout << "\nCopy stint1 to stint2:\n";
 		Stack<int, stack_size> stint2(stint1);
 		cout << "\nstint2 size: " << stint2.Size() << endl;
@@ -180,21 +213,31 @@ int main(void)
 		cout << "\npop0: " << pop0 << endl;
 		cout << "\nstint2 GetIndex(): " << stint2.GetIndex() << endl;
 		
-		//cout << "\nCreate StackEmptyException:\nPop stint2\n";
-		//pop0 = stint2.pop();
-		//cout << "\npop0: " << pop0 << endl;
-		//cout << "\nstint2 GetIndex(): " << stint2.GetIndex() << endl;
-		
-		
-		//cout << "\nst1 GetIndex(): " << st1.GetIndex() << endl << endl;
-		
-		
+		cout << "\nCreate StackEmptyException:\nPop stint2\n";
+		pop0 = stint2.pop();
+		cout << endl << endl;
+	}
+	catch (StackException& error_msg)
+	{
+		cout << error_msg.GetMessage() << endl;
+	}
+	catch (ArrayException& error_msg)
+	{
+		cout << error_msg.GetMessage() << endl;
+	}
+	catch (...)
+	{
+		cout << "Unknown exception caught\n";
+	}
+	
+	try
+	{
 		// create default Point Stack
+		const int stack_size = 3;
 		cout << "\nCreate a default Point Stack:\n";
 		Stack<Point, stack_size> stpt0;
 		cout << "\nstpt0 size: " << stpt0.Size() << endl << endl;
 		cout << "\nstpt0 GetIndex(): " << stpt0.GetIndex() << endl << endl;
-		//cout << "\nst0.m_array[0]: " << st0 << endl << endl;
 
 		cout << "\nCreate Point to push onto stpt0:\n";
 		Point p0{ 3, 5 };
@@ -216,8 +259,6 @@ int main(void)
 		stpt1 = stpt0;
 		cout << "\nstpt1 size: " << stpt1.Size() << endl;
 		cout << "\nstpt1 GetIndex(): " << stpt1.GetIndex() << endl << endl;
-
-		
 		
 		cout << "\nPop stpt1\n";
 		Point poppt0;
@@ -226,25 +267,18 @@ int main(void)
 		cout << "\nstpt1 GetIndex(): " << stpt1.GetIndex() << endl;
 		
 		cout << "\nPop stpt1\n";
-		//Point poppt1;
 		poppt0 = stpt1.pop();
 		cout << "\npoppt0: " << poppt0 << endl;
 		cout << "\nstpt1 GetIndex(): " << stpt1.GetIndex() << endl;
-		
-		
+				
 		cout << "\nPop stpt1\n";
-		//Point poppt2;
 		poppt0 = stpt1.pop();
 		cout << "\npoppt0: " << poppt0 << endl << endl;
 		cout << "\nstpt1 GetIndex(): " << stpt1.GetIndex() << endl << endl;
 		
 		cout << "\nCreate StackEmptyException:\nPop stint2\n";
 		poppt0 = stpt1.pop();
-		cout << "\npoppt0: " << poppt0 << endl << endl;
-		cout << "\nstpt1 GetIndex(): " << stpt1.GetIndex() << endl << endl;
-		//*/
-
-
+		cout << endl << endl;
 	}
 	catch (StackException& error_msg)
 	{
@@ -259,15 +293,10 @@ int main(void)
 		cout << "Unknown exception caught\n";
 	}
 
-
-
-
-
-	
-	
+	   	  	
 	cout << "\n\n"
 		<< "|============================|\n"
-		<< "|        TEMPLATES:          |\n"
+		<< "|     TEMPLATES Cont'd:      |\n"
 		<< "|============================|\n\n";
 
 	cout << "Testing static data member and static methods\n\n";
@@ -443,10 +472,6 @@ int main(void)
 	cout << "Dot Product of intNumArr11 and intNumArr12 = " << dot_prod << endl;
 	
 	
-
-
-	/*
-
 	cout << "Testing Array, NumericArray and PointArray\n";
 
 	// create Array and populate
@@ -474,8 +499,7 @@ int main(void)
 	}
 	cout << "\n";
 
-
-	/*
+		
 	// create PointArray and populate
 	cout << "Create PointArray, parr0, with 3 elements:\n";
 	arr_size = 3;
@@ -562,8 +586,7 @@ int main(void)
 		cout << error_index_msg.GetMessage() << endl;
 	}
 
-
-	/*
+		
 	cout << "\n"
 		<< "|====================================|\n"
 		<< "|              POINTS                |\n"
@@ -631,8 +654,7 @@ int main(void)
 	cout << "L10: "; L10.Print();
 	cout << "C10: "; C10.Print();
 
-
-	/*
+		
 	cout << "\n\n"
 		<< "|========================|\n"
 		<< "|        LINES:          |\n"
@@ -690,8 +712,7 @@ int main(void)
 	cout << "\nLine L3: " << L3 << endl << endl;
 	cout << "Line L3: " << L3.ToString() << endl << endl;
 
-	/*
-	
+		
 	cout << "\n"
 		<< "|========================|\n"
 		<< "|      CIRCLES:          |\n"
@@ -750,16 +771,7 @@ int main(void)
 	C3 = C3;
 
 	// print C3
-	cout << "\nCircle C3: " << C3 
-		<< "\n\nCircle 3 to string: " << C3.ToString() << endl;
-	
-	
-	*/
-	
-	//catch (...)
-	//{
-	//	std::cerr << "Abnormal termination\n";
-	//}
+	cout << "\nCircle C3: " << C3 << endl;
 
 
 	return 0;

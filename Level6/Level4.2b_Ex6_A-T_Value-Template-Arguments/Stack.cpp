@@ -24,44 +24,30 @@ namespace Turbopro
 	{
 		// default constructor 
 		template <typename TStack, int sz>
-		Stack<TStack, sz>::Stack()
-			: m_array { Array<TStack>(sz) }, m_current{ 0 }		//{}	// size of array set during runtime
-		{
-			std::cout << "Stack default constructor\n";
-		}
+		Stack<TStack, sz>::Stack() : m_array { Array<TStack>(sz) }, m_current{ 0 } {}
 
 		// copy constructor: set m_arr_size, create m_data, deep copy elements
 		template <typename TStack, int sz>
 		Stack<TStack, sz>::Stack(const Stack<TStack, sz>& Other)
-			: m_array { Other.m_array }, m_current { Other.m_current }
-		{
-			std::cout << "Stack copy constructor: Other m_index: " << Other.m_current
-				<< ", this m_index: " << m_current << std::endl;
-		}
+			: m_array { Other.m_array }, m_current { Other.m_current } {}
 
 		// destructor
 		template <typename TStack, int sz>
-		Stack<TStack, sz>::~Stack()
-		{
-			std::cout << "Deleting Stack...\n";
-		}
+		Stack<TStack, sz>::~Stack() {}
 
 		// pop() an element offf the Stack
 		template <typename TStack, int sz>
 		TStack Stack<TStack, sz>::pop()
 		{
-			std::cout << "m_current: " << m_current << ", Size: " << Size() << std::endl;
+			// if current index is 0 or less, throw StackEmptyException
 			if (m_current <= 0)
 				throw StackEmptyException(m_current);
 			else
 			{
-				TStack ele = m_array.GetElement(m_current - 1);
-				m_current--;
+				TStack ele = m_array.GetElement(m_current - 1);	// pop
+				m_current--;									// update index
 				
 				return ele;
-				//m_array.SetElement(ele, m_current);
-				//m_current++;
-				//else { std::cout << "[push after] m_index: " << m_current << std::endl; }
 			}
 		}
 
@@ -69,14 +55,13 @@ namespace Turbopro
 		template <typename TStack, int sz>
 		void Stack<TStack, sz>::push(const TStack& ele)
 		{
-			std::cout << "m_current: " << m_current << ", Size: " << Size() << std::endl;
+			// if current index is Stack.Size() or greater, throw StackFullException
 			if (m_current >= Size())
 				throw StackFullException(m_current);
 			else
 			{
-				m_array.SetElement(ele, m_current);
-				m_current++;
-				//else { std::cout << "[push after] m_index: " << m_current << std::endl; }
+				m_array.SetElement(ele, m_current);				// push
+				m_current++;									// update index
 			}
 		}
 		

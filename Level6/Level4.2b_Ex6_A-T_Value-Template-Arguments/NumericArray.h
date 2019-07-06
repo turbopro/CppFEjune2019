@@ -100,10 +100,10 @@ namespace Turbopro
 		class NumericArray	:	public Array<TNum>
 		{
 		public:
-			NumericArray();											// default constructor
-			explicit NumericArray(int arr_size);					// constructor
-			NumericArray(const NumericArray<TNum>& Other);			// copy constructor
-			virtual ~NumericArray();								// destructor
+			NumericArray();									// default constructor
+			explicit NumericArray(int arr_size);			// constructor: guard against implicit conversion
+			NumericArray(const NumericArray<TNum>& Other);	// copy constructor
+			virtual ~NumericArray();						// destructor
 			NumericArray<TNum>& operator=(const NumericArray<TNum>& Other);		// overloaded assignment operator
 			
 			// NumericArray specific methods
