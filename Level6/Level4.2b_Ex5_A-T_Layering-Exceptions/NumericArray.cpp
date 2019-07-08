@@ -126,8 +126,6 @@ namespace Turbopro
 			else
 			{
 				Array<TNum>::operator=(Other);
-				for (int i = 0; i < Other.Size(); i++)
-					this->SetElement(Other[i], i);
 					
 				return *this;
 			}

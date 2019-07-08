@@ -47,21 +47,16 @@ namespace Turbopro
 	{
 		// constructor 
 		template <typename TNum>
-		NumericArray<TNum>::NumericArray(int arr_size)
-			: Array<TNum>{ arr_size } {}
+		NumericArray<TNum>::NumericArray(int arr_size) : Array<TNum>{ arr_size } {}
 
 		// default constructor
 		template <typename TNum>
-		NumericArray<TNum>::NumericArray()
-			: Array<TNum>{} {}
+		NumericArray<TNum>::NumericArray() : Array<TNum>{} {}
 
 		// copy constructor: set m_arr_size, create m_data, deep copy elements
 		template <typename TNum>
-		NumericArray<TNum>::NumericArray(const NumericArray<TNum>& Other) 
-			: Array<TNum>{ Other.Size() }
+		NumericArray<TNum>::NumericArray(const NumericArray<TNum>& Other) : Array<TNum>{ Other.Size() }
 		{
-			// deep copy Other's elements
-			std::cout << "NumericArray copy constructor\n";
 			for (int i = 0; i < Other.Size(); i++)	// deep copy Other's elements
 				(*this)[i] = Other[i];				// calls the const Point& operator[]() const method
 		}
@@ -74,20 +69,19 @@ namespace Turbopro
 		template <typename TNum>
 		NumericArray<TNum> NumericArray<TNum>::operator+(const NumericArray<TNum>& Other) const
 		{
-			//if (m_arr_size != Other.m_arr_size)
 			if (this->Size() != Other.Size())
 			{
 				// if NumericArrays are not the same size, throw exception
 				throw Containers::SizeMismatchException(this->Size() - Other.Size());
 			}
 
-			NumericArray<TNum> sum{ Other.Size() };
+			NumericArray<TNum> sum_arr{ Other.Size() };
 			for (int i = 0; i < Other.Size(); i++)
 			{
-				sum[i] = (*this)[i] + Other[i];
+				sum_arr[i] = (*this)[i] + Other[i];
 			}
 				
-			return sum;
+			return sum_arr;
 		}
 		
 		// scale the elements of the NumericArray by factor n
@@ -105,7 +99,6 @@ namespace Turbopro
 		template <typename TNum>
 		TNum NumericArray<TNum>::DotProd(const NumericArray<TNum>& Other) const
 		{
-			//if (m_arr_size != Other.m_arr_size)
 			if (this->Size() != Other.Size())
 			{
 				// if NumericArrays are not the same size, throw exception
@@ -129,8 +122,6 @@ namespace Turbopro
 			else
 			{
 				Array<TNum>::operator=(Other);
-				for (int i = 0; i < Other.Size(); i++)
-					this->SetElement(Other[i], i);
 					
 				return *this;
 			}

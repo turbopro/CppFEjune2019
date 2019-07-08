@@ -93,7 +93,7 @@ namespace Turbopro
 		public:
 			Point();										// default constructor
 			Point(double x_coord, double y_coord);			// constructor
-			explicit Point(double x_coord);					// single argument constructor (explicit)
+			explicit Point(double x_coord);					// constructor: guard against implicit conversion
 			Point(const Point& Other);						// copy constructor
 			virtual ~Point();										// destructor
 			const double& X() const { return m_x; }			// inline x coordinate getter

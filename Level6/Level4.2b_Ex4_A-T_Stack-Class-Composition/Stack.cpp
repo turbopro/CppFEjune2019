@@ -25,17 +25,17 @@ namespace Turbopro
 		// constructor
 		template <typename TStack>
 		Stack<TStack>::Stack(int arr_size)
-			: m_array{ Array<TStack>(arr_size) }, m_current{ 0 } {}	// size of array set during runtime
+			: m_array(Array<TStack>(arr_size)), m_current(0) {}	// size of array set during runtime
 		
 		// default constructor 
 		template <typename TStack>
 		Stack<TStack>::Stack()
-			: m_array { Array<TStack>() }, m_current{ 0 } {}		// size of array set during runtime
+			: m_array(Array<TStack>()), m_current(0) {}		// size of array set during runtime
 
 		// copy constructor: set m_arr_size, create m_data, deep copy elements
 		template <typename TStack>
 		Stack<TStack>::Stack(const Stack<TStack>& Other)
-			: m_array { Other.m_array }, m_current { Other.m_current } {}
+			: m_array(Other.m_array), m_current(Other.m_current) {}
 
 		// destructor
 		template <typename TStack>
@@ -45,31 +45,18 @@ namespace Turbopro
 		template <typename TStack>
 		TStack Stack<TStack>::pop()
 		{
-			// if current index is 0 or less, Stack is empty
-			// next pop() will generate Array OutOfBoundsException
-			if (m_current <= 0)
-				m_array.GetElement(m_current - 1);
-			else
-			{
-				TStack ele = m_array.GetElement(m_current - 1);	// pop
-				m_current--;									// update index
-				return ele;
-			}
+			TStack ele = m_array[m_current - 1];	// get element: Array handles indexing errors
+			--m_current;							// update index: Array indexed ok  
+
+			return ele;
 		}
 
 		// push() an element onto the Stack
 		template <typename TStack>
 		void Stack<TStack>::push(const TStack& ele)
 		{
-			// if current index is Stack.size() or greater, Stack is full
-			// next push() will generate Array OutOfBoundsException
-			if (m_current >= this->Size())
-				m_array.SetElement(ele, m_current);
-			else
-			{
-				(m_array.SetElement(ele, m_current));	// push
-				m_current++;							// update index
-			}
+			m_array[m_current] = ele;				// set element: Array handles indexing errors
+			++m_current;							// update index: Array indexed ok
 		}
 		
 		// overloaded assignment operator
@@ -80,8 +67,7 @@ namespace Turbopro
 			else
 			{
 				// Array does most of the hard ground work
-				m_array = Other.m_array;
-				m_current = Other.m_current;
+				*this = Other;
 
 				return *this;
 			}

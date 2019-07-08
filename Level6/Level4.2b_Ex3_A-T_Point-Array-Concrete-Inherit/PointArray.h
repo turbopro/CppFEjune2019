@@ -64,29 +64,31 @@ namespace Turbopro
 {
 	namespace Containers
 	{
-		// Template PointArray class declaration
-		template <typename Point>
-		class PointArray : public Array<Point>
+		// PointArray class declaration
+		
+		using namespace Turbopro::CAD;		// for Point and other Shapes
+		
+		class PointArray : public Array<Point>		// concrete inheritance from Array<Point>
 		{
 		private:
 
 		public:
 			PointArray();										// default constructor
-			PointArray(int arr_size);							// constructor
-			PointArray(const PointArray<Point>& Other);			// copy constructor
+			explicit PointArray(int arr_size);					// constructor: guard against implicit conversion
+			PointArray(const PointArray& Other);				// copy constructor
 			~PointArray();										// destructor
-			PointArray<Point>& operator=(const PointArray<Point>& Other);		// overloaded assignment operator
+			PointArray& operator=(const PointArray& Other);		// overloaded assignment operator
 			// PointArray specific methods
 			double Length() const;								// total length between the points in the PointArray
-			PointArray<Point> operator+(const PointArray<Point>& Other) const;	// add the Points of two PointArrays
-			PointArray<Point> operator*(double n) const;		// scale the Points of the PointArray by factor n
+			PointArray operator+(const PointArray& Other) const;	// add the Points of two PointArrays
+			PointArray operator*(double n) const;				// scale the Points of the PointArray by factor n
 		};
 	}
 }
 
 // include Array.cpp implementation source file for Template class
-#ifndef PointArray_cpp // Must be the same name as in source file #define
-#include "PointArray.cpp"
-#endif
+//#ifndef PointArray_cpp // Must be the same name as in source file #define
+//#include "PointArray.cpp"
+//#endif
 
 #endif // POINTARRAY_H_INCLUDED

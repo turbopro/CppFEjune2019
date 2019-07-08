@@ -57,7 +57,7 @@ namespace Turbopro
 
 		// copy constructor: set m_arr_size, create m_data, deep copy elements
 		template <typename T>
-		Array<T>::Array(const Array<T>& Other) : m_arr_size{ Other.Size() }, m_data{ new T[m_arr_size] }
+		Array<T>::Array(const Array<T>& Other) : m_arr_size{ Other.Size() }, m_data{ new T[Other.Size()] }
 		{
 			for (unsigned int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
 				(*this)[i] = Other[i];						// calls the const Point& operator[]() const method

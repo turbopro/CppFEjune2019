@@ -8,9 +8,6 @@ the Array class is part of the Turbopro::Container namespace
 
 */
 
-#ifndef POINTARRAY_CPP_INCLUDED
-#define POINTARRAY_CPP_INCLUDED
-
 #include <iostream>
 #include <string>			// for std::string() function in ToString() member function
 #include "PointArray.h"		// Array class declaration
@@ -22,50 +19,44 @@ namespace Turbopro
 {
 	namespace Containers
 	{
-		// constructor 
-		template <typename Point>
-		PointArray<Point>::PointArray(int arr_size)	: Array<Point>{ arr_size } {}
+		// constructor
+		PointArray::PointArray(int arr_size) : Array<Point>(arr_size) {}
 
 		// default constructor
-		template <typename Point>
-		PointArray<Point>::PointArray()	: Array<Point>() {}
+		PointArray::PointArray() : Array<Point>() {}
 
 		// copy constructor: set m_arr_size, create m_data, deep copy elements
-		template <typename Point>
-		PointArray<Point>::PointArray(const PointArray<Point>& Other)	: Array<Point>{ Other.Size() }
+		PointArray::PointArray(const PointArray& Other) : Array<Point>{ Other.Size() }
 		{
 			for (int i = 0; i < Other.Size(); i++)	// deep copy Other's elements
 				(*this)[i] = Other[i];				// calls the const Point& operator[]() const method
 		}
 
 		// destructor
-		template <typename Point>
-		PointArray<Point>::~PointArray() {}
+		PointArray::~PointArray() {}
 
-		// add the elements of two NumericArrays
-		template <typename Point>
-		PointArray<Point> PointArray<Point>::operator+(const PointArray<Point>& Other) const
+		// add the elements of two PointArrays
+		PointArray PointArray::operator+(const PointArray& Other) const
 		{
 			if (this->Size() != Other.Size())
 			{
-				// if NumericArrays are not the same size, throw exception
+				// if PointArrays are not the same size, throw exception
 				throw Containers::SizeMismatchException(Other.Size());
 			}
 
-			PointArray<Point> sum{ Other.Size() };
+			PointArray sum_arr{ Other.Size() };
 			for (int i = 0; i < Other.Size(); i++)
 			{
-				sum[i] = (*this)[i] + Other[i];
+				sum_arr[i] = (*this)[i] + Other[i];
 			}
 
-			return sum;
+			return sum_arr;
 		}
 
-		// scale the elements of the NumericArray by factor n
-		template <typename Point>
-		PointArray<Point> PointArray<Point>::operator*(double n) const
+		// scale the elements of the PointArray by factor n
+		PointArray PointArray::operator*(double n) const
 		{
-			PointArray<Point> scaled_arr{ this->Size() };
+			PointArray scaled_arr{ this->Size() };
 			for (int i = 0; i < this->Size(); i++)
 				scaled_arr[i] = (*this)[i] * n;
 
@@ -73,8 +64,7 @@ namespace Turbopro
 		}
 
 		// Length()
-		template <typename Point>
-		double PointArray<Point>::Length() const
+		double PointArray::Length() const
 		{
 			// loop until 1 less than PointArray size
 			// get Points from this and the next elements
@@ -92,19 +82,15 @@ namespace Turbopro
 		}
 
 		// overloaded assignment operator
-		template <typename Point>
-		PointArray<Point>& PointArray<Point>::operator=(const PointArray<Point>& Other)
+		PointArray& PointArray::operator=(const PointArray& Other)
 		{
 			if (this == &Other) { return *this; }
 			else
 			{
 				Array<Point>::operator=(Other);
-				for (int i = 0; i < Other.Size(); i++)
-					this->SetElement(Other[i], i);
 
 				return *this;
 			}
 		}
 	}
 }
-#endif // POINTARRAY_CPP_INCLUDED

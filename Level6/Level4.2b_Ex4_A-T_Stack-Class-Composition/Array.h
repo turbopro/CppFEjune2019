@@ -1,5 +1,5 @@
 /* Array.h
-Level4.2b_Ex4: Advanced Templates - Stack Class (composition)
+Level4.2b_Ex3: Advanced Templates - Point Array (concrete inheritance)
  
 header file for the Templated Array class
 
@@ -143,19 +143,19 @@ namespace Turbopro
 
 		public:
 			Array();													// default constructor
-			Array(int arr_size);										// constructor
+			explicit Array(int arr_size);								// constructor: guard against implicit conversion
 			Array(const Array<TArray>& Other);							// copy constructor
 			virtual ~Array();											// destructor
 			int Size() const { return m_arr_size; }						// inlined: return the size of the object's array
 			void SetElement(const TArray& p, int index);				// set a Point element to the array
 			TArray& GetElement(int index) const;						// return a Point element from the array
 			virtual Array<TArray>& operator=(const Array<TArray>& Other);	// overloaded assignment operator: virtual, derived classes to change
-			TArray& operator[](int index);						// overloaded array indexing operator
-			const TArray& operator[](int index) const;			// overloaded array indexing operator: const version
+			TArray& operator[](int index);								// overloaded array indexing operator
+			const TArray& operator[](int index) const;					// overloaded array indexing operator: const version
 
 			// static methods
-			static int DefaultSize() { return ArraySize; }				// get default array size
-			static void DefaultSize(int size);							// set default array size
+			static int DefaultSize() { return ArraySize; }
+			static void DefaultSize(int size);
 		};
 	}
 }

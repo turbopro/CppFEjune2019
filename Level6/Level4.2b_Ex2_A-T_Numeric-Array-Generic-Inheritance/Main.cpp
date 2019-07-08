@@ -306,8 +306,7 @@ int main(void)
 	int dot_prod = intNumArr11.DotProd(intNumArr12);
 	cout << "Dot Product of intNumArr11 and intNumArr12 = " << dot_prod << endl;
 
-	
-
+		
 	cout << "Testing Bounds Checking Array<typename T>\n\n";
 
 	// create Array and populate
@@ -572,7 +571,6 @@ int main(void)
 	// print C3
 	cout << "\nCircle C3: " << C3 << endl << endl;
 
-
-
+	
 	return 0;
 }

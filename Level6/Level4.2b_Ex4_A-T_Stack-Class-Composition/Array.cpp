@@ -1,5 +1,5 @@
 /* Array.cpp
-Level4.2b_Ex4: Advanced Templates - Stack Class (composition)
+Level4.2b_Ex3: Advanced Templates - Point Array (concrete inheritance)
 
 Source file that implements the Array Template class declared in the
 Array.h header file.
@@ -54,7 +54,7 @@ namespace Turbopro
 		template <typename TArray>
 		void Array<TArray>::DefaultSize(int size)
 		{
-			// if size is negative, throw exception
+			// if sz is negative, throw exception
 			if (size < 0) { throw Containers::OutOfBoundsException(size); }
 
 			Array<TArray>::ArraySize = size;
@@ -62,18 +62,16 @@ namespace Turbopro
 
 		// constructor 
 		template <typename TArray>
-		Array<TArray>::Array(int arr_size)
-			: m_data{ new TArray[arr_size] }, m_arr_size{ arr_size } {}	// size of array set during runtime
+		Array<TArray>::Array(int arr_size) : m_data{ new TArray[arr_size] }, m_arr_size{ arr_size } {}
 
 		// default constructor
 		template <typename TArray>
-		Array<TArray>::Array()
-			: m_data{ new TArray[ArraySize] }, m_arr_size{ ArraySize } {}	// size of array = ArraySize
+		Array<TArray>::Array() : m_data{ new TArray[ArraySize] }, m_arr_size{ ArraySize } {}
 
 		// copy constructor: set m_arr_size, create m_data, deep copy elements
 		template <typename TArray>
 		Array<TArray>::Array(const Array<TArray>& Other) 
-			: m_arr_size{ Other.Size() }, m_data{ new TArray[m_arr_size] }
+			: m_arr_size{ Other.Size() }, m_data{ new TArray[Other.Size()] }
 		{
 			for (int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
 				(*this)[i] = Other[i];				// calls the const Point& operator[]() const method
@@ -81,10 +79,7 @@ namespace Turbopro
 
 		// destructor
 		template <typename TArray>
-		Array<TArray>::~Array() 
-		{ 
-			delete[] m_data; 
-		}
+		Array<TArray>::~Array() { delete[] m_data; }
 		
 		// SetElement() method
 		template <typename TArray>

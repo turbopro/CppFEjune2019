@@ -66,7 +66,7 @@ namespace Turbopro
 
 		public:
 			Shape();												// default constructor
-			Shape(int ID);											// constructor
+			explicit Shape(int ID);									// constructor: guard against implicit conversion
 			Shape(const Shape& Other);								// copy constructor
 			virtual ~Shape();										// virtual destructor for ABC
 			int ID() const { return m_id_number; }					// inline Shape ID getter

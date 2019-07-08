@@ -103,7 +103,7 @@ namespace Turbopro
 
 		public:
 			NumericArray();											// default constructor
-			NumericArray(int arr_size);								// constructor
+			explicit NumericArray(int arr_size);					// constructor: guard against implicit conversion
 			NumericArray(const NumericArray<TNum>& Other);			// copy constructor
 			virtual ~NumericArray();								// destructor
 			NumericArray<TNum>& operator=(const NumericArray<TNum>& Other);		// overloaded assignment operator

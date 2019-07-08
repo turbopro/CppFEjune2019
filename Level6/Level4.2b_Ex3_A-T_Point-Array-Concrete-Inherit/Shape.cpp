@@ -22,7 +22,6 @@ the Shape class is part of the Turbopro::CAD namespace
 
 #include <iostream>
 #include <sstream>			// for std::ostringstream() function in ToString() member function
-//#include <string>			// for std::string() function in ToString() member function
 #include "Shape.h"			// Shape class declaration
 #include <stdlib.h>			// for rand() function
 
