@@ -68,7 +68,7 @@ namespace Turbopro
 		
 		using namespace Turbopro::CAD;				// for Point and other Shapes
 		
-		class PointArray : public Array<Point>		// concrete inheritance from Array<Point>
+		class PointArray : public Array<Point>		// concrete inheritance from Array
 		{
 		private:
 
@@ -86,10 +86,5 @@ namespace Turbopro
 		};
 	}
 }
-
-// include Array.cpp implementation source file for Template class
-//#ifndef PointArray_cpp // Must be the same name as in source file #define
-//#include "PointArray.cpp"
-//#endif
 
 #endif // POINTARRAY_H_INCLUDED

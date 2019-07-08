@@ -131,246 +131,147 @@ int main(void)
 
 	cout << "\n\n"
 		<< "|============================|\n"
-		<< "|        TEMPLATES:          |\n"
+		<< "|          STACKS:           |\n"
 		<< "|============================|\n\n";
+		
 
-	/*
-	try
-	{
-
-		// create int Stack
-		const int stack_size = 3;
-		cout << "\nCreate an int Stack:\n";
-		Stack<int> stint0{ stack_size };
-		cout << "\nstint0 size: " << stint0.Size() << endl << endl;
-		cout << "\nstint0 GetIndex(): " << stint0.GetIndex() << endl << endl;
-
-		// assign stint0 to stint1
-		cout << "\nAssign stint0 to stint1:\n";
-		Stack<int> stint1{ stack_size };
-		stint1 = stint0;
-		cout << "\nstint1 size: " << stint1.Size() << endl;
-		cout << "\nstint1 GetIndex(): " << stint1.GetIndex() << endl << endl;
-
-		cout << "\nPush 10 onto stint1\n";
-		stint1.push(10);
-		cout << "\nstint1 GetIndex(): " << stint1.GetIndex() << endl;
-		cout << "\nPush 20 onto stint1\n";
-		stint1.push(20);
-		cout << "\nstint1 GetIndex(): " << stint1.GetIndex() << endl;
-		cout << "\nPush 30 onto stint1\n";
-		stint1.push(30);
-		cout << "\nstint1 GetIndex(): " << stint1.GetIndex() << endl << endl;
-
-		cout << "\nCreate OutOfBoundsException: push 40 onto stint1\n";
-		stint1.push(40);
-		cout << endl << endl;
-	}
-	catch (ArrayException& error_msg)
-	{
-		cout << error_msg.GetMessage() << endl;
-	}
-	*/
-	
-	
 	// create int Stack
 	const int stack_size = 3;
 	cout << "\nCreate an int Stack:\n";
 	Stack<int> stint0{ stack_size };
-	cout << "\nstint0 size: " << stint0.Size() << endl << endl;
-	cout << "\nstint0 GetIndex(): " << stint0.GetIndex() << endl << endl;
+	cout << "\nstint0 size: " << stint0.Size() << endl;
+	cout << "stint0 m_index: " << stint0.GetIndex() << endl << endl;
 
-	// copy Stack
-	cout << "\nCopy stint0 to stint1:\n";
-	Stack<int> stint1(stint0);
+	// assign stint0 to stint1
+	cout << "\nAssign stint0 to stint1:\n";
+	Stack<int> stint1{ stack_size };
+	stint1 = stint0;
 	cout << "\nstint1 size: " << stint1.Size() << endl;
-	cout << "\nstint1 GetIndex(): " << stint1.GetIndex() << endl << endl;
+	cout << "stint1 m_index: " << stint1.GetIndex() << endl << endl;
 
-	// assign stint1 to stint2
-	cout << "\nAssign stint1 to stint2" << endl;
-	Stack<int> stint2 = stint1;
+	// push pseudo random integer values onto stint1
+	cout << "\nPush random int values onto stint1\n";
+	for (int i = 0; i < stack_size; i++)
+	{
+		stint1.push(rand() % 10);
+		cout << "stint1 m_index: " << stint1.GetIndex() << endl;
+	}	
+
+	// create OutOfBoundsException
+	cout << "\nCreate OutOfBoundsException: push random int value onto stint1\n";
+	try { stint1.push(rand() % 10); }
+	catch (ArrayException& error_msg) { cout << error_msg.GetMessage() << endl; }
+	cout << "stint1 m_index: " << stint1.GetIndex() << endl << endl;
+		
+	// copy stint1 to stint2
+	cout << "\nCopy stint1 to stint2" << endl;
+	Stack<int> stint2(stint1);
 	cout << "\nstint2 size: " << stint2.Size() << endl;
-	cout << "\nstint2 GetIndex(): " << stint2.GetIndex() << endl << endl;
+	cout << "stint2 m_index: " << stint2.GetIndex() << endl << endl;
 
-	cout << "\nPush 10 onto stint2\n";
-	stint2.push(10);
-	cout << "\nstint2 GetIndex(): " << stint2.GetIndex() << endl;
-	cout << "\nPush 20 onto stint2\n";
-	stint2.push(20);
-	cout << "\nstint2 GetIndex(): " << stint2.GetIndex() << endl;
-	cout << "\nPush 30 onto stint2\n";
-	stint2.push(30);
-	cout << "\nstint2 GetIndex(): " << stint2.GetIndex() << endl << endl;
-
-	// assign stint1 to stint2
+	// assign stint2 to stint3
 	cout << "\nAssign stint2 to stint3" << endl;
 	Stack<int> stint3 = stint2;
 	cout << "\nstint3 size: " << stint3.Size() << endl;
-	cout << "\nstint3 GetIndex(): " << stint3.GetIndex() << endl << endl;
+	cout << "stint3 m_index: " << stint3.GetIndex() << endl << endl;
 
-
-	try
-	{
-		cout << "\nCreate OutOfBoundsException:\n";
-		cout << "\nstint3 GetIndex(): " << stint3.GetIndex() << endl;
-		cout << "\nPush 40 onto stint3\n";
-		stint3.push(40);
-	}
-	catch (ArrayException& error_msg)
-	{
-		cout << error_msg.GetMessage() << endl;
-	}
+	// create OutOfBoundsException
+	cout << "\nCreate OutOfBoundsException:\n";
 	cout << "\nstint3 m_index: " << stint3.GetIndex() << endl;
+	cout << "\nPush random int value onto stint3\n";
+	try { stint3.push(rand() % 10); }
+	catch (ArrayException& error_msg) { cout << error_msg.GetMessage() << endl; }
+	cout << "stint3 m_index: " << stint3.GetIndex() << endl << endl;
 
 	// try push again
-	try
-	{
-		cout << "\nCreate OutOfBoundsException:\n";
-		cout << "\nstint3 GetIndex(): " << stint3.GetIndex() << endl;
-		cout << "\nPush 40 onto stint3\n";
-		stint3.push(40);
-	}
-	catch (ArrayException& error_msg)
-	{
-		cout << error_msg.GetMessage() << endl;
-	}
+	cout << "\nCreate OutOfBoundsException:\n";
 	cout << "\nstint3 m_index: " << stint3.GetIndex() << endl;
+	cout << "\nPush random int value onto stint3\n";
+	try { stint3.push(rand() % 10); }
+	catch (ArrayException& error_msg) { cout << error_msg.GetMessage() << endl; }
+	cout << "stint3 m_index: " << stint3.GetIndex() << endl << endl;
 
-	cout << "\nPop elements off of stint3 until we create an Array exception:\n"
-		<< "\nPop stint3\n";
-	int pop0 = stint3.pop();
-	cout << "\npop0: " << pop0 << endl;
-	cout << "\nstint3 GetIndex(): " << stint3.GetIndex() << endl;
-	cout << "\nPop stint3\n";
-	pop0 = stint3.pop();
-	cout << "\npop0: " << pop0 << endl;
-	cout << "\nstint3 GetIndex(): " << stint3.GetIndex() << endl;
-	cout << "\nPop stint3\n";
-	pop0 = stint3.pop();
-	cout << "\npop0: " << pop0 << endl;
-	cout << "\nstint3 GetIndex(): " << stint3.GetIndex() << endl;
-	try
+	// pop elements off of stint3
+	cout << "\nPop elements off of stint3 until we create an Array exception:\n";
+	int pop0;
+	for (int i = 0; i < stack_size; i++)
 	{
-		cout << "\nCreate OutOfBoundsException: pop stint2\n";
 		pop0 = stint3.pop();
-		cout << endl << endl;
+		cout << "pop0: " << pop0 << endl;
+		cout << "stint3 m_index: " << stint3.GetIndex() << endl << endl;
 	}
-	catch (ArrayException& error_msg)
-	{
-		cout << error_msg.GetMessage() << endl;
-	}
-
-	cout << "\nstint3 m_index: " << stint3.GetIndex() << endl;
-
-	try
-	{
-		cout << "\nCreate OutOfBoundsException: pop stint2\n";
-		pop0 = stint3.pop();
-		cout << endl << endl;
-	}
-	catch (ArrayException& error_msg)
-	{
-		cout << error_msg.GetMessage() << endl;
-	}
-
-	cout << "\nstint3 m_index: " << stint3.GetIndex() << endl;
-
-	cout << endl;
-	cout << endl;
-
-
-	/*
-	try
-	{
-		// Stack and PointArray: push()
-		const int stack_size = 3;
-		// create Point Stack
-		cout << "\nCreate Point Stack:\n";
-		Stack<Point> stpt0{ stack_size };
-		cout << "\nstpt0 size: " << stpt0.Size() << endl;
-		cout << "stpt0 GetIndex(): " << stpt0.GetIndex() << endl << endl;
-
-		cout << "\nCreate and set Points for PointArray to push onto stpt0:\n";
-		PointArray<Point> parr0{ stack_size };
-		for (int i = 0; i < stack_size; i++)
-		{
-			parr0[i] = Point{ 0.5 * (rand() % 10), 1.15 * (rand() % 10) };
-			cout << "parr0[" << i << "]: " << parr0[i] << endl;
-		}
-
-		cout << "\nPush parr0 onto stpt0:\n"
-			<< "Current index: " << stpt0.GetIndex() << endl;
-		for (int i = 0; i < stack_size; i++)
-		{
-			stpt0.push(parr0[i]);
-			cout << "stpt0 m_current: " << stpt0.GetIndex() << endl;
-		}
-
-		cout << "\nCreate OutOfBoundsException: push another Point onto stpt0:\n";
-		stpt0.push(Point());
-		cout << endl << endl;
-	}
-	catch (ArrayException& error_msg)
-	{
-		cout << error_msg.GetMessage() << endl;
-	}
-
-	try
-	{
-		// Stack and PointArray: push() / pop()
-		const int stack_size = 3;
-		// create Point Stack
-		cout << "\nCreate Point Stack:\n";
-		Stack<Point> stpt0{ stack_size };
-		cout << "\nstpt0 size: " << stpt0.Size() << endl;
-		cout << "stpt0 GetIndex(): " << stpt0.GetIndex() << endl << endl;
-
-		cout << "\nCreate and set Points for PointArray to push onto stpt0:\n";
-		PointArray<Point> parr0{ stack_size };
-		for (int i = 0; i < stack_size; i++)
-		{
-			parr0[i] = Point{ 0.5 * (rand() % 10), 1.15 * (rand() % 10) };
-			cout << "parr0[" << i << "]: " << parr0[i] << endl;
-		}
-
-		cout << "\nPush parr0 onto stpt0:\n"
-			<< "Current index: " << stpt0.GetIndex() << endl;
-		for (int i = 0; i < stack_size; i++)
-		{
-			stpt0.push(parr0[i]);
-			cout << "stpt0 m_current: " << stpt0.GetIndex() << endl;
-		}
-
-		cout << "\nPop Points off of stpt0:\n"
-			<< "Current index: " << stpt0.GetIndex() << endl;
-		for (int i = 0; i < stack_size; i++)
-		{
-			cout << "Point popped: " << stpt0.pop() << endl;
-			cout << "stpt0 m_current: " << stpt0.GetIndex() << endl;
-		}
 		
-		cout << "\nCreate OutOfBoundsException: pop one more time\n";
-		Point p10 = stpt0.pop();
-		cout << endl << endl;
-	}
-	
-	catch (ArrayException& error_msg)
-	{
-		cout << error_msg.GetMessage() << endl;
-	}
+	// create OutOfBoundsException
+	cout << "\nCreate OutOfBoundsException: pop stint3\n";
+	try { pop0 = stint3.pop(); }
+	catch (ArrayException& error_msg) { cout << error_msg.GetMessage() << endl; }
+	cout << "stint3 m_index: " << stint3.GetIndex() << endl;
 
-	catch (...)
-	{
-		cout << "Unknown exception caught\n";
-	}
+	// pop once more for good measure
+	cout << "\nCreate OutOfBoundsException: pop stint3\n";
+	try { pop0 = stint3.pop(); }
+	catch (ArrayException& error_msg) { cout << error_msg.GetMessage() << endl; }
+	cout << "stint3 m_index: " << stint3.GetIndex() << endl;
 
-		
+
 	cout << "\n\n"
 		<< "|============================|\n"
-		<< "|     TEMPLATES cont'd:      |\n"
+		<< "|     STACK & POINTARRAY:    |\n"
 		<< "|============================|\n\n";
+	
+	// Stack and PointArray: push() / pop()
+	// create Point Stack
+	cout << "\nCreate Point Stack:\n";
+	Stack<Point> stpt0{ stack_size };
+	cout << "\nstpt0 size: " << stpt0.Size() << endl;
+	cout << "stpt0 m_index: " << stpt0.GetIndex() << endl << endl;
 
-	cout << "Testing static data member and static methods\n\n";
+	cout << "\nCreate and set Points for PointArray to push onto stpt0:\n";
+	PointArray parr0(stack_size);
+	for (int i = 0; i < stack_size; i++)
+	{
+		parr0[i] = Point{ 0.5 * (rand() % 10), 1.15 * (rand() % 10) };
+		cout << "parr0[" << i << "]: " << parr0[i] << endl;
+	}
+
+	// push Points stored in PointArray parr0 onto Stack stpt0
+	cout << "\nPush parr0 onto stpt0:\n"
+		<< "stpt0 m_index: " << stpt0.GetIndex() << endl;
+	for (int i = 0; i < stack_size; i++)
+	{
+		cout << "\nPushing: " << parr0[i] << " ..." << endl;
+		stpt0.push(parr0[i]);
+		cout << "stpt0 m_current: " << stpt0.GetIndex() << endl;
+	}
+
+	// create OutOfBoundsException
+	cout << "\nCreate OutOfBoundsException: push another Point onto stpt0:\n";
+	try { stpt0.push(Point()); }
+	catch (ArrayException& error_msg) { cout << error_msg.GetMessage() << endl; }
+	cout << "stpt0 m_index: " << stpt0.GetIndex() << endl << endl;
+
+	// pop Points off of stpt0
+	cout << "\nPop Points off of stpt0:\n"
+		<< "stpt0 m_index: " << stpt0.GetIndex() << endl;
+	for (int i = 0; i < stack_size; i++)
+	{
+		cout << "\nPopping: " << stpt0.pop() << " ..." << endl;
+		cout << "stpt0 m_current: " << stpt0.GetIndex() << endl;
+	}
+	
+	// create OutOfBoundsException
+	cout << "\nCreate OutOfBoundsException: pop one more time\n";
+	try { Point p = stpt0.pop(); }	
+	catch (ArrayException& error_msg) { cout << error_msg.GetMessage() << endl; }
+	cout << "stpt0 m_index: " << stpt0.GetIndex() << endl;
+
+	cout << endl;
+
+	
+	cout << "\n\n"
+		<< "|============================|\n"
+		<< "|      TEMPLATE ARRAYS       |\n"
+		<< "|============================|\n\n";
 
 	// Create intArray1, intArray2, doubleArray
 	// use Array Template Class default constructor"
@@ -412,7 +313,8 @@ int main(void)
 			<< "intNumArr0 DefaultSize: " << intNumArr0.DefaultSize() << endl
 			<< "dblNumArr0 DefaultSize: " << dblNumArr0.DefaultSize() << endl;
 
-		//// Array<TArray> Tests
+		// Array<TArray> Tests
+		// set values for intArr0
 		cout << "Step 3a:\nSet element values for intArr0\n";
 		for (int i = 0; i < intArr0.Size(); i++)
 		{
@@ -420,7 +322,7 @@ int main(void)
 			cout << "intArr0[" << i << "]: " << intArr0[i] << endl;
 		}
 
-				
+		// copy intArr0 to intArr1
 		cout << "\nStep 3b:\nCreate new intArr1: use copy constructor to copy intArr0:\n";
 		Array<int> intArr1(intArr0);
 		for (int i = 0; i < intArr1.Size(); i++)
@@ -428,7 +330,7 @@ int main(void)
 			cout << "intArr1[" << i << "]: " << intArr1.GetElement(i) << endl;
 		}
 
-
+		// assign intArr1 to new intArr2
 		cout << "\nStep 3c:\nCreate new intArr2: assign intArr0 to intArr1:\n";
 		Array<int> intArr2 = intArr1;
 		for (int i = 0; i < intArr1.Size(); i++)
@@ -438,6 +340,7 @@ int main(void)
 		
 		
 		// NumericArray<TNum> Tests
+		// set values for intNumArr0
 		cout << "\nStep 4a:\nSet element values for intNumArr0\n";
 		for (int i = 0; i < intNumArr0.Size(); i++)
 		{
@@ -445,33 +348,32 @@ int main(void)
 			cout << "intNumArray0[" << i << "]: " << intNumArr0.GetElement(i) << endl;
 		}
 
-
+		// create and set values for new intNumArr1
 		cout << "\nStep 4b:\nCreate new intNumArr1, and set values:\n";
 		NumericArray<int> intNumArr1;
 		for (int i = 0; i < intNumArr1.Size(); i++)
 		{
 			intNumArr1.SetElement((rand() % 10), i);
-			//cout << "intNumArr1[" << i << "]: " << intNumArr1.GetElement(i) << endl;
 			cout << "intNumArray1[" << i << "]: " << intNumArr1[i] << endl;
 		}
 
-		
-		cout << "\nStep 4c:\nCreate new intNumArr2, and assign intNumArr1 to intNumArr2:\n";
+		// assign intNumArr1 to new intNumArr2
+		cout << "\nStep 4c:\nAssign intNumArr1 to new intNumArr2:\n";
 		NumericArray<int> intNumArr2 = intNumArr1;
 		for (int i = 0; i < intNumArr2.Size(); i++)
 		{
 			cout << "intNumArr2[" << i << "]: " << intNumArr2[i] << endl;
 		}
 
-		
-		cout << "\nStep 4d:\nCreate new intNumArr3, and set intNumArr3 = intNumArr0 + intNumArr1:\n";
+		// create new intNumArr3 from addition of intNumArr0 and intNumArr1
+		cout << "\nStep 4d:\nCreate new intNumArr3, and set = intNumArr0 + intNumArr1:\n";
 		NumericArray<int> intNumArr3 = intNumArr0 + intNumArr1;
 		for (int i = 0; i < intNumArr3.Size(); i++)
 		{
 			cout << "intNumArr3[" << i << "]: " << intNumArr3[i] << endl;
 		}
 
-				
+		// assign scaled intNumArr3 to new intNumArr4
 		cout << "\nStep 4e:\nCreate new intNumArr4, and assign intNumArr3 * 3 to intNumArr4:\n";
 		NumericArray<int> intNumArr4 = intNumArr3 * 3;
 		for (int i = 0; i < intNumArr4.Size(); i++)
@@ -479,7 +381,7 @@ int main(void)
 			cout << "intNumArr4[" << i << "]: " << intNumArr4[i] << endl;
 		}
 
-		
+		// copy intNumArr4 to new intNumArr5
 		cout << "\nStep 4f:\nCreate new intNumArr5: use copy constructor, copy intNumArr4:\n";
 		NumericArray<int> intNumArr5(intNumArr4);
 		for (int i = 0; i < intNumArr5.Size(); i++)
@@ -487,23 +389,25 @@ int main(void)
 			cout << "intNumArr5[" << i << "]: " << intNumArr5[i] << endl;
 		}
 
+		// create new intNumArr6 of size 5, and set values
 		cout << "\nStep 5a:\nCreate new intNumArr6 of size 5, set values:\n";
 		arr_size = 5;
 		NumericArray<int> intNumArr6(arr_size);
-		for (int i = 0; i < intNumArr5.Size(); i++)
+		for (int i = 0; i < intNumArr6.Size(); i++)
 		{
 			intNumArr6.SetElement((rand() % 10), i);
-			cout << "intNumArr6[" << i << "]: " << intNumArr5[i] << endl;
+			cout << "intNumArr6[" << i << "]: " << intNumArr6[i] << endl;
 		}
 
-
+		// try to add intNumArr0 and intNumArr6
 		cout << "\nStep 5b:\nSet intNumArr2 = intNumArr0 + intNumArr6:\n";
 		intNumArr2 = intNumArr0 + intNumArr6;
 	}
-	catch (ArrayException& mismatch_msg)
+	catch (ArrayException& error_msg)
 	{
-		cout << mismatch_msg.GetMessage() << endl;
+		cout << error_msg.GetMessage() << endl;
 	}
+	
 	
 	try
 	{
@@ -521,9 +425,9 @@ int main(void)
 
 		cout << endl;
 	}
-	catch (ArrayException& error_index_msg)
+	catch (ArrayException& error_msg)
 	{
-		cout << error_index_msg.GetMessage() << endl;
+		cout << error_msg.GetMessage() << endl;
 	}
 
 	cout << "\nStep 7a:\nCreate new intNumArr11 and intNumArr12:\n";
@@ -542,7 +446,8 @@ int main(void)
 	int dot_prod = intNumArr11.DotProd(intNumArr12);
 	cout << "Dot Product of intNumArr11 and intNumArr12 = " << dot_prod << endl;
 	
-		
+	
+	// more Array tests
 	cout << "Testing Array, NumericArray and PointArray\n";
 
 	// create Array and populate
@@ -574,42 +479,42 @@ int main(void)
 	// create PointArray and populate
 	cout << "Create PointArray, parr0, with 3 elements:\n";
 	arr_size = 3;
-	PointArray<Point> parr0(arr_size);
+	PointArray parr10(arr_size);
 	for (int i = 0; i < arr_size; i++)
 	{
-		parr0[i] = Point(rand() % 10, rand() % 10);
-		cout << "parr0[" << i << "]: " << parr0[i].ToString() << endl;
+		parr10[i] = Point(rand() % 10, rand() % 10);
+		cout << "parr10[" << i << "]: " << parr10[i].ToString() << endl;
 	}
 	cout << "\n";
 
 
-	cout << "\nset parr0[2] = parr0[0] + parr0[1]:\n";
-	parr0[2] = parr0[0] + parr0[1];
+	cout << "\nset parr10[2] = parr10[0] + parr10[1]:\n";
+	parr10[2] = parr10[0] + parr10[1];
 	for (int i = 0; i < arr_size; i++)
 	{
-		cout << "parr0[" << i << "]: " << parr0[i].ToString() << endl;
+		cout << "parr10[" << i << "]: " << parr10[i].ToString() << endl;
 	}
 	cout << "\n";
 
 
-	cout << "\nset parr0[1] = parr0[0]:\n";
-	parr0[1] = parr0[0];
+	cout << "\nset parr10[1] = parr10[0]:\n";
+	parr10[1] = parr10[0];
 	for (int i = 0; i < arr_size; i++)
 	{
-		cout << "parr0[" << i << "]: " << parr0[i].ToString() << endl;
+		cout << "parr10[" << i << "]: " << parr10[i].ToString() << endl;
 	}
 	cout << "\n";
 
 
-	cout << "\nset parr0[1] = parr0[0]:\n";
-	parr0[0] = parr0[1] * 5;
+	cout << "\nset parr10[1] = parr10[0]:\n";
+	parr10[0] = parr10[1] * 5;
 	for (int i = 0; i < arr_size; i++)
 	{
-		cout << "parr0[" << i << "]: " << parr0[i].ToString() << endl;
+		cout << "parr10[" << i << "]: " << parr10[i].ToString() << endl;
 	}
 	
 	cout << "\ntotal length of the Points in parr0: " << fixed
-		<< setprecision(2) << parr0.Length() << endl;
+		<< setprecision(2) << parr10.Length() << endl;
   	 
 	
 	// try/catch Array::GetElement() indexing error
@@ -725,7 +630,6 @@ int main(void)
 	cout << "L10: "; L10.Print();
 	cout << "C10: "; C10.Print();
 
-		
 	cout << "\n\n"
 		<< "|========================|\n"
 		<< "|        LINES:          |\n"
@@ -844,7 +748,7 @@ int main(void)
 	// print C3
 	cout << "\nCircle C3: " << C3 << endl;
 
-	*/
+	
 
 	return 0;
 }

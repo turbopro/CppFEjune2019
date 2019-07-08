@@ -24,18 +24,15 @@ namespace Turbopro
 	{
 		// constructor
 		template <typename TStack>
-		Stack<TStack>::Stack(int arr_size)
-			: m_array(Array<TStack>(arr_size)), m_current(0) {}	// size of array set during runtime
+		Stack<TStack>::Stack(int arr_size) : m_array(Array<TStack>(arr_size)), m_current(0) {}
 		
 		// default constructor 
 		template <typename TStack>
-		Stack<TStack>::Stack()
-			: m_array(Array<TStack>()), m_current(0) {}		// size of array set during runtime
+		Stack<TStack>::Stack() : m_array(Array<TStack>()), m_current(0) {}
 
 		// copy constructor: set m_arr_size, create m_data, deep copy elements
 		template <typename TStack>
-		Stack<TStack>::Stack(const Stack<TStack>& Other)
-			: m_array(Other.m_array), m_current(Other.m_current) {}
+		Stack<TStack>::Stack(const Stack<TStack>& Other) : m_array(Other.m_array), m_current(Other.m_current) {}
 
 		// destructor
 		template <typename TStack>
