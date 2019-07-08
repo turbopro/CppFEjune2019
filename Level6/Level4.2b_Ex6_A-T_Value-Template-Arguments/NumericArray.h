@@ -95,7 +95,10 @@ namespace Turbopro
 {
 	namespace Containers
 	{
-		// Template NumericArray class declaration
+		// Template NumericArray class declaration using generic inheritance
+		// Numeric Array inherits from class template Array<TArray>
+		// Given that this is a Numeric Array derived class, we set typename as TNum
+
 		template <typename TNum>
 		class NumericArray	:	public Array<TNum>
 		{
@@ -109,7 +112,7 @@ namespace Turbopro
 			// NumericArray specific methods
 			NumericArray<TNum> operator+(const NumericArray<TNum>& Other) const;// add the elements of two NumericArrays
 			NumericArray<TNum> operator*(double n) const;			// scale the elements of the NumericArray by factor n
-			TNum DotProd(const NumericArray<TNum>& Other) const;
+			TNum DotProd(const NumericArray<TNum>& Other) const;	// dot product of two NumericArrays
 		};
 	}
 }

@@ -1,5 +1,5 @@
 /* Shape.h
-Level4.2b_Ex5: Advanced Templates - Layering Exceptions
+Level4.2b_Ex3: Advanced Templates - Point Array (concrete inheritance)
 
 header file for the Shape class
 
@@ -66,7 +66,7 @@ namespace Turbopro
 
 		public:
 			Shape();												// default constructor
-			Shape(int ID);											// constructor
+			explicit Shape(int ID);									// constructor: guard against implicit conversion
 			Shape(const Shape& Other);								// copy constructor
 			virtual ~Shape();										// virtual destructor for ABC
 			int ID() const { return m_id_number; }					// inline Shape ID getter

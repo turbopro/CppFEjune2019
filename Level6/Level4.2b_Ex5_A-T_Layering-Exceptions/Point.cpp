@@ -1,5 +1,5 @@
 /* Point.cpp
-Level4.2b_Ex5: Advanced Templates - Layering Exceptions
+Level4.2b_Ex4: Advanced Templates - Stack Class (composition)
 
 Source file that implements the Point class declared in the 
 Point.h header file.
@@ -42,7 +42,6 @@ namespace Turbopro
 		Point::Point(double x_coord, double y_coord) : Shape{}, m_x{ x_coord }, m_y{ y_coord } {}
 
 		// single argument constructor using colon syntax initialiser
-		// this constructor is used as an implicit conversion operator
 		Point::Point(double uni_coord) : Shape{}, m_x{ uni_coord }, m_y{ uni_coord } {}
 
 		// default constructor
@@ -93,7 +92,8 @@ namespace Turbopro
 			else
 			{
 				// use Base Class overloaded operator with scope resolution operator 
-				// to copy Base Class object: Other, a Point, is a Shape
+				// to copy Base Class object, Other
+				// Other is a Point is a Shape)
 				Shape::operator=(Other);
 				m_x = Other.m_x;
 				m_y = Other.m_y;

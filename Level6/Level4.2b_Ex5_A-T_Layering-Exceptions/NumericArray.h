@@ -1,5 +1,5 @@
 /* NumericArray.h
-Level4.2b_Ex5: Advanced Templates - Layering Exceptions
+Level4.2b_Ex3: Advanced Templates - Point Array (concrete inheritance)
 
 header file for the Templated NumericArray class
 
@@ -95,21 +95,24 @@ namespace Turbopro
 {
 	namespace Containers
 	{
-		// Template NumericArray class declaration
+		// Template NumericArray class declaration using generic inheritance
+		// Numeric Array inherits from class template Array<TArray>
+		// Given that this is a Numeric Array derived class, we set typename as TNum
+
 		template <typename TNum>
 		class NumericArray	:	public Array<TNum>
 		{
 		public:
 			NumericArray();											// default constructor
-			NumericArray(int arr_size);								// constructor
+			explicit NumericArray(int arr_size);					// constructor: guard against implicit conversion
 			NumericArray(const NumericArray<TNum>& Other);			// copy constructor
 			virtual ~NumericArray();								// destructor
-			NumericArray<TNum>& operator=(const NumericArray<TNum>& Other);			// overloaded assignment operator
+			NumericArray<TNum>& operator=(const NumericArray<TNum>& Other);		// overloaded assignment operator
 			
 			// NumericArray specific methods
-			NumericArray<TNum> operator+(const NumericArray<TNum>& Other) const;	// add the elements of two NumericArrays
-			NumericArray<TNum> operator*(double n) const;			// scale the elements of the NumericArray by factor n
-			TNum DotProd(const NumericArray<TNum>& Other) const;
+			NumericArray<TNum> operator+(const NumericArray<TNum>& Other) const; // add the elements of two NumericArrays
+			NumericArray<TNum> operator*(double n) const;						// scale the elements of the NumericArray by factor n
+			TNum DotProd(const NumericArray<TNum>& Other) const;				// dot product of two NumericArrays
 		};
 	}
 }

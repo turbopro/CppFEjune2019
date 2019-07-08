@@ -28,13 +28,13 @@ namespace Turbopro
 		// StackFullException::GetMessage() method
 		std::string Containers::StackFullException::GetMessage() const
 		{
-			return "Error: Stack is full. Push aborted...\n";
+			return "Error: Stack is full. Push aborted.\n";
 		}
 
 		// StackEmptyException::GetMessage() method
 		std::string Containers::StackEmptyException::GetMessage() const
 		{
-			return "Error: Empty Stack. Pop aborted...\n";
+			return "Error: Empty Stack. Pop aborted.\n";
 		}
 	}
 }

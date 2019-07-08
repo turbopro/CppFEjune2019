@@ -143,7 +143,7 @@ namespace Turbopro
 
 		public:
 			Array();													// default constructor
-			Array(int arr_size);										// constructor
+			explicit Array(int arr_size);								// constructor: guard against implicit conversion
 			Array(const Array<TArray>& Other);							// copy constructor
 			virtual ~Array();											// destructor
 			int Size() const { return m_arr_size; }						// inlined: return the size of the object's array
@@ -154,8 +154,8 @@ namespace Turbopro
 			const TArray& operator[](int index) const;					// overloaded array indexing operator: const version
 
 			// static methods
-			static int DefaultSize() { return ArraySize; }
-			static void DefaultSize(int size);
+			static int DefaultSize() { return ArraySize; }				// get array size default value
+			static void DefaultSize(int size);							// set array size default value
 		};
 	}
 }

@@ -19,6 +19,7 @@ namespace Turbopro
 {
 	namespace Containers
 	{
+		// constructors delegate construction to base class Array (Array<Point>)
 		// constructor
 		PointArray::PointArray(int arr_size) : Array<Point>(arr_size) {}
 
@@ -44,6 +45,7 @@ namespace Turbopro
 				throw Containers::SizeMismatchException(Other.Size());
 			}
 
+			// create PointArray to accumulate sum
 			PointArray sum_arr{ Other.Size() };
 			for (int i = 0; i < Other.Size(); i++)
 			{
@@ -56,6 +58,7 @@ namespace Turbopro
 		// scale the elements of the PointArray by factor n
 		PointArray PointArray::operator*(double n) const
 		{
+			// create PointArray for scaling
 			PointArray scaled_arr{ this->Size() };
 			for (int i = 0; i < this->Size(); i++)
 				scaled_arr[i] = (*this)[i] * n;
@@ -87,6 +90,7 @@ namespace Turbopro
 			if (this == &Other) { return *this; }
 			else
 			{
+				// copy Other and return
 				Array<Point>::operator=(Other);
 
 				return *this;

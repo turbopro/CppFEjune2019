@@ -45,6 +45,7 @@ namespace Turbopro
 {
 	namespace Containers
 	{
+		// constructors delegate construction to base class template Array<TArray>
 		// constructor 
 		template <typename TNum>
 		NumericArray<TNum>::NumericArray(int arr_size) : Array<TNum>{ arr_size } {}
@@ -75,6 +76,7 @@ namespace Turbopro
 				throw Containers::SizeMismatchException(this->Size() - Other.Size());
 			}
 
+			// create NumericArray to accumulate sum
 			NumericArray<TNum> sum_arr{ Other.Size() };
 			for (int i = 0; i < Other.Size(); i++)
 			{
@@ -88,6 +90,7 @@ namespace Turbopro
 		template <typename TNum>
 		NumericArray<TNum> NumericArray<TNum>::operator*(double n) const
 		{
+			// create NumericArray for scaling
 			NumericArray<TNum> scaled_arr{ this->Size() };
 			for (int i = 0; i < this->Size(); i++)
 				scaled_arr[i] = (*this)[i] * n;
@@ -105,6 +108,7 @@ namespace Turbopro
 				throw Containers::SizeMismatchException(this->Size() - Other.Size());
 			}
 
+			// create type TNum to hold result of dot product
 			TNum dot_prod = 0;
 			for (int i = 0; i < Other.Size(); i++)
 			{
@@ -121,6 +125,7 @@ namespace Turbopro
 			if (this == &Other) { return *this; }
 			else
 			{
+				// copy Other and return
 				Array<TNum>::operator=(Other);
 					
 				return *this;

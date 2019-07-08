@@ -1,5 +1,5 @@
 /* Line.cpp
-Level4.2b_Ex5: Advanced Templates - Layering Exceptions
+Level4.2b_Ex4: Advanced Templates - Stack Class (composition)
 
 Source file that implements the Line class declared in the 
 Line.h header file.

@@ -22,6 +22,7 @@ namespace Turbopro
 {
 	namespace Containers
 	{
+		// constructors delegate construction of storage Array to base class template Array<TArray>
 		// constructor
 		template <typename TStack>
 		Stack<TStack>::Stack(int arr_size) : m_array(Array<TStack>(arr_size)), m_current(0) {}
@@ -63,7 +64,7 @@ namespace Turbopro
 			if (this == &Other) { return *this; }
 			else
 			{
-				// Array does most of the hard ground work
+				// Array does the ground work
 				*this = Other;
 
 				return *this;

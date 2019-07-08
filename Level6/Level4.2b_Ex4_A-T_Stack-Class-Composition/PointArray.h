@@ -64,14 +64,14 @@ namespace Turbopro
 {
 	namespace Containers
 	{
-		// PointArray class declaration
+		// PointArray class declaration using concrete inheritance
+		// Point Array inherits from class template Array<TArray>
+		// Given that this is a Point Array derived class, we default to Array<Point>
 		
 		using namespace Turbopro::CAD;				// for Point and other Shapes
 		
 		class PointArray : public Array<Point>		// concrete inheritance from Array
 		{
-		private:
-
 		public:
 			PointArray();										// default constructor
 			explicit PointArray(int arr_size);					// constructor: guard against implicit conversion
@@ -80,9 +80,9 @@ namespace Turbopro
 			PointArray& operator=(const PointArray& Other);		// overloaded assignment operator
 			
 			// PointArray specific methods
-			double Length() const;								// total length between the points in the PointArray
+			double Length() const;								// total length between all the points in the PointArray
 			PointArray operator+(const PointArray& Other) const;	// add the Points of two PointArrays
-			PointArray operator*(double n) const;				// scale the Points of the PointArray by factor n
+			PointArray operator*(double n) const;				// scale the Points of a PointArray by factor n
 		};
 	}
 }

@@ -1,5 +1,5 @@
 /* Line.h
-Level4.2b_Ex5: Advanced Templates - Layering Exceptions
+Level4.2b_Ex4: Advanced Templates - Stack Class (composition)
  
 header file for the Line class
 

@@ -153,9 +153,9 @@ namespace Turbopro
 			TArray& operator[](int index);								// overloaded array indexing operator
 			const TArray& operator[](int index) const;					// overloaded array indexing operator: const version
 
-			// static methods
-			static int DefaultSize() { return ArraySize; }
-			static void DefaultSize(int size);
+			// static methods: overloaded Default() method
+			static int DefaultSize() { return ArraySize; }				// get array size default value
+			static void DefaultSize(int size);							// set array size default value
 		};
 	}
 }

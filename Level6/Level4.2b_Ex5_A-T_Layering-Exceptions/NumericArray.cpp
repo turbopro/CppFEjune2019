@@ -1,5 +1,5 @@
 /* NumericArray.cpp
-Level4.2b_Ex5: Advanced Templates - Layering Exceptions
+Level4.2b_Ex3: Advanced Templates - Point Array (concrete inheritance)
 
 Source file that implements the NumericArray Template class declared in the
 NumericArray.h header file.
@@ -45,6 +45,7 @@ namespace Turbopro
 {
 	namespace Containers
 	{
+		// constructors delegate construction to base class template Array<TArray>
 		// constructor 
 		template <typename TNum>
 		NumericArray<TNum>::NumericArray(int arr_size) : Array<TNum>{ arr_size } {}
@@ -55,8 +56,7 @@ namespace Turbopro
 
 		// copy constructor: set m_arr_size, create m_data, deep copy elements
 		template <typename TNum>
-		NumericArray<TNum>::NumericArray(const NumericArray<TNum>& Other) 
-			: Array<TNum>{ Other.Size() }
+		NumericArray<TNum>::NumericArray(const NumericArray<TNum>& Other) : Array<TNum>{ Other.Size() }
 		{
 			for (int i = 0; i < Other.Size(); i++)	// deep copy Other's elements
 				(*this)[i] = Other[i];				// calls the const Point& operator[]() const method
@@ -70,13 +70,13 @@ namespace Turbopro
 		template <typename TNum>
 		NumericArray<TNum> NumericArray<TNum>::operator+(const NumericArray<TNum>& Other) const
 		{
-			//if Array sizes are unqeual, throw SizeMismatchException
 			if (this->Size() != Other.Size())
 			{
+				// if NumericArrays are not the same size, throw exception
 				throw Containers::SizeMismatchException(this->Size() - Other.Size());
 			}
 
-			// create new NumericArray: sum elements, return sum_arr
+			// create NumericArray to accumulate sum
 			NumericArray<TNum> sum_arr{ Other.Size() };
 			for (int i = 0; i < Other.Size(); i++)
 			{
@@ -90,7 +90,7 @@ namespace Turbopro
 		template <typename TNum>
 		NumericArray<TNum> NumericArray<TNum>::operator*(double n) const
 		{
-			// create new NumericArray: scale elements, return scaled_arr
+			// create NumericArray for scaling
 			NumericArray<TNum> scaled_arr{ this->Size() };
 			for (int i = 0; i < this->Size(); i++)
 				scaled_arr[i] = (*this)[i] * n;
@@ -102,13 +102,13 @@ namespace Turbopro
 		template <typename TNum>
 		TNum NumericArray<TNum>::DotProd(const NumericArray<TNum>& Other) const
 		{
-			//if Arrays are unqeual, throw SizeMisMatchException
 			if (this->Size() != Other.Size())
 			{
+				// if NumericArrays are not the same size, throw exception
 				throw Containers::SizeMismatchException(this->Size() - Other.Size());
 			}
 
-			// calculate and return dot product
+			// create type TNum to hold and return the dot product
 			TNum dot_prod = 0;
 			for (int i = 0; i < Other.Size(); i++)
 			{
@@ -125,6 +125,7 @@ namespace Turbopro
 			if (this == &Other) { return *this; }
 			else
 			{
+				// copy Other and return
 				Array<TNum>::operator=(Other);
 					
 				return *this;

@@ -1,5 +1,5 @@
 /* Array.cpp
-Level4.2b_Ex5: Advanced Templates - Layering Exceptions
+Level4.2b_Ex3: Advanced Templates - Point Array (concrete inheritance)
 
 Source file that implements the Array Template class declared in the
 Array.h header file.
@@ -69,9 +69,10 @@ namespace Turbopro
 		Array<TArray>::Array() : m_data{ new TArray[ArraySize] }, m_arr_size{ ArraySize } {}
 
 		// copy constructor: set m_arr_size, create m_data, deep copy elements
+		// use Other.Size() for data member colon initialisation
 		template <typename TArray>
 		Array<TArray>::Array(const Array<TArray>& Other) 
-			: m_arr_size{ Other.Size() }, m_data{ new TArray[m_arr_size] }
+			: m_arr_size{ Other.Size() }, m_data{ new TArray[Other.Size()] }
 		{
 			for (int i = 0; i < m_arr_size; i++)	// deep copy Other's elements
 				(*this)[i] = Other[i];				// calls the const Point& operator[]() const method
@@ -83,17 +84,15 @@ namespace Turbopro
 		
 		// SetElement() method
 		template <typename TArray>
-		bool Array<TArray>::SetElement(const TArray& p, int index)
+		void Array<TArray>::SetElement(const TArray& p, int index)
 		{
 			if (index < 0 || index >= m_arr_size)
 			{
 				// if index out of range, throw exception
 				throw Containers::OutOfBoundsException(index);
-				return false;
 			}
 
 			m_data[index] = p;
-			return true;
 		}
 
 		// GetElement() method

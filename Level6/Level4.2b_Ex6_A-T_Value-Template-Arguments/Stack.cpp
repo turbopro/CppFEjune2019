@@ -22,6 +22,7 @@ namespace Turbopro
 {
 	namespace Containers
 	{
+		// constructors delegate construction of storage Array to base class template Array<TArray>
 		// default constructor 
 		template <typename TStack, int sz>
 		Stack<TStack, sz>::Stack() : m_array { Array<TStack>(sz) }, m_current{ 0 } {}
@@ -35,19 +36,22 @@ namespace Turbopro
 		template <typename TStack, int sz>
 		Stack<TStack, sz>::~Stack() {}
 
-		// pop() an element offf the Stack
+		// pop() an element off the Stack
 		template <typename TStack, int sz>
 		TStack Stack<TStack, sz>::pop()
 		{
-			// if current index is 0 or less, throw StackEmptyException
-			if (m_current <= 0)
-				throw StackEmptyException(m_current);
-			else
+			// catch Array OutOfBoundsException, rethrow StackEmptyException to main()
+			try
 			{
-				TStack ele = m_array.GetElement(m_current - 1);	// pop
-				m_current--;									// update index
-				
+				// get element: Array throws exception for indexing error
+				TStack ele = m_array[m_current - 1];
+				--m_current;							// update index: Array indexed ok  
+
 				return ele;
+			}
+			catch (ArrayException& error_msg)			// catch ArrayException
+			{
+				throw StackEmptyException(m_current);	// throw StackException
 			}
 		}
 
@@ -55,13 +59,16 @@ namespace Turbopro
 		template <typename TStack, int sz>
 		void Stack<TStack, sz>::push(const TStack& ele)
 		{
-			// if current index is Stack.Size() or greater, throw StackFullException
-			if (m_current >= Size())
-				throw StackFullException(m_current);
-			else
+			// catch Array OutOfBoundsException, rethrow StackFullException to main()
+			try
 			{
-				m_array.SetElement(ele, m_current);				// push
-				m_current++;									// update index
+				// set element: Array throws exception for indexing error
+				m_array[m_current] = ele;
+				++m_current;							// update index: Array indexed ok
+			}
+			catch (ArrayException& error_msg)			// catch ArrayException
+			{
+				throw StackFullException(m_current);	// throw StackException
 			}
 		}
 		
@@ -72,8 +79,8 @@ namespace Turbopro
 			if (this == &Other) { return *this; }
 			else
 			{
-				m_array = Other.m_array;
-				m_current = Other.m_current;
+				// Array does the ground work
+				*this = Other;
 
 				return *this;
 			}

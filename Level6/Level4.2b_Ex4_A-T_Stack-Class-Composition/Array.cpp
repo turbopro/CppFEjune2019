@@ -69,6 +69,7 @@ namespace Turbopro
 		Array<TArray>::Array() : m_data{ new TArray[ArraySize] }, m_arr_size{ ArraySize } {}
 
 		// copy constructor: set m_arr_size, create m_data, deep copy elements
+		// use Other.Size() for data member colon initialisation
 		template <typename TArray>
 		Array<TArray>::Array(const Array<TArray>& Other) 
 			: m_arr_size{ Other.Size() }, m_data{ new TArray[Other.Size()] }

@@ -1,5 +1,5 @@
 /* UserInput.cpp
-Level4.2b_Ex5: Advanced Templates - Layering Exceptions
+Level4.2b_Ex4: Advanced Templates - Stack Class (composition)
 
 Source file with definition for user_input()
 

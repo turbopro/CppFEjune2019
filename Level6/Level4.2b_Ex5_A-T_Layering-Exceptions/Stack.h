@@ -1,5 +1,5 @@
 /* Stack.h
-Level4.2b_Ex5: Advanced Templates - Layering Exceptions
+Level4.2b_Ex4: Advanced Templates - Stack Class (composition)
 
 header file for the Stack class
 
@@ -54,7 +54,7 @@ DATA:
 
 METHODS:
 Stack()					-	default constructor
-Stack(int)				-	constructor
+Stack(int)			-	constructor
 Stack(const Stack&)		-	copyconstructor
 ~Stack()				-	destructor
 GetSize()				-	get Array Size
@@ -81,13 +81,16 @@ namespace Turbopro
 {
 	namespace Containers
 	{
-		// Stack class declaration
+		// Stack class declaration using composition
+		// Stack contains and delegates storage to a class template Array<TArray> object as a data member
+		// Given that this is a Stack, we set typename as TNum
+
 		template <typename TStack>
 		class Stack
 		{
 		private:
-			Array<TStack> m_array;						// storage Array of typename TStack
-			int m_current;								// current index
+			Array<TStack> m_array;
+			int m_current;
 
 		public:
 			Stack();									// default constructor
