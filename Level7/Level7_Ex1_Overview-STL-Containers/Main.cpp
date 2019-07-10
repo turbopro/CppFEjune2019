@@ -43,9 +43,9 @@ Test program for the STL -- built upon the previous work done thus far
 #include "StackException.h"	// StackException class declaration
 
 // STL
-#include <vector>
-#include <iterator>
-#include <algorithm>
+#include <vector>			// for vector, copy
+#include <iterator>			// for iter
+//#include <algorithm>
 
 using namespace std;
 
@@ -55,6 +55,8 @@ bool user_input_geom(double& geom_value, const string& geom_id, const string& ge
 // declaration for user_input_array() function
 bool user_input_array(unsigned int& array_size);
 
+// test vector output
+void output(const string& s) { cout << s << " "; }
 
 int main(void)
 {
@@ -190,30 +192,47 @@ int main(void)
 	*/
 
 	// STL algorithm copy()
-	cout << "\nCreate vector of Points:\n";
-	vector<int> vpt0[7];
+	//cout << "\nCreate strings:\n";
+	//string s1[4] = { "fine", "fish", "fashion", "fate" };
+	//string s2[4] = { "busy", "bats" };
+	//string s3[4] = { "silly", "singers" };
+
+	//vector<string> words(4);
+
+	//copy(s1, s1 + 4, words.begin());
+
+
+
+
+	cout << "Create vector of ints, vint0:\n";	
 	int myints[] = { 10,20,30,40,50,60,70 };
-	//Array<Point> parr0(stack_size);
-	//for (int i = 0; i < stack_size; i++)
-	//{
-		//parr0[i] = Point{ 0.5 * (rand() % 10), 1.15 * (rand() % 10) };
-		//cout << "parr0[" << i << "]: " << parr0[i] << endl;
-	//}
-	copy(myints, myints+7, vpt0->begin());
+	int vec_sz = sizeof(myints) / sizeof(myints[0]);
+	vector<int> vint0(vec_sz);
+	copy(myints, myints + 7, vint0.begin());
+	// print vint0 info
+	cout << "\nvint0 has:\n";
+	for (auto vint : vint0) cout << vint << endl;
 
-	// set cout to print vector info
-	//cout << "\nSet ostream_iterator to print vector info:\n";
-	//ostream_iterator<int, char> out_iter(cout, " ");
-
+	cout << "\n\nCreate vector of Points, vpt0:\n";
+	vector<Point> vpt0(stack_size);
+	PointArray parr0(stack_size);
+	for (int i = 0; i < stack_size; i++)
+	{
+		parr0[i] = Point{ 0.5 * (rand() % 10), 1.15 * (rand() % 10) };
+	}
+	copy(&parr0[0], (&parr0[0] + stack_size), vpt0.begin());
 	// print vpt0 info
 	cout << "\nvpt0 has:\n";
-	for (auto pt : vpt0) cout << endl;
-	//copy(vpt0->begin(), vpt0->end(), out_iter);
+	for (auto pt : vpt0) cout << pt.ToString() << endl;
+
+	// set cout to print vector info
+	cout << "\n\nSet ostream_iterator to print vector info:\n";
+	ostream_iterator<Point, char> out_iter(cout, "\n");
+	
+	cout << "\nvpt0 via iterator has:\n";
+	copy(vpt0.begin(), vpt0.end(), out_iter);
+
 	cout << endl;
-	//copy(parr0, parr0 + stack_size, vpt0->begin());
-	// print vtp0
-	//for (auto pt : vpt0) cout << endl;
-	//cout << vpt0[0] << endl;
 	
 
 	/*
