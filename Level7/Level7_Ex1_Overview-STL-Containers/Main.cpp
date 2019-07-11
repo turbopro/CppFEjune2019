@@ -44,8 +44,11 @@ Test program for the STL -- built upon the previous work done thus far
 
 // STL
 #include <vector>			// for vector, copy
+#include <list>
+#include <map>
 #include <iterator>			// for iter
-//#include <algorithm>
+#include <algorithm>
+
 
 using namespace std;
 
@@ -74,166 +77,92 @@ int main(void)
 	int arr_size{ 0 };					// array size should be positive only
 	const int stack_size = 3;
 
-	/*
+	
 	cout << "\n\n"
 		<< "|========================================|\n"
-		<< "|    STACKS with Value Template Args:    |\n"
+		<< "|       STL: List, Vector, and Map       |\n"
 		<< "|========================================|\n\n";		
 
-	// create int Stack
-	//const int stack_size = 3;
-	cout << "\nCreate an int Stack:\n";
-	Stack<int, stack_size> stint0;
-	cout << "\nstint0 size: " << stint0.Size() << endl;
-	cout << "stint0 m_index: " << stint0.GetIndex() << endl << endl;
+	// list:
+	cout << "Create list of doubles: my_grades:\n";	
+	list<double> my_grades = { 96, 92, 92, 95, 95, 80 };
+	//print my_grades
+	cout << "\nmy_grades:\n";
+	for (auto grade : my_grades) { cout << grade << endl; }
 
-	// assign stint0 to stint1
-	cout << "\nAssign stint0 to stint1:\n";
-	Stack<int, stack_size> stint1;
-	stint1 = stint0;
-	cout << "\nstint1 size: " << stint1.Size() << endl;
-	cout << "stint1 m_index: " << stint1.GetIndex() << endl << endl;
+	// print week 1 grade
+	cout << "\nWeek1 grade: " << my_grades.front() << endl;
 
-	// push pseudo random integer values onto stint1
-	cout << "\nPush random int values onto stint1\n";
-	for (int i = 0; i < stack_size; i++)
-	{
-		stint1.push(rand() % 10);
-		cout << "stint1 m_index: " << stint1.GetIndex() << endl;
-	}	
+	// print last week's grade
+	cout << "\nMost recent week's grade: " << my_grades.back() << endl;
 
-	// create OutOfBoundsException
-	cout << "\nCreate OutOfBoundsException: push random int value onto stint1\n";
-	try { stint1.push(rand() % 10); }
-	catch (StackException& error_msg) { cout << error_msg.GetMessage() << endl; }
-	//catch (ArrayException& error_msg) { cout << error_msg.GetMessage() << endl; }
-	cout << "stint1 m_index: " << stint1.GetIndex() << endl << endl;
-		
-	// copy stint1 to stint2
-	cout << "\nCopy stint1 to stint2" << endl;
-	Stack<int, stack_size> stint2(stint1);
-	cout << "\nstint2 size: " << stint2.Size() << endl;
-	cout << "stint2 m_index: " << stint2.GetIndex() << endl << endl;
 
-	// assign stint2 to stint3
-	cout << "\nAssign stint2 to stint3" << endl;
-	Stack<int, stack_size> stint3 = stint2;
-	cout << "\nstint3 size: " << stint3.Size() << endl;
-	cout << "stint3 m_index: " << stint3.GetIndex() << endl << endl;
+	// vector:
+	// create vector of doubles
+	cout << "\n\nCreate empty vector to hold doubles, v_grades:\n";
+	int vec_sz = 10;
+	vector<double> v_grades;
 
-	// create OutOfBoundsException
-	cout << "\nCreate OutOfBoundsException:\n";
-	cout << "\nstint3 m_index: " << stint3.GetIndex() << endl;
-	cout << "\nPush random int value onto stint3\n";
-	try { stint3.push(rand() % 10); }
-	catch (StackException& error_msg) { cout << error_msg.GetMessage() << endl; }
-	cout << "stint3 m_index: " << stint3.GetIndex() << endl << endl;
-
-	// try push again
-	cout << "\nCreate OutOfBoundsException:\n";
-	cout << "\nstint3 m_index: " << stint3.GetIndex() << endl;
-	cout << "\nPush random int value onto stint3\n";
-	try { stint3.push(rand() % 10); }
-	catch (StackException& error_msg) { cout << error_msg.GetMessage() << endl; }
-	cout << "stint3 m_index: " << stint3.GetIndex() << endl << endl;
-
-	// pop elements off of stint3
-	cout << "\nPop elements off of stint3 until we create an Array exception:\n";
-	int pop0;
-	for (int i = 0; i < stack_size; i++)
-	{
-		pop0 = stint3.pop();
-		cout << "pop0: " << pop0 << endl;
-		cout << "stint3 m_index: " << stint3.GetIndex() << endl << endl;
-	}
-		
-	// create OutOfBoundsException
-	cout << "\nCreate OutOfBoundsException: pop stint3\n";
-	try { pop0 = stint3.pop(); }
-	catch (StackException& error_msg) { cout << error_msg.GetMessage() << endl; }
-	cout << "stint3 m_index: " << stint3.GetIndex() << endl;
-
-	// pop once more for good measure
-	cout << "\nCreate OutOfBoundsException: pop stint3\n";
-	try { pop0 = stint3.pop(); }
-	catch (StackException& error_msg) { cout << error_msg.GetMessage() << endl; }
-	cout << "stint3 m_index: " << stint3.GetIndex() << endl;
-	
-	
-	cout << "\n\n"
-		<< "|============================|\n"
-		<< "|     STACK & POINTARRAY:    |\n"
-		<< "|============================|\n\n";
-	
-	// Stack and PointArray: push() / pop()
-	// create Point Stack
-	cout << "\nCreate Point Stack:\n";
-	Stack<Point, stack_size> stpt0;
-	cout << "\nstpt0 size: " << stpt0.Size() << endl;
-	cout << "stpt0 m_index: " << stpt0.GetIndex() << endl << endl;
-
-	cout << "\nCreate and set Points for PointArray to push onto stpt0:\n";
-	PointArray parr0(stack_size);
-	for (int i = 0; i < stack_size; i++)
-	{
-		parr0[i] = Point{ 0.5 * (rand() % 10), 1.15 * (rand() % 10) };
-		cout << "parr0[" << i << "]: " << parr0[i] << endl;
+	// insert pseudo-random values into v_grades
+	cout << "nPopulate v_grades with pseudo-random values:\n";
+	for (int i = 0; i < vec_sz; i++) 
+	{ 
+		v_grades.emplace(v_grades.begin(), (rand() % 100));
 	}
 
-	// push Points stored in PointArray parr0 onto Stack stpt0
-	cout << "\nPush parr0 onto stpt0:\n"
-		<< "stpt0 m_index: " << stpt0.GetIndex() << endl;
-	for (int i = 0; i < stack_size; i++)
-	{
-		cout << "\nPushing: " << parr0[i] << "..." << endl;
-		stpt0.push(parr0[i]);
-		cout << "stpt0 m_current: " << stpt0.GetIndex() << endl;
-	}
-	*/
+	// print vector
+	cout << "\nv_grades has:\n";
+	for (auto grade : v_grades) { cout << grade << endl; }
 
-	// STL algorithm copy()
-	//cout << "\nCreate strings:\n";
-	//string s1[4] = { "fine", "fish", "fashion", "fate" };
-	//string s2[4] = { "busy", "bats" };
-	//string s3[4] = { "silly", "singers" };
+	// use indexing operator to display values in a range
+	cout << "\nv_grades in the range from 3rd to 7th elements:\n";
+	for (int i = 2; i < 7; i++) { cout << v_grades[i] << endl; }
 
-	//vector<string> words(4);
-
-	//copy(s1, s1 + 4, words.begin());
-
-
-
-
-	cout << "Create vector of ints, vint0:\n";	
-	int myints[] = { 10,20,30,40,50,60,70 };
-	int vec_sz = sizeof(myints) / sizeof(myints[0]);
-	vector<int> vint0(vec_sz);
-	copy(myints, myints + 7, vint0.begin());
-	// print vint0 info
-	cout << "\nvint0 has:\n";
-	for (auto vint : vint0) cout << vint << endl;
-
-	cout << "\n\nCreate vector of Points, vpt0:\n";
-	vector<Point> vpt0(stack_size);
+	// create vector of Points
+	vector<Point> vpt0;
+	
+	// create PointArray, set Points to psuedo-random values 
+	cout << "\nCreate PointArray and set values:\n";
 	PointArray parr0(stack_size);
 	for (int i = 0; i < stack_size; i++)
 	{
 		parr0[i] = Point{ 0.5 * (rand() % 10), 1.15 * (rand() % 10) };
 	}
+
+	// copy parr0 Points to vpt0
+	cout << "\nCopy parr0 Points to vpt0\n";
+	vpt0.resize(stack_size);
 	copy(&parr0[0], (&parr0[0] + stack_size), vpt0.begin());
+
 	// print vpt0 info
 	cout << "\nvpt0 has:\n";
 	for (auto pt : vpt0) cout << pt.ToString() << endl;
 
-	// set cout to print vector info
+	// set ostream to print vector info to cout
 	cout << "\n\nSet ostream_iterator to print vector info:\n";
 	ostream_iterator<Point, char> out_iter(cout, "\n");
-	
+
 	cout << "\nvpt0 via iterator has:\n";
 	copy(vpt0.begin(), vpt0.end(), out_iter);
 
+	// resize vector: double its size
+	cout << "\nDouble the size of vpt0:\n";
+	vpt0.resize(6);
+
+	// print vpt0 info
+	cout << "\nvpt0 has:\n";
+	for (auto pt : vpt0) cout << pt.ToString() << endl;
+
+	cout << "\nvpt0 via iterator has:\n";
+	copy(vpt0.begin(), vpt0.end(), out_iter);
+	cout << endl;
+
 	cout << endl;
 	
+
+
+	// map:
+
 
 	/*
 	// create OutOfBoundsException
