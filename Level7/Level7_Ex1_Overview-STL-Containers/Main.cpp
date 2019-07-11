@@ -48,6 +48,7 @@ Test program for the STL -- built upon the previous work done thus far
 #include <map>
 #include <iterator>			// for iter
 #include <algorithm>
+#include <numeric>			// std::accumulate
 
 
 using namespace std;
@@ -59,7 +60,8 @@ bool user_input_geom(double& geom_value, const string& geom_id, const string& ge
 bool user_input_array(unsigned int& array_size);
 
 // test vector output
-void output(const string& s) { cout << s << " "; }
+template <typename T>
+double Sum(const T container);
 
 int main(void)
 {
@@ -86,7 +88,7 @@ int main(void)
 	// list:
 	cout << "Create list of doubles: my_grades:\n";	
 	list<double> my_grades = { 96, 92, 92, 95, 95, 80 };
-	//print my_grades
+	//print my_grades: use range-based for loop
 	cout << "\nmy_grades:\n";
 	for (auto grade : my_grades) { cout << grade << endl; }
 
@@ -96,6 +98,14 @@ int main(void)
 	// print last week's grade
 	cout << "\nMost recent week's grade: " << my_grades.back() << endl;
 
+	// total of scores
+	cout << "\ntotal of all scores:\n";
+	cout << std::accumulate(my_grades.begin(), my_grades.end(), 0) << endl;
+
+	// mean of scores
+	cout << "\nAverage of all scores:\n";
+	cout << fixed << setprecision(2);			// output format to two decimal places
+	cout << (std::accumulate(my_grades.begin(), my_grades.end(), 0.0)) / my_grades.size() << endl;
 
 	// vector:
 	// create vector of doubles
@@ -105,6 +115,7 @@ int main(void)
 
 	// insert pseudo-random values into v_grades
 	cout << "nPopulate v_grades with pseudo-random values:\n";
+	//cout.setf(0, ios::floatfield);
 	for (int i = 0; i < vec_sz; i++) 
 	{ 
 		v_grades.emplace(v_grades.begin(), (rand() % 100));
@@ -138,11 +149,12 @@ int main(void)
 	cout << "\nvpt0 has:\n";
 	for (auto pt : vpt0) cout << pt.ToString() << endl;
 
-	// set ostream to print vector info to cout
+	// set ostream iterator to print vector info to cout
 	cout << "\n\nSet ostream_iterator to print vector info:\n";
+	// create iterator output object 
 	ostream_iterator<Point, char> out_iter(cout, "\n");
 
-	cout << "\nvpt0 via iterator has:\n";
+	cout << "\nvpt0 via iterator output object has:\n";
 	copy(vpt0.begin(), vpt0.end(), out_iter);
 
 	// resize vector: double its size
@@ -158,258 +170,63 @@ int main(void)
 	cout << endl;
 
 	cout << endl;
-	
-
 
 	// map:
+	// create strings for keys, doubles for data
+	string planets[] = { "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune" };
+	double diameters[] = { 4878, 12104, 12756, 6794, 142984, 120536, 51118, 49532 };
+	int ss_size = sizeof(planets) / sizeof(planets[0]);
 
+	// create map of planets vs diameters (in Km)
+	map<string, double> planet_diameters;
 
-	/*
-	// create OutOfBoundsException
-	cout << "\nCreate OutOfBoundsException: push another Point onto stpt0:\n";
-	try { stpt0.push(Point()); }
-	catch (StackException& error_msg) { cout << error_msg.GetMessage() << endl; }
-	cout << "stpt0 m_index: " << stpt0.GetIndex() << endl << endl;
+	// populate planet_diameters
+	for (int i = 0; i < ss_size; i++)
+		planet_diameters.emplace(planets[i], diameters[i]);
 
-	// pop Points off of stpt0
-	cout << "\nPop Points off of stpt0:\n"
-		<< "stpt0 m_index: " << stpt0.GetIndex() << endl;
-	for (int i = 0; i < stack_size; i++)
-	{
-		cout << "\nPopping: " << stpt0.pop() << "..." << endl;
-		cout << "stpt0 m_current: " << stpt0.GetIndex() << endl;
+	// print planet_diameters
+	// format for comma thousands separator
+	locale loc("");
+	cout.imbue(loc);
+	cout.precision(0);
+
+	cout << "\nMap of planets (listed alphabetically) vs their respective diameters (Km):\n"
+		<< "-------------------------------------------------\n" 
+		<< "|\tPLANET\t\t|\tDIAMETER (KM)\t|\n" 
+		<< "-------------------------------------------------\n";
+	for (auto planet : planet_diameters) 
+	{ 
+		cout << "|\t" << planet.first << "\t\t|\t" << planet.second << "\t\t|" << endl; 
 	}
-	
-	// create OutOfBoundsException
-	cout << "\nCreate OutOfBoundsException: pop one more time\n";
-	try { Point p = stpt0.pop(); }	
-	catch (StackException& error_msg) { cout << error_msg.GetMessage() << endl; }
-	cout << "stpt0 m_index: " << stpt0.GetIndex() << endl;
+	cout << "-------------------------------------------------\n";
+
+	// print values using indexing operator: key values used as indices
+	cout << "\nThe first four inner rocky planets tend to be smaller in diameter:\n";
+	for (int i = 0, rocky_planets = 4; i < rocky_planets; i++)
+	{
+		cout << planets[i] << ": " << planet_diameters[planets[i]] << " Km" << endl;
+	}
 
 	cout << endl;
 
-	
-	cout << "\n\n"
-		<< "|============================|\n"
-		<< "|      TEMPLATE ARRAYS       |\n"
-		<< "|============================|\n\n";
+	cout << "\nSum of my_grades: " << Sum(my_grades) << endl;
 
-	// Create intArray1, intArray2, doubleArray
-	// use Array Template Class default constructor"
-	try
-	{
-		cout << "Step 1a:\nCreate an int Array, double Array, int NumericArray, and double NumericArray:\n"
-			<< "Use default constructor:\n\n";
-		Array<int> intArr;
-		Array<double> dblArr;
-		NumericArray<int> intNumArr;
-		NumericArray<double> dblNumArr;
-
-		cout << "intArr DefaultSize:    " << intArr.DefaultSize() << endl
-			<< "dblArr DefaultSize:    " << dblArr.DefaultSize() << endl
-			<< "intNumArr DefaultSize: " << intNumArr.DefaultSize() << endl
-			<< "dblNumArr DefaultSize: " << dblNumArr.DefaultSize() << endl;
-
-		cout << "\nStep 1b:\nSet DefaultSize for all Arrays and NumArrays to 3:\n";
-		arr_size = 3;
-		intArr.DefaultSize(arr_size);
-		dblArr.DefaultSize(arr_size);
-		intNumArr.DefaultSize(arr_size);
-		dblNumArr.DefaultSize(arr_size);
-		
-		cout << "intArr DefaultSize:    " << intArr.DefaultSize() << endl
-			<< "dblArr DefaultSize:    " << dblArr.DefaultSize() << endl
-			<< "intNumArr DefaultSize: " << intNumArr.DefaultSize() << endl
-			<< "dblNumArr DefaultSize: " << dblNumArr.DefaultSize() << endl;
-		
-
-		cout << "\nStep 2:\nCreate new Arrays and NumericArrays with new DefaultSize 3:\n";
-		Array<int> intArr0;
-		Array<double> dblArr0;
-		NumericArray<int> intNumArr0;
-		NumericArray<double> dblNumArr0;
-
-		cout << "intArr0 DefaultSize:    " << intArr0.DefaultSize() << endl
-			<< "dblArr0 DefaultSize:    " << dblArr0.DefaultSize() << endl
-			<< "intNumArr0 DefaultSize: " << intNumArr0.DefaultSize() << endl
-			<< "dblNumArr0 DefaultSize: " << dblNumArr0.DefaultSize() << endl;
-
-		// Array<TArray> Tests
-		// set values for intArr0
-		cout << "Step 3a:\nSet element values for intArr0\n";
-		for (int i = 0; i < intArr0.Size(); i++)
-		{
-			intArr0[i] = rand() % 10;
-			cout << "intArr0[" << i << "]: " << intArr0[i] << endl;
-		}
-
-		// copy intArr0 to intArr1
-		cout << "\nStep 3b:\nCreate new intArr1: use copy constructor to copy intArr0:\n";
-		Array<int> intArr1(intArr0);
-		for (int i = 0; i < intArr1.Size(); i++)
-		{
-			cout << "intArr1[" << i << "]: " << intArr1.GetElement(i) << endl;
-		}
-
-		// assign intArr1 to new intArr2
-		cout << "\nStep 3c:\nCreate new intArr2: assign intArr0 to intArr1:\n";
-		Array<int> intArr2 = intArr1;
-		for (int i = 0; i < intArr1.Size(); i++)
-		{
-			cout << "intArr2[" << i << "]: " << intArr2.GetElement(i) << endl;
-		}
-		
-		
-		// NumericArray<TNum> Tests
-		// set values for intNumArr0
-		cout << "\nStep 4a:\nSet element values for intNumArr0\n";
-		for (int i = 0; i < intNumArr0.Size(); i++)
-		{
-			intNumArr0[i] = rand() % 10;
-			cout << "intNumArray0[" << i << "]: " << intNumArr0.GetElement(i) << endl;
-		}
-
-		// create and set values for new intNumArr1
-		cout << "\nStep 4b:\nCreate new intNumArr1, and set values:\n";
-		NumericArray<int> intNumArr1;
-		for (int i = 0; i < intNumArr1.Size(); i++)
-		{
-			intNumArr1.SetElement((rand() % 10), i);
-			cout << "intNumArray1[" << i << "]: " << intNumArr1[i] << endl;
-		}
-
-		// assign intNumArr1 to new intNumArr2
-		cout << "\nStep 4c:\nAssign intNumArr1 to new intNumArr2:\n";
-		NumericArray<int> intNumArr2 = intNumArr1;
-		for (int i = 0; i < intNumArr2.Size(); i++)
-		{
-			cout << "intNumArr2[" << i << "]: " << intNumArr2[i] << endl;
-		}
-
-		// create new intNumArr3 from addition of intNumArr0 and intNumArr1
-		cout << "\nStep 4d:\nCreate new intNumArr3, and set = intNumArr0 + intNumArr1:\n";
-		NumericArray<int> intNumArr3 = intNumArr0 + intNumArr1;
-		for (int i = 0; i < intNumArr3.Size(); i++)
-		{
-			cout << "intNumArr3[" << i << "]: " << intNumArr3[i] << endl;
-		}
-
-		// assign scaled intNumArr3 to new intNumArr4
-		cout << "\nStep 4e:\nCreate new intNumArr4, and assign intNumArr3 * 3 to intNumArr4:\n";
-		NumericArray<int> intNumArr4 = intNumArr3 * 3;
-		for (int i = 0; i < intNumArr4.Size(); i++)
-		{
-			cout << "intNumArr4[" << i << "]: " << intNumArr4[i] << endl;
-		}
-
-		// copy intNumArr4 to new intNumArr5
-		cout << "\nStep 4f:\nCreate new intNumArr5: use copy constructor, copy intNumArr4:\n";
-		NumericArray<int> intNumArr5(intNumArr4);
-		for (int i = 0; i < intNumArr5.Size(); i++)
-		{
-			cout << "intNumArr5[" << i << "]: " << intNumArr5[i] << endl;
-		}
-
-		// create new intNumArr6 of size 5, and set values
-		cout << "\nStep 5a:\nCreate new intNumArr6 of size 5, set values:\n";
-		arr_size = 5;
-		NumericArray<int> intNumArr6(arr_size);
-		for (int i = 0; i < intNumArr6.Size(); i++)
-		{
-			intNumArr6.SetElement((rand() % 10), i);
-			cout << "intNumArr6[" << i << "]: " << intNumArr6[i] << endl;
-		}
-
-		// try to add intNumArr0 and intNumArr6
-		cout << "\nStep 5b:\nSet intNumArr2 = intNumArr0 + intNumArr6:\n";
-		intNumArr2 = intNumArr0 + intNumArr6;
-	}
-	catch (ArrayException& error_msg)
-	{
-		cout << error_msg.GetMessage() << endl;
-	}
-	
-	
-	try
-	{
-		// OutOfBoundsException Tests
-		cout << "\nStep 6a:\nCreate intNumArr10, set values:\n";
-		NumericArray<int> intNumArr10;
-		for (int i = 0; i < intNumArr10.Size(); i++)
-		{
-			intNumArr10[i] = rand() % 10;
-			cout << "intNumArray10[" << i << "]: " << intNumArr10.GetElement(i) << endl;
-		}
-
-		cout << "\nStep 6b:\nSet intNumArr10[10] to 10:\n";
-		intNumArr10[10] = 10;
-
-		cout << endl;
-	}
-	catch (ArrayException& error_msg)
-	{
-		cout << error_msg.GetMessage() << endl;
-	}
-
-	cout << "\nStep 7a:\nCreate new intNumArr11 and intNumArr12:\n";
-	NumericArray<int> intNumArr11(3);
-	NumericArray<int> intNumArr12(3);
-	cout << "\nSet values to intNumArr11 and intNumArr12:\n";
-	for (int i = 0; i < intNumArr11.Size(); i++)
-	{
-		intNumArr11[i] = rand() % 10;
-		intNumArr12[i] = rand() % 10;
-		cout << "intNumArray11[" << i << "]: " << intNumArr11.GetElement(i) << endl;
-		cout << "intNumArray12[" << i << "]: " << intNumArr12.GetElement(i) << endl;
-	}
-
-	cout << "\nStep 7b:\nCalculate the dot product of intNumArr11 and intNumArr12:\n";
-	int dot_prod = intNumArr11.DotProd(intNumArr12);
-	cout << "Dot Product of intNumArr11 and intNumArr12 = " << dot_prod << endl;
-	
-	
-	// more Array tests
-	cout << "Testing Array, NumericArray and PointArray\n";
-
-	// create Array and populate
-	cout << "Create Array, arr0, with 3 elements:\n";
-	arr_size = 3;
-	Array<Point> arr0(arr_size);
-	for (int i = 0; i < arr_size; i++)
-	{
-		arr0[i] = Point(i * 2.2, i * 1.5);
-		cout << "arr0[" << i << "]: " << arr0[i].ToString() << endl;
-	}
-	cout << "\n";
-
-	Point P0{ 2, 3 };
-
-
-	// create NumericArray and populate
-	cout << "Create NumericArray, numarr0, with 3 elements:\n";
-	arr_size = 3;
-	NumericArray<Point> numarr0(arr_size);
-	for (int i = 0; i < arr_size; i++)
-	{
-		numarr0[i] = Point(rand() % 10, rand() % 10);
-		cout << "numarr0[" << i << "]: " << numarr0[i].ToString() << endl;
-	}
-	cout << "\n";
-
-		
-	// create PointArray and populate
-	cout << "Create PointArray, parr0, with 3 elements:\n";
-	arr_size = 3;
-	PointArray parr10(arr_size);
-	for (int i = 0; i < arr_size; i++)
-	{
-		parr10[i] = Point(rand() % 10, rand() % 10);
-		cout << "parr10[" << i << "]: " << parr10[i].ToString() << endl;
-	}
-	cout << "\n";	
-
-	*/
-
+	cout << endl;
 
 	return 0;
+}
+
+// Sum() definition
+template <typename T>
+double Sum(const T container)
+{
+	T::const_iterator iter_ele;			// set end iterator
+	//iter_end = container.end();
+	//T::iterator iter_ele;				// set iterator
+	double acc_sum = 0;					// initialise accumulator
+
+	for (iter_ele = container.begin(); iter_ele != container.end(); iter_ele++)
+		acc_sum += *iter_ele;
+
+	return acc_sum;
 }
