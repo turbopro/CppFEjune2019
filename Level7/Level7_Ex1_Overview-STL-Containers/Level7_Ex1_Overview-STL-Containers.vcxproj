@@ -134,7 +134,7 @@
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="Stack.cpp" />
     <ClCompile Include="StackException.cpp" />
-    <ClCompile Include="UserInput.cpp" />
+    <ClCompile Include="User_input.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array.h" />

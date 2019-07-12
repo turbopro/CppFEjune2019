@@ -59,9 +59,12 @@ bool user_input_geom(double& geom_value, const string& geom_id, const string& ge
 // declaration for user_input_array() function
 bool user_input_array(unsigned int& array_size);
 
-// test vector output
+// template functions
 template <typename T>
-double Sum(const T container);
+double Sum(const T& container);
+
+template <typename T>
+double Sum(typename T& start_it, typename T& end_it);
 
 int main(void)
 {
@@ -209,7 +212,47 @@ int main(void)
 
 	cout << endl;
 
+
+	cout << "\n\n"
+		<< "|========================================|\n"
+		<< "|             STL: Iterators             |\n"
+		<< "|========================================|\n\n";
+
+	// calculate sum of container using Sum()
 	cout << "\nSum of my_grades: " << Sum(my_grades) << endl;
+
+	// grow v_grades to include thousands of grades
+	cout << "\nresize v_grades to 2000 elements:\n";
+	v_grades.resize(2000);
+
+	// insert pseudo-random values into v_grades
+	cout << "nPopulate v_grades with pseudo-random values:\n";
+	vec_sz = v_grades.size();
+	for (int i = 0; i < vec_sz; i++)
+	{
+		v_grades.emplace(v_grades.begin(), ((rand() % 100) * 0.73));
+	}
+
+	// get sum of grades for v_grades
+	cout << "\nsum of grades in v_grades: " << Sum(v_grades) << endl;
+
+	// get sum of grades for v_grades
+	// use overloaded Sum() with iterator arguments
+	vector<double>::iterator it_begin = v_grades.begin();		// get start iterator
+	vector<double>::iterator it_end = v_grades.end();			// get end iterator
+	cout << "\nsum of grades in v_grades (using iterator arguments): "
+		<< Sum(it_begin, it_end) << endl;
+
+	// get sum of grades for first 200 elements of v_grades
+	vector<double>::iterator it_rng = next(it_begin, 200);		// get end iterator
+	cout << "\nsum of a range of grades for first 200 elements from v_grades: " 
+		<< Sum(it_begin, it_rng) << endl;
+
+	// get sum of grades for element 200 to 400 of v_grades
+	vector<double>::iterator it_rng_start = next(it_begin, 199);	// get start iterator
+	vector<double>::iterator it_rng_end = next(it_begin, 400);		// get end iterator
+	cout << "\nsum of a range of grades for element 200 to 400 from v_grades: "
+		<< Sum(it_rng_start, it_rng_end) << endl;
 
 	cout << endl;
 
@@ -218,15 +261,37 @@ int main(void)
 
 // Sum() definition
 template <typename T>
-double Sum(const T container)
+double Sum(const T& container)
 {
-	T::const_iterator iter_ele;			// set end iterator
-	//iter_end = container.end();
-	//T::iterator iter_ele;				// set iterator
-	double acc_sum = 0;					// initialise accumulator
+	double acc_sum = 0;									// initialise accumulator
 
-	for (iter_ele = container.begin(); iter_ele != container.end(); iter_ele++)
-		acc_sum += *iter_ele;
+	// set const_iterator, it, to end()
+	// decrement it, and check if == begin()
+	// dereference it and add to the accumulator
+	// repeat until the loop terminates
+	for (typename T::const_iterator it = container.end(); it-- != container.begin(); )
+		acc_sum += *it;
+
+	// alternative that takes care of setting correct iterator type, makes good use
+	// of rbegin() and rend(), and no need for decrementing
+	//for (auto it = container.rbegin(); it != container.rend(); it++)
+	//	acc_sum += *it;
+
+	return acc_sum;
+}
+
+template <typename T>
+double Sum(typename T& start_it, typename T& end_it)
+{
+	double acc_sum = 0;									// initialise accumulator
+
+	// set const_iterator, it, to end()
+	// decrement it, and check if == begin()
+	// dereference it and add to the accumulator
+	// repeat until the loop terminates
+	//for (typename T::const_iterator it = start_it; it != end_it; it++)
+	for (T it = start_it; it != end_it; it++)
+		acc_sum += *it;
 
 	return acc_sum;
 }

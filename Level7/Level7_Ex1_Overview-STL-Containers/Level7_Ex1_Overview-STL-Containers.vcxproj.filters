@@ -48,7 +48,7 @@
     <ClCompile Include="StackException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UserInput.cpp">
+    <ClCompile Include="User_input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

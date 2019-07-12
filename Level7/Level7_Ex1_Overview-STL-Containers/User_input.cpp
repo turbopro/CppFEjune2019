@@ -1,7 +1,9 @@
-/* UserInput.cpp
+/* Utility_funcs.cpp
 Level7_Ex1: Overview of the Standard Template Library - STL Containers
 
-Source file with definition for user_input()
+Source file with definition for user_input(), Sum(), and other utility functions
+
+user_input():
 
 The function takes three (3) arguments:
 geom_value			-	Reference to a variable to hold the value entered by the user 
@@ -17,13 +19,25 @@ closes the programme
 When the user enters Ctrl-Z, then user input is considered incomplete, and bool 'false'
 is returned. If the user enters valid numbers, then the function returns bool 'true'
 
+bool return value is used to intercept user entered Ctrl-Z to quit
 
-user_input_array() function retrieves valid user input for the array size, a positive integer
+
+user_input_array():
+
+The function retrieves valid user input for the array size, a positive integer
 Uses the same mechanics / tools as for user_input_geom()
 Arguments:
 unsigned int	-	array size should be a positive integer
 
-bool return value is used to intercept user entered Ctrl-Z to quit
+
+Sum()
+
+Template function that returns the sum of the values stored in the input container.
+We use reverse iteration over the elements in the container
+
+Arguments:
+container			-	STL container with numeric values
+
 
 */
 
