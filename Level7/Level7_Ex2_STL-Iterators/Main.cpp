@@ -61,6 +61,7 @@ the start iterator and exclude the value pointed to by the end iterator.
 #include <iterator>			// for iter
 #include <algorithm>
 #include <numeric>			// std::accumulate
+#include <typeinfo>			// for typeid operator
 
 
 using namespace std;
@@ -71,14 +72,23 @@ bool user_input_geom(double& geom_value, const string& geom_id, const string& ge
 // declaration for user_input_array() function
 bool user_input_array(unsigned int& array_size);
 
-// template functions
-// given that container may be large, pass by reference is preferred
+// template functions -- generic for List, Vector
+// pass by reference for containers
 template <typename T>
 double Sum(const T& container);
 
-// iterator is like a pointer; so as an argument, may be just as ok to pass by value
+// pass by value for iterators
 template <typename T>
-double Sum(const typename T start_it, const typename T end_it);		
+double Sum(const typename T start_it, const typename T end_it);
+
+// template explicit specialisation for Map
+// Sum() definition for Map with container as argument
+template <>
+double Sum(const map<string, double>& container);
+
+// Sum() definition for Map with iterator range as argument
+template<>
+double Sum(map<string, double>::const_iterator start_it, map<string, double>::const_iterator end_it);
 
 int main(void)
 {
@@ -103,7 +113,7 @@ int main(void)
 		<< "|========================================|\n\n";		
 
 	// list:
-	cout << "Create list of doubles: my_grades:\n";	
+	cout << "Create list of doubles: my_grades\n";
 	list<double> my_grades = { 96, 92, 92, 95, 95, 80 };
 	//print my_grades: use range-based for loop
 	cout << "\nmy_grades:\n";
@@ -116,25 +126,24 @@ int main(void)
 	cout << "\nMost recent week's grade: " << my_grades.back() << endl;
 
 	// total of scores
-	cout << "\ntotal of all scores:\n";
-	cout << std::accumulate(my_grades.begin(), my_grades.end(), 0) << endl;
+	cout << "\ntotal of all scores: "
+		<< std::accumulate(my_grades.begin(), my_grades.end(), 0) << endl;
 
 	// mean of scores
-	cout << "\nAverage of all scores:\n";
-	cout << fixed << setprecision(2);			// output format to two decimal places
-	cout << (std::accumulate(my_grades.begin(), my_grades.end(), 0.0)) / my_grades.size() << endl;
+	cout << "\nAverage of all scores: "
+		<< fixed << setprecision(2)			// output format to two decimal places
+		<< (std::accumulate(my_grades.begin(), my_grades.end(), 0.0)) / my_grades.size() << endl;
 
 	// vector:
 	// create vector of doubles
-	cout << "\n\nCreate empty vector to hold doubles, v_grades:\n";
+	cout << "\n\nCreate empty vector to hold doubles, v_grades\n";
 	int vec_sz = 10;
 	vector<double> v_grades;
 
 	// insert pseudo-random values into v_grades
-	cout << "nPopulate v_grades with pseudo-random values:\n";
-	//cout.setf(0, ios::floatfield);
-	for (int i = 0; i < vec_sz; i++) 
-	{ 
+	cout << "\nPopulate v_grades with pseudo-random values\n";
+	for (int i = 0; i < vec_sz; i++)
+	{
 		v_grades.emplace(v_grades.begin(), (rand() % 100));
 	}
 
@@ -144,13 +153,14 @@ int main(void)
 
 	// use indexing operator to display values in a range
 	cout << "\nv_grades in the range from 3rd to 7th elements:\n";
-	for (int i = 2; i < 7; i++) { cout << v_grades[i] << endl; }
+	for (int lower = 2, upper = 7; lower < upper; lower++)
+		cout << v_grades[lower] << endl;
 
 	// create vector of Points
 	vector<Point> vpt0;
-	
+
 	// create PointArray, set Points to psuedo-random values 
-	cout << "\nCreate PointArray and set values:\n";
+	cout << "\n\nCreate PointArray and set values\n";
 	PointArray parr0(stack_size);
 	for (int i = 0; i < stack_size; i++)
 	{
@@ -167,15 +177,15 @@ int main(void)
 	for (auto pt : vpt0) cout << pt.ToString() << endl;
 
 	// set ostream iterator to print vector info to cout
-	cout << "\n\nSet ostream_iterator to print vector info:\n";
+	cout << "\n\nSet ostream_iterator to print vector info\n";
 	// create iterator output object 
 	ostream_iterator<Point, char> out_iter(cout, "\n");
 
-	cout << "\nvpt0 via iterator output object has:\n";
+	cout << "\nvpt0 via ostream_iterator output object has:\n";
 	copy(vpt0.begin(), vpt0.end(), out_iter);
 
 	// resize vector: double its size
-	cout << "\nDouble the size of vpt0:\n";
+	cout << "\n\nDouble the size of vpt0\n";
 	vpt0.resize(6);
 
 	// print vpt0 info
@@ -186,34 +196,32 @@ int main(void)
 	copy(vpt0.begin(), vpt0.end(), out_iter);
 	cout << endl;
 
-	cout << endl;
-
 	// map:
-	// create strings for keys, doubles for data
-	string planets[] = { "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune" };
+	// create array of strings for keys, array of doubles for data
+	const string planets[] = { "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune" };
 	double diameters[] = { 4878, 12104, 12756, 6794, 142984, 120536, 51118, 49532 };
-	int ss_size = sizeof(planets) / sizeof(planets[0]);
+	int map_sz = sizeof(planets) / sizeof(planets[0]);
 
 	// create map of planets vs diameters (in Km)
 	map<string, double> planet_diameters;
 
 	// populate planet_diameters
-	for (int i = 0; i < ss_size; i++)
+	for (int i = 0; i < map_sz; i++)
 		planet_diameters.emplace(planets[i], diameters[i]);
 
 	// print planet_diameters
-	// format for comma thousands separator
+	// format for thousands separator = comma
 	locale loc("");
-	cout.imbue(loc);
+	locale US = cout.imbue(loc);
 	cout.precision(0);
 
 	cout << "\nMap of planets (listed alphabetically) vs their respective diameters (Km):\n"
-		<< "-------------------------------------------------\n" 
-		<< "|\tPLANET\t\t|\tDIAMETER (KM)\t|\n" 
+		<< "-------------------------------------------------\n"
+		<< "|\tPLANET\t\t|\tDIAMETER (KM)\t|\n"
 		<< "-------------------------------------------------\n";
-	for (auto planet : planet_diameters) 
-	{ 
-		cout << "|\t" << planet.first << "\t\t|\t" << planet.second << "\t\t|" << endl; 
+	for (auto planet : planet_diameters)
+	{
+		cout << "|\t" << planet.first << "\t\t|\t" << planet.second << "\t\t|" << endl;
 	}
 	cout << "-------------------------------------------------\n";
 
@@ -224,56 +232,87 @@ int main(void)
 		cout << planets[i] << ": " << planet_diameters[planets[i]] << " Km" << endl;
 	}
 
+	// print more values using indexing operator: key values used as indices
+	cout << "\nThe gas giants have larger diameters:\n";
+	for (int i = 4, gas_giants = 8; i < gas_giants; i++)
+	{
+		cout << planets[i] << ": " << planet_diameters[planets[i]] << " Km" << endl;
+	}
+
 	cout << endl;
 
-
+	
 	cout << "\n\n"
 		<< "|========================================|\n"
 		<< "|             STL: Iterators             |\n"
 		<< "|========================================|\n\n";
 
-	// calculate sum of container using Sum()
-	cout << "\nSum of my_grades: " << Sum(my_grades) << endl;
+	// calculate sum of container (List) elements using Sum() with container argument
+	cout << "\nSum of my_grades (List: Sum() using container argument): " 
+		<< Sum(my_grades) << endl;
+
+	// calculate sum of container (List) elements using Sum() with iterator arguments
+	cout << "\nSum of my_grades (List: Sum() using iterator argument): " 
+		<< Sum(my_grades.begin(), my_grades.end()) << endl;
 
 	// grow v_grades to include thousands of grades
-	cout << "\nresize v_grades to 2000 elements:\n";
+	cout << "\nResize v_grades to 2000 elements\n";
 	v_grades.resize(2000);
 
 	// insert pseudo-random values into v_grades
-	cout << "nPopulate v_grades with pseudo-random values:\n";
+	cout << "nPopulate v_grades with pseudo-random values\n";
 	vec_sz = v_grades.size();
 	for (int i = 0; i < vec_sz; i++)
 	{
 		v_grades.emplace(v_grades.begin(), ((rand() % 100) * 0.73));
 	}
 
-	// get sum of grades for v_grades
-	cout << "\nsum of grades in v_grades: " << Sum(v_grades) << endl;
+	// calculate sum of grades for v_grades (Vector) using Sum() with container argument
+	cout << "\nSum of grades in v_grades (Vector: Sum() using container argument): " 
+		<< Sum(v_grades) << endl;
 
-	// get sum of grades for v_grades
-	// use overloaded Sum() with iterator arguments
+	// calculate sum of grades for v_grades (Vector) using Sum() with iterator arguments
 	vector<double>::iterator it_begin = v_grades.begin();		// get start iterator
 	vector<double>::iterator it_end = v_grades.end();			// get end iterator
-	cout << "\nsum of grades in v_grades (using iterator arguments): "
+	cout << "\nSum of grades in v_grades (Vector: Sum() using iterator arguments): "
 		<< Sum(it_begin, it_end) << endl;
 
-	// get sum of grades for first 200 elements of v_grades
-	vector<double>::iterator it_rng = next(it_begin, 200);		// get end iterator
-	cout << "\nsum of a range of grades for first 200 elements from v_grades: " 
-		<< Sum(it_begin, it_rng) << endl;
+	// calculate sum of grades for first 200 elements of v_grades
+	vector<double>::iterator it_rng_end = next(it_begin, 200);		// get end iterator for range
+	cout << "\nSum of grades for first 200 elements from v_grades: " 
+		<< Sum(it_begin, it_rng_end) << endl;
 
-	// get sum of grades for element 200 to 400 of v_grades
-	vector<double>::iterator it_rng_start = next(it_begin, 199);	// get start iterator
-	vector<double>::iterator it_rng_end = next(it_begin, 400);		// get end iterator
-	cout << "\nsum of a range of grades for element 200 to 400 from v_grades: "
+	// calculate sum of grades for elements 200 thru 400 of v_grades
+	vector<double>::iterator it_rng_start = next(it_begin, 199);	// get start iterator for range
+	it_rng_end = next(it_begin, 400);								// get end iterator for range
+	cout << "\nSum of grades for elements 200 thru 400 from v_grades: "
 		<< Sum(it_rng_start, it_rng_end) << endl;
+	
+	// calculate sum of diameters for all planets (Map) using Sum() with container argument
+	cout << "\nSum of diameters for all planets (Map: Sum() using container argument): "
+		<< Sum(planet_diameters) << " Km" << endl;
+	
+	// calculate sum of diameters for all planets (Map) using Sum() with iterator arguments
+	map<string, double>::const_iterator it_mbegin = planet_diameters.begin()  ;	// get start iterator for range
+	map<string, double>::const_iterator it_mend = planet_diameters.end()  ;		// get end iterator for range
+
+	cout << "\nSum of diameters for all planets (Map: Sum() using iterator arguments): "
+		<< Sum(it_mbegin, it_mend) << " Km" << endl;
+	
+	// calculate sum of diameters for first four planets (listed alphabetically in planet_diameters)
+	map<string, double>::const_iterator it_mrng_end = next(it_mbegin, 4) ;		// get end iterator for range
+
+	cout << "\nSum of diameters for irst four planets (alphabetically) in planet_diameters\n"
+		<< "(Map: Sum() using iterator arguments): " << Sum(it_mbegin, it_mrng_end) << " Km" << endl;
+
 
 	cout << endl;
+	
 
 	return 0;
 }
 
-// Sum() definition
+// Sum() definition for List and Vector, with container as argument
 template <typename T>
 double Sum(const T& container)
 {
@@ -294,6 +333,7 @@ double Sum(const T& container)
 	return acc_sum;
 }
 
+// Sum() definition for List and Vector, with iterator range argument
 template <typename T>
 double Sum(const typename T start_it, const typename T end_it)
 {
@@ -308,3 +348,47 @@ double Sum(const typename T start_it, const typename T end_it)
 
 	return acc_sum;
 }
+
+// Sum() definition for Map with container as argument
+template <>
+double Sum(const map<string, double>& container)
+{
+	double acc_sum = 0;				// initialise accumulator
+
+	// set const_iterator, it, to end()
+	// decrement it, and check if == begin()
+	// dereference it and add to the accumulator
+	// repeat until the loop terminates
+	//for (typename map<S, D>::const_iterator it = container.end(); it-- != container.begin(); )
+	for (typename map<string, double>::const_iterator it = container.end(); it-- != container.begin(); )
+		acc_sum += it->second;
+
+	// alternative that takes care of setting correct iterator type, makes good use
+	// of rbegin() and rend(), and no need for decrementing
+	//for (auto it = container.rbegin(); it != container.rend(); it++)
+	//	acc_sum += *it;
+
+	return acc_sum;
+}
+
+
+// Sum() definition for Map with iterator range as argument
+template <>
+double Sum(map<string, double>::const_iterator start_it, map<string, double>::const_iterator end_it)
+{
+	double acc_sum = 0;			// initialise accumulator
+
+	// set specialisation type it, to start_it
+	// use the it member access operator to access the map's double value
+	// add the value to the accumulator
+	// increment it
+	// repeat until the loop terminates
+	//for (typename map<string, double>::const_iterator it = start_it; it != end_it; it++)
+	for (map<string, double>::const_iterator it = start_it; it != end_it; it++)
+		acc_sum += it->second;
+
+	return acc_sum;
+}
+
+
+

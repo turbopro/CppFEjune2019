@@ -69,7 +69,7 @@ int main(void)
 		<< "|========================================|\n\n";		
 
 	// list:
-	cout << "Create list of doubles: my_grades:\n";	
+	cout << "Create list of doubles: my_grades\n";	
 	list<double> my_grades = { 96, 92, 92, 95, 95, 80 };
 	//print my_grades: use range-based for loop
 	cout << "\nmy_grades:\n";
@@ -82,22 +82,22 @@ int main(void)
 	cout << "\nMost recent week's grade: " << my_grades.back() << endl;
 
 	// total of scores
-	cout << "\ntotal of all scores:\n";
-	cout << std::accumulate(my_grades.begin(), my_grades.end(), 0) << endl;
+	cout << "\ntotal of all scores: "
+		<< std::accumulate(my_grades.begin(), my_grades.end(), 0) << endl;
 
 	// mean of scores
-	cout << "\nAverage of all scores:\n";
-	cout << fixed << setprecision(2);			// output format to two decimal places
-	cout << (std::accumulate(my_grades.begin(), my_grades.end(), 0.0)) / my_grades.size() << endl;
+	cout << "\nAverage of all scores: "
+		<< fixed << setprecision(2)			// output format to two decimal places
+		<< (std::accumulate(my_grades.begin(), my_grades.end(), 0.0)) / my_grades.size() << endl;
 
 	// vector:
 	// create vector of doubles
-	cout << "\n\nCreate empty vector to hold doubles, v_grades:\n";
+	cout << "\n\nCreate empty vector to hold doubles, v_grades\n";
 	int vec_sz = 10;
 	vector<double> v_grades;
 
 	// insert pseudo-random values into v_grades
-	cout << "nPopulate v_grades with pseudo-random values:\n";
+	cout << "\nPopulate v_grades with pseudo-random values:\n";
 	for (int i = 0; i < vec_sz; i++) 
 	{ 
 		v_grades.emplace(v_grades.begin(), (rand() % 100));
@@ -116,7 +116,7 @@ int main(void)
 	vector<Point> vpt0;
 	
 	// create PointArray, set Points to psuedo-random values 
-	cout << "\n\nCreate PointArray and set values:\n";
+	cout << "\n\nCreate PointArray and set values\n";
 	PointArray parr0(stack_size);
 	for (int i = 0; i < stack_size; i++)
 	{
@@ -133,11 +133,11 @@ int main(void)
 	for (auto pt : vpt0) cout << pt.ToString() << endl;
 
 	// set ostream iterator to print vector info to cout
-	cout << "\n\nSet ostream_iterator to print vector info:\n";
+	cout << "\n\nSet ostream_iterator to print vector info\n";
 	// create iterator output object 
 	ostream_iterator<Point, char> out_iter(cout, "\n");
 
-	cout << "\nvpt0 via iterator output object has:\n";
+	cout << "\nvpt0 via ostream_iterator output object has:\n";
 	copy(vpt0.begin(), vpt0.end(), out_iter);
 
 	// resize vector: double its size
@@ -189,7 +189,7 @@ int main(void)
 	}
 
 	// print more values using indexing operator: key values used as indices
-	cout << "\nThe Gas giants have larger diameters:\n";
+	cout << "\nThe gas giants have larger diameters:\n";
 	for (int i = 4, gas_giants = 8; i < gas_giants; i++)
 	{
 		cout << planets[i] << ": " << planet_diameters[planets[i]] << " Km" << endl;
