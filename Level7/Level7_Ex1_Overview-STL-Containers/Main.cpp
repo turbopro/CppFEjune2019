@@ -31,11 +31,11 @@ Test program for the STL -- built upon the previous work done thus far
 #include "StackException.h"	// StackException class declaration
 
 // STL
-#include <vector>			// for vector, copy
-#include <list>
-#include <map>
+#include <vector>			// for vector
+#include <list>				// for list
+#include <map>				// for map
 #include <iterator>			// for iter
-#include <algorithm>
+#include <algorithm>		// STL algorithms
 #include <numeric>			// std::accumulate
 
 
@@ -60,9 +60,8 @@ int main(void)
 	const string  radius{ "radius" };
 
 	double x{ 0.0 }, y{ 0.0 }, r{ 0.0 };		// declare/initialise geom_values
-	int arr_size{ 0 };					// array size should be positive only
+	int arr_size{ 0 };							// array size should be positive only
 	const int stack_size = 3;
-
 	
 	cout << "\n\n"
 		<< "|========================================|\n"
@@ -99,7 +98,6 @@ int main(void)
 
 	// insert pseudo-random values into v_grades
 	cout << "nPopulate v_grades with pseudo-random values:\n";
-	//cout.setf(0, ios::floatfield);
 	for (int i = 0; i < vec_sz; i++) 
 	{ 
 		v_grades.emplace(v_grades.begin(), (rand() % 100));
@@ -111,13 +109,14 @@ int main(void)
 
 	// use indexing operator to display values in a range
 	cout << "\nv_grades in the range from 3rd to 7th elements:\n";
-	for (int i = 2; i < 7; i++) { cout << v_grades[i] << endl; }
-
+	for (int lower = 2, upper = 7; lower < upper; lower++)
+		cout << v_grades[lower] << endl;
+	
 	// create vector of Points
 	vector<Point> vpt0;
 	
 	// create PointArray, set Points to psuedo-random values 
-	cout << "\nCreate PointArray and set values:\n";
+	cout << "\n\nCreate PointArray and set values:\n";
 	PointArray parr0(stack_size);
 	for (int i = 0; i < stack_size; i++)
 	{
@@ -142,7 +141,7 @@ int main(void)
 	copy(vpt0.begin(), vpt0.end(), out_iter);
 
 	// resize vector: double its size
-	cout << "\nDouble the size of vpt0:\n";
+	cout << "\n\nDouble the size of vpt0:\n";
 	vpt0.resize(6);
 
 	// print vpt0 info
@@ -153,25 +152,23 @@ int main(void)
 	copy(vpt0.begin(), vpt0.end(), out_iter);
 	cout << endl;
 
-	cout << endl;
-
 	// map:
-	// create strings for keys, doubles for data
-	string planets[] = { "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune" };
+	// create array of strings for keys, array of doubles for data
+	const string planets[] = { "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune" };
 	double diameters[] = { 4878, 12104, 12756, 6794, 142984, 120536, 51118, 49532 };
-	int ss_size = sizeof(planets) / sizeof(planets[0]);
+	int map_sz = sizeof(planets) / sizeof(planets[0]);
 
 	// create map of planets vs diameters (in Km)
 	map<string, double> planet_diameters;
 
 	// populate planet_diameters
-	for (int i = 0; i < ss_size; i++)
+	for (int i = 0; i < map_sz; i++)
 		planet_diameters.emplace(planets[i], diameters[i]);
 
 	// print planet_diameters
-	// format for comma thousands separator
+	// format for thousands separator = comma
 	locale loc("");
-	cout.imbue(loc);
+	locale US = cout.imbue(loc);
 	cout.precision(0);
 
 	cout << "\nMap of planets (listed alphabetically) vs their respective diameters (Km):\n"
@@ -187,6 +184,13 @@ int main(void)
 	// print values using indexing operator: key values used as indices
 	cout << "\nThe first four inner rocky planets tend to be smaller in diameter:\n";
 	for (int i = 0, rocky_planets = 4; i < rocky_planets; i++)
+	{
+		cout << planets[i] << ": " << planet_diameters[planets[i]] << " Km" << endl;
+	}
+
+	// print more values using indexing operator: key values used as indices
+	cout << "\nThe Gas giants have larger diameters:\n";
+	for (int i = 4, gas_giants = 8; i < gas_giants; i++)
 	{
 		cout << planets[i] << ": " << planet_diameters[planets[i]] << " Km" << endl;
 	}
