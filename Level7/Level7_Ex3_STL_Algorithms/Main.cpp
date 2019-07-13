@@ -82,20 +82,6 @@ bool user_input_geom(double& geom_value, const string& geom_id, const string& ge
 // declaration for user_input_array() function
 bool user_input_array(unsigned int& array_size);
 
-/*
-// template functions
-// given that container may be large, pass by reference is preferred
-template <typename T>
-double Sum(const T& container);
-
-// iterator is like a pointer; so as an argument, may be just as ok to pass by value
-template <typename T>
-double Sum(const typename T start_it, const typename T end_it);
-
-// is_less_than()
-bool is_less_than(double value);
-*/
-
 int main(void)
 {
 	using namespace Turbopro::Containers;		// namespace directive
@@ -288,52 +274,17 @@ int main(void)
 	cout << "\nNumber of elements in v_grades < 35: "
 		<< count_if(v_grades.begin(), v_grades.end(), is_less_than) << endl;
 
+	// count the number of elements in v_grades: use LessThan object
+	cout << "\nNumber of elements in v_grades < 35: using LessThan default object: "
+		<< count_if(v_grades.begin(), v_grades.end(), LessThan()) << endl;
 
 	cout << endl;
 
+	// count the number of elements in v_grades: use LessThan object
+	LessThan less_than(45);
+	cout << "\nNumber of elements in v_grades < 45: using LessThan object: "
+		<< count_if(v_grades.begin(), v_grades.end(), less_than) << endl;
+
+
 	return 0;
 }
-
-/*
-// Sum() definition
-template <typename T>
-double Sum(const T& container)
-{
-	double acc_sum = 0;				// initialise accumulator
-
-	// set const_iterator, it, to end()
-	// decrement it, and check if == begin()
-	// dereference it and add to the accumulator
-	// repeat until the loop terminates
-	for (typename T::const_iterator it = container.end(); it-- != container.begin(); )
-		acc_sum += *it;
-
-	// alternative that takes care of setting correct iterator type, makes good use
-	// of rbegin() and rend(), and no need for decrementing
-	//for (auto it = container.rbegin(); it != container.rend(); it++)
-	//	acc_sum += *it;
-
-	return acc_sum;
-}
-
-template <typename T>
-double Sum(const typename T start_it, const typename T end_it)
-{
-	double acc_sum = 0;			// initialise accumulator
-
-	// set type T iterator, it, to start_it
-	// dereference it and add to the accumulator
-	// increment it
-	// repeat until the loop terminates
-	for (T it = start_it; it != end_it; it++)
-		acc_sum += *it;
-
-	return acc_sum;
-}
-
-// is_less_than()
-bool is_less_than(double value)
-{
-	return (value < 35 ? true : false);
-}
-*/

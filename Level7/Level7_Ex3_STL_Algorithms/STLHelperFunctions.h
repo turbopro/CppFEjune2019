@@ -132,6 +132,7 @@ namespace Turbopro
 	namespace Containers
 	{
 		// template functions
+		// Sum() with container argument
 		// given that container may be large, pass by reference is preferred
 		template <typename T>
 		double Sum(const T& container)
@@ -153,7 +154,8 @@ namespace Turbopro
 			return acc_sum;
 		}
 
-		// iterator is like a pointer; so as an argument, may be just as ok to pass by value
+		// Sum() with iterator arguments
+		// iterator as an argument should be just as ok to pass by value
 		template <typename T>
 		double Sum(const typename T start_it, const typename T end_it)
 		{
@@ -181,11 +183,17 @@ namespace Turbopro
 			double threshold;			// threshold level
 
 		public:
-			LessThan() : threshold{ 35 }					// default constructor
-			~LessThan() {}									// destructor
-			LessThan& operator()(const LessThan& Other);	// overloaded assignment operator: virtual, derived classes to change
-			
+			LessThan() : threshold{ 35 } {}						// default constructor
+			explicit LessThan(double val) : threshold{ val } {}	// constructor
+			~LessThan() {}										// destructor
+			bool operator()(double entry) const;							// overloaded operator()()			
 		};
+
+		// overloaded operator()()
+		bool LessThan::operator()(double entry) const
+		{
+			return (entry < threshold ? true : false);
+		}
 	}
 }
 
