@@ -1,15 +1,39 @@
 /* Main.cpp
-Level7_Ex1: Overview of the Standard Template Library - STL Containers
+Level7_Ex2: Overview of the Standard Template Library - STL Iterators
 
 Test program for the STL -- built upon the previous work done thus far
 
  STL tests as follows:
-
+  Containers
 · Create a list of doubles and add some data.
 · Use the front() and back() functions to access the first and last element.
 · Create a vector of doubles and add some data. Then use the index operator 
   to access some elements. Also make the vector grow.
-· Create a map that maps strings to doubles. Fill the map and access elements using the square bracket operator.
+· Create a map that maps strings to doubles. Fill the map and access 
+  elements using the square bracket operator.
+
+  Iterators
+
+  Using iterators you can iterate a STL container without knowing which 
+  container it is. In this exercise you create a function that calculates 
+  the sum of a container with doubles.
+
+· Create a template function called Sum() that accepts the template
+  argument T as input and returns a double. The template argument will 
+  be a container.
+· In the implementation get an iterator (T::const_iterator) for the end.
+· Then create a loop that iterates the container T and adds all values. 
+· Finally return the sum.
+· In the main program, call the Sum() function for the different container 
+  from the previous exercise.
+
+The Sum() function created calculates the sum of the complete container.
+
+Additionally, create a Sum() function that calculates the sum of all values 
+between two passed-in iterators. The function should use the template 
+argument for the iterator type and accept two iterators, the 'start' - 
+and 'end' iterator. The summation should include the value pointed to by 
+the start iterator and exclude the value pointed to by the end iterator.
 
 */
 
@@ -46,6 +70,15 @@ bool user_input_geom(double& geom_value, const string& geom_id, const string& ge
 
 // declaration for user_input_array() function
 bool user_input_array(unsigned int& array_size);
+
+// template functions
+// given that container may be large, pass by reference is preferred
+template <typename T>
+double Sum(const T& container);
+
+// iterator is like a pointer; so as an argument, may be just as ok to pass by value
+template <typename T>
+double Sum(const typename T start_it, const typename T end_it);		
 
 int main(void)
 {
@@ -191,6 +224,87 @@ int main(void)
 		cout << planets[i] << ": " << planet_diameters[planets[i]] << " Km" << endl;
 	}
 
+	cout << endl;
+
+
+	cout << "\n\n"
+		<< "|========================================|\n"
+		<< "|             STL: Iterators             |\n"
+		<< "|========================================|\n\n";
+
+	// calculate sum of container using Sum()
+	cout << "\nSum of my_grades: " << Sum(my_grades) << endl;
+
+	// grow v_grades to include thousands of grades
+	cout << "\nresize v_grades to 2000 elements:\n";
+	v_grades.resize(2000);
+
+	// insert pseudo-random values into v_grades
+	cout << "nPopulate v_grades with pseudo-random values:\n";
+	vec_sz = v_grades.size();
+	for (int i = 0; i < vec_sz; i++)
+	{
+		v_grades.emplace(v_grades.begin(), ((rand() % 100) * 0.73));
+	}
+
+	// get sum of grades for v_grades
+	cout << "\nsum of grades in v_grades: " << Sum(v_grades) << endl;
+
+	// get sum of grades for v_grades
+	// use overloaded Sum() with iterator arguments
+	vector<double>::iterator it_begin = v_grades.begin();		// get start iterator
+	vector<double>::iterator it_end = v_grades.end();			// get end iterator
+	cout << "\nsum of grades in v_grades (using iterator arguments): "
+		<< Sum(it_begin, it_end) << endl;
+
+	// get sum of grades for first 200 elements of v_grades
+	vector<double>::iterator it_rng = next(it_begin, 200);		// get end iterator
+	cout << "\nsum of a range of grades for first 200 elements from v_grades: " 
+		<< Sum(it_begin, it_rng) << endl;
+
+	// get sum of grades for element 200 to 400 of v_grades
+	vector<double>::iterator it_rng_start = next(it_begin, 199);	// get start iterator
+	vector<double>::iterator it_rng_end = next(it_begin, 400);		// get end iterator
+	cout << "\nsum of a range of grades for element 200 to 400 from v_grades: "
+		<< Sum(it_rng_start, it_rng_end) << endl;
+
+	cout << endl;
+
 	return 0;
 }
 
+// Sum() definition
+template <typename T>
+double Sum(const T& container)
+{
+	double acc_sum = 0;				// initialise accumulator
+
+	// set const_iterator, it, to end()
+	// decrement it, and check if == begin()
+	// dereference it and add to the accumulator
+	// repeat until the loop terminates
+	for (typename T::const_iterator it = container.end(); it-- != container.begin(); )
+		acc_sum += *it;
+
+	// alternative that takes care of setting correct iterator type, makes good use
+	// of rbegin() and rend(), and no need for decrementing
+	//for (auto it = container.rbegin(); it != container.rend(); it++)
+	//	acc_sum += *it;
+
+	return acc_sum;
+}
+
+template <typename T>
+double Sum(const typename T start_it, const typename T end_it)
+{
+	double acc_sum = 0;			// initialise accumulator
+
+	// set type T iterator, it, to start_it
+	// dereference it and add to the accumulator
+	// increment it
+	// repeat until the loop terminates
+	for (T it = start_it; it != end_it; it++)
+		acc_sum += *it;
+
+	return acc_sum;
+}
