@@ -14,7 +14,7 @@ Includes:
 	to be compared to the threshold data member, to return a bool: tru or 
 	false
 
-is_less_than() and lass LessThan are used by count_if algorithm of the STL
+is_less_than() and LessThan are used by count_if algorithm of the STL
 
 */
 
@@ -33,7 +33,7 @@ namespace Turbopro
 		// is_less_than()
 		bool is_less_than(double value)
 		{
-			return (value < 35 ? true : false);
+			return value < 35;
 		}
 		
 		class LessThan
@@ -50,7 +50,7 @@ namespace Turbopro
 			~LessThan() {}										// destructor
 			void SetThreshold(double new_val) { threshold = new_val; }	// setter
 			double GetThreshold() const { return threshold; }	// getter
-			LessThan& operator=(const LessThan& Other);			// overloaded assignment operator: Shape& operator=(const Shape& Other)
+			LessThan& operator=(const LessThan& Other);			// overloaded assignment operator
 			bool operator()(double entry) const;				// overloaded operator()()			
 		};
 
@@ -68,7 +68,7 @@ namespace Turbopro
 		// overloaded operator()()
 		bool LessThan::operator()(double entry) const
 		{
-			return (entry < threshold ? true : false);
+			return entry < threshold;
 		}
 	}
 }

@@ -400,7 +400,7 @@ double Sum(const map<string, double>& container)
 	// decrement it, and check if == begin()
 	// dereference it and add to the accumulator
 	// repeat until the loop terminates
-	for (typename map<string, double>::const_iterator it = container.end(); it-- != container.begin(); )
+	for (map<string, double>::const_iterator it = container.end(); it-- != container.begin(); )
 		acc_sum += it->second;
 
 	return acc_sum;
