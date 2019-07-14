@@ -67,10 +67,10 @@ member that was set in the constructor of the function object.
 
 // STL
 #include <vector>			// for vector, copy
-#include <list>
-#include <map>
+#include <list>				// for map
+#include <map>				// for list
 #include <iterator>			// for iter
-#include <algorithm>
+#include <algorithm>		// for count_if
 #include <numeric>			// std::accumulate
 #include "STLHelperFunctions.h"	// STL helper functions
 
@@ -81,6 +81,7 @@ bool user_input_geom(double& geom_value, const string& geom_id, const string& ge
 
 // declaration for user_input_array() function
 bool user_input_array(unsigned int& array_size);
+
 
 // template functions -- generic for List, Vector
 // Sum() definition for List and Vector, with container as argument
@@ -102,6 +103,7 @@ double Sum(const map<string, double>& container);
 // Sum() definition for Map with iterator range as argument
 template <>
 double Sum(map<string, double>::const_iterator start_it, map<string, double>::const_iterator end_it);
+
 
 int main(void)
 {
@@ -280,6 +282,7 @@ int main(void)
 
 	// calculate sum of grades for v_grades (Vector) using Sum() with container argument
 	cout << "\nSum of grades in v_grades (Vector: Sum() using container argument): "
+		<< fixed << setprecision(2)			// display to two decimal places
 		<< Sum(v_grades) << endl;
 
 	// calculate sum of grades for v_grades (Vector) using Sum() with iterator arguments
@@ -299,6 +302,7 @@ int main(void)
 	cout << "\nSum of grades for elements 200 thru 400 from v_grades: "
 		<< Sum(it_rng_start, it_rng_end) << endl;
 
+	cout.precision(0);						// reset display to zero decimal places
 	// calculate sum of diameters for all planets (Map) using Sum() with container argument
 	cout << "\nSum of diameters for all planets (Map: Sum() using container argument): "
 		<< Sum(planet_diameters) << " Km" << endl;
@@ -313,7 +317,7 @@ int main(void)
 	// calculate sum of diameters for first four planets (listed alphabetically in planet_diameters)
 	map<string, double>::const_iterator it_mrng_end = next(it_mbegin, 4);		// get end iterator for range
 
-	cout << "\nSum of diameters for irst four planets (alphabetically) in planet_diameters\n"
+	cout << "\nSum of diameters for first four planets (alphabetically) in planet_diameters map\n"
 		<< "(Map: Sum() using iterator arguments): " << Sum(it_mbegin, it_mrng_end) << " Km" << endl;
 
 
@@ -323,28 +327,27 @@ int main(void)
 		<< "|========================================|\n";	
 
 	// count the number of elements in v_grades < 35
-	cout << "\nNumber of elements in v_grades < 35: "
+	cout << "\nNumber of elements in v_grades (Vector) < 35: "
 		<< count_if(v_grades.begin(), v_grades.end(), is_less_than) << endl;
 
 	// count the number of elements in v_grades: use LessThan object
-	cout << "\nNumber of elements in v_grades < 35: using LessThan default object: "
+	cout << "\nNumber of elements in v_grades (Vector) < 35: using LessThan default object: "
 		<< count_if(v_grades.begin(), v_grades.end(), LessThan()) << endl;
 
 	// count the number of elements in v_grades: use LessThan object
 	LessThan less_than(45);
-	cout << "\nNumber of elements in v_grades < " << less_than.GetThreshold()
+	cout << "\nNumber of elements in v_grades (Vector) < " << less_than.GetThreshold()
 		<< ": using LessThan constructed object: "
 		<< count_if(v_grades.begin(), v_grades.end(), less_than) << endl;
 
-	// count the number of elements in v_grades: use LessThan object
+	// count the number of elements in my_grades: use LessThan object
 	less_than.SetThreshold(95);
-	cout << "\nNumber of elements in v_grades < " << less_than.GetThreshold()
+	cout << "\nNumber of elements in my_grades (List) < " << less_than.GetThreshold()
 		<< ": using LessThan constructed object: "
 		<< count_if(my_grades.begin(), my_grades.end(), less_than) << endl << endl;
 
 	return 0;
 }
-
 
 // template functions -- generic for List, Vector
 // Sum() definition for List and Vector, with container as argument
@@ -367,6 +370,7 @@ double Sum(const T& container)
 
 	return acc_sum;
 }
+
 
 // Sum() definition for List and Vector, with iterator range argument
 // pass by value for iterators
@@ -396,14 +400,8 @@ double Sum(const map<string, double>& container)
 	// decrement it, and check if == begin()
 	// dereference it and add to the accumulator
 	// repeat until the loop terminates
-	//for (typename map<S, D>::const_iterator it = container.end(); it-- != container.begin(); )
 	for (typename map<string, double>::const_iterator it = container.end(); it-- != container.begin(); )
 		acc_sum += it->second;
-
-	// alternative that takes care of setting correct iterator type, makes good use
-	// of rbegin() and rend(), and no need for decrementing
-	//for (auto it = container.rbegin(); it != container.rend(); it++)
-	//	acc_sum += *it;
 
 	return acc_sum;
 }
@@ -420,9 +418,11 @@ double Sum(map<string, double>::const_iterator start_it, map<string, double>::co
 	// add the value to the accumulator
 	// increment it
 	// repeat until the loop terminates
-	//for (typename map<string, double>::const_iterator it = start_it; it != end_it; it++)
 	for (map<string, double>::const_iterator it = start_it; it != end_it; it++)
 		acc_sum += it->second;
 
 	return acc_sum;
 }
+
+
+

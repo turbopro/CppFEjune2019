@@ -3,26 +3,18 @@ Level7_Ex3: Overview of the Standard Template Library - STL Algorithms
 
 header file for the STL Helper Functions class
 
-Our Templated Array class has three private data members:
-· a dynamic array of templated TArray objects
-· an integer for the size of the array
-· and a static int for the size of the default constructor
+Includes:
 
-We will make the templatised Array glass as generic as posible so
-we may use it as a general purpose containers for several types of
-objects: e.g., numeric objects, string objects, other array objects
+-	global function is_less_than() that takes a double value, determines if 
+	the value is less than a pre-determined value, and returns a bool: true
+	or false
+	
+	class LessThan stores a data member double threshold value; also includes
+	an overloaded operator() function that accepts a double argument as input
+	to be compared to the threshold data member, to return a bool: tru or 
+	false
 
-The array will have:
-
-· Default constructor (allocate 10 elements; store value as static data member)
-· Constructor
-· Copy constructor
-· Destructor
-· Size method
-· Assignment operator
-· Getter method
-· Setter method
-· Static Getter/Setter methods for the static data member
+is_less_than() and lass LessThan are used by count_if algorithm of the STL
 
 */
 
@@ -62,9 +54,6 @@ namespace Turbopro
 			bool operator()(double entry) const;				// overloaded operator()()			
 		};
 
-		// initialise static data member
-		//double LessThan::default_val = 35.0;
-
 		// overloaded operator=()
 		LessThan& LessThan::operator=(const LessThan& Other)
 		{
@@ -81,7 +70,6 @@ namespace Turbopro
 		{
 			return (entry < threshold ? true : false);
 		}
-		
 	}
 }
 

@@ -245,7 +245,7 @@ int main(void)
 	cout << "\n\n"
 		<< "|========================================|\n"
 		<< "|             STL: Iterators             |\n"
-		<< "|========================================|\n\n";
+		<< "|========================================|\n";
 
 	// calculate sum of container (List) elements using Sum() with container argument
 	cout << "\nSum of my_grades (List: Sum() using container argument): " 
@@ -268,7 +268,8 @@ int main(void)
 	}
 
 	// calculate sum of grades for v_grades (Vector) using Sum() with container argument
-	cout << "\nSum of grades in v_grades (Vector: Sum() using container argument): " 
+	cout << "\nSum of grades in v_grades (Vector: Sum() using container argument): "
+		<< fixed << setprecision(2)			// display to two decimal places 
 		<< Sum(v_grades) << endl;
 
 	// calculate sum of grades for v_grades (Vector) using Sum() with iterator arguments
@@ -288,6 +289,7 @@ int main(void)
 	cout << "\nSum of grades for elements 200 thru 400 from v_grades: "
 		<< Sum(it_rng_start, it_rng_end) << endl;
 	
+	cout.precision(0);					// reset display to zero decimal places
 	// calculate sum of diameters for all planets (Map) using Sum() with container argument
 	cout << "\nSum of diameters for all planets (Map: Sum() using container argument): "
 		<< Sum(planet_diameters) << " Km" << endl;
@@ -303,11 +305,7 @@ int main(void)
 	map<string, double>::const_iterator it_mrng_end = next(it_mbegin, 4) ;		// get end iterator for range
 
 	cout << "\nSum of diameters for irst four planets (alphabetically) in planet_diameters\n"
-		<< "(Map: Sum() using iterator arguments): " << Sum(it_mbegin, it_mrng_end) << " Km" << endl;
-
-
-	cout << endl;
-	
+		<< "(Map: Sum() using iterator arguments): " << Sum(it_mbegin, it_mrng_end) << " Km" << endl << endl;
 
 	return 0;
 }

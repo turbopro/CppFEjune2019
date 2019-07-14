@@ -1,5 +1,5 @@
 /* Array.h
-Level7_Ex2: Overview of the Standard Template Library - STL Iterators
+Level7_Ex3: Overview of the Standard Template Library - STL Algorithms
  
 header file for the Templated Array class
 
