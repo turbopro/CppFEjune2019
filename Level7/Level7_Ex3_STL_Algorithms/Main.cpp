@@ -312,7 +312,7 @@ int main(void)
 	map<string, double>::const_iterator it_mend = planet_diameters.end();		// get end iterator for range
 
 	cout << "\nSum of diameters for all planets (Map: Sum() using iterator arguments): "
-		<< Sum(it_mbegin, it_mend) << " Km" << endl;
+		<< Sum<>(it_mbegin, it_mend) << " Km" << endl;
 
 	// calculate sum of diameters for first four planets (listed alphabetically in planet_diameters)
 	map<string, double>::const_iterator it_mrng_end = next(it_mbegin, 4);		// get end iterator for range
@@ -360,7 +360,8 @@ double Sum(const T& container)
 	// decrement it, and check if == begin()
 	// dereference it and add to the accumulator
 	// repeat until the loop terminates
-	for (typename T::const_iterator it = container.end(); it-- != container.begin(); )
+	//for (typename T::const_iterator it = container.end(); it-- != container.begin(); )
+	for (auto it = container.end(); it-- != container.begin(); )
 		acc_sum += *it;
 
 	// alternative that takes care of setting correct iterator type, makes good use
@@ -400,7 +401,8 @@ double Sum(const map<string, double>& container)
 	// decrement it, and check if == begin()
 	// dereference it and add to the accumulator
 	// repeat until the loop terminates
-	for (map<string, double>::const_iterator it = container.end(); it-- != container.begin(); )
+	//for (map<string, double>::const_iterator it = container.end(); it-- != container.begin(); )
+	for (auto it = container.end(); it-- != container.begin(); )
 		acc_sum += it->second;
 
 	return acc_sum;
@@ -418,11 +420,9 @@ double Sum(map<string, double>::const_iterator start_it, map<string, double>::co
 	// add the value to the accumulator
 	// increment it
 	// repeat until the loop terminates
-	for (map<string, double>::const_iterator it = start_it; it != end_it; it++)
+	//for (map<string, double>::const_iterator it = start_it; it != end_it; it++)
+	for (auto it = start_it; it != end_it; it++)
 		acc_sum += it->second;
 
 	return acc_sum;
 }
-
-
-
