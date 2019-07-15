@@ -126,7 +126,7 @@ the Array Tempalte class is part of the Turbopro::Containers namespace
 #include "Point.h"
 #include <iostream>
 #include <vector>
-#include "boost/shared_ptr.hpp"
+#include <boost/shared_ptr.hpp>
 
 // namespace declaration
 namespace Turbopro
@@ -137,17 +137,9 @@ namespace Turbopro
 		template <typename TArray>
 		class Array
 		{
-			// Typedef for a shared pointer to shape and
-			// a typedef for an array with shapes stored as shared pointers.
-			//typedef boost::shared_ptr<Shape> ShapePtr;
-			//typedef Array<ShapePtr> ShapeArray;
-
-			typedef boost::shared_ptr<TArray> sptrTArray;
-
 		private:
-			//TArray* m_data;
-			//boost::shared_ptr<TArray> m_data;	// using shared pointer
-			sptrTArray m_data;				// using shared pointer
+			TArray* m_data;
+			//sptrTArray m_data;				// using shared pointer
 			int m_arr_size;					// using int: handling indexing errors with exceptions  
 			
 			static int ArraySize;			// size of array for default constructor

@@ -51,6 +51,7 @@ member that was set in the constructor of the function object.
 #define _USE_MATH_DEFINES	// for PI
 
 #include <iostream>
+#include <typeinfo>
 #include <string>			// for string operations
 #include <iomanip>			// set fixed and precision for cout/cin
 #include <cmath>			// for PI
@@ -73,6 +74,7 @@ member that was set in the constructor of the function object.
 #include <algorithm>		// for count_if
 #include <numeric>			// std::accumulate
 #include "STLHelperFunctions.h"	// STL helper functions
+#include <boost/shared_ptr.hpp>	// Boost C Library Shared Pointer header file
 
 using namespace std;
 
@@ -121,7 +123,31 @@ int main(void)
 	int arr_size{ 0 };					// array size should be positive only
 	const int stack_size = 3;
 
+
+	cout << "\n\n"
+		<< "|========================================|\n"
+		<< "|               SmartPtrs                |\n"
+		<< "|========================================|\n";
+
+
+	// Typedef for a shared pointer to shape and
+	// a typedef for an array with shapes stored as shared pointers.
+	typedef boost::shared_ptr<Point> PointPtr;
+	typedef Array<PointPtr> ptArray;
+
+	ptArray sptr_parr0(5);
 	
+	cout << "size of sptr_parr0: " << sptr_parr0.Size() << endl;
+	cout << "type of sptr_parr0: " << typeid(sptr_parr0).name() << endl
+		<< "sptr_parr0[0]: " << typeid(sptr_parr0[0]).name() << endl << endl;
+	
+	cout << "\nset sptr_parr0[0] values: ";
+	sptr_parr0[0]->Print();
+	//sptr_parr0[0]->Y(5);
+		
+	//cout << "\n\nsptr_parr0[0]: " << sptr_parr0[0]->ToString() << endl << endl;	
+
+	/*
 	cout << "\n\n"
 		<< "|========================================|\n"
 		<< "|       STL: List, Vector, and Map       |\n"
@@ -345,6 +371,8 @@ int main(void)
 	cout << "\nNumber of elements in my_grades (List) < " << less_than.GetThreshold()
 		<< ": using LessThan constructed object: "
 		<< count_if(my_grades.begin(), my_grades.end(), less_than) << endl << endl;
+	
+	*/
 
 	return 0;
 }
