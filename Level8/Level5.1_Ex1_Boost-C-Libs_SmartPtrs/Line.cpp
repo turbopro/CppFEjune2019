@@ -47,7 +47,7 @@ namespace Turbopro
 			: Shape{ Other }, m_startpoint{ Other.m_startpoint }, m_endpoint{ Other.m_endpoint } {}
 
 		// Destructor
-		Line::~Line() {}
+		Line::~Line() { std::cout << this->ToString() << " destructing... " << std::endl; }
 
 		// ToString() 
 		// use Point::ToString() of the Point objects

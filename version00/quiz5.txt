@@ -165,3 +165,156 @@ Blue Nile:	Exchange orders can only be created by phone Vernon on 800 242 2728
 Order number: 77416949 
 RMA: 999859019
 
+
+
+==============================
+Level 5.1_Ex1
+
+code for nitty gritty Point and Line objects
+
+/*
+		// create Array of regular pointers to Point objects
+		cout << "\n\nCreate array of regular pointers to Point objects:\n";
+		Array<Point*> ptr_parr1(arr_size);
+
+		cout << "\nSize of ptr_parr1: " << ptr_parr1.Size() << endl
+			<< "Type of ptr_parr1: " << typeid(ptr_parr1).name() << endl
+			<< "ptr_parr1[1]: " << typeid(ptr_parr1[1]).name() << endl << endl;
+
+		// set values of the Point objects pointed to by the regular pointers
+		cout << "\nSet values of the Point objects pointed to by the regular pointers:\n\n";
+		for (int i = 0; i < ptr_parr1.Size(); i++)
+		{
+			ptr_parr1[i] = new Point((rand() % 20) * 0.93, (rand() % 10) * 0.72);
+			cout << "ptr_parr1[" << i << "] points to: "
+				<< ptr_parr1[i]->ToString() << endl;
+		}
+
+		// create a dynamically allocated Point with regular pointer
+		cout << "\n\nCreate a dynamically allocated Point object via a regular Point pointer:\n";
+		Point* ppt0 = new Point(3.7, 4.13);
+		cout << "\nppt0 points to: " << ppt0->ToString() << endl
+			<< "Type of ppt0: " << typeid(ppt0).name() << endl << endl;
+
+		// create a dynamically allocated Point with shared_ptr
+		cout << "\nCreate a dynamically allocated Point object via a shared_ptr:\n";
+		PointPtr sptr0(new Point(6, 8));
+		cout << "\nsptr0 points to: " << sptr0->ToString() << endl
+			<< "Type of sptr0: " << typeid(sptr0).name() << endl
+			<< "sptr0 use_count: " << sptr0.use_count() << endl << endl;
+
+		// set sptr_parr0[0] to point to same Point object as pointed to by sptr0
+		cout << "\nSet sptr_parr0[0] to point to same Point object as sptr0:\n";
+		sptr_parr0.SetElement(sptr0, 0);
+		
+		cout << "\n\nsptr_parr0[0] and sptr0 point to the same Point object\n"
+			<< "\nsptr_parr0[0] points to: " << sptr_parr0[0]->ToString() << endl
+			<< "\tsptr0 points to: " << sptr0->ToString() << endl
+			<< "\nsptr_parr0[0] use_count: " << sptr_parr0[0].use_count() << endl
+			<< "\tsptr0 use_count: " << sptr0.use_count() << endl << endl;
+		
+		// terminate Points dynamically allocated by regular Point pointers
+		cout << "\nManually terminate Point objects dynamically allocated by regular Point pointers"
+			<< "\nTerminate ppt0:\n";
+		delete ppt0;
+
+		// delete regular pointers to dynamically allocated Point objects
+		cout << "\nDelete regular pointers to dynamically allocated Point objects:\n\n";
+		for (int i = 0; i < arr_size; i++)
+			delete ptr_parr1[i];
+
+		cout << "\n\nLeaving block\n" 
+			<< "\nArrays (with built-in destructors) and Point objects dynamically\n" 
+			<< "allocated by smart_ptrs will self destruct now:\n\n";
+
+		*/
+	}
+
+	/*
+	// Typedef for a shared pointer to shape and
+	// a typedef for an array with shapes stored as shared pointers.
+	typedef boost::shared_ptr<Line> LinePtr;
+	typedef Array<LinePtr> lnArray;
+
+	// the below code runs in a block to create Line objects via shared_ptrs
+	// at the end of the block, we observe the shared_ptr destructors at work automagically
+	{
+		cout << "\n\n"
+			<< "|========================================|\n"
+			<< "|            2: LINE objects             |\n"
+			<< "|========================================|\n";
+		// create array of shared pointers to Point objects
+		cout << "\nInside second block:\n\n"
+			<< "\nCreate array of shared_ptrs to Line objects:\n";
+		lnArray sptr_larr0(arr_size);
+
+		cout << "\nSize of sptr_larr0: " << sptr_larr0.Size() << endl
+			<< "Type of sptr_larr0: " << typeid(sptr_larr0).name() << endl
+			<< "sptr_larr0[0]: " << typeid(sptr_larr0[0]).name() << endl
+			<< "sptr_larr0[0] use_count: " << sptr_larr0[0].use_count() << endl << endl;
+
+		// set Line objects values: reset nullptrs created as default for the
+		// sptr_larr0 array of shared_ptrs to Line objects
+		cout << "\n'reset' nullptrs to Line objects and set values for Line objects:\n\n";
+		for (int i = 0; i < sptr_larr0.Size(); i++)
+		{
+			sptr_larr0[i].reset(new Line(Point(rand() % 30, rand() % 10), 
+				Point(rand() % 50, rand() % 25)));
+			cout << "sptr_larr0[" << i << "] points to: "
+				<< sptr_larr0[i]->ToString() << endl;
+		}
+
+		// create Array of regular pointers to Line objects
+		cout << "\n\nCreate array of regular pointers to Line objects:\n";
+		Array<Line*> ptr_larr1(arr_size);
+
+		cout << "\nSize of ptr_larr1: " << ptr_larr1.Size() << endl
+			<< "Type of ptr_larr1: " << typeid(ptr_larr1).name() << endl
+			<< "ptr_larr1[1]: " << typeid(ptr_larr1[1]).name() << endl << endl;
+
+		// set values of the Line objects pointed to by the regular pointers
+		cout << "\nSet values of the Line objects pointed to by the regular pointers:\n\n";
+		for (int i = 0; i < ptr_larr1.Size(); i++)
+		{
+			ptr_larr1[i] = new Line(Point((rand() % 30 * 0.45), (rand() % 10 * 1.12)),
+				Point((rand() % 50 * 0.34), (rand() % 25 * 1.05)));
+			cout << "ptr_larr1[" << i << "] points to: "
+				<< ptr_larr1[i]->ToString() << endl;
+		}
+
+		// create a dynamically allocated Line with regular pointer
+		cout << "\n\nCreate a dynamically allocated Line object via a regular Line pointer:\n";
+		Line* lpt0 = new Line(Point(3.7, 4.13), Point(1.4, 6.9));
+		cout << "\nlpt0 points to: " << lpt0->ToString() << endl
+			<< "Type of lpt0: " << typeid(lpt0).name() << endl << endl;
+
+		// create a dynamically allocated Line with shared_ptr
+		cout << "\nCreate a dynamically allocated Line object via a shared_ptr:\n";
+		LinePtr sptr0(new Line(Point(3.7, 4.13), Point(1.4, 6.9)));
+		cout << "\nsptr0 points to: " << sptr0->ToString() << endl
+			<< "Type of sptr0: " << typeid(sptr0).name() << endl
+			<< "sptr0 use_count: " << sptr0.use_count() << endl << endl;
+
+		// set sptr_larr0[0] to point to same Line object as pointed to by sptr0
+		cout << "\nSet sptr_larr0[0] to point to same Line object as sptr0:\n";
+		sptr_larr0.SetElement(sptr0, 0);
+
+		cout << "\n\nsptr_larr0[0] and sptr0 point to the same Line object\n"
+			<< "\nsptr_larr0[0] points to: " << sptr_larr0[0]->ToString() << endl
+			<< "\tsptr0 points to: " << sptr0->ToString() << endl
+			<< "\nsptr_larr0[0] use_count: " << sptr_larr0[0].use_count() << endl
+			<< "\tsptr0 use_count: " << sptr0.use_count() << endl << endl;
+
+		// terminate Lines dynamically allocated by regular Line pointers
+		cout << "\nManually terminate Line objects dynamically allocated by regular Line pointers"
+			<< "\nTerminate lpt0:\n";
+		delete lpt0;
+
+		// delete regular pointers to dynamically allocated Line objects
+		cout << "\nDelete regular pointers to dynamically allocated Line objects:\n\n";
+		for (int i = 0; i < arr_size; i++)
+			delete ptr_larr1[i];
+
+		cout << "\n\nLeaving block\n"
+			<< "\nArrays (with built-in destructors) and Line objects dynamically\n"
+			<< "allocated by smart_ptrs will self destruct now:\n\n";

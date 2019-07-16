@@ -44,16 +44,20 @@ namespace Turbopro
 		// constructor using colon syntax initialiser
 		Circle::Circle(const double& radius, const Point& centrepoint)
 			: Shape{}, m_radius{ radius }, m_centrepoint{ centrepoint } {}
+		//{ std::cout << "Circle constructor\n"; }
 
 		// default constructor
 		Circle::Circle() : Shape{}, m_radius{ 0.0 }, m_centrepoint{ Point{ 0, 0 } } {}
+		//{ std::cout << "Circle default constructor\n"; }
 
 		// copy constructor
 		Circle::Circle(const Circle& Other)
 			: Shape{ Other }, m_radius{ Other.m_radius }, m_centrepoint{ Other.m_centrepoint } {}
+		//{std::cout << "Circle copy constructor\n"; }
 
 		// Destructor definition
-		Circle::~Circle() {}
+		Circle::~Circle() //{}
+		{ std::cout << this->ToString() << " destructing... \n"; }
 
 		// ToString() definition
 		// use Point::ToString() to print Point object values

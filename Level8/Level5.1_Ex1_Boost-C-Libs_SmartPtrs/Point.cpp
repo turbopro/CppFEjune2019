@@ -40,6 +40,7 @@ namespace Turbopro
 		// use colon initialiser for Base Class object initialisation for constructors
 		// constructor
 		Point::Point(double x_coord, double y_coord) : Shape{}, m_x{ x_coord }, m_y{ y_coord } {}
+		//{ std::cout << "Point constructor\n"; }
 
 		// single argument constructor using colon syntax initialiser
 		// this constructor is used as an implicit conversion operator
@@ -47,9 +48,11 @@ namespace Turbopro
 
 		// default constructor
 		Point::Point() : Shape{}, m_x { 0 }, m_y{ 0 } {}
+		//{ std::cout << "Point default constructor\n"; }
 
 		// copy constructor
 		Point::Point(const Point& Other) : Shape{ Other } , m_x { Other.m_x }, m_y{ Other.m_y } {}
+		//{ std::cout << "Point copy constructor\n"; }
 
 		// Destructor
 		Point::~Point() { std::cout << this->ToString() << " destructing..." << std::endl; }
