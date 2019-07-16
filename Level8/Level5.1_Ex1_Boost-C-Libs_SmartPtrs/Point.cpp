@@ -52,7 +52,7 @@ namespace Turbopro
 		Point::Point(const Point& Other) : Shape{ Other } , m_x { Other.m_x }, m_y{ Other.m_y } {}
 
 		// Destructor
-		Point::~Point() {}
+		Point::~Point() { std::cout << this->ToString() << " destructing..." << std::endl; }
 
 		// ToString(): polymorphic method defined by the relevant class object, Point in this case
 		std::string Point::ToString() const

@@ -107,6 +107,10 @@ template <>
 double Sum(map<string, double>::const_iterator start_it, map<string, double>::const_iterator end_it);
 
 
+// print a simple message
+void message(const char* s) { cout << s << endl; }
+void message(const char* s, const int n) { cout << s << ": " << n << endl; }
+
 int main(void)
 {
 	using namespace Turbopro::Containers;		// namespace directive
@@ -120,7 +124,7 @@ int main(void)
 	const string  radius{ "radius" };
 
 	double x{ 0.0 }, y{ 0.0 }, r{ 0.0 };		// declare/initialise geom_values
-	int arr_size{ 0 };					// array size should be positive only
+	const int arr_size{ 3 };					// array size should be positive only
 	const int stack_size = 3;
 
 
@@ -135,17 +139,80 @@ int main(void)
 	typedef boost::shared_ptr<Point> PointPtr;
 	typedef Array<PointPtr> ptArray;
 
-	ptArray sptr_parr0(5);
-	
-	cout << "size of sptr_parr0: " << sptr_parr0.Size() << endl;
-	cout << "type of sptr_parr0: " << typeid(sptr_parr0).name() << endl
-		<< "sptr_parr0[0]: " << typeid(sptr_parr0[0]).name() << endl << endl;
-	
-	cout << "\nset sptr_parr0[0] values: ";
-	sptr_parr0[0]->Print();
-	//sptr_parr0[0]->Y(5);
+	// run the below code in its own block
+	// at its end, we observe the shared_ptr destructors at work automagically
+	{
+		// create array of shared pointers to Point objects
+		cout << "\nCreate array of shared_ptrs to Point objects:\n";
+		ptArray sptr_parr0(arr_size);
+
+		cout << "\nSize of sptr_parr0: " << sptr_parr0.Size() << endl
+			<< "Type of sptr_parr0: " << typeid(sptr_parr0).name() << endl
+			<< "sptr_parr0[0]: " << typeid(sptr_parr0[0]).name() << endl
+			<< "sptr_parr0[0] use_count: " << sptr_parr0[0].use_count() << endl << endl;
+
+		// set Point objects values: reset nullptrs created as default for the
+		// sptr_parr0 array of shared_ptrs to Point objects
+		cout << "'reset' nullptrs to Point objects and set values:\n\n";
+		for (int i = 0; i < sptr_parr0.Size(); i++)
+		{
+			sptr_parr0[i].reset(new Point(rand() % 10, rand() % 20));
+			cout << "shared_ptr " << i << " points to: "
+				<< sptr_parr0[i]->ToString() << endl;
+		}
+
+		// create Array of regular pointers to Point objects
+		cout << "\nCreate array of regular pointers to Point objects:\n";
+		Array<Point*> ptr_parr1(arr_size);
+
+		cout << "\nSize of ptr_parr1: " << ptr_parr1.Size() << endl
+			<< "Type of ptr_parr1: " << typeid(ptr_parr1).name() << endl
+			<< "ptr_parr1[1]: " << typeid(ptr_parr1[1]).name() << endl << endl;
+
+		// set values of the Point objects pointed to by the regular pointers
+		cout << "\nSet values of the Point objects pointed to by the regular pointers:\n";
+		for (int i = 0; i < ptr_parr1.Size(); i++)
+		{
+			ptr_parr1[i] = new Point((rand() % 20) * 0.93, (rand() % 10) * 0.72);
+			cout << "regular pointer " << i << " points to: "
+				<< ptr_parr1[i]->ToString() << endl;
+		}
+
+		// create a dynamically allocated Point with regular pointer
+		cout << "\n\nCreate a dynamically allocated Point object via a regular Point pointer:\n";
+		Point* ppt0 = new Point(3, 4);
+		cout << "\nppt0 has values: " << ppt0->ToString() << endl
+			<< "Type of ppt0: " << typeid(ppt0).name() << endl << endl;
+
+		// create a dynamically allocated Point with shared_ptr
+		cout << "\nCreate a dynamically allocated Point object via a shared_ptr:\n";
+		PointPtr sptr0(new Point(6, 8));
+		cout << "\nsptr0 has values: " << sptr0->ToString() << endl
+			<< "Type of sptr0: " << typeid(sptr0).name() << endl
+			<< "sptr0 use_count: " << sptr0.use_count() << endl << endl;
+
+		// set sptr_parr0[0] to same Point object as pointed to by sptr0
+		cout << "\nSet sptr_parr0[0] to point to same Point object as sptr0:\n";
+		sptr_parr0.SetElement(sptr0, 0);
 		
-	//cout << "\n\nsptr_parr0[0]: " << sptr_parr0[0]->ToString() << endl << endl;	
+		cout << "\n\nsptr_parr0[0] use_count: " << sptr_parr0[0].use_count() << endl
+			<< "sptr_sptr0 use_count: " << sptr0.use_count() << endl << endl;
+
+		cout << "\nsptr_parr0[0] has: " << sptr_parr0[0]->ToString() << endl
+			<< "\tsptr0 has: " << sptr0->ToString() << endl << endl;
+
+		cout << "\nTerminate ppt0:\n";
+		delete ppt0;
+
+		// delete regular pointers to dynamically allocated Point objects
+		cout << "\nDelete regular pointers to dynamically allocated Point objects:\n";
+		for (int i = 0; i < arr_size; i++)
+			delete ptr_parr1[i];
+
+		cout << "\n\nLeaving block\n" << endl;
+	}
+
+	cout << "returning from main() to OS\n" << endl;
 
 	/*
 	cout << "\n\n"
