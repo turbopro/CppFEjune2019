@@ -140,7 +140,8 @@ int main(void)
 	typedef Array<ShapePtr> ShapeArray;
 
 	// the below code runs in a try block to create Shape objects via shared_ptrs
-	// at the end of the block, we observe the shared_ptr destructing automagically
+	// at the end of the block, we observe the Shape objects, dynamically allocated
+	// using shared_ptrs, destructing automagically
 	// any Array exceptions should be caught
 	try
 	{
