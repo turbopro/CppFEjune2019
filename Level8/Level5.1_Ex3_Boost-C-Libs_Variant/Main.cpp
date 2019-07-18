@@ -73,7 +73,8 @@ member that was set in the constructor of the function object.
 #include <iterator>			// for iter
 #include <algorithm>		// for count_if
 #include <numeric>			// std::accumulate
-#include "STLHelperFunctions.h"	// STL helper functions
+#include "STLHelperFunctions.h"		// STL helper functions
+#include "BoostHelperFunctions.h"	// Boost helper functions
 
 // Boost C Libraries Header Files
 #include <boost/shared_ptr.hpp>			// for Shared Pointer: shared_ptr 
@@ -112,21 +113,9 @@ double Sum(const map<string, double>& container);
 template <>
 double Sum(map<string, double>::const_iterator start_it, map<string, double>::const_iterator end_it);
 
-
 // print a simple message
 void message(const char* s) { cout << s << endl; }
 void message(const char* s, const int n) { cout << s << ": " << n << endl; }
-
-// print tuple declaration
-// create typedef for Person tuple with name, age, and height
-typedef boost::tuple<string, int, float> Person;
-void print_tuple(const Person& P);
-
-// function to return a variant
-// create typedef for variant with either of shape: Point, Line, Circle
-typedef boost::variant<Turbopro::CAD::Point, Turbopro::CAD::Line, Turbopro::CAD::Circle> ShapeType;
-ShapeType& choose_shape();
-
 
 int main(void)
 {
@@ -165,12 +154,23 @@ int main(void)
 	
 	// try to assign shape1 to Line object: catch exception
 	cout << "\n\nTry to assign shape1 to a Line object\n"
-		<< "Catch exception if shape1 != a Line object\n";
+		<< "Catch exception if shape1 != a Line object\n\n";
 	try
 	{
 		Line l0 = boost::get<Line>(shape1);
 	}
 	catch (std::exception& error_msg) { cerr << error_msg.what() << endl; }
+
+	cout << endl << endl;
+
+	// create VariantVisitor with x and y offsets set to 2.5
+	cout << "\nCreate VariantVisitor with x and y offset = 0.5\n";
+	VariantVisitor vv0(3.5, -3.5);
+
+	//boost::apply_visitor(VariantVisitor(), shape1);
+	boost::apply_visitor(vv0, shape1);
+
+	cout << "\nNew Line coordinates: " << shape1 << endl;
 
 	cout << endl << endl;
 
@@ -359,58 +359,3 @@ double Sum(map<string, double>::const_iterator start_it, map<string, double>::co
 	return acc_sum;
 }
 
-
-// print tuple definition
-void print_tuple(const Person& P)
-{
-	cout << "Name: " << P.get<0>() 
-		<< ", Age: " << P.get<1>() << " years, "
-		<< "Height: " << P.get<2>() << " m" << endl;
-}
-
-ShapeType& choose_shape()
-{
-	using Turbopro::CAD::Circle;
-	using Turbopro::CAD::Line;
-	using Turbopro::CAD::Point;
-
-	ShapeType chosen;			// create variant ShapeType
-	char choice;				// create char for user input
-	cout << "Please enter the type of shape to be created:"
-		<< "\nC for Circle\nL for Line\nP for Point: ";
-	cin >> choice;
-
-	switch (choice)				// choose shape
-	{	
-		case 'C':
-		case 'c':
-		{
-			Circle c0; chosen = c0;
-			break;
-		}
-
-		case 'L':
-		case 'l':
-		{
-			Line l0; chosen = l0;
-			break;
-		}
-
-		case 'P':
-		case 'p':
-		{
-			Point p0; chosen = p0;
-			break;
-		}
-
-		case 'Q':
-		case 'q':
-			return chosen;
-
-		default:
-			Point p0;
-			chosen = p0;
-	}
-
-	return chosen;
-}
