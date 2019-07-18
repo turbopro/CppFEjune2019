@@ -55,7 +55,7 @@ namespace Turbopro
 		//{ std::cout << "Point copy constructor\n"; }
 
 		// Destructor
-		Point::~Point() { std::cout << this->ToString() << " destructing..." << std::endl; }
+		Point::~Point() {} // { std::cout << this->ToString() << " destructing..." << std::endl; }
 
 		// ToString(): polymorphic method defined by the relevant class object, Point in this case
 		std::string Point::ToString() const

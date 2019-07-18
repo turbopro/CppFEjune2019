@@ -75,7 +75,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\paola\source\boost_1_70_0;C:\Users\VWOOLFOR\source\boost_1_70_0</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;C:\Users\paola\source\boost_1_70_0\libs;C:\Users\VWOOLFOR\source\boost_1_70_0\libs</LibraryPath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;C:\Users\paola\source\boost_1_70_0\libs;C:\Users\paola\source\boost_1_70_0\libs</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\vernon.woolford\source\boost_1_70_0;C:\Users\VWOOLFOR\source\boost_1_70_0</IncludePath>
@@ -150,7 +150,6 @@
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="Stack.cpp" />
     <ClCompile Include="StackException.cpp" />
-    <ClCompile Include="User_input.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array.h" />
@@ -165,6 +164,7 @@
     <ClInclude Include="Stack.h" />
     <ClInclude Include="StackException.h" />
     <ClInclude Include="STLHelperFunctions.h" />
+    <ClInclude Include="User_input.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

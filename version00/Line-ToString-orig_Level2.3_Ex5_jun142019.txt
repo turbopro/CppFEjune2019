@@ -18,3 +18,71 @@
 	return ( "Line: StartPoint(" + str_m_startpoint_x + ", " + str_m_startpoint_y + 
 		") :: EndPoint(" + str_m_endpoint_x + ", " + str_m_endpoint_y + ")" );
 	*/
+
+
+=======================================================
+
+July 18 2019
+
+Level5.1_Ex3: Boost C++ Libraries -- Variant
+
+Moved User_input.cpp ==> User_input.h, to make it more utility-like
+
+
+building Point, Line, Circle
+
+cout << "\nCreate a Point please:\n\n";
+	// get coordinates for first Point object P1
+	string geom_id{ "Point 1" };
+	// check if user hit Ctrl-Z to quit
+	if (!(user_input_geom(x, geom_id, x_coord))) { return 0; }		// If user_input returns false, 
+	if (!(user_input_geom(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
+
+	// create P1 with constructor
+	Point P1(x, y);
+	// print P1
+	cout << "P1 is: " << P1.ToString() << endl << endl;
+	cout << "P1 is: "; P1.Print();
+	cout << endl << endl;
+
+	cout << "\nCreate a Line please:\n\n";
+	// get coordinates for StartPoint SP
+	geom_id = "StartPoint, SP";
+	// check if user hit Ctrl-Z to quit
+	if (!(user_input_geom(x, geom_id, x_coord))) { return 0; }		// If user_input returns false, 
+	if (!(user_input_geom(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
+	// create SP with constructor
+	Point SP(x, y);
+	SP.Print();
+
+	// get coordinates for EndPoint SP
+	geom_id = "EndPoint, EP";
+	// check if user hit Ctrl-Z to quit
+	if (!(user_input_geom(x, geom_id, x_coord))) { return 0; }		// If user_input returns false, 
+	if (!(user_input_geom(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
+	// create SP with constructor
+	Point EP(x, y);
+	EP.Print();
+
+	Line L1(SP, EP);
+	cout << "\n\nL1 is: "; L1.Print();
+		
+	cout << endl << endl;
+
+
+	cout << "\nCreate a Circle please:\n\n";
+	// get coordinates for CentrePoint SP
+	geom_id = "CentrePoint, CP";
+	// check if user hit Ctrl-Z to quit
+	if (!(user_input_geom(x, geom_id, x_coord))) { return 0; }		// If user_input returns false, 
+	if (!(user_input_geom(y, geom_id, y_coord))) { return 0; }		// user entered Ctrl-Z to quit
+	if (!(user_input_geom(r, geom_id, radius))) { return 0; }		
+	
+	// create CP with constructor
+	Point CP(x, y);
+	CP.Print();
+
+	Circle C1(r, CP);
+	cout << "\n\nC1 is: "; C1.Print();
+
+	cout << endl << endl;

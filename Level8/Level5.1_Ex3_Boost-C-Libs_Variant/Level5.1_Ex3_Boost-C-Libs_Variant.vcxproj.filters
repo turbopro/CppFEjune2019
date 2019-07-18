@@ -48,9 +48,6 @@
     <ClCompile Include="StackException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="User_input.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array.h">
@@ -87,6 +84,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BoostHelperFunctions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="User_input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

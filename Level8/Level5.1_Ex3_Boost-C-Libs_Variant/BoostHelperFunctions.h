@@ -29,6 +29,7 @@ Includes:
 #include "Point.h"
 #include "Line.h"
 #include "Circle.h"
+#include "User_input.h"
 #include <iostream>
 
 // Boost C Libraries Header Files
@@ -79,30 +80,65 @@ namespace Turbopro
 
 			ShapeType chosen;			// create variant ShapeType
 			char choice;				// create char for user input
-			cout << "Please enter the type of shape to be created:"
-				<< "\nC for Circle\nL for Line\nP for Point: ";
+			cout << "Please choose the type of shape to be created:"
+				<< "\nC for Circle\nL for Line\nP for Point\n";
 			cin >> choice;
 
+			
 			switch (choice)				// choose shape
 			{
 			case 'C':
 			case 'c':
 			{
-				Circle c0; chosen = c0;
+				//Circle c0; chosen = c0;	// create default Circle
+				//double coord_val;
+				// get user input for Circle coordinates
+				double x{ 0.0 }, y{ 0.0 }, radius{ 0.0 };
+				if (user_input_geom(x, "c0", "CentrePoint: x_coordinate") &&
+					user_input_geom(y, "c0", "CentrePoint: y_coordinate") &&
+					user_input_geom(radius, "c0", "radius"))
+				{
+					Circle c0(radius, Point(x, y));
+					chosen = c0;
+				}
+				else { Circle c0; chosen = c0; }	// if user quit, set default Circle
+				
 				break;
 			}
 
 			case 'L':
 			case 'l':
 			{
-				Line l0; chosen = l0;
+				//Line l0; chosen = l0;
+				// get user input for Line coordinates
+				double s_x{ 0.0 }, s_y{ 0.0 }, e_x{ 0.0 }, e_y{ 0.0 };
+				if (user_input_geom(s_x, "l0", "StartPoint: x_coordinate") &&
+					user_input_geom(s_y, "l0", "StartPoint: y_coordinate") &&
+					user_input_geom(e_x, "l0", "EndPoint: x_coordinate") &&
+					user_input_geom(e_y, "l0", "EndPoint: y_coordinate"))
+				{
+					Line l0(Point(s_x, s_y), Point(e_x, e_y));
+					chosen = l0;
+				}
+				else { Line l0; chosen = l0; }	// if user quit, set default Line
+
 				break;
 			}
 
 			case 'P':
 			case 'p':
 			{
-				Point p0; chosen = p0;
+				//Point p0; chosen = p0;
+				// get user input for Point coordinates
+				double x{ 0.0 }, y{ 0.0 };
+				if (user_input_geom(x, "p0", "x_coordinate") &&
+					user_input_geom(y, "p0", "y_coordinate"))
+				{
+					Point p0(x, y);
+					chosen = p0;
+				}
+				else { Point p0; chosen = p0; }	// if user quit, set default Point
+
 				break;
 			}
 

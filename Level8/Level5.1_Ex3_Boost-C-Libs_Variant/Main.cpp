@@ -65,6 +65,7 @@ member that was set in the constructor of the function object.
 #include "PointArray.h"		// PointArray class declaration
 #include "Stack.h"			// Stack class declaration
 #include "StackException.h"	// StackException class declaration
+#include "User_input.h"		// User_input helper file
 
 // STL
 #include <vector>			// for vector, copy
@@ -86,10 +87,10 @@ using namespace std;
 using boost::tuple;
 
 // declaration for user_input_geom() function
-bool user_input_geom(double& geom_value, const string& geom_id, const string& geom_description);
+//bool user_input_geom(double& geom_value, const string& geom_id, const string& geom_description);
 
 // declaration for user_input_array() function
-bool user_input_array(unsigned int& array_size);
+//bool user_input_array(unsigned int& array_size);
 
 
 // template functions -- generic for List, Vector
@@ -130,10 +131,11 @@ int main(void)
 	//const string  radius{ "radius" };
 
 	//double x{ 0.0 }, y{ 0.0 }, r{ 0.0 };		// declare/initialise geom_values
-	const int arr_size{ 5 };					// array size should be positive only
+	//const int arr_size{ 3 };					// array size should be positive only
 	//const int stack_size = 3;
+	
 
-
+	
 	cout << "\n\n"
 		<< "|========================================|\n"
 		<< "|                VARIANT                 |\n"
@@ -163,19 +165,19 @@ int main(void)
 
 	cout << endl << endl;
 
-	// create VariantVisitor with x and y offsets set to 2.5
-	cout << "\nCreate VariantVisitor with x and y offset = 0.5\n";
-	VariantVisitor vv0(3.5, -3.5);
+	// create VariantVisitor with x and y offsets
+	cout << "\nCreate VariantVisitor with x and y offset\n";
+	VariantVisitor moving_visitor0(3.5, -3.5);
 
 	//boost::apply_visitor(VariantVisitor(), shape1);
-	boost::apply_visitor(vv0, shape1);
+	boost::apply_visitor(moving_visitor0, shape1);
 
-	cout << "\nNew Line coordinates: " << shape1 << endl;
+	cout << "\nNew Point coordinates for Variant Shape: " << shape1 << endl;
 
 	cout << endl << endl;
 
 
-	/*
+	
 	cout << "\n\n"
 		<< "|========================================|\n"
 		<< "|                 TUPLE                  |\n"
@@ -191,7 +193,9 @@ int main(void)
 	string  names[] = { "Dorothy", "Hal", "Dave", "Lucy", "Mindy" };
 	int      ages[] = { 11, 2, 36, 35, 28 };
 	float heights[] = { 1.45, 2.25, 1.78, 1.65, 1.67 };
-	Array<Person> peeps(arr_size);
+	//int arr_size = sizeof(ages) / sizeof(ages[0]);
+	cout << "\nsize of ages[]: " << sizeof(ages) / sizeof(ages[0]) << endl;
+	Array<Person> peeps(sizeof(ages) / sizeof(ages[0]));
 	for (int i = 0; i < peeps.Size(); i++)
 	{
 		peeps[i].get<0>() = names[i];
@@ -221,8 +225,8 @@ int main(void)
 	
 
 	cout << endl;
-
-	/*
+	
+	
 	cout << "\n\n"
 		<< "|========================================|\n"
 		<< "|      shared_ptr and Shape objects      |\n"
@@ -243,6 +247,7 @@ int main(void)
 		// create array of shared pointers to Shape objects
 		cout << "\nInside first block:\n\n"
 			<< "\nCreate array of shared_ptrs to Shape objects:\n";
+		int arr_size = 3;
 		ShapeArray sptr_arr0(arr_size);
 
 		cout << "\nSize of sptr_arr0: " << sptr_arr0.Size() << endl
@@ -276,7 +281,7 @@ int main(void)
 
 	cout << "\n\n\nmain() terminating... " << endl << endl;
 
-	*/
+	
 
 	return 0;
 }
