@@ -65,7 +65,7 @@ member that was set in the constructor of the function object.
 #include "PointArray.h"		// PointArray class declaration
 #include "Stack.h"			// Stack class declaration
 #include "StackException.h"	// StackException class declaration
-#include "User_input.h"		// User_input helper file
+#include "User_input.h"		// User_input header file
 
 // STL
 #include <vector>			// for vector, copy
@@ -82,37 +82,10 @@ member that was set in the constructor of the function object.
 #include <boost/tuple/tuple.hpp>		// for Tuple
 #include <boost/tuple/tuple_io.hpp>		// for Tuple Input/Output operators
 #include <boost/variant.hpp>			// for variant
+#include <boost/random.hpp>				// for Random Number Generation
 
 using namespace std;
 using boost::tuple;
-
-// declaration for user_input_geom() function
-//bool user_input_geom(double& geom_value, const string& geom_id, const string& geom_description);
-
-// declaration for user_input_array() function
-//bool user_input_array(unsigned int& array_size);
-
-
-// template functions -- generic for List, Vector
-// Sum() definition for List and Vector, with container as argument
-// pass by reference for containers
-template <typename T>
-double Sum(const T& container);
-
-// Sum() definition for List and Vector, with iterator range argument
-// pass by value for iterators
-template <typename T>
-double Sum(const typename T start_it, const typename T end_it);
-
-// template explicit specialisation for Map
-// Sum() definition for Map with container as argument
-template <>
-double Sum(const map<string, double>& container);
-
-// template explicit specialisation for Map
-// Sum() definition for Map with iterator range as argument
-template <>
-double Sum(map<string, double>::const_iterator start_it, map<string, double>::const_iterator end_it);
 
 // print a simple message
 void message(const char* s) { cout << s << endl; }
@@ -134,8 +107,82 @@ int main(void)
 	//const int arr_size{ 3 };					// array size should be positive only
 	//const int stack_size = 3;
 	
+	
+	cout << "\n\n"
+		<< "|========================================|\n"
+		<< "|        RANDOM NUMBER GENERATOR         |\n"
+		<< "|========================================|\n";
+
+	// Throwing dice
+	// mersenne Twister
+	boost::random::mt19937 myRng;
+
+	// Set the seed
+	myRng.seed(static_cast<boost::uint32_t> (std::time(0)));
+
+	// Uniform in range[1,6]
+	boost::random::uniform_int_distribution<int> six(1, 6);
+
+	// create a map to hold frequency of each outcome
+	map<int, long> statistics;				// container to hold outcome and frequencies
+	int outcome, outcome_range, unknown = 0;
+	outcome = six(myRng);
+	outcome_range = 6;
+
+	// generate trials and place in statistics
+	int trials;
+	cout << "\nEnter the number of trials: ";
+	cin >> trials;
+
+	//NumericArray<int> outcomes(outcome_range);
+	NumericArray<long> frequencies(outcome_range);
+	//long freq1 = 0, freq2 = 0, freq3 = 0;
+	//long freq4 = 0, freq5 = 0, freq6 = 0, unknown = 0;
+
+	cout << endl << endl;
+	for (int i = 0; i < frequencies.Size(); i++)
+	{
+		//outcomes[i] = 0;
+		frequencies[i] = 0;
+		//cout << "outcomes[" << i << "]: " << outcomes[i] << endl;
+		//cout << "frequencies[" << i << "]: " << frequencies[i] << endl;
+	}
+
+	cout << endl << endl;
 
 	
+	// loop and stores outcomes vs frequency
+	for (int i = 0; i < trials; i++)
+	{
+		outcome = six(myRng);		
+		switch (outcome)		// switch on outcome
+		{
+		case 1: ++frequencies[0]; break;
+		case 2: ++frequencies[1]; break;
+		case 3: ++frequencies[2]; break;
+		case 4: ++frequencies[3]; break;
+		case 5: ++frequencies[4]; break;
+		case 6: ++frequencies[5]; break;
+
+		default: ++unknown;
+		}
+	}
+
+	for (int i = 0; i < frequencies.Size(); ++i)
+	{
+		statistics.emplace(i+1, frequencies[i]);
+	}
+
+	for (auto stat : statistics)
+	{
+		cout << "statistics: " << stat.first << " | " << stat.second << endl;
+	}
+	
+
+
+	cout << endl;
+
+	/*
 	cout << "\n\n"
 		<< "|========================================|\n"
 		<< "|                VARIANT                 |\n"
@@ -169,11 +216,13 @@ int main(void)
 	cout << "\nCreate VariantVisitor with x and y offset\n";
 	VariantVisitor moving_visitor0(3.5, -3.5);
 
-	//boost::apply_visitor(VariantVisitor(), shape1);
+	// apply the visitor to move the Shape
+	cout << "\nMove the Shape with the boost::apply_visitor()\n";
 	boost::apply_visitor(moving_visitor0, shape1);
 
 	cout << "\nNew Point coordinates for Variant Shape: " << shape1 << endl;
-	
+	cout << endl;
+
 	cout << "\n\n"
 		<< "|========================================|\n"
 		<< "|                 TUPLE                  |\n"
@@ -189,8 +238,6 @@ int main(void)
 	string  names[] = { "Dorothy", "Hal", "Dave", "Lucy", "Mindy" };
 	int      ages[] = { 11, 2, 36, 35, 28 };
 	float heights[] = { 1.45, 2.25, 1.78, 1.65, 1.67 };
-	//int arr_size = sizeof(ages) / sizeof(ages[0]);
-	cout << "\nsize of ages[]: " << sizeof(ages) / sizeof(ages[0]) << endl;
 	Array<Person> peeps(sizeof(ages) / sizeof(ages[0]));
 	for (int i = 0; i < peeps.Size(); i++)
 	{
@@ -220,6 +267,7 @@ int main(void)
 	}
 	cout << endl;
 	
+
 	cout << "\n\n"
 		<< "|========================================|\n"
 		<< "|      shared_ptr and Shape objects      |\n"
@@ -272,84 +320,8 @@ int main(void)
 
 	cout << "\n\n\nmain() terminating... " << endl << endl;	
 
+	*/
+
 	return 0;
-}
-
-// template functions -- generic for List, Vector
-// Sum() definition for List and Vector, with container as argument
-template <typename T>
-double Sum(const T& container)
-{
-	double acc_sum = 0;				// initialise accumulator
-
-	// set const_iterator, it, to end()
-	// decrement it, and check if == begin()
-	// dereference it and add to the accumulator
-	// repeat until the loop terminates
-	//for (auto it = container.end(); it-- != container.begin(); )
-	for (typename T::const_iterator it = container.end(); it-- != container.begin(); )
-		acc_sum += *it;
-
-	// alternative that takes care of setting correct iterator type, makes good use
-	// of rbegin() and rend(), and no need for decrementing
-	//for (auto it = container.rbegin(); it != container.rend(); it++)
-	//	acc_sum += *it;
-
-	return acc_sum;
-}
-
-
-// Sum() definition for List and Vector, with iterator range argument
-// pass by value for iterators
-template <typename T>
-double Sum(const typename T start_it, const typename T end_it)
-{
-	double acc_sum = 0;			// initialise accumulator
-
-	// set type T iterator, it, to start_it
-	// dereference it and add to the accumulator
-	// increment it
-	// repeat until the loop terminates
-	for (T it = start_it; it != end_it; it++)
-		acc_sum += *it;
-
-	return acc_sum;
-}
-
-// template explicit specialisation for Map
-// Sum() definition for Map with container as argument
-template <>
-double Sum(const map<string, double>& container)
-{
-	double acc_sum = 0;				// initialise accumulator
-
-	// set const_iterator, it, to end()
-	// decrement it, and check if == begin()
-	// dereference it and add to the accumulator
-	// repeat until the loop terminates
-	//for (auto it = container.end(); it-- != container.begin(); )
-	for (map<string, double>::const_iterator it = container.end(); it-- != container.begin(); )
-		acc_sum += it->second;
-
-	return acc_sum;
-}
-
-// template explicit specialisation for Map
-// Sum() definition for Map with iterator range as argument
-template <>
-double Sum(map<string, double>::const_iterator start_it, map<string, double>::const_iterator end_it)
-{
-	double acc_sum = 0;			// initialise accumulator
-
-	// set specialisation type it, to start_it
-	// use the it member access operator to access the map's double value
-	// add the value to the accumulator
-	// increment it
-	// repeat until the loop terminates
-	//for (auto it = start_it; it != end_it; it++)
-	for (map<string, double>::const_iterator it = start_it; it != end_it; it++)
-		acc_sum += it->second;
-
-	return acc_sum;
 }
 
