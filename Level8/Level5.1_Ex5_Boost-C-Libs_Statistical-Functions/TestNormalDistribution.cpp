@@ -25,21 +25,22 @@ int main()
 	// Don't forget to tell compiler which namespace
 	using namespace boost::math;
 
-	normal_distribution<> myNormal(1.0, 10.0); // Default type is 'double'
-	cout << "Mean: " << mean(myNormal) << ", standard deviation: " << standard_deviation(myNormal) << endl;
+	//normal_distribution<> myNormal(1.0, 10.0); // Default type is 'double'
+	//cout << "Mean: " << mean(myNormal) << ", standard deviation: " << standard_deviation(myNormal) << endl;
 
 	exponential_distribution<> myExponential(0.5); // Default type is 'double'
-	cout << "Mean: " << mean(myExponential) << ", standard deviation: " << standard_deviation(myExponential) << endl;
+	cout << "Exponential Mean: " << mean(myExponential) 
+		<< ", Exponential standard deviation: " << standard_deviation(myExponential) << endl;
 
 	// Distributional properties
 	double x = 10.25;
 	double exp_x = 3;
 
-	cout << "pdf: " << pdf(myNormal, x) << endl;
-	cout << "cdf: " << cdf(myNormal, x) << endl;
+	//cout << "pdf: " << pdf(myNormal, x) << endl;
+	//cout << "cdf: " << cdf(myNormal, x) << endl;
 
-	cout << "\npdf Exp: " << pdf(myExponential, exp_x) << endl;
-	cout << "cdf Exp: " << cdf(myExponential, exp_x) << endl;
+	cout << "\nExp pdf: " << pdf(myExponential, exp_x) << endl;
+	cout << "Exp cdf: " << cdf(myExponential, exp_x) << endl;
 
 	// Choose another data type and now a N(0,1) variate
 	normal_distribution<float> myNormal2; 
@@ -77,13 +78,19 @@ int main()
 	double alpha = 3.0; // Shape parameter, k
 	double beta = 0.5;	// Scale parameter, theta
 	gamma_distribution<double> myGamma(alpha, beta);
+	poisson_distribution<double> myPoisson(5);
 
 	double val = 13.0;
 	cout << endl <<  "pdf: " << pdf(myGamma, val) << endl;
+	cout << endl << "pdf_poisson: " << pdf(myPoisson, val) << endl;
 	cout << "cdf: " << cdf(myGamma, val) << endl;
+	cout << "cdf_poisson: " << cdf(myPoisson, val) << endl;
 
 	vector<double> pdfList;
 	vector<double> cdfList;
+
+	vector<double> poissonpdfList;
+	vector<double> poissoncdfList;
 
 	double start = 0.0;
 	double end = 10.0;
@@ -97,13 +104,21 @@ int main()
 		pdfList.push_back(pdf(myGamma, val));
 		cdfList.push_back(cdf(myGamma, val));
 
+		poissonpdfList.push_back(pdf(myPoisson, val));
+		poissoncdfList.push_back(cdf(myPoisson, val));
+
 		val += h;
 	}
 
 	for (long j = 0; j < pdfList.size(); ++j)
 	{
 		cout << pdfList[j] << ", ";
+	}
 
+	cout << "\nPOISSON pdflist:\n";
+	for (long j = 0; j < poissonpdfList.size(); ++j)
+	{
+		cout << poissonpdfList[j] << ", ";
 	}
 
 	cout << "***" << endl;
@@ -112,6 +127,12 @@ int main()
 	{
 		cout << cdfList[j] << ", ";
 
+	}
+
+	cout << "\nPOISSON cdflist:\n";
+	for (long j = 0; j < poissoncdfList.size(); ++j)
+	{
+		cout << poissoncdfList[j] << ", ";
 	}
 
 	return 0;
