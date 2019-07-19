@@ -124,65 +124,48 @@ int main(void)
 	boost::random::uniform_int_distribution<int> six(1, 6);
 
 	// create a map to hold frequency of each outcome
-	map<int, long> statistics;				// container to hold outcome and frequencies
-	int outcome, outcome_range, unknown = 0;
-	outcome = six(myRng);
-	outcome_range = 6;
+	map<int, long> statistics;	
+	int outcome, trials, error_outcome = 0;
 
-	// generate trials and place in statistics
-	int trials;
+	// generate trials and store outcomes in statistics
 	cout << "\nEnter the number of trials: ";
 	cin >> trials;
 
-	//NumericArray<int> outcomes(outcome_range);
-	NumericArray<long> frequencies(outcome_range);
-	//long freq1 = 0, freq2 = 0, freq3 = 0;
-	//long freq4 = 0, freq5 = 0, freq6 = 0, unknown = 0;
-
-	cout << endl << endl;
-	for (int i = 0; i < frequencies.Size(); i++)
-	{
-		//outcomes[i] = 0;
-		frequencies[i] = 0;
-		//cout << "outcomes[" << i << "]: " << outcomes[i] << endl;
-		//cout << "frequencies[" << i << "]: " << frequencies[i] << endl;
-	}
-
-	cout << endl << endl;
-
-	
-	// loop and stores outcomes vs frequency
+	// loop and store outcomes vs frequency
 	for (int i = 0; i < trials; i++)
 	{
-		outcome = six(myRng);		
-		switch (outcome)		// switch on outcome
-		{
-		case 1: ++frequencies[0]; break;
-		case 2: ++frequencies[1]; break;
-		case 3: ++frequencies[2]; break;
-		case 4: ++frequencies[3]; break;
-		case 5: ++frequencies[4]; break;
-		case 6: ++frequencies[5]; break;
-
-		default: ++unknown;
+		outcome = six(myRng);		// get outcome
+		switch (outcome)			// switch on outcome
+		{							// increment relevant key in statistics
+			case 1: ++statistics[outcome]; break;
+			case 2: ++statistics[outcome]; break;
+			case 3: ++statistics[outcome]; break;
+			case 4: ++statistics[outcome]; break;
+			case 5: ++statistics[outcome]; break;
+			case 6: ++statistics[outcome]; break;
+			
+			default: ++error_outcome;	// just in case
 		}
 	}
 
-	for (int i = 0; i < frequencies.Size(); ++i)
+	// check if we had errorneous outcomes
+	if (error_outcome)
 	{
-		statistics.emplace(i+1, frequencies[i]);
+		cout << "\nThere was an error: quitting ...";
+		return 0;
 	}
-
-	for (auto stat : statistics)
+	else
 	{
-		cout << "statistics: " << stat.first << " | " << stat.second << endl;
+		for (auto stat : statistics)		// use range-based for loop
+		{
+			cout << "\nTrial " << stat.first << fixed << setprecision(4)
+				<< " has " << stat.second * 100.00 / trials << "% outcomes";
+		}
 	}
-	
-
 
 	cout << endl;
 
-	/*
+	
 	cout << "\n\n"
 		<< "|========================================|\n"
 		<< "|                VARIANT                 |\n"
@@ -320,7 +303,7 @@ int main(void)
 
 	cout << "\n\n\nmain() terminating... " << endl << endl;	
 
-	*/
+	
 
 	return 0;
 }
