@@ -42,6 +42,8 @@ int main()
 	cout << "\nExp pdf: " << pdf(myExponential, exp_x) << endl;
 	cout << "Exp cdf: " << cdf(myExponential, exp_x) << endl;
 
+	/*
+
 	// Choose another data type and now a N(0,1) variate
 	normal_distribution<float> myNormal2; 
 	cout << "Mean: " << mean(myNormal2) << ", standard deviation: " << standard_deviation(myNormal2) << endl;
@@ -63,7 +65,7 @@ int main()
 	cout << "kurtosis: " << kurtosis(myNormal) << endl;
 	cout << "characteristic function: " << chf(myNormal, x) << endl;
 	cout << "hazard: " << hazard(myNormal, x) << endl;
-	*/
+	
 	cout << "\n***exponential distribution: \n";
 	cout << "mean: " << mean(myExponential) << endl;
 	cout << "variance: " << variance(myExponential) << endl;
@@ -134,6 +136,8 @@ int main()
 	{
 		cout << poissoncdfList[j] << ", ";
 	}
+
+	*/
 
 	return 0;
 }
