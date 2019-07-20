@@ -33,7 +33,7 @@ int main()
 		<< ", Exponential standard deviation: " << standard_deviation(myExponential) << endl;
 
 	// Distributional properties
-	double x = 10.25;
+	//double x = 10.25;
 	double exp_x = 3;
 
 	//cout << "pdf: " << pdf(myNormal, x) << endl;
@@ -42,29 +42,37 @@ int main()
 	cout << "\nExp pdf: " << pdf(myExponential, exp_x) << endl;
 	cout << "Exp cdf: " << cdf(myExponential, exp_x) << endl;
 
-	/*
+	
 
 	// Choose another data type and now a N(0,1) variate
-	normal_distribution<float> myNormal2; 
-	cout << "Mean: " << mean(myNormal2) << ", standard deviation: " << standard_deviation(myNormal2) << endl;
+	//normal_distribution<float> myNormal2; 
+	//cout << "Mean: " << mean(myNormal2) << ", standard deviation: " << standard_deviation(myNormal2) << endl;
 	
-	cout << "pdf: " << pdf(myNormal2, x) << endl;
-	cout << "cdf: " << cdf(myNormal2, x) << endl;
+	//cout << "pdf: " << pdf(myNormal2, x) << endl;
+	//cout << "cdf: " << cdf(myNormal2, x) << endl;
+
+	exponential_distribution<float> myExponential2(1.5);
+	cout << "\n Exp2 Mean: " << mean(myExponential2) << ", standard deviation: " << standard_deviation(myExponential2) << endl;
+
+	cout << "Exp2 pdf: " << pdf(myExponential2, exp_x) << endl;
+	cout << "Exp2 cdf: " << cdf(myExponential2, exp_x) << endl;
+
+
 
 	// Choose precision
 	cout.precision(10); // Number of values behind the comma
 
 	// Other properties
-	/*
-	cout << "\n***normal distribution: \n";
-	cout << "mean: " << mean(myNormal) << endl;
-	cout << "variance: " << variance(myNormal) << endl;
-	cout << "median: " << median(myNormal) << endl;
-	cout << "mode: " << mode(myNormal) << endl;
-	cout << "kurtosis excess: " << kurtosis_excess(myNormal) << endl;
-	cout << "kurtosis: " << kurtosis(myNormal) << endl;
-	cout << "characteristic function: " << chf(myNormal, x) << endl;
-	cout << "hazard: " << hazard(myNormal, x) << endl;
+	
+	//cout << "\n***normal distribution: \n";
+	//cout << "mean: " << mean(myNormal) << endl;
+	//cout << "variance: " << variance(myNormal) << endl;
+	//cout << "median: " << median(myNormal) << endl;
+	//cout << "mode: " << mode(myNormal) << endl;
+	//cout << "kurtosis excess: " << kurtosis_excess(myNormal) << endl;
+	//cout << "kurtosis: " << kurtosis(myNormal) << endl;
+	//cout << "characteristic function: " << chf(myNormal, x) << endl;
+	//cout << "hazard: " << hazard(myNormal, x) << endl;
 	
 	cout << "\n***exponential distribution: \n";
 	cout << "mean: " << mean(myExponential) << endl;
@@ -76,6 +84,19 @@ int main()
 	cout << "characteristic function: " << chf(myExponential, exp_x) << endl;
 	cout << "hazard: " << hazard(myExponential, exp_x) << endl;
 
+	cout << "\n\n***exponential2 distribution: \n";
+	cout << "mean: " << mean(myExponential2) << endl;
+	cout << "variance: " << variance(myExponential2) << endl;
+	cout << "median: " << median(myExponential2) << endl;
+	cout << "mode: " << mode(myExponential2) << endl;
+	cout << "kurtosis excess: " << kurtosis_excess(myExponential2) << endl;
+	cout << "kurtosis: " << kurtosis(myExponential2) << endl;
+	cout << "characteristic function: " << chf(myExponential2, exp_x) << endl;
+	cout << "hazard: " << hazard(myExponential2, exp_x) << endl;
+
+
+
+	/*
 	// Gamma distribution
 	double alpha = 3.0; // Shape parameter, k
 	double beta = 0.5;	// Scale parameter, theta
