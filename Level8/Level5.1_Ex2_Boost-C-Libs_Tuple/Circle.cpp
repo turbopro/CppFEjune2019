@@ -56,8 +56,8 @@ namespace Turbopro
 		//{std::cout << "Circle copy constructor\n"; }
 
 		// Destructor definition
-		Circle::~Circle() //{}
-		{ std::cout << this->ToString() << " destructing... \n"; }
+		Circle::~Circle() {}
+		//{ std::cout << this->ToString() << " destructing... \n"; }
 
 		// ToString() definition
 		// use Point::ToString() to print Point object values

@@ -139,15 +139,16 @@ int main(void)
 	typedef boost::shared_ptr<Shape> ShapePtr;
 	typedef Array<ShapePtr> ShapeArray;
 
-	// the below code runs in a try block to create Shape objects via shared_ptrs
-	// at the end of the block, we observe the Shape objects, dynamically allocated
+	// The below code runs in a try block to create Shape objects via shared_ptrs
+	// At the end of the block, we observe the Shape objects, dynamically allocated
 	// using shared_ptrs, destructing automagically
-	// any Array exceptions should be caught
+	// Shape destructors are verbose
+	// Array indexing and mismatch exceptions should be caught
 	try
 	{
 		// create array of shared pointers to Shape objects
-		cout << "\nInside first block:\n\n"
-			<< "\nCreate array of shared_ptrs to Shape objects:\n";
+		cout << "\nCreate array of shared_ptrs to Shape objects:\n"
+			<< "For demonstration purposes, Shape destructors are verbose\n";
 		ShapeArray sptr_arr0(arr_size);
 
 		cout << "\nSize of sptr_arr0: " << sptr_arr0.Size() << endl

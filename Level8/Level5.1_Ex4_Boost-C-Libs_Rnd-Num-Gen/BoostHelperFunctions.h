@@ -68,8 +68,8 @@ namespace Turbopro
 		void print_tuple(const Person& P)
 		{
 			cout << "Name: " << P.get<0>()
-				<< ", Age: " << P.get<1>() << " years, "
-				<< "Height: " << P.get<2>() << " m" << endl;
+				<< "\tAge: " << P.get<1>() << " years"
+				<< "\tHeight: " << P.get<2>() << " m" << endl;
 		}
 
 		ShapeType& choose_shape()

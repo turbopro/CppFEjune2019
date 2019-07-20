@@ -81,7 +81,7 @@ namespace Turbopro
 		template <typename TArray>
 		Array<TArray>::~Array() 
 		{
-			std::cout << "Array destructing...\n";
+			//std::cout << "Array destructing...\n";
 			delete[] m_data;
 		}
 		//Array<TArray>::~Array() { delete[] m_data; }

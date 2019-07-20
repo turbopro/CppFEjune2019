@@ -132,6 +132,9 @@ int main(void)
 	cin >> trials;
 
 	// loop and store outcomes vs frequency
+	cout << "\n\nLoop and store simulated random dice throws:\n"
+		<< "\nOutcome frequency distribution by percent\n"
+		<< "(follows the 'law of large numbers(LLN)')\n";
 	for (int i = 0; i < trials; i++)
 	{
 		outcome = six(myRng);		// get outcome
@@ -163,10 +166,8 @@ int main(void)
 		}
 	}
 
-	cout << endl;
-
 	
-	cout << "\n\n"
+	cout << "\n\n\n"
 		<< "|========================================|\n"
 		<< "|                VARIANT                 |\n"
 		<< "|========================================|\n";
@@ -176,6 +177,7 @@ int main(void)
 	ShapeType shape0;
 	Point p, p0;
 	shape0 = p;
+	cout.precision(2);
 	cout << "\nShape from variant ShapeType, shape0: " << shape0 << endl;
 
 	// get Shape from choose_shape()
@@ -185,7 +187,7 @@ int main(void)
 	cout << "\nShape from variant shape1: " << shape1 << endl << endl;
 	
 	// try to assign shape1 to Line object: catch exception
-	cout << "\n\nTry to assign shape1 to a Line object\n"
+	cout << "\nTry to assign shape1 to a Line object\n"
 		<< "Catch exception if shape1 != a Line object\n\n";
 	try
 	{
@@ -196,7 +198,7 @@ int main(void)
 	cout << endl << endl;
 
 	// create VariantVisitor with x and y offsets
-	cout << "\nCreate VariantVisitor with x and y offset\n";
+	cout << "Create VariantVisitor with x and y offset\n";
 	VariantVisitor moving_visitor0(3.5, -3.5);
 
 	// apply the visitor to move the Shape
@@ -205,6 +207,7 @@ int main(void)
 
 	cout << "\nNew Point coordinates for Variant Shape: " << shape1 << endl;
 	cout << endl;
+
 
 	cout << "\n\n"
 		<< "|========================================|\n"
@@ -230,12 +233,12 @@ int main(void)
 	}
 
 	// print peeps
-	cout << "\nPerson array, peeps, has:\n\n";
+	cout << "\npeeps (Array of Person objects) has:\n\n";
 	for (int i = 0; i < peeps.Size(); i++) { print_tuple(peeps[i]); }
 
 
 	// change the name of Lucy to Lucille and Mindy's age to 27
-	cout << "\n\nChange peeps[3] name to 'Lucille', and peeps[4] age to 27:\n\n";
+	cout << "\n\nChange peeps[3] name to 'Lucille', and peeps[1] height to 2.5:\n\n";
 	peeps[3].get<0>() = "Lucille";
 	peeps[1].get<2>() = 2.5;
 	cout << "Updated peeps[3] has "; print_tuple(peeps[3]);
@@ -261,10 +264,9 @@ int main(void)
 	typedef boost::shared_ptr<Shape> ShapePtr;
 	typedef Array<ShapePtr> ShapeArray;
 
-	// the below code runs in a try block to create Shape objects via shared_ptrs
-	// at the end of the block, we observe the Shape objects, dynamically allocated
-	// using shared_ptrs, destructing automagically
-	// any Array exceptions should be caught
+	// The below code runs in a try block to create Shape objects via shared_ptrs
+	// Shape object are stoic in death--non-verbose destructors
+	// Array indexing and mismatch exceptions should be caught
 	try
 	{
 		// create array of shared pointers to Shape objects
@@ -302,8 +304,6 @@ int main(void)
 	catch (...) { cout << "Unknown exception caught\n" << endl; }
 
 	cout << "\n\n\nmain() terminating... " << endl << endl;	
-
-	
 
 	return 0;
 }

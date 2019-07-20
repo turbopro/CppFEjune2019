@@ -135,7 +135,7 @@ int main(void)
 	//const string  radius{ "radius" };
 
 	//double x{ 0.0 }, y{ 0.0 }, r{ 0.0 };		// declare/initialise geom_values
-	const int arr_size{ 5 };					// array size should be positive only
+	int arr_size{ 0 };						// array size should be positive only
 	//const int stack_size = 3;
 
 
@@ -154,6 +154,8 @@ int main(void)
 	string  names[] = { "Dorothy", "Hal", "Dave", "Lucy", "Mindy" };
 	int      ages[] = { 11, 2, 36, 35, 28 };
 	float heights[] = { 1.45, 2.25, 1.78, 1.65, 1.67 };
+	arr_size = sizeof(ages) / sizeof(ages[0]);
+
 	Array<Person> peeps(arr_size);
 	for (int i = 0; i < peeps.Size(); i++)
 	{
@@ -163,12 +165,12 @@ int main(void)
 	}
 
 	// print peeps
-	cout << "\nPerson array, peeps, has:\n\n";
+	cout << "\npeeps (Array of Person objects) has:\n\n";
 	for (int i = 0; i < peeps.Size(); i++) { print_tuple(peeps[i]); }
 
 
 	// change the name of Lucy to Lucille and Mindy's age to 27
-	cout << "\n\nChange peeps[3] name to 'Lucille', and peeps[4] age to 27:\n\n";
+	cout << "\n\nChange peeps[3] name to 'Lucille', and peeps[1] height to 2.5:\n\n";
 	peeps[3].get<0>() = "Lucille";
 	peeps[1].get<2>() = 2.5;
 	cout << "Updated peeps[3] has "; print_tuple(peeps[3]);
@@ -181,11 +183,8 @@ int main(void)
 		peeps[i].get<1>()++;
 		print_tuple(peeps[i]);
 	}
+
 	
-
-	cout << endl;
-
-	/*
 	cout << "\n\n"
 		<< "|========================================|\n"
 		<< "|      shared_ptr and Shape objects      |\n"
@@ -197,15 +196,14 @@ int main(void)
 	typedef boost::shared_ptr<Shape> ShapePtr;
 	typedef Array<ShapePtr> ShapeArray;
 
-	// the below code runs in a try block to create Shape objects via shared_ptrs
-	// at the end of the block, we observe the Shape objects, dynamically allocated
-	// using shared_ptrs, destructing automagically
-	// any Array exceptions should be caught
+	// The below code runs in a try block to create Shape objects via shared_ptrs
+	// All Shape destructors are stoic in death--non-verbose
+	// Array indexing and mismatch exceptions should be caught
 	try
 	{
 		// create array of shared pointers to Shape objects
-		cout << "\nInside first block:\n\n"
-			<< "\nCreate array of shared_ptrs to Shape objects:\n";
+		cout << "\nCreate array of shared_ptrs to Shape objects:\n";
+		arr_size = 3;
 		ShapeArray sptr_arr0(arr_size);
 
 		cout << "\nSize of sptr_arr0: " << sptr_arr0.Size() << endl
@@ -239,7 +237,7 @@ int main(void)
 
 	cout << "\n\n\nmain() terminating... " << endl << endl;
 
-	*/
+	
 
 	return 0;
 }
@@ -327,6 +325,6 @@ double Sum(map<string, double>::const_iterator start_it, map<string, double>::co
 void print_tuple(const Person& P)
 {
 	cout << "Name: " << P.get<0>() 
-		<< ", Age: " << P.get<1>() << " years, "
-		<< "Height: " << P.get<2>() << " m" << endl;
+		<< "\tAge: " << P.get<1>() << " years"
+		<< "\tHeight: " << P.get<2>() << " m" << endl;
 }

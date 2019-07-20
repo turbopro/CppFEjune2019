@@ -1,15 +1,17 @@
-// TestNormal.cpp
-//
-// First program test the Boost statistics library.
-//
-// Look at the Normal distribution because it is important.
-// And gamma distribution
-//
-// 2008-6-27 DD initial code
-// 2011-11-9 DD for QN course
-//
-// (C) Datasim Education BV 2009-2011
-//
+/* TestNormal.cpp
+
+First program test the Boost statistics library.
+
+Look at the Normal distribution because it is important.
+And gamma distribution
+
+[including exponential and poisson distributions]
+
+2008-6-27 DD initial code
+2011-11-9 DD for QN course
+
+(C) Datasim Education BV 2009-2011
+*/
 
 #include <boost/math/distributions/normal.hpp>
 #include <boost/math/distributions/gamma.hpp>
@@ -25,54 +27,50 @@ int main()
 	// Don't forget to tell compiler which namespace
 	using namespace boost::math;
 
-	//normal_distribution<> myNormal(1.0, 10.0); // Default type is 'double'
-	//cout << "Mean: " << mean(myNormal) << ", standard deviation: " << standard_deviation(myNormal) << endl;
+	cout << "\n\n"
+		<< "|=================================================|\n"
+		<< "|      Normal and Exponential Distributions:      |\n"
+		<< "|=================================================|\n\n";
+
+	normal_distribution<> myNormal(1.0, 10.0); // Default type is 'double'
+	cout << "Normal Mean: " << mean(myNormal) 
+		<< ", Normal standard deviation: " << standard_deviation(myNormal) << endl;
 
 	exponential_distribution<> myExponential(0.5); // Default type is 'double'
 	cout << "Exponential Mean: " << mean(myExponential) 
-		<< ", Exponential standard deviation: " << standard_deviation(myExponential) << endl;
+		<< ", Exponential standard deviation: " 
+		<< standard_deviation(myExponential) << endl;
 
 	// Distributional properties
-	//double x = 10.25;
+	double x = 10.25;
 	double exp_x = 3;
 
-	//cout << "pdf: " << pdf(myNormal, x) << endl;
-	//cout << "cdf: " << cdf(myNormal, x) << endl;
+	cout << "\nNormal pdf: " << pdf(myNormal, x) << endl;
+	cout << "Normal cdf: " << cdf(myNormal, x) << endl;
+	cout << "\nExponential pdf: " << pdf(myExponential, exp_x) << endl;
+	cout << "Exponential cdf: " << cdf(myExponential, exp_x) << endl;
 
-	cout << "\nExp pdf: " << pdf(myExponential, exp_x) << endl;
-	cout << "Exp cdf: " << cdf(myExponential, exp_x) << endl;
-
-	
-
-	// Choose another data type and now a N(0,1) variate
-	//normal_distribution<float> myNormal2; 
-	//cout << "Mean: " << mean(myNormal2) << ", standard deviation: " << standard_deviation(myNormal2) << endl;
-	
-	//cout << "pdf: " << pdf(myNormal2, x) << endl;
-	//cout << "cdf: " << cdf(myNormal2, x) << endl;
-
+	// Choose another data type 
+	float exp2_x = 3;
 	exponential_distribution<float> myExponential2(1.5);
-	cout << "\n Exp2 Mean: " << mean(myExponential2) << ", standard deviation: " << standard_deviation(myExponential2) << endl;
-
-	cout << "Exp2 pdf: " << pdf(myExponential2, exp_x) << endl;
-	cout << "Exp2 cdf: " << cdf(myExponential2, exp_x) << endl;
-
-
-
-	// Choose precision
-	cout.precision(10); // Number of values behind the comma
+	cout << "\nExponential2 Mean: " << mean(myExponential2) 
+		<< ", standard deviation: " << standard_deviation(myExponential2) << endl;
+	cout << "Exponential2 pdf: " << pdf(myExponential2, exp2_x) << endl;
+	cout << "Exponential2 cdf: " << cdf(myExponential2, exp2_x) << endl;
 
 	// Other properties
-	
-	//cout << "\n***normal distribution: \n";
-	//cout << "mean: " << mean(myNormal) << endl;
-	//cout << "variance: " << variance(myNormal) << endl;
-	//cout << "median: " << median(myNormal) << endl;
-	//cout << "mode: " << mode(myNormal) << endl;
-	//cout << "kurtosis excess: " << kurtosis_excess(myNormal) << endl;
-	//cout << "kurtosis: " << kurtosis(myNormal) << endl;
-	//cout << "characteristic function: " << chf(myNormal, x) << endl;
-	//cout << "hazard: " << hazard(myNormal, x) << endl;
+	cout.precision(10);		// For normal and exponential distributions 
+
+	cout << "\n\nOther properties\n\n";
+	cout << "***normal distribution:\n";
+	cout << "mean: " << mean(myNormal) << endl;
+	cout << "variance: " << variance(myNormal) << endl;
+	cout << "median: " << median(myNormal) << endl;
+	cout << "mode: " << mode(myNormal) << endl;
+	cout << "kurtosis excess: " << kurtosis_excess(myNormal) << endl;
+	cout << "kurtosis: " << kurtosis(myNormal) << endl;
+	cout << "characteristic function: " << chf(myNormal, x) << endl;
+	cout << "hazard: " << hazard(myNormal, x) << endl;
 	
 	cout << "\n***exponential distribution: \n";
 	cout << "mean: " << mean(myExponential) << endl;
@@ -84,7 +82,8 @@ int main()
 	cout << "characteristic function: " << chf(myExponential, exp_x) << endl;
 	cout << "hazard: " << hazard(myExponential, exp_x) << endl;
 
-	cout << "\n\n***exponential2 distribution: \n";
+	cout.precision(7);		// For exponential2 distributions which uses floats
+	cout << "\n***exponential2 distribution: \n";
 	cout << "mean: " << mean(myExponential2) << endl;
 	cout << "variance: " << variance(myExponential2) << endl;
 	cout << "median: " << median(myExponential2) << endl;
@@ -94,26 +93,30 @@ int main()
 	cout << "characteristic function: " << chf(myExponential2, exp_x) << endl;
 	cout << "hazard: " << hazard(myExponential2, exp_x) << endl;
 
+	
+	// Gamma and Poisson distributions
+	cout << "\n\n"
+		<< "|============================================|\n"
+		<< "|      Gamma and Poisson Distributions:      |\n"
+		<< "|============================================|\n\n";
 
-
-	/*
-	// Gamma distribution
 	double alpha = 3.0; // Shape parameter, k
 	double beta = 0.5;	// Scale parameter, theta
+	double lambda = 5.0;	// mean rate for poisson distribution
 	gamma_distribution<double> myGamma(alpha, beta);
-	poisson_distribution<double> myPoisson(5);
+	poisson_distribution<double> myPoisson(lambda);
 
 	double val = 13.0;
-	cout << endl <<  "pdf: " << pdf(myGamma, val) << endl;
-	cout << endl << "pdf_poisson: " << pdf(myPoisson, val) << endl;
-	cout << "cdf: " << cdf(myGamma, val) << endl;
-	cout << "cdf_poisson: " << cdf(myPoisson, val) << endl;
+	cout << "Gamma pdf: " << pdf(myGamma, val) << endl;
+	cout << "Poisson pdf: " << pdf(myPoisson, val) << endl;
+	cout << "Gamma cdf: " << cdf(myGamma, val) << endl;
+	cout << "Poisson cdf: " << cdf(myPoisson, val) << endl;
 
-	vector<double> pdfList;
-	vector<double> cdfList;
+	vector<double> gamma_pdfList;
+	vector<double> gamma_cdfList;
 
-	vector<double> poissonpdfList;
-	vector<double> poissoncdfList;
+	vector<double> poisson_pdfList;
+	vector<double> poisson_cdfList;
 
 	double start = 0.0;
 	double end = 10.0;
@@ -124,41 +127,46 @@ int main()
 
 	for (long j = 1; j <= N; ++j)
 	{
-		pdfList.push_back(pdf(myGamma, val));
-		cdfList.push_back(cdf(myGamma, val));
+		gamma_pdfList.push_back(pdf(myGamma, val));
+		gamma_cdfList.push_back(cdf(myGamma, val));
 
-		poissonpdfList.push_back(pdf(myPoisson, val));
-		poissoncdfList.push_back(cdf(myPoisson, val));
+		poisson_pdfList.push_back(pdf(myPoisson, val));
+		poisson_cdfList.push_back(cdf(myPoisson, val));
 
 		val += h;
 	}
 
-	for (long j = 0; j < pdfList.size(); ++j)
+	cout << "\nGamma pdflist:\n";
+	cout << gamma_pdfList[0];
+	for (unsigned long j = 1; j < gamma_pdfList.size(); ++j)
 	{
-		cout << pdfList[j] << ", ";
+		cout << ", " << gamma_pdfList[j];
 	}
 
-	cout << "\nPOISSON pdflist:\n";
-	for (long j = 0; j < poissonpdfList.size(); ++j)
+	cout << "\n\nPoisson pdflist:\n";
+	cout << poisson_pdfList[0];
+	for (unsigned long j = 1; j < poisson_pdfList.size(); ++j)
 	{
-		cout << poissonpdfList[j] << ", ";
+		cout << ", " << poisson_pdfList[j];
 	}
 
-	cout << "***" << endl;
+	cout << "\n\n***" << endl;
 
-	for (long j = 0; j < cdfList.size(); ++j)
+	cout << "\nGamma cdflist:\n";
+	cout << gamma_cdfList[0];
+	for (unsigned long j = 1; j < gamma_cdfList.size(); ++j)
 	{
-		cout << cdfList[j] << ", ";
-
+		cout << ", " << gamma_cdfList[j];
 	}
 
-	cout << "\nPOISSON cdflist:\n";
-	for (long j = 0; j < poissoncdfList.size(); ++j)
+	cout << "\n\nPoisson cdflist:\n";
+	cout << poisson_cdfList[0];
+	for (unsigned long j = 1; j < poisson_cdfList.size(); ++j)
 	{
-		cout << poissoncdfList[j] << ", ";
+		cout << ", " << poisson_cdfList[j];
 	}
 
-	*/
-
+	cout << "\n\n***\n" << endl;
+	
 	return 0;
 }
