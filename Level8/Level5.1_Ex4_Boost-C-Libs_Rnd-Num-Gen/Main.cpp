@@ -138,17 +138,10 @@ int main(void)
 	for (int i = 0; i < trials; i++)
 	{
 		outcome = six(myRng);		// get outcome
-		switch (outcome)			// switch on outcome
-		{							// increment relevant key in statistics
-			case 1: ++statistics[outcome]; break;
-			case 2: ++statistics[outcome]; break;
-			case 3: ++statistics[outcome]; break;
-			case 4: ++statistics[outcome]; break;
-			case 5: ++statistics[outcome]; break;
-			case 6: ++statistics[outcome]; break;
-			
-			default: ++error_outcome;	// just in case
-		}
+		if (outcome >= 1 && outcome <= 6)
+			statistics[outcome]++;
+		else
+			++error_outcome;
 	}
 
 	// check if we had errorneous outcomes
@@ -166,7 +159,7 @@ int main(void)
 		}
 	}
 
-	
+
 	cout << "\n\n\n"
 		<< "|========================================|\n"
 		<< "|                VARIANT                 |\n"
@@ -304,7 +297,7 @@ int main(void)
 	catch (...) { cout << "Unknown exception caught\n" << endl; }
 
 	cout << "\n\n\nmain() terminating... " << endl << endl;	
-
+	
 	return 0;
 }
 
