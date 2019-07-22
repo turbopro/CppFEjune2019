@@ -42,6 +42,7 @@ int main()
 
 	// All options are European
 
+	/*
 	// Create Array of maps to store Batches of values
 	int arr_size = 4;
 	Array<map<string, double> > batches(arr_size);
@@ -56,14 +57,23 @@ int main()
 		cout << endl;
 	}
 	cout << endl << endl;
+	
+
+	cout << "\nBatch1 has test values:\n";
+	for (int i = 0; i < 7; i++)
+		cout << Batch1[i].first << ": " << Batch1[i].second << endl;
+
+	cout << endl << endl;
+	*/
 
 
-	/*
+	
 	// Call option on a stock (b = r by default)
 	EuropeanOption callOption;
 	cout << "S: "; double S; cin >> S;
 	cout << "Option on a stock: " << callOption.Price(S) << endl;
 
+	
 	// Option on a stock index
 	EuropeanOption indexOption;
 	indexOption.optType = "C";
@@ -75,7 +85,9 @@ int main()
 	double q = 0.0;		// Dividend yield
 	indexOption.b = indexOption.r - q;
 
-	cout << indexOption.optType << " option on an index: " << indexOption.Price(50.0) << endl;
+	cout << indexOption.optType << endl;
+	
+	cout << " option on an index: " << indexOption.Price(50.0) << endl;
 
 	/*
 	// Options on a future
