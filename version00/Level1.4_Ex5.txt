@@ -198,3 +198,39 @@ int fill_array(float* fahrenheit_array, float* celsius_array,
 	
 	return i;
 }
+
+
+Level 9: MapPtr = shared_ptr
+
+// create an array of pointers to map for the Batches
+	
+	// create typedefs: shared pointer to map, and, array of maps stored as shared pointers
+	typedef boost::shared_ptr<map<std::string, double>> MapPtr;
+	typedef Array<MapPtr> MapArray;
+
+cout << "\nCreate array of shared_ptrs to map objects:\n";
+	MapArray sptr_arr0(arr_size);
+
+	cout << "\nSize of sptr_arr0: " << sptr_arr0.Size() << endl
+		<< "Type of sptr_arr0: " << typeid(sptr_arr0).name() << endl
+		<< "sptr_arr0[0]: " << typeid(sptr_arr0[0]).name() << endl
+		<< "sptr_arr0[0] use_count: " << sptr_arr0[0].use_count() << endl << endl;
+
+	// set shared_ptr, MapPtr, to new dynamically allocated map objects
+	cout << "\nSet MapPtr shared_ptrs to new map objects:\n";
+	sptr_arr0[0] = MapPtr(new map<std::string, double>);
+	sptr_arr0[1] = MapPtr(new map<std::string, double>);
+	sptr_arr0[2] = MapPtr(new map<std::string, double>);
+	sptr_arr0[3] = MapPtr(new map<std::string, double>);
+	sptr_arr0[0].get()->emplace("K", 65.0); sptr_arr0[0].get()->emplace("T", 1.0);
+	sptr_arr0[0].get()->emplace("sig", 0.3); sptr_arr0[0].get()->emplace("r", 0.08);
+	sptr_arr0[0].get()->emplace("S", 60.0); sptr_arr0[0].get()->emplace("C", 2.13337);
+	sptr_arr0[0].get()->emplace("P", 5.84628);
+
+	// calculate sum of diameters for all planets (Map) using Sum() with iterator arguments
+	map<string, double>::const_iterator it_begin = sptr_arr0[0]->begin();
+	map<string, double>::const_iterator it_end = sptr_arr0[0]->end();
+	
+	//cout << "sptr_arr0 has: " << sptr_arr0[0]->begin() << endl;
+	for (map<string, double>::const_iterator it = it_begin; it != it_end; it++)
+		cout << it->first << it->second << endl;
