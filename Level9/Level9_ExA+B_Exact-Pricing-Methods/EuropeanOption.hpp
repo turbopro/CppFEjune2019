@@ -11,6 +11,8 @@
 
 
 #include <string>
+#include <map>				// for map
+#include "Array.h"
 using namespace std;
 
 class EuropeanOption
@@ -64,5 +66,11 @@ public:	// Public functions
 
 
 };
+
+// set Batch_n test values
+using namespace Turbopro::Containers;		// namespace for Array template class
+void setBatch(Array<map<string, double> >& Batch);
+
+
 
 #endif

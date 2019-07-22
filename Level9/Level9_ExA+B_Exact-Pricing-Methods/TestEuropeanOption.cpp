@@ -8,6 +8,7 @@
 
 #include "EuropeanOption.hpp"
 #include <iostream>
+#include <sstream>
 
 // STL
 #include <vector>			// for vector, copy
@@ -36,51 +37,26 @@
 
 
 int main()
-{ // All options are European
-	/*
-	Batch 1: T = 0.25, K = 65,    sig = 0.30, r = 0.08, S = 60    (then C = 2.13337, P = 5.84628).
-	Batch 2: T = 1.0,  K = 100,   sig = 0.2,  r = 0.0,  S = 100   (then C = 7.96557, P = 7.96557).
-	Batch 3: T = 1.0,  K = 10,    sig = 0.50, r = 0.12, S = 5     (C = 0.204058, P = 4.07326).
-	Batch 4: T = 30.0, K = 100.0, sig = 0.30, r = 0.08, S = 100.0 (C = 92.17570, P = 1.24750).
-	*/
-	using namespace Turbopro::Containers;		// namespace directive
+{ 
+	using namespace Turbopro::Containers;		// namespace for Array template class
 
-	map<string, double> Batch_1;
-	Batch_1.emplace("T", 0.25); Batch_1.emplace("K", 65.0); Batch_1.emplace("sig", 0.3);
-	Batch_1.emplace("r", 0.08);	Batch_1.emplace("S", 60.0); Batch_1.emplace("C", 2.13337);
-	Batch_1.emplace("P", 5.84628);
-	
-	map<string, double> Batch_2;
-	Batch_2.emplace("T", 1.0); Batch_2.emplace("K", 100); Batch_2.emplace("sig", 0.2);
-	Batch_2.emplace("r", 0.0);	Batch_2.emplace("S", 100.0); Batch_2.emplace("C", 7.96557);
-	Batch_2.emplace("P", 7.96557);
+	// All options are European
 
-	map<string, double> Batch_3;
-	Batch_3.emplace("T", 1.0); Batch_3.emplace("K", 10); Batch_3.emplace("sig", 0.5);
-	Batch_3.emplace("r", 0.12);	Batch_3.emplace("S", 5.0); Batch_3.emplace("C", 0.204058);
-	Batch_3.emplace("P", 4.07326);
-
-	map<string, double> Batch_4;
-	Batch_4.emplace("T", 30.0); Batch_4.emplace("K", 100.0); Batch_4.emplace("sig", 0.3);
-	Batch_4.emplace("r", 0.08);	Batch_4.emplace("S", 100.0); Batch_4.emplace("C", 92.17570);
-	Batch_4.emplace("P", 1.2475);
-
+	// Create Array of maps to store Batches of values
 	int arr_size = 4;
 	Array<map<string, double> > batches(arr_size);
-	batches[0] = Batch_1;
-	batches[1] = Batch_2;
-	batches[2] = Batch_3;
-	batches[3] = Batch_4;
+	setBatch(batches);
 
 	cout << endl;
 	for (int i = 0; i < batches.Size(); i++)
 	{
-		cout << "Batch_" << i << " has test values:\n";
+		cout << "Batch_" << i+1 << " has test values:\n";
 		for (auto val : batches[i])
 			cout << val.first << ": " << val.second << endl;
 		cout << endl;
 	}
 	cout << endl << endl;
+
 
 	/*
 	// Call option on a stock (b = r by default)
