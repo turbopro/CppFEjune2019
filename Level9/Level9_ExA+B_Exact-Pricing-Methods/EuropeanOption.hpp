@@ -15,6 +15,7 @@
 #include <map>				// for map
 #include "Array.h"
 using namespace std;
+using namespace Turbopro::Containers;
 
 class EuropeanOption
 {
@@ -67,11 +68,12 @@ public:	// Public functions
 
 };
 
-// set Batch_n test values
-//void setBatch(map<string, double>& Batch, const double& T, const double& K,
-	//const double& sig, const double& r, const double& S, const double& C, const double& P);
-
-//void setBatch(map<string, double>& Batch, const string(&S)[], const double(&V)[], const int& sz);
-void set_batch(map<string, double>& batch, const string* S, const double* V, const int& val_size);
+// store Test Values into a Map container
+//void set_batch(map<string, double>& batch, const string* S, const double* V, const int& val_size);
+//void set_batch(map<string, double>& batch, const Array<string> S, const double* V, const int& val_size);
+//void set_batch(map<string, double>& batch, const Array<string> S, const vector<double>& V, const int& val_size);
+void set_batch(map<string, double>& batch, const vector<string>& S, const vector<double>& V);
+//void set_batch(map<string, double>& batch, const string& S, const double (&V)[], const int& val_size);
+//void set_batch(map<string, double>& batch, const string& S, const double(&V)[N]);
 
 #endif

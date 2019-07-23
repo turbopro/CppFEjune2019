@@ -199,22 +199,20 @@ void EuropeanOption::toggle()
 	else
 		optType = "C";
 }
-/*
-// setBatch() definition
-void setBatch(map<string, double>& Batch, const double& T, const double& K,
-const double& sig, const double& r, const double& S, const double& C, const double& P)
-{
-	// set/map test values into Batch map container
-	Batch.emplace("T", T); Batch.emplace("K", K); Batch.emplace("sig", sig);
-	Batch.emplace("r", r); Batch.emplace("S", S);
-	Batch.emplace("C", C); Batch.emplace("P", P);
-}
-*/
 
 // setBatch() definition
-void set_batch(map<string, double>& batch, const string* S, const double* V, const int& val_size)
+
+//void set_batch(map<string, double>& batch, const string& S, const double (&V)[], const int& val_size)
+//void set_batch(map<string, double>& batch, const string& S, const double(&V)[], const int& val_size)
+//template <size_t N>
+//void set_batch(map<string, double>& batch, const string& S, const double(&V)[N])
+//void set_batch(map<string, double>& batch, const string* S, const double* V, const int& val_size)
+//void set_batch(map<string, double>& batch, const Array<string> S, const double& V, const int& val_size)
+//void set_batch(map<string, double>& batch, const Array<string> S, const vector<double>& V, const int& val_size)
+void set_batch(map<string, double>& batch, const vector<string>& S, const vector<double>& V)
 {
-	for (int i = 0; i < val_size; i++)
+	//for (int i = 0; i < val_size; i++)
+	for (int i = 0; i < V.size(); i++)
 	{
 		batch[S[i]] = V[i];
 	}

@@ -44,73 +44,38 @@ int main()
 	// All options are European
 
 	// store Batch Test Values in an Array of Map containers
-	const int map_size = 4, test_val_size = 7;						// set array sizes
-	string test_arg_str[] { "T", "K", "sig", "r", "S", "C", "P" };	// test values strings
-	double test_arg_val[][test_val_size]							// test values
-	{ {0.25, 65, 0.3, 0.08, 60, 2.13337, 5.84628}, {1.0, 100, 0.2, 0.0, 100, 7.96557, 7.96557},
-	  {1.0, 10, 0.5, 0.12, 5, 0.204058, 4.07326}, {30.0, 100.0, 0.3, 0.08, 100.0, 92.1757, 1.2475} };
-
-	// create Array of Map containers
-	// function set_batch() stores Test Values into Map containers
-	Array<map<string, double>> batches(map_size);
-	for (int i = 0; i < map_size; i++)
+	try		// catch Array exceptions
 	{
-		set_batch(batches[i], test_arg_str, test_arg_val[i], test_val_size);
-	}
+		const int map_size = 4;			// set array sizes
 
-	// show stored Test Values
-	for (int i = 0; i < map_size; i++)
-	{
-		cout << "Batch" << i+1 << " has test values:\n";
-		for (auto batch : batches[i])
+		// create vector of test value strings: ["T", "K", "sig", "r", "S", "C", "P"]
+		vector<string> test_str0{ "T", "K", "sig", "r", "S", "C", "P" };
+		
+		// create vector of test value doubles
+		vector<double> test_val[]
 		{
-			cout << batch.first << ": " << batch.second << endl;
+			{ 0.25, 65, 0.30, 0.08, 60, 2.13337, 5.84628 },
+			{ 1.0, 100, 0.2, 0.0, 100, 7.96557, 7.96557 },
+			{ 1.0, 10, 0.5, 0.12, 5, 0.204058, 4.07326 },
+			{ 30.0, 100.0, 0.3, 0.08, 100.0, 92.1757, 1.2475 }
+		};
+				
+		// create Array of Map containers: function set_batch() stores Test Values into Map containers
+		Array<map<string, double>> batches(map_size);
+		for (int i = 0; i < map_size; i++)
+			set_batch(batches[i], test_str0, test_val[i]);
+
+		// show stored Test Values: use ranged-based inner for loop
+		for (int i = 0; i < map_size; i++)
+		{
+			cout << "Batch" << i + 1 << " has test values:\n";
+			for (auto batch : batches[i]) cout << batch.first << ": " << batch.second << endl;
+			cout << endl;
 		}
-		cout << endl;
 	}
+	catch (ArrayException& arr_error) { cout << arr_error.GetMessage() << endl; }
+	catch (...) { cout << "\nUnknown error caught\n" << endl; }
 
-	//for (int i = 0; i < map_size; i++)
-	//{
-	//	setBatch(batches[i], test_vals[i][0], test_vals[i][1], test_vals[i][2], test_vals[i][3],
-	//		test_vals[i][4], test_vals[i][5], test_vals[i][6] );
-	//}
-
-	/*
-	// Store Batch Test Values in map containers:
-	map<string, double> Batch1, Batch2, Batch3, Batch4;
-
-	// Batch 1: T = 0.25, K = 65,    sig = 0.30, r = 0.08, S = 60    (then C = 2.13337, P = 5.84628).
-	double T = 0.25, K = 65, sig = 0.30, r = 0.08, S = 60, C = 2.13337, P = 5.84628;
-	setBatch(Batch1, T, K, sig, r, S, C, P);
-	cout << "\nBatch1 has test values:\n";
-	for (auto value : Batch1)
-		cout << value.first << ": " << value.second << endl;
-	cout << endl;
-
-	// Batch 2: T = 1.0,  K = 100,   sig = 0.2,  r = 0.0,  S = 100   (then C = 7.96557, P = 7.96557).
-	T = 1.0; K = 100; sig = 0.2; r = 0.0; S = 100; C = 7.96557; P = 7.96557;
-	setBatch(Batch2, T, K, sig, r, S, C, P);
-	cout << "\nBatch2 has test values:\n";
-	for (auto value : Batch2)
-		cout << value.first << ": " << value.second << endl;
-	cout << endl;
-
-	// Batch 3: T = 1.0,  K = 10,    sig = 0.50, r = 0.12, S = 5     (C = 0.204058, P = 4.07326).
-	T = 1.0; K = 10; sig = 0.5; r = 0.12; S = 5; C = 0.204058; P = 4.07326;
-	setBatch(Batch3, T, K, sig, r, S, C, P);
-	cout << "\nBatch3 has test values:\n";
-	for (auto value : Batch3)
-		cout << value.first << ": " << value.second << endl;
-	cout << endl;
-
-	// Batch 4: T = 30.0, K = 100.0, sig = 0.30, r = 0.08, S = 100.0 (C = 92.17570, P = 1.24750).
-	T = 30.0; K = 100.0; sig = 0.3; r = 0.08; S = 100.0; C = 92.17570; P = 1.24750;
-	setBatch(Batch4, T, K, sig, r, S, C, P);
-	cout << "\nBatch4 has test values:\n";
-	for (auto value : Batch4)
-		cout << value.first << ": " << value.second << endl;
-	cout << endl;
-	cout << endl;
 
 	/*
 	// Call option on a stock (b = r by default)
