@@ -43,6 +43,39 @@ int main()
 
 	// All options are European
 
+	// store Batch Test Values in an Array of Map containers
+	const int map_size = 4, test_val_size = 7;						// set array sizes
+	string test_arg_str[] { "T", "K", "sig", "r", "S", "C", "P" };	// test values strings
+	double test_arg_val[][test_val_size]							// test values
+	{ {0.25, 65, 0.3, 0.08, 60, 2.13337, 5.84628}, {1.0, 100, 0.2, 0.0, 100, 7.96557, 7.96557},
+	  {1.0, 10, 0.5, 0.12, 5, 0.204058, 4.07326}, {30.0, 100.0, 0.3, 0.08, 100.0, 92.1757, 1.2475} };
+
+	// create Array of Map containers
+	// function set_batch() stores Test Values into Map containers
+	Array<map<string, double>> batches(map_size);
+	for (int i = 0; i < map_size; i++)
+	{
+		set_batch(batches[i], test_arg_str, test_arg_val[i], test_val_size);
+	}
+
+	// show stored Test Values
+	for (int i = 0; i < map_size; i++)
+	{
+		cout << "Batch" << i+1 << " has test values:\n";
+		for (auto batch : batches[i])
+		{
+			cout << batch.first << ": " << batch.second << endl;
+		}
+		cout << endl;
+	}
+
+	//for (int i = 0; i < map_size; i++)
+	//{
+	//	setBatch(batches[i], test_vals[i][0], test_vals[i][1], test_vals[i][2], test_vals[i][3],
+	//		test_vals[i][4], test_vals[i][5], test_vals[i][6] );
+	//}
+
+	/*
 	// Store Batch Test Values in map containers:
 	map<string, double> Batch1, Batch2, Batch3, Batch4;
 

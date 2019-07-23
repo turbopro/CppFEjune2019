@@ -68,7 +68,10 @@ public:	// Public functions
 };
 
 // set Batch_n test values
-void setBatch(map<string, double>& Batch, const double& T, const double& K,
-const double& sig, const double& r, const double& S, const double& C, const double& P);
+//void setBatch(map<string, double>& Batch, const double& T, const double& K,
+	//const double& sig, const double& r, const double& S, const double& C, const double& P);
+
+//void setBatch(map<string, double>& Batch, const string(&S)[], const double(&V)[], const int& sz);
+void set_batch(map<string, double>& batch, const string* S, const double* V, const int& val_size);
 
 #endif
