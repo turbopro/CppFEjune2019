@@ -14,6 +14,12 @@
 #include <array>
 #include <map>				// for map
 #include "Array.h"
+
+// Boost C Libraries Header Files
+#include <boost/shared_ptr.hpp>			// for Shared Pointer: shared_ptr 
+#include <boost/tuple/tuple.hpp>		// for Tuple
+#include <boost/tuple/tuple_io.hpp>		// for Tuple Input/Output operators
+
 using namespace std;
 using namespace Turbopro::Containers;
 
@@ -40,6 +46,9 @@ public:
 
 	// Member data public for convenience; anyway, the format will 
 	// not change for a plain option.
+
+	// create Tuple to hold Option Parameters
+	typedef boost::tuple<double, double, double, double, double, string, string> OptParams;
 
 	double r;		// Interest rate
 	double sig;		// Volatility
@@ -69,11 +78,7 @@ public:	// Public functions
 };
 
 // store Test Values into a Map container
-//void set_batch(map<string, double>& batch, const string* S, const double* V, const int& val_size);
-//void set_batch(map<string, double>& batch, const Array<string> S, const double* V, const int& val_size);
-//void set_batch(map<string, double>& batch, const Array<string> S, const vector<double>& V, const int& val_size);
 void set_batch(map<string, double>& batch, const vector<string>& S, const vector<double>& V);
-//void set_batch(map<string, double>& batch, const string& S, const double (&V)[], const int& val_size);
-//void set_batch(map<string, double>& batch, const string& S, const double(&V)[N]);
+
 
 #endif

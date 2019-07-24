@@ -200,15 +200,7 @@ void EuropeanOption::toggle()
 		optType = "C";
 }
 
-// setBatch() definition
-
-//void set_batch(map<string, double>& batch, const string& S, const double (&V)[], const int& val_size)
-//void set_batch(map<string, double>& batch, const string& S, const double(&V)[], const int& val_size)
-//template <size_t N>
-//void set_batch(map<string, double>& batch, const string& S, const double(&V)[N])
-//void set_batch(map<string, double>& batch, const string* S, const double* V, const int& val_size)
-//void set_batch(map<string, double>& batch, const Array<string> S, const double& V, const int& val_size)
-//void set_batch(map<string, double>& batch, const Array<string> S, const vector<double>& V, const int& val_size)
+// set_batch() definition
 void set_batch(map<string, double>& batch, const vector<string>& S, const vector<double>& V)
 {
 	//for (int i = 0; i < val_size; i++)

@@ -9,7 +9,6 @@
 #include "EuropeanOption.hpp"
 #include <iostream>
 #include <sstream>
-#include <tuple>
 //#include <string>
 
 // STL
@@ -43,14 +42,7 @@ int main()
 	using namespace Turbopro::Containers;		// namespace for Array template class
 
 	// All options are European
-	
-	// create Tuple for Batches
 	/*
-	Batch 1: T = 0.25, K = 65, sig = 0.30, r = 0.08, S = 60 (then C = 2.13337, P = 5.84628)
-	Batch 2: T = 1.0, K = 100, sig = 0.2, r = 0.0, S = 100 (then C = 7.96557, P = 7.96557). 
-	Batch 3: T = 1.0, K = 10, sig = 0.50, r = 0.12, S = 5 (C = 0.204058, P = 4.07326). 
-	Batch 4: T = 30.0, K = 100.0, sig = 0.30, r = 0.08, S = 100.0 (C = 92.17570, P = 1.24750)
-	*/
 	// store Batch Test Values in an Array of Map containers
 	try		// catch Array exceptions
 	{
@@ -58,7 +50,7 @@ int main()
 
 		// create vector of test value strings: ["T", "K", "sig", "r", "S", "C", "P"]
 		vector<string> test_str0{ "T", "K", "sig", "r", "S", "C", "P" };
-
+		
 		// create vector of test value doubles
 		vector<double> test_val[]
 		{
@@ -67,7 +59,7 @@ int main()
 			{ 1.0, 10, 0.5, 0.12, 5, 0.204058, 4.07326 },
 			{ 30.0, 100.0, 0.3, 0.08, 100.0, 92.1757, 1.2475 }
 		};
-
+				
 		// create Array of Map containers: function set_batch() stores Test Values into Map containers
 		Array<map<string, double>> batches(map_size);
 		for (int i = 0; i < map_size; i++)
@@ -83,25 +75,9 @@ int main()
 	}
 	catch (ArrayException& arr_error) { cout << arr_error.GetMessage() << endl; }
 	catch (...) { cout << "\nUnknown error caught\n" << endl; }
+	*/
 
-	// create Tuple typedef: includes Option Parameters doubles, and Option type string  
-	typedef boost::tuple<double, double, double, double, double, string> OptParams;
-
-	//OptParams test0 (0.25, 65, 0.30, 0.08, 60, "C");
-
-	tuple<double, double, double, double, double, string> test0 (0.25, 65, 0.30, 0.08, 60, "C");
-
-	//cout << "\OptParams: " << test0. << endl;
-
-	//cout << "\ntest0 size: " << std::tuple_size<decltype(test0)> << endl << endl;
-	std::cout << "mytuple has ";
-	std::cout << tuple_size<decltype(test0)>::value;
-	std::cout << " elements." << '\n';
-
-
-	//OptParams Batch1 = 
-
-	/*
+	
 	// Call option on a stock (b = r by default)
 	EuropeanOption callOption;
 	cout << "S: "; double S; cin >> S;

@@ -1,5 +1,21 @@
 Level 9 ExA+B
 
+//void set_batch(map<string, double>& batch, const string& S, const double (&V)[], const int& val_size)
+//void set_batch(map<string, double>& batch, const string& S, const double(&V)[], const int& val_size)
+//template <size_t N>
+//void set_batch(map<string, double>& batch, const string& S, const double(&V)[N])
+//void set_batch(map<string, double>& batch, const string* S, const double* V, const int& val_size)
+//void set_batch(map<string, double>& batch, const Array<string> S, const double& V, const int& val_size)
+//void set_batch(map<string, double>& batch, const Array<string> S, const vector<double>& V, const int& val_size)
+
+
+//void set_batch(map<string, double>& batch, const string* S, const double* V, const int& val_size);
+//void set_batch(map<string, double>& batch, const Array<string> S, const double* V, const int& val_size);
+//void set_batch(map<string, double>& batch, const Array<string> S, const vector<double>& V, const int& val_size);
+//void set_batch(map<string, double>& batch, const string& S, const double (&V)[], const int& val_size);
+//void set_batch(map<string, double>& batch, const string& S, const double(&V)[N]);
+
+
 // set Batch_n test values
 void setBatch(map<string, double>& Batch, const double& T, const double& K,
 	const double& sig, const double& r, const double& S, const double& C, const double& P);
