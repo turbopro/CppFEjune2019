@@ -189,6 +189,38 @@ cout << endl;
 		cout << "Address of Point for pointer[" << i << "]: " << &(*pp_parray[i]) << endl;
 	}
 
+
+
+test ouput:
+
+
+
+S: 110
+calling call
+Option on a stock: 7.5776
+
+Option Type: C
+calling call
+ option on an index at Asset Price = 50.00: 0
+Option Parameters:
+
+Option Type:    C
+Underlying Security:    Index
+K: 50
+T: 0.41667
+sig: 0
+r: 0.1
+
+
+C:\Users\paola\source\repos\CppFEjune2019\Level9\Level9_ExA+B_Exact-Pricing-Meth
+ods\Release\Level9_ExA+B_Exact-Pricing-Methods.exe (process 6396) exited with co
+de 0.
+To automatically close the console when debugging stops, enable Tools->Options->
+Debugging->Automatically close the console when debugging stops.
+Press any key to close this window . . .
+
+
+
 ===================================================================
 ===================================================================
 

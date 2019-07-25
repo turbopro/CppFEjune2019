@@ -39,7 +39,7 @@ double EuropeanOption::N(double x) const
 // Kernel Functions (Haug)
 double EuropeanOption::CallPrice(double U) const
 {
-
+	//std::cout << "U: " << U << endl;
 	double tmp = sig * sqrt(T);
 
 	double d1 = ( log(U/K) + (b+ (sig*sig)*0.5 ) * T )/ tmp;
@@ -118,32 +118,26 @@ EuropeanOption::EuropeanOption()
 	init();
 }
 
+/*
 // constructor takes three arguments: 
 // arg[0] = map with test parameter values
 // arg[1] = option type
 // arg[2] = underlying security type
 EuropeanOption::EuropeanOption(map<string, double>& op, 
-	string ot, char security, double adjustment)
+	string ot, char security, double costofcarry_adjust)
+	: r(op["r"]), sig(op["sig"]), K(op["K"]), T(op["T"]), optType(ot)
 {
-	r = op["r"];
-	sig = op["sig"]; 
-	K = op["K"];
-	T = op["T"];
-	//b = r;			// Black and Scholes stock option model (1973)
-
-	optType = ot;
-
 	// set b, set unam based on type of underlying security 
 	switch (security)
 	{
 		case 's':		// stock: b = r as per Black and Scholes stock option model (1973)
 		case 'S': b = r; unam = "Stock"; break;		
 		case 'i':		// stock index
-		case 'I': b = r - adjustment; unam = "Stock Index"; break;
+		case 'I': b = r - costofcarry_adjust; unam = "Stock Index"; break;
 		case 'f':		// future
 		case 'F': b = 0.0; unam = "Future"; break;
 		case 'c':		// currency
-		case 'C': b = r - adjustment; unam = "Currency"; break;
+		case 'C': b = r - costofcarry_adjust; unam = "Currency"; break;
 		// default to Stock settings
 		default: b = r; unam = "Stock";
 	}
@@ -152,6 +146,19 @@ EuropeanOption::EuropeanOption(map<string, double>& op,
 
 	//std::cout << "\nr: " << r << ", sig: " << sig << ", K: "
 		//<< K << ", T: " << T << ", b: " << b << endl;
+}
+*/
+
+// constructor: use tuple as input argument
+// Tuple layout: T, K, sig, r, S, optType, unam, b_adjust (adjustment based on underlying security)
+EuropeanOption::EuropeanOption(OptParams& op)
+	: T(op.get<0>()), K(op.get<1>()), sig(op.get<2>()), r(op.get<3>()), S(op.get<4>()),
+	optType(op.get<5>()), unam(op.get<6>()), b(op.get<7>())
+{
+	if (unam == "Stock") b = r;
+	else if (unam == "Future") b = 0;
+	else if (unam == "Currency" || unam == "Index") b = r - op.get<7>();
+	else b = r;		// default to Stock cost of carry: Black and Scholes stock option model (1973) 
 }
 
 
@@ -197,12 +204,27 @@ EuropeanOption& EuropeanOption::operator = (const EuropeanOption& option2)
 }
 
 // Functions that calculate option price and sensitivities
-double EuropeanOption::Price(double U) const
+// use with constructor: asset price is provided within the input tuple
+double EuropeanOption::Price() const
 {
-
-
 	if (optType == "C")
 	{	
+		cout << "calling call\n";
+		cout << "S: " << S << endl;
+		return CallPrice(S);
+	}
+	else
+	{
+		cout << "calling put\n";
+		return PutPrice(S);
+	}
+}
+
+// use with default constructor: asset price is provided as a single argument double
+double EuropeanOption::Price(double U) const
+{
+	if (optType == "C")
+	{
 		cout << "calling call\n";
 		return CallPrice(U);
 	}
@@ -211,7 +233,7 @@ double EuropeanOption::Price(double U) const
 		cout << "calling put\n";
 		return PutPrice(U);
 	}
-}	
+}
 
 double EuropeanOption::Delta(double U) const 
 {
@@ -240,10 +262,14 @@ void EuropeanOption::Print() const
 	std::cout << "Option Parameters:\n"
 		<< "\nOption Type:\t" << optType
 		<< "\nUnderlying Security:\t" << unam
-		<< "\nK: " << K
 		<< "\nT: " << T
+		<< "\nK: " << K
 		<< "\nsig: " << sig
-		<< "\nr: " << r;
+		<< "\nr: " << r
+		<< "\nb: " << b
+		<< "\nS: " << S
+		<< "\nOption Type: " << optType
+		<< "\nUnderlying Security: " << unam;
 }
 
 // set_batch() definition
