@@ -35,6 +35,12 @@
 	c) b = 0 Black (1976) futures option model
 	d) b = r - rf Garman and Kohlhagen (1983) currency option model, where rf is the 
 	   'foreign' interest rate
+
+	Test Values for option pricing follows:
+	Batch 1: T = 0.25, K = 65, sig = 0.30, r = 0.08, S = 60 (then C = 2.13337, P = 5.84628)
+	Batch 2: T = 1.0, K = 100, sig = 0.2, r = 0.0, S = 100 (then C = 7.96557, P = 7.96557).
+	Batch 3: T = 1.0, K = 10, sig = 0.50, r = 0.12, S = 5 (C = 0.204058, P = 4.07326).
+	Batch 4: T = 30.0, K = 100.0, sig = 0.30, r = 0.08, S = 100.0 (C = 92.17570, P = 1.24750)
 */
 
 
@@ -44,46 +50,27 @@ int main()
 
 	// All options are European
 	
-	// create Tuple for Batches
-	/*
-	Batch 1: T = 0.25, K = 65, sig = 0.30, r = 0.08, S = 60 (then C = 2.13337, P = 5.84628)
-	Batch 2: T = 1.0, K = 100, sig = 0.2, r = 0.0, S = 100 (then C = 7.96557, P = 7.96557). 
-	Batch 3: T = 1.0, K = 10, sig = 0.50, r = 0.12, S = 5 (C = 0.204058, P = 4.07326). 
-	Batch 4: T = 30.0, K = 100.0, sig = 0.30, r = 0.08, S = 100.0 (C = 92.17570, P = 1.24750)
-	*/
+	// create map containers for Batch Test Values
 	// store Batch Test Values in an Array of Map containers
-	try		// catch Array exceptions
+	const int map_size = 4;
+	// create vector of test value strings: ["T", "K", "sig", "r", "S", "C", "P"]
+	vector<string> test_str0{ "T", "K", "sig", "r", "S", "C", "P" };
+
+	// create vector of test value doubles
+	vector<double> test_val[]
 	{
-		const int map_size = 4;			// set array sizes
+		{ 0.25, 65, 0.30, 0.08, 60, 2.13337, 5.84628 },
+		{ 1.0, 100, 0.2, 0.0, 100, 7.96557, 7.96557 },
+		{ 1.0, 10, 0.5, 0.12, 5, 0.204058, 4.07326 },
+		{ 30.0, 100.0, 0.3, 0.08, 100.0, 92.1757, 1.2475 }
+	};
 
-		// create vector of test value strings: ["T", "K", "sig", "r", "S", "C", "P"]
-		vector<string> test_str0{ "T", "K", "sig", "r", "S", "C", "P" };
+	// create Array of Map containers: function set_batch() stores Test Values into Map containers
+	Array<map<string, double>> batches(map_size);
+	for (int i = 0; i < map_size; i++)
+		set_batch(batches[i], test_str0, test_val[i]);
 
-		// create vector of test value doubles
-		vector<double> test_val[]
-		{
-			{ 0.25, 65, 0.30, 0.08, 60, 2.13337, 5.84628 },
-			{ 1.0, 100, 0.2, 0.0, 100, 7.96557, 7.96557 },
-			{ 1.0, 10, 0.5, 0.12, 5, 0.204058, 4.07326 },
-			{ 30.0, 100.0, 0.3, 0.08, 100.0, 92.1757, 1.2475 }
-		};
-
-		// create Array of Map containers: function set_batch() stores Test Values into Map containers
-		Array<map<string, double>> batches(map_size);
-		for (int i = 0; i < map_size; i++)
-			set_batch(batches[i], test_str0, test_val[i]);
-
-		// show stored Test Values: use ranged-based inner for loop
-		for (int i = 0; i < map_size; i++)
-		{
-			cout << "Batch" << i + 1 << " has test values:\n";
-			for (auto batch : batches[i]) cout << batch.first << ": " << batch.second << endl;
-			cout << endl;
-		}
-	}
-	catch (ArrayException& arr_error) { cout << arr_error.GetMessage() << endl; }
-	catch (...) { cout << "\nUnknown error caught\n" << endl; }
-
+	/*
 	// create Tuple typedef: includes Option Parameters doubles, and Option type string  
 	typedef boost::tuple<double, double, double, double, double, string> OptParams;
 
@@ -98,10 +85,32 @@ int main()
 	std::cout << tuple_size<decltype(test0)>::value;
 	std::cout << " elements." << '\n';
 
+	
+	for (int i = 0; i < batches.Size(); i++)
+	{
+		cout << "\nBATCH " << i+1 << ":  Test Run\n";
+		cout << "\nRun a 'Call' option using Batch " << i+1 << " parameters:\n";
+		EuropeanOption callOption(batches[i], "C", 'S');
+		//cout << "S: "; double S; cin >> S;
+		cout << "Option on a stock:\t" << callOption.Price(batches[i]["S"])
+			<< "\nBatch " << i+1 << " 'Call' value:\t" << batches[i]["C"] 
+			<< endl << endl;
 
+		cout << "Run a 'Put' option using Batch " << i+1 << " parameters:\n";
+		EuropeanOption putOption(batches[i], "P", 'S');
+		cout << "Option on a stock:\t" << putOption.Price(batches[i]["S"])
+			<< "\nBatch " << i+1 << " 'Put' value:\t" << batches[i]["P"] 
+			<< endl << endl;
+	}
+	*/
+
+	cout << endl << endl;
+
+
+	
 	//OptParams Batch1 = 
-
-	/*
+	
+	
 	// Call option on a stock (b = r by default)
 	EuropeanOption callOption;
 	cout << "S: "; double S; cin >> S;
@@ -109,38 +118,61 @@ int main()
 
 	
 	// Option on a stock index
-	EuropeanOption indexOption;
-	indexOption.optType = "C";
-	indexOption.K = 50.0;
-	indexOption.T = 0.41667;
-	indexOption.r = 0.1;
-	indexOption.sig = 0.00;
+	map<string, double> opt_params;
+	opt_params.emplace("K", 50.0);
+	opt_params.emplace("T", 0.41667);
+	opt_params.emplace("r", 0.1);
+	opt_params.emplace("sig", 0.0);
+	double dividend_yield = 0.0;		// Dividend yield
+	string option_type = "C";
+	char underlying = 'I';
 
-	double q = 0.0;		// Dividend yield
-	indexOption.b = indexOption.r - q;
+	EuropeanOption indexOption(opt_params, option_type, underlying, dividend_yield);
+	//indexOption.optType = "C";
+	//indexOption.K = 50.0;
+	//indexOption.T = 0.41667;
+	//indexOption.r = 0.1;
+	//indexOption.sig = 0.00;
 
-	cout << indexOption.optType << endl;
+	//double q = 0.0;		// Dividend yield
+	//indexOption.b = indexOption.r - q;
+
+	//cout << indexOption.optType << endl;
+	cout << option_type << endl;
 	
 	cout << " option on an index: " << indexOption.Price(50.0) << endl;
+	indexOption.Print();
 
-	/*
+	cout << endl << endl;
+
+	
 	// Options on a future
-	EuropeanOption futureOption;
-	futureOption.optType = "P";
-	futureOption.K = 19.0;
-	futureOption.T = 0.75;
-	futureOption.r = 0.10;
-	futureOption.sig = 0.28;
+	opt_params.clear();
+	opt_params.emplace("K", 19.0);
+	opt_params.emplace("T", 0.75);
+	opt_params.emplace("r", 0.1);
+	opt_params.emplace("sig", 0.28);
+	option_type = "P";
+	underlying = 'F';
 
-	futureOption.b = 0.0;
+
+	EuropeanOption futureOption(opt_params, option_type, underlying);
+	//futureOption.optType = "P";
+	//futureOption.K = 19.0;
+	//futureOption.T = 0.75;
+	//futureOption.r = 0.10;
+	//futureOption.sig = 0.28;
+
+	//futureOption.b = 0.0;
 
 	cout << "Put option on a future: " << futureOption.Price(20.0) << endl;
 
+	
 	// Now change over to a call on the option
 	futureOption.toggle();
-	cout << "Call option on a future: " << futureOption.Price(20.0) << endl;
+	cout << "\nCall option on a future: " << futureOption.Price(20.0) << endl << endl;
 
-
+	/*
 	// Call option on currency
 	EuropeanOption currencyOption;
 	currencyOption.optType = "C";

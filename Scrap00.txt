@@ -120,6 +120,54 @@ const int map_size = 4, test_arr_size = 7;			// set array sizes
 	cout << endl;
 
 
+function n(x) PDF
+function N(x) CDF
+
+originally:
+double EuropeanOption::n(double x) const
+{  
+	boost::math::normal_distribution<> myNormal(0.0, 1.0);
+	return pdf(myNormal, x);
+
+	//double A = 1.0/sqrt(2.0 * 3.1415);
+	//return A * exp(-x*x*0.5);
+
+}
+
+double EuropeanOption::N(double x) const
+{ // The approximation to the cumulative normal distribution
+
+	boost::math::normal_distribution<> myNormal(0.0, 1.0);
+	return cdf(myNormal, x);
+	
+	/*
+	double a1 = 0.4361836;
+	double a2 = -0.1201676;
+	double a3 = 0.9372980;
+
+	double k = 1.0/(1.0 + (0.33267 * x));
+	
+	if (x >= 0.0)
+	{
+		return 1.0 - n(x)* (a1*k + (a2*k*k) + (a3*k*k*k));
+	}
+	else
+	{
+		return 1.0 - N(-x);
+	}
+	*/
+}
+
+
+//try		// catch Array exceptions
+	//{
+	//}
+
+	//catch (ArrayException& arr_error) { cout << arr_error.GetMessage() << endl; }
+	//catch (...) { cout << "\nUnknown error caught\n" << endl; }
+
+
+
 
 Level2.5_Ex2: visualising pointer to Points
 

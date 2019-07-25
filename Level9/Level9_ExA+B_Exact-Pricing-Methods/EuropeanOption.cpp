@@ -12,37 +12,27 @@
 #include <map>
 #include "Array.h"
 
+//using namespace boost::math;
+
+
 //////////// Gaussian functions /////////////////////////////////
 
 // In general, we would use similar functions in Boost::Math Toolkit
+// And assuming that the distribution for the underlying Stock Price 
+// follows a normal distribution with mean = 0.0, std dev = 1.0, we
+// would re-write n(x) and N(x) as follows:
 
 double EuropeanOption::n(double x) const
-{ 
-
-	double A = 1.0/sqrt(2.0 * 3.1415);
-	return A * exp(-x*x*0.5);
-
+{  
+	boost::math::normal_distribution<> myNormal(0.0, 1.0);
+	return pdf(myNormal, x);
 }
 
 double EuropeanOption::N(double x) const
 { // The approximation to the cumulative normal distribution
 
-
-	double a1 = 0.4361836;
-	double a2 = -0.1201676;
-	double a3 = 0.9372980;
-
-	double k = 1.0/(1.0 + (0.33267 * x));
-	
-	if (x >= 0.0)
-	{
-		return 1.0 - n(x)* (a1*k + (a2*k*k) + (a3*k*k*k));
-	}
-	else
-	{
-		return 1.0 - N(-x);
-	}
-
+	boost::math::normal_distribution<> myNormal(0.0, 1.0);
+	return cdf(myNormal, x);
 }
 
 
@@ -128,6 +118,43 @@ EuropeanOption::EuropeanOption()
 	init();
 }
 
+// constructor takes three arguments: 
+// arg[0] = map with test parameter values
+// arg[1] = option type
+// arg[2] = underlying security type
+EuropeanOption::EuropeanOption(map<string, double>& op, 
+	string ot, char security, double adjustment)
+{
+	r = op["r"];
+	sig = op["sig"]; 
+	K = op["K"];
+	T = op["T"];
+	//b = r;			// Black and Scholes stock option model (1973)
+
+	optType = ot;
+
+	// set b, set unam based on type of underlying security 
+	switch (security)
+	{
+		case 's':		// stock: b = r as per Black and Scholes stock option model (1973)
+		case 'S': b = r; unam = "Stock"; break;		
+		case 'i':		// stock index
+		case 'I': b = r - adjustment; unam = "Stock Index"; break;
+		case 'f':		// future
+		case 'F': b = 0.0; unam = "Future"; break;
+		case 'c':		// currency
+		case 'C': b = r - adjustment; unam = "Currency"; break;
+		// default to Stock settings
+		default: b = r; unam = "Stock";
+	}
+
+	//unam = security;
+
+	//std::cout << "\nr: " << r << ", sig: " << sig << ", K: "
+		//<< K << ", T: " << T << ", b: " << b << endl;
+}
+
+
 EuropeanOption::EuropeanOption(const EuropeanOption& o2)
 { // Copy constructor
 
@@ -137,11 +164,17 @@ EuropeanOption::EuropeanOption(const EuropeanOption& o2)
 EuropeanOption::EuropeanOption (const string& optionType)
 {	// Create option type
 
-	init();
-	optType = optionType;
-
-	if (optType == "c")
+	if (optionType == "c" || optionType == "C")
 		optType = "C";
+	else if (optionType == "p" || optionType == "P")
+		optType = "P";
+	else optType = "C";
+
+	//init();
+	//optType = optionType;
+
+	//if (optType == "c")
+	//	optType = "C";
 
 }
 
@@ -200,10 +233,22 @@ void EuropeanOption::toggle()
 		optType = "C";
 }
 
+
+// print option parameters
+void EuropeanOption::Print() const
+{
+	std::cout << "Option Parameters:\n"
+		<< "\nOption Type:\t" << optType
+		<< "\nUnderlying Security:\t" << unam
+		<< "\nK: " << K
+		<< "\nT: " << T
+		<< "\nsig: " << sig
+		<< "\nr: " << r;
+}
+
 // set_batch() definition
 void set_batch(map<string, double>& batch, const vector<string>& S, const vector<double>& V)
 {
-	//for (int i = 0; i < val_size; i++)
 	for (int i = 0; i < V.size(); i++)
 	{
 		batch[S[i]] = V[i];

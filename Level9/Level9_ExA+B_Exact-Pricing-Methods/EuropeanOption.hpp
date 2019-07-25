@@ -19,6 +19,9 @@
 #include <boost/shared_ptr.hpp>			// for Shared Pointer: shared_ptr 
 #include <boost/tuple/tuple.hpp>		// for Tuple
 #include <boost/tuple/tuple_io.hpp>		// for Tuple Input/Output operators
+#include <boost/math/distributions/normal.hpp>
+#include <boost/math/distributions/gamma.hpp>
+#include <boost/math/distributions.hpp> // For non-member functions of distributions
 
 using namespace std;
 using namespace Turbopro::Containers;
@@ -42,13 +45,13 @@ private:
 	double N(double x) const;
 
 
-public:
+//public:
 
 	// Member data public for convenience; anyway, the format will 
 	// not change for a plain option.
 
 	// create Tuple to hold Option Parameters
-	typedef boost::tuple<double, double, double, double, double, string, string> OptParams;
+	//typedef boost::tuple<double, double, double, double, double, string> OptParams;
 
 	double r;		// Interest rate
 	double sig;		// Volatility
@@ -61,9 +64,11 @@ public:
 
 
 public:	// Public functions
-	EuropeanOption();							// Default call option
-	EuropeanOption(const EuropeanOption& option2);	// Copy constructor
-	EuropeanOption (const string& optionType);	// Create option type
+	EuropeanOption();										// Default call option
+	EuropeanOption(map<string, double>& op, 				// constructor		--	added july 24
+		string ot, char security, double adjustment=0.0);
+	EuropeanOption(const EuropeanOption& option2);			// Copy constructor
+	EuropeanOption(const string& optionType);				// Create option type
 	virtual ~EuropeanOption();	
 
 	EuropeanOption& operator = (const EuropeanOption& option2);
@@ -74,6 +79,9 @@ public:	// Public functions
 
 	// Modifier functions
 	void toggle();		// Change option type (C/P, P/C)
+
+	// print option parameters
+	void Print() const;
 
 };
 
