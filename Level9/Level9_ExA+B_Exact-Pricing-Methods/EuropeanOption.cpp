@@ -9,6 +9,7 @@
 #include "EuropeanOption.hpp"
 #include <cmath>
 #include <iostream>
+#include <string>
 #include <map>
 #include "Array.h"
 
@@ -123,8 +124,9 @@ EuropeanOption::EuropeanOption()
 // arg[1] = option type
 // arg[2] = underlying security type
 // arg[3] = value to be used to adjust b: dividend or interest rate
-EuropeanOption::EuropeanOption(map<string, double>& op, string ot, string security, double b_adjust)
-	: T(op["T"]), K(op["K"]), sig(op["sig"]), r(op["r"]), S(op["S"]),
+EuropeanOption::EuropeanOption(const map<string, double>& op, const string& ot,
+	const string& security, const double& b_adjust)
+	: T(op.at("T")), K(op.at("K")), sig(op.at("sig")), r(op.at("r")), S(op.at("S")),
 	optType(ot), unam(security), b(b_adjust)
 {
 	if (unam == "Stock") b = r;
@@ -214,6 +216,14 @@ double EuropeanOption::Delta(double U) const
 
 }
 
+double EuropeanOption::Delta() const
+{
+	if (optType == "C")
+		return CallDelta(S);
+	else
+		return PutDelta(S);
+
+}
 
 // Modifier functions
 void EuropeanOption::toggle()

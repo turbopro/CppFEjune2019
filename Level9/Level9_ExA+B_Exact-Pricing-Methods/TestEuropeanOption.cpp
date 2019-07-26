@@ -186,7 +186,7 @@ int main()
 
 	cout << endl << endl;
 
-	/*
+	
 	cout << endl << "** Other pricing examples **" << endl << endl;
 
 	
@@ -198,11 +198,12 @@ int main()
 	opt_params.emplace("T", 0.5);
 	opt_params.emplace("r", 0.10);
 	opt_params.emplace("sig", 0.36);
+	opt_params.emplace("S", 105.0);
+	future_b = 0.0;
 	option_type = "P";
 	underlying = 'F';
-
-
-	EuropeanOption futureOption2(opt_params, option_type, underlying);
+	
+	EuropeanOption futureOption2(opt_params, option_type, underlying, future_b);
 	//futureOption2.optType = "P";
 	//futureOption2.K = 100.0;
 	//futureOption2.T = 0.5;
@@ -211,23 +212,23 @@ int main()
 
 	//futureOption2.b = 0.0;
 
-	cout << "Delta on a put future: " << futureOption2.Delta(105.0) << endl;
+	cout << "Delta on a put future: " << futureOption2.Delta() << endl;
 
 	// Now change over to a call on the option
 	futureOption2.toggle();
-	cout << "\nDelta on a call future: " << futureOption2.Delta(105.0) << endl << endl;
+	cout << "\nDelta on a call future: " << futureOption2.Delta() << endl << endl;
 
 	
 	// Some more data for testing; Calcuate price and delta a
+	// For Stock, b = r: constructor creates the option properly
 	opt_params.clear();
 	opt_params.emplace("K", 60.0);
 	opt_params.emplace("T", 0.75);
 	opt_params.emplace("r", 0.10);
 	opt_params.emplace("sig", 0.30);
 	option_type = "C";
-	underlying = 'S';
-
-	EuropeanOption stockOption(opt_params, option_type, underlying);
+	underlying = "Stock";
+		
 	//stockOption.optType = "C";
 	//stockOption.K = 60.0;
 	//stockOption.T = 0.75;
@@ -237,6 +238,9 @@ int main()
 	//stockOption.b = stockOption.r;
 
 	cout << "\nS: "; cin >> S;
+	opt_params.emplace("S", S);
+	EuropeanOption stockOption(opt_params, option_type, underlying);
+
 	cout << "Call Option on a stock: " << stockOption.Price(S) << endl;
 	cout << "Delta on a call stock: " << stockOption.Delta(63.0) << endl << endl;
 

@@ -68,8 +68,8 @@ private:
 
 public:	// Public functions
 	EuropeanOption();										// Default call option
-	EuropeanOption(map<string, double>& op, string ot,	// constructor		--	added july 24
-		string security, double b_adjust = 0.0);
+	EuropeanOption(const map<string, double>& op,			// constructor		--	added july 24
+		const string& ot, const string& security, const double& b_adjust = 0.0);
 	//EuropeanOption(map<string, double>& op);				// constructor		--	added july 24
 	//EuropeanOption(const OptParams& op);					// constructor		-- added July 25
 	EuropeanOption(const EuropeanOption& option2);			// Copy constructor
@@ -79,9 +79,10 @@ public:	// Public functions
 	EuropeanOption& operator = (const EuropeanOption& option2);
 
 	// Functions that calculate option price and sensitivities
-	double Price(double U) const;							// for use with default constructor
-	double Price() const;
-	double Delta(double U) const;
+	double Price(double U) const;							// use with default constructor
+	double Price() const;									// use with constructor
+	double Delta(double U) const;							// use with default constructor
+	double Delta() const;									// use with constructor
 
 	// Modifier functions
 	void toggle();		// Change option type (C/P, P/C)
