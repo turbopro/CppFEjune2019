@@ -38,6 +38,10 @@ private:
 	double PutPrice(double U) const;
 	double CallDelta(double U) const;
 	double PutDelta(double U) const;
+	double CallTheta(double U) const;
+	double PutTheta(double U) const;
+	double CallRho(double U) const;
+	double PutRho(double U) const;
 	
 
 	// Gaussian functions

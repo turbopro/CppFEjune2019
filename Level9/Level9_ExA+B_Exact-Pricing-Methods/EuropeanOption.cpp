@@ -23,12 +23,14 @@
 // follows a normal distribution with mean = 0.0, std dev = 1.0, we
 // would re-write n(x) and N(x) as follows:
 
+// standard normal probability density function
 double EuropeanOption::n(double x) const
 {  
 	boost::math::normal_distribution<> myNormal(0.0, 1.0);
 	return pdf(myNormal, x);
 }
 
+// standard normal cumulative distribution function
 double EuropeanOption::N(double x) const
 { // The approximation to the cumulative normal distribution
 
@@ -79,6 +81,56 @@ double EuropeanOption::PutDelta(double U) const
 
 	return exp((b-r)*T) * (N(d1) - 1.0);
 }
+
+// CallTheta()
+double EuropeanOption::CallTheta(double U) const
+{
+	double tmp = sig * sqrt(T);
+
+	double d1 = (log(U / K) + (b + (sig * sig) * 0.5) * T) / tmp;
+	double d2 = d1 - tmp;
+
+	return -(U * exp((b - r) * T) * n(d1) * sig) / (2 * sqrt(T)) - 
+		(r * (K * exp(-r * T)) * N(d2)) + 
+		((r - b) * (U * exp((b - r) * T) * N(d1)));
+}
+
+// PutTheta()
+double EuropeanOption::PutTheta(double U) const
+{
+	double tmp = sig * sqrt(T);
+
+	double d1 = (log(U / K) + (b + (sig * sig) * 0.5) * T) / tmp;
+	double d2 = d1 - tmp;
+
+	return -(U * exp((b - r) * T) * n(d1) * sig) / (2 * sqrt(T)) +
+		(r * (K * exp(-r * T)) * N(-d2)) -
+		((r - b) * (U * exp((b - r) * T) * N(-d1)));
+}
+
+// CallRho()
+double EuropeanOption::CallRho(double U) const
+{
+	double tmp = sig * sqrt(T);
+
+	double d1 = (log(U / K) + (b + (sig * sig) * 0.5) * T) / tmp;
+	double d2 = d1 - tmp;
+
+	return K * exp(-r * T) * T * N(d2);
+}
+
+// PutRho()
+double EuropeanOption::PutRho(double U) const
+{
+	double tmp = sig * sqrt(T);
+
+	double d1 = (log(U / K) + (b + (sig * sig) * 0.5) * T) / tmp;
+	double d2 = d1 - tmp;
+
+	return -(K * exp(-r * T) * T * N(-d2));
+}
+
+
 
 
 
