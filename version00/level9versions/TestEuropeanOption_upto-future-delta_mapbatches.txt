@@ -300,3 +300,66 @@ int main()
 	*/
 	return 0;
 }
+
+/*
+	for (int i = 0; i < batches.Size(); i++)
+	{
+		cout << "\nBATCH " << i+1 << ":  Test Run\n";
+		cout << "\nRun a 'Call' option using Batch " << i+1 << " parameters:\n";
+		EuropeanOption callOption(batches[i], "C", 'S');
+		//cout << "S: "; double S; cin >> S;
+		cout << "Option on a stock:\t" << callOption.Price(batches[i]["S"])
+			<< "\nBatch " << i+1 << " 'Call' value:\t" << batches[i]["C"] 
+			<< endl << endl;
+
+		cout << "Run a 'Put' option using Batch " << i+1 << " parameters:\n";
+		EuropeanOption putOption(batches[i], "P", 'S');
+		cout << "Option on a stock:\t" << putOption.Price(batches[i]["S"])
+			<< "\nBatch " << i+1 << " 'Put' value:\t" << batches[i]["P"] 
+			<< endl << endl;
+	}
+	
+
+	// create vector of test value doubles
+	vector<double> test_val[]
+	{
+		{ 0.25, 65, 0.30, 0.08, 60, 2.13337, 5.84628 },
+		{ 1.0, 100, 0.2, 0.0, 100, 7.96557, 7.96557 },
+		{ 1.0, 10, 0.5, 0.12, 5, 0.204058, 4.07326 },
+		{ 30.0, 100.0, 0.3, 0.08, 100.0, 92.1757, 1.2475 }
+	};
+	*/
+
+/*
+// constructor: use tuple as input argument
+// Tuple layout: T, K, sig, r, S, optType, unam, b_adjust (adjustment based on underlying security)
+EuropeanOption::EuropeanOption(const OptParams& op)
+	: T(op.get<0>()), K(op.get<1>()), sig(op.get<2>()), r(op.get<3>()), S(op.get<4>()),
+	optType(op.get<5>()), unam(op.get<6>()), b(op.get<7>())
+{
+	if (unam == "Stock") b = r;
+	else if (unam == "Future") b = 0;
+	else if (unam == "Currency" || unam == "Index") b = r - op.get<7>();
+	else b = r;		// default to Stock cost of carry: Black and Scholes stock option model (1973) 
+}
+*/
+
+// Run the Batch Tests for Call and Put Options on a Stock
+	cout << "\nUnderlying Security = Stock\n";
+	int i = 0;
+	for (auto it = opt_params.begin(); it != opt_params.end(); it++)
+	{
+		cout << "\nBatch " << i + 1 << " Test run:\n\n";
+		EuropeanOption callOption(*it);
+		cout << " option on a stock:\t" << callOption.Price()
+			<< "\nBatch " << i + 1 << " 'Call' value:\t\t" << batches[i]["C"]
+			<< endl << endl;
+
+		callOption.toggle();		// change from 'Call' to 'Put' 
+		cout << " option on a stock:\t" << callOption.Price()
+			<< "\nBatch " << i + 1 << " 'Put' value:\t\t" << batches[i]["P"]
+			<< endl << endl;
+		++i;
+	}
+
+	cout << endl << endl;

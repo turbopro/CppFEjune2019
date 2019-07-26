@@ -23,6 +23,7 @@
 #include "ArrayException.h"	// Array exception class
 //#include "STLHelperFunctions.h"	// STL helper functions
 #include <boost/shared_ptr.hpp>	// Boost C Library Shared Pointer header file
+//#include <boost/range/adaptors.hpp>
 
 
 /* Cost of carry factor b must be included in formulae depending on the
@@ -50,92 +51,36 @@ int main()
 
 	// All options are European
 	
-	/*
-	// create map containers for Batch Test Values
-	// store Batch Test Values in an Array of Map containers
-	const int map_size = 4;
-	// create vector of test value strings: ["T", "K", "sig", "r", "S", "C", "P"]
-	vector<string> test_str0{ "T", "K", "sig", "r", "S", "C", "P" };
-
-	// create vector of test value doubles
-	vector<double> test_val[]
-	{
-		{ 0.25, 65, 0.30, 0.08, 60, 2.13337, 5.84628 },
-		{ 1.0, 100, 0.2, 0.0, 100, 7.96557, 7.96557 },
-		{ 1.0, 10, 0.5, 0.12, 5, 0.204058, 4.07326 },
-		{ 30.0, 100.0, 0.3, 0.08, 100.0, 92.1757, 1.2475 }
-	};
-
-	// create Array of Map containers: function set_batch() stores Test Values into Map containers
-	Array<map<string, double>> batches(map_size);
+	// create vector of Map containers: function set_batch() stores Test Values into Map containers
+	vector<map<string, double>> batches(map_size);
 	for (int i = 0; i < map_size; i++)
 		set_batch(batches[i], test_str0, test_val[i]);
-
-	for (int i = 0; i < batches.Size(); i++)
-	{
-		cout << "\nBATCH " << i+1 << ":  Test Run\n";
-		cout << "\nRun a 'Call' option using Batch " << i+1 << " parameters:\n";
-		EuropeanOption callOption(batches[i], "C", 'S');
-		//cout << "S: "; double S; cin >> S;
-		cout << "Option on a stock:\t" << callOption.Price(batches[i]["S"])
-			<< "\nBatch " << i+1 << " 'Call' value:\t" << batches[i]["C"] 
-			<< endl << endl;
-
-		cout << "Run a 'Put' option using Batch " << i+1 << " parameters:\n";
-		EuropeanOption putOption(batches[i], "P", 'S');
-		cout << "Option on a stock:\t" << putOption.Price(batches[i]["S"])
-			<< "\nBatch " << i+1 << " 'Put' value:\t" << batches[i]["P"] 
-			<< endl << endl;
-	}
-	*/
-
-	// create vector of test value doubles
-	vector<double> test_val[]
-	{
-		{ 0.25, 65, 0.30, 0.08, 60, 2.13337, 5.84628 },
-		{ 1.0, 100, 0.2, 0.0, 100, 7.96557, 7.96557 },
-		{ 1.0, 10, 0.5, 0.12, 5, 0.204058, 4.07326 },
-		{ 30.0, 100.0, 0.3, 0.08, 100.0, 92.1757, 1.2475 }
-	};
 	
-	// create Tuple typedef: includes Option Parameters doubles, and Option type string
-	// Tuple layout: T, K, sig, r, S, "Option Type", "Underlying Security", b_adjust 
-	typedef boost::tuple<double, double, double, double, double, string, string, double> OptionParams;
-	OptionParams test_params1(0.25, 65, 0.30, 0.08, 60);
-	OptionParams test_params2(1.0, 100, 0.2, 0.0, 100);
-	OptionParams test_params3(1.0, 10, 0.5, 0.12, 5);
-	OptionParams test_params4(30.0, 100.0, 0.3, 0.08, 100.0);
-
-	for (int i = 0; i < 4; i++)
+	/*
+	// Run the Batch Tests for Call and Put Options on a Stock
+	cout << "\nUnderlying Security = Stock\n";
+	int i = 0;
+	for (auto it = batches.begin(); it != batches.end(); it++, i++)
 	{
 		cout << "\nBATCH " << i + 1 << ":  Test Run\n";
 		cout << "\nRun a 'Call' option using Batch " << i + 1 << " parameters:\n";
-		EuropeanOption callOption(, "C", 'S');
+		EuropeanOption callOption(*it, "C", "Stock");
 		//cout << "S: "; double S; cin >> S;
-		cout << "Option on a stock:\t" << callOption.Price(batches[i]["S"])
-			<< "\nBatch " << i + 1 << " 'Call' value:\t" << batches[i]["C"]
+		cout << "Option on a stock:\t" << callOption.Price()
+			<< "\nBatch " << i + 1 << " 'Call' value:\t\t" << (*it)["C"]
 			<< endl << endl;
 
 		cout << "Run a 'Put' option using Batch " << i + 1 << " parameters:\n";
-		EuropeanOption putOption(batches[i], "P", 'S');
-		cout << "Option on a stock:\t" << putOption.Price(batches[i]["S"])
-			<< "\nBatch " << i + 1 << " 'Put' value:\t" << batches[i]["P"]
+		EuropeanOption putOption(batches[i], "P", "Stock");
+		cout << "Option on a stock:\t" << putOption.Price()
+			<< "\nBatch " << i + 1 << " 'Put' value:\t\t" << (*it)["P"]
 			<< endl << endl;
 	}
-
-	int i = 1;
-	//for (auto vec_vals : test_val)
-	//{
-		//OptionParams test_params_
-		//for (auto it = vec_vals.begin(); it != vec_vals.end(); it++)
-			
-	//}
-
-
-	cout << endl << endl;
-
+	*/
 	
-	/*
+	
+	
+	
 	// Call option on a stock (b = r by default)
 	EuropeanOption callOption;
 	cout << "S: "; double S; cin >> S;
@@ -143,51 +88,56 @@ int main()
 
 	
 	// Option on a stock index
-	// create input tuple
-	OptionParams opt_params(0.41667, 50.0, 0.0, 0.1, 50.0, "C", "Index", 0.0);
-
-	//map<string, double> opt_params;
-	//opt_params.emplace("K", 50.0);
-	//opt_params.emplace("T", 0.41667);
-	//opt_params.emplace("sig", 0.0);
-	//opt_params.emplace("r", 0.1);
-	//double dividend_yield = 0.0;		// Dividend yield
-	//string option_type = "C";
-	//char underlying = 'I';
-
-	EuropeanOption optionIndex(opt_params);
-	//indexOption.optType = "C";
-	//indexOption.K = 50.0;
-	//indexOption.T = 0.41667;
-	//indexOption.sig = 0.00;
-	//indexOption.r = 0.1;
 	
+	// Input parameters:
+	// optType = "C"
+	// underlying = "Index"
+	// K = 50.0;
+	// T = 0.41667;
+	// sig = 0.00;
+	// r = 0.1;
+	// S = 50.0			// Stock Price
+	// q = 0.0			// Dividend yield
+	// b = r - q		// Cost of Carry
 
-	//double q = 0.0;		// Dividend yield
-	//indexOption.b = indexOption.r - q;
+	map<string, double> opt_params;
+	opt_params.emplace("K", 50.0);
+	opt_params.emplace("T", 0.41667);
+	opt_params.emplace("sig", 0.0);
+	opt_params.emplace("r", 0.1);
+	opt_params.emplace("S", 50.0);
+	string option_type = "C";
+	string underlying = "Index";
+	double dividend_yield = 0.0;		// Dividend yield (b_adjust input parameter)
 
-	//cout << indexOption.optType << endl;
-	cout << "\nOption Type: " << opt_params.get<5>() << endl;
+
+	// create an index option object
+	EuropeanOption optionIndex(opt_params, option_type, underlying, dividend_yield);
 	
-	cout << " option on an index at Asset Price = 50.00:\n" 
+	cout << "\nOption Type: " << option_type << endl;
+	
+	cout << "\nOption on an index at Asset Price = 50.00:\n" 
 		<< optionIndex.Price() << endl << endl;
 
 	optionIndex.Print();
 
 	cout << endl << endl;
 
-	/*
+	
 	// Options on a future
+
 	opt_params.clear();
 	opt_params.emplace("K", 19.0);
 	opt_params.emplace("T", 0.75);
 	opt_params.emplace("r", 0.1);
 	opt_params.emplace("sig", 0.28);
+	opt_params.emplace("S", 20.0);
 	option_type = "P";
-	underlying = 'F';
+	underlying = "Future";
+	double future_b = 0.0;
 
+	EuropeanOption futureOption(opt_params, option_type, underlying, future_b);
 
-	EuropeanOption futureOption(opt_params, option_type, underlying);
 	//futureOption.optType = "P";
 	//futureOption.K = 19.0;
 	//futureOption.T = 0.75;
@@ -196,27 +146,28 @@ int main()
 
 	//futureOption.b = 0.0;
 
-	cout << "Put option on a future: " << futureOption.Price(20.0) << endl;
-
+	cout << " option on a future: " << futureOption.Price() << endl;
 	
 	// Now change over to a call on the option
 	futureOption.toggle();
-	cout << "\nCall option on a future: " << futureOption.Price(20.0) << endl << endl;
+	cout << " option on a future: " << futureOption.Price() << endl << endl;
 
 	futureOption.Print();
 
 	cout << endl;
 	
+	
 	// Call option on currency
+	
 	opt_params.clear();
 	opt_params.emplace("K", 1.60);
 	opt_params.emplace("T", 0.5);
 	opt_params.emplace("r", 0.06);
 	opt_params.emplace("sig", 0.12);
-	double risk_free_rate = 0.08;
+	opt_params.emplace("S", 1.56);
+	double risk_free_rate = 0.08;		// risk-free rate of foreign currency
 	option_type = "C";
-	underlying = 'C';
-
+	underlying = "Currency";
 
 	EuropeanOption currencyOption(opt_params, option_type, underlying, risk_free_rate);
 	//currencyOption.optType = "C";
@@ -225,17 +176,18 @@ int main()
 	//currencyOption.r = 0.06;
 	//currencyOption.sig = 0.12;
 
-	//double rf = 0.08;		// risk-free rate of foreign currency
+	//double rf = 0.08;			// risk-free rate of foreign currency
 	//currencyOption.b = currencyOption.r - rf;
+	
 
-	cout << endl << "** Other pricing examples **" << endl << endl;
-
-	cout << "Call option on a currency: " << currencyOption.Price(1.56) << endl;
+	cout << " option on a currency: " << currencyOption.Price() << endl;
 
 	currencyOption.Print();
 
 	cout << endl << endl;
 
+	/*
+	cout << endl << "** Other pricing examples **" << endl << endl;
 
 	
 	////////   NOW CALCULATIONS OF SENSITIVITIES //////////////////////////////////

@@ -68,9 +68,10 @@ private:
 
 public:	// Public functions
 	EuropeanOption();										// Default call option
-	//EuropeanOption(map<string, double>& op, string ot,	// constructor		--	added july 24
-		//char security, double costofcarry_adjust = 0.0);
-	EuropeanOption(OptParams& op);							// constructor		-- added July 25
+	EuropeanOption(map<string, double>& op, string ot,	// constructor		--	added july 24
+		string security, double b_adjust = 0.0);
+	//EuropeanOption(map<string, double>& op);				// constructor		--	added july 24
+	//EuropeanOption(const OptParams& op);					// constructor		-- added July 25
 	EuropeanOption(const EuropeanOption& option2);			// Copy constructor
 	EuropeanOption(const string& optionType);				// Create option type
 	virtual ~EuropeanOption();	
@@ -92,6 +93,38 @@ public:	// Public functions
 
 // store Test Values into a Map container
 void set_batch(map<string, double>& batch, const vector<string>& S, const vector<double>& V);
+
+
+// ==================================================================
+// These constants are an Array of Map containers to store the four 
+// Batches of test values, and, tuples of input test values to be
+// used as input arguments to the constructor
+// ==================================================================
+const int map_size = 4;			// size of the Map Array
+
+// create vector of test value strings: ["T", "K", "sig", "r", "S", "C", "P"]
+const vector<string> test_str0{ "T", "K", "sig", "r", "S", "C", "P" };
+
+// create vector of test value doubles
+const vector<double> test_val[]
+{
+	{ 0.25, 65, 0.30, 0.08, 60, 2.13337, 5.84628 },
+	{ 1.0, 100, 0.2, 0.0, 100, 7.96557, 7.96557 },
+	{ 1.0, 10, 0.5, 0.12, 5, 0.204058, 4.07326 },
+	{ 30.0, 100.0, 0.3, 0.08, 100.0, 92.1757, 1.2475 }
+};
+
+// create Tuple typedef: includes Option Parameters of types doubles and strings
+// tuples will be used as input argument to constructor
+// Tuple layout: T, K, sig, r, S, "Option Type", "Underlying Security", b_adjust 
+typedef boost::tuple<double, double, double, double, double, string, string, double> OptParams;
+const vector<OptParams> opt_params
+{
+	(OptParams(0.25, 65, 0.30, 0.08, 60, "C", "Stock", 0.0)),
+	(OptParams(1.0, 100, 0.2, 0.0, 100, "C", "Stock", 0.0)),
+	(OptParams(1.0, 10, 0.5, 0.12, 5, "C", "Stock", 0.0)),
+	(OptParams(30.0, 100.0, 0.3, 0.08, 100.0, "C", "Stock", 0.0))
+};
 
 
 #endif
