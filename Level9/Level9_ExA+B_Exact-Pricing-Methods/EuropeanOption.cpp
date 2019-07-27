@@ -277,6 +277,23 @@ double EuropeanOption::Delta() const
 
 }
 
+double EuropeanOption::Theta(double U) const		// use with default constructor
+{
+	if (optType == "C")
+		return CallTheta(U);
+	else
+		return PutTheta(U);
+}
+
+double EuropeanOption::Theta() const
+{
+	if (optType == "C")
+		return CallTheta(S);
+	else
+		return PutTheta(S);
+}
+
+
 // Modifier functions
 void EuropeanOption::toggle()
 { // Change option type (C/P, P/C)

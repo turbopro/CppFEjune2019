@@ -87,6 +87,8 @@ public:	// Public functions
 	double Price() const;									// use with constructor
 	double Delta(double U) const;							// use with default constructor
 	double Delta() const;									// use with constructor
+	double Theta(double U) const;							// use with default constructor
+	double Theta() const;									// use with constructor
 
 	// Modifier functions
 	void toggle();		// Change option type (C/P, P/C)

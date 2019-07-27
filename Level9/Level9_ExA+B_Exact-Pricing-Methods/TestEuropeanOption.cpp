@@ -241,27 +241,50 @@ int main()
 	opt_params.emplace("S", S);
 	EuropeanOption stockOption(opt_params, option_type, underlying);
 
-	cout << "Call Option on a stock: " << stockOption.Price(S) << endl;
+	cout << "Call Option on a stock: " << stockOption.Price() << endl;
 	cout << "Delta on a call stock: " << stockOption.Delta(63.0) << endl << endl;
 
 	stockOption.toggle();
-	cout << "Put Option on a stock: " << stockOption.Price(S) << endl;
+	cout << "Put Option on a stock: " << stockOption.Price() << endl;
 	cout << "Delta on a put stock: " << stockOption.Delta(63.0) << endl << endl;
 
 
-	/*
+	
 	// Calculating theta of a European stock index
-	EuropeanOption indexOption2;
-	indexOption2.optType = "P";
-	indexOption2.K = 405.0;
-	indexOption2.T = 0.0833;	// One month expiration
-	indexOption2.r = 0.07;
-	indexOption2.sig = 0.20;
+	//EuropeanOption indexOption2;
+	//indexOption2.optType = "P";
+	//indexOption2.K = 405.0;
+	//indexOption2.T = 0.0833;	// One month expiration
+	//indexOption2.r = 0.07;
+	//indexOption2.sig = 0.20;
 
-	double divYield = 0.05;		// Dividend yield, 5% per annum
-	indexOption2.b = indexOption2.r - divYield;
+	opt_params.clear();
+	opt_params.emplace("K", 405.0);
+	opt_params.emplace("T", 0.0833);
+	opt_params.emplace("r", 0.07);
+	opt_params.emplace("sig", 0.20);
+	// assuming S = 395.0
+	opt_params.emplace("S", 395.0);
+	dividend_yield = 0.05;
+	option_type = "P";
+	underlying = "Index";
+	 //double divYield = 0.05;		// Dividend yield, 5% per annum
+	//indexOption2.b = indexOption2.r - divYield;
+	 
+	cout << "\nCalculating Price and Theta:\n";
+	EuropeanOption indexOption(opt_params, option_type, underlying, dividend_yield);
 
+	cout << " option on an index: " << indexOption.Price(395.0) << endl;
+	cout << "Delta on a call index: " << indexOption.Delta(395.0) << endl << endl;
 
+	indexOption.toggle();
+	cout << " option on an index: " << indexOption.Price(395.0) << endl;
+	cout << "Delta on a put index: " << indexOption.Delta(395.0) << endl << endl;
+
+	cout << "\nTheta: " << indexOption.Theta() << endl << endl;
+	
+
+	/*
 	// Stock Option: Rho
 	EuropeanOption stockOption2;
 	stockOption2.optType = "C";
