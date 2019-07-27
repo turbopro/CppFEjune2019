@@ -85,12 +85,14 @@ double EuropeanOption::PutDelta(double U) const
 // CallTheta()
 double EuropeanOption::CallTheta(double U) const
 {
+	cout << "\we're here: " << __FUNCTION__ << endl;
 	double tmp = sig * sqrt(T);
 
 	double d1 = (log(U / K) + (b + (sig * sig) * 0.5) * T) / tmp;
 	double d2 = d1 - tmp;
 
-	return -(U * exp((b - r) * T) * n(d1) * sig) / (2 * sqrt(T)) - 
+	return - (exp((b - r) * T) * U * n(d1) * sig) / (2 * sqrt(T)) -
+	//return -(U * exp((b - r) * T) * n(d1) * sig) / (2 * sqrt(T));// -
 		(r * (K * exp(-r * T)) * N(d2)) + 
 		((r - b) * (U * exp((b - r) * T) * N(d1)));
 }
@@ -98,14 +100,15 @@ double EuropeanOption::CallTheta(double U) const
 // PutTheta()
 double EuropeanOption::PutTheta(double U) const
 {
+	cout << "\we're here: " << __FUNCTION__ << endl;
 	double tmp = sig * sqrt(T);
 
 	double d1 = (log(U / K) + (b + (sig * sig) * 0.5) * T) / tmp;
 	double d2 = d1 - tmp;
 
-	return -(U * exp((b - r) * T) * n(d1) * sig) / (2 * sqrt(T)) +
-		(r * (K * exp(-r * T)) * N(-d2)) -
-		((r - b) * (U * exp((b - r) * T) * N(-d1)));
+	return -(U * exp((b - r) * T) * n(d1) * sig) / (2 * sqrt(T));// +
+		//(r * (K * exp(-r * T)) * N(-d2)); //s-
+		//((r - b) * (U * exp((b - r) * T) * N(-d1)));
 }
 
 // CallRho()
@@ -287,6 +290,7 @@ double EuropeanOption::Theta(double U) const		// use with default constructor
 
 double EuropeanOption::Theta() const
 {
+	//cout << "\we're here: " << __FUNCTION__ << endl;
 	if (optType == "C")
 		return CallTheta(S);
 	else

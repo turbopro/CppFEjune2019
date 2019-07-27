@@ -56,6 +56,9 @@ int main()
 	for (int i = 0; i < map_size; i++)
 		set_batch(batches[i], test_str0, test_val[i]);
 	
+	// ********************
+	map<string, double> opt_params; double dividend_yield; string underlying; string option_type;
+
 	/*
 	// Run the Batch Tests for Call and Put Options on a Stock
 	cout << "\nUnderlying Security = Stock\n";
@@ -80,7 +83,7 @@ int main()
 	
 	
 	
-	
+	/*
 	// Call option on a stock (b = r by default)
 	EuropeanOption callOption;
 	cout << "S: "; double S; cin >> S;
@@ -100,7 +103,7 @@ int main()
 	// q = 0.0			// Dividend yield
 	// b = r - q		// Cost of Carry
 
-	map<string, double> opt_params;
+	//map<string, double> opt_params;
 	opt_params.emplace("K", 50.0);
 	opt_params.emplace("T", 0.41667);
 	opt_params.emplace("sig", 0.0);
@@ -247,7 +250,7 @@ int main()
 	stockOption.toggle();
 	cout << "Put Option on a stock: " << stockOption.Price() << endl;
 	cout << "Delta on a put stock: " << stockOption.Delta(63.0) << endl << endl;
-
+	*/
 
 	
 	// Calculating theta of a European stock index
@@ -278,10 +281,13 @@ int main()
 	cout << "Delta on a call index: " << indexOption.Delta(395.0) << endl << endl;
 
 	indexOption.toggle();
-	cout << " option on an index: " << indexOption.Price(395.0) << endl;
-	cout << "Delta on a put index: " << indexOption.Delta(395.0) << endl << endl;
+	//cout << " option on an index: " << indexOption.Price(395.0) << endl;
+	//cout << "Delta on a put index: " << indexOption.Delta(395.0) << endl << endl;
 
-	cout << "\nTheta: " << indexOption.Theta() << endl << endl;
+	double res = indexOption.Theta();
+
+	cout << "\nTheta: " << res << endl << endl;
+	//cout << "\nTheta: " << indexOption.Theta() << endl << endl;
 	
 
 	/*
