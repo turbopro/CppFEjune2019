@@ -85,7 +85,6 @@ double EuropeanOption::PutDelta(double U) const
 // CallTheta()
 double EuropeanOption::CallTheta(double U) const
 {
-	cout << "\we're here: " << __FUNCTION__ << endl;
 	double tmp = sig * sqrt(T);
 
 	double d1 = (log(U / K) + (b + (sig * sig) * 0.5) * T) / tmp;
@@ -100,7 +99,6 @@ double EuropeanOption::CallTheta(double U) const
 // PutTheta()
 double EuropeanOption::PutTheta(double U) const
 {
-	cout << "\we're here: " << __FUNCTION__ << endl;
 	double tmp = sig * sqrt(T);
 
 	double d1 = (log(U / K) + (b + (sig * sig) * 0.5) * T) / tmp;
@@ -151,9 +149,11 @@ void EuropeanOption::init()
 
 	b = r;			// Black and Scholes stock option model (1973)
 	
-	optType = "C";		// European Call Option (this is the default type)
+	opt_type = "C";		// European Call Option (this is the default type)
+	unam = "Stock";
 }
 
+/*
 void EuropeanOption::copy( const EuropeanOption& o2)
 {
 
@@ -162,10 +162,12 @@ void EuropeanOption::copy( const EuropeanOption& o2)
 	K	= o2.K;
 	T	= o2.T;
 	b	= o2.b;
+	S	= o2.S;
 	
 	optType = o2.optType;
-	
+	unam = o2.unam;	
 }
+*/
 
 EuropeanOption::EuropeanOption() 
 { // Default call option
@@ -182,7 +184,7 @@ EuropeanOption::EuropeanOption()
 EuropeanOption::EuropeanOption(const map<string, double>& op, const string& ot,
 	const string& security, const double& b_adjust)
 	: T(op.at("T")), K(op.at("K")), sig(op.at("sig")), r(op.at("r")), S(op.at("S")),
-	optType(ot), unam(security), b(b_adjust)
+	opt_type(ot), unam(security), b(b_adjust)
 {
 	if (unam == "Stock") b = r;
 	else if (unam == "Future") b = 0;
@@ -191,19 +193,21 @@ EuropeanOption::EuropeanOption(const map<string, double>& op, const string& ot,
 }
 
 EuropeanOption::EuropeanOption(const EuropeanOption& o2)
+	: T(o2.T), K(o2.K), sig(o2.sig), r(o2.r), S(o2.S), 
+	opt_type(o2.opt_type), unam(o2.unam), b(o2.b)
 { // Copy constructor
 
-	copy(o2);
+	//copy(o2);
 }
 
 EuropeanOption::EuropeanOption (const string& optionType)
 {	// Create option type
 
 	if (optionType == "c" || optionType == "C")
-		optType = "C";
+		opt_type = "C";
 	else if (optionType == "p" || optionType == "P")
-		optType = "P";
-	else optType = "C";
+		opt_type = "P";
+	else opt_type = "C";
 
 	//init();
 	//optType = optionType;
@@ -226,7 +230,16 @@ EuropeanOption& EuropeanOption::operator = (const EuropeanOption& option2)
 
 	if (this == &option2) return *this;
 
-	copy (option2);
+	//copy (option2);
+	r = option2.r;
+	sig = option2.sig;
+	K = option2.K;
+	T = option2.T;
+	b = option2.b;
+	S = option2.S;
+
+	opt_type = option2.opt_type;
+	unam = option2.unam;
 
 	return *this;
 }
@@ -235,14 +248,14 @@ EuropeanOption& EuropeanOption::operator = (const EuropeanOption& option2)
 // use with constructor: asset price is provided within the input tuple
 double EuropeanOption::Price() const
 {
-	if (optType == "C")
+	if (opt_type == "C")
 	{	
-		cout << "calling call";
+		cout << "calling call option on a/an " << unam << endl;
 		return CallPrice(S);
 	}
 	else
 	{
-		cout << "calling put";
+		cout << "calling put option on a/an " << unam << endl;
 		return PutPrice(S);
 	}
 }
@@ -250,21 +263,21 @@ double EuropeanOption::Price() const
 // use with default constructor: asset price is provided as a single argument double
 double EuropeanOption::Price(double U) const
 {
-	if (optType == "C")
+	if (opt_type == "C")
 	{
-		cout << "calling call\n";
+		cout << "calling call option on a/an " << unam << endl;
 		return CallPrice(U);
 	}
 	else
 	{
-		cout << "calling put\n";
+		cout << "calling put option on a/an " << unam << endl;
 		return PutPrice(U);
 	}
 }
 
 double EuropeanOption::Delta(double U) const 
 {
-	if (optType == "C")
+	if (opt_type == "C")
 		return CallDelta(U);
 	else
 		return PutDelta(U);
@@ -273,7 +286,7 @@ double EuropeanOption::Delta(double U) const
 
 double EuropeanOption::Delta() const
 {
-	if (optType == "C")
+	if (opt_type == "C")
 		return CallDelta(S);
 	else
 		return PutDelta(S);
@@ -282,7 +295,7 @@ double EuropeanOption::Delta() const
 
 double EuropeanOption::Theta(double U) const		// use with default constructor
 {
-	if (optType == "C")
+	if (opt_type == "C")
 		return CallTheta(U);
 	else
 		return PutTheta(U);
@@ -290,8 +303,7 @@ double EuropeanOption::Theta(double U) const		// use with default constructor
 
 double EuropeanOption::Theta() const
 {
-	//cout << "\we're here: " << __FUNCTION__ << endl;
-	if (optType == "C")
+	if (opt_type == "C")
 		return CallTheta(S);
 	else
 		return PutTheta(S);
@@ -302,10 +314,10 @@ double EuropeanOption::Theta() const
 void EuropeanOption::toggle()
 { // Change option type (C/P, P/C)
 
-	if (optType == "C")
-		optType = "P";
+	if (opt_type == "C")
+		opt_type = "P";
 	else
-		optType = "C";
+		opt_type = "C";
 }
 
 
@@ -313,7 +325,7 @@ void EuropeanOption::toggle()
 void EuropeanOption::Print() const
 {
 	std::cout << "Option Parameters:\n"
-		<< "\nOption Type:\t" << optType
+		<< "\nOption Type:\t" << opt_type
 		<< "\nUnderlying Security:\t" << unam
 		<< "\nT: " << T
 		<< "\nK: " << K
@@ -330,4 +342,30 @@ void set_batch(map<string, double>& batch, const vector<string>& S, const vector
 	{
 		batch[S[i]] = V[i];
 	}
+}
+
+// put_call_parity() function: determine if put and call prices meet put-call parity
+boost::tuple<double, double> put_call_parity(const EuropeanOption& EuroOption)
+{
+	// get call and put prices from option
+	double call_price, put_price, parity_call_price, parity_put_price;
+
+	if (EuroOption.OptionType() == "C")		// get option type
+	{
+		call_price = EuroOption.Price();		// set call price
+		parity_put_price = call_price - EuroOption.S +
+			EuroOption.K * exp(-(EuroOption.r) * EuroOption.T);
+
+		return boost::tuple<double, double>(parity_put_price, call_price);
+	}
+	else
+	{
+		put_price = EuroOption.Price();
+		parity_call_price = put_price + EuroOption.S -
+			EuroOption.K * exp(-(EuroOption.r) * EuroOption.T);
+
+		return boost::tuple<double, double>(parity_call_price, put_price);
+	}
+
+	return boost::tuple<double, double> (0.0, 0.0);
 }

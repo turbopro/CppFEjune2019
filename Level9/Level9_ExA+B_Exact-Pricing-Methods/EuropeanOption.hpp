@@ -31,7 +31,7 @@ class EuropeanOption
 private:		
 
 	void init();	// Initialise all default values
-	void copy(const EuropeanOption& o2);
+	//void copy(const EuropeanOption& o2);
 
 	// 'Kernel' functions for option calculations
 	double CallPrice(double U) const;
@@ -56,7 +56,7 @@ private:
 
 	// create Tuple to hold Option Parameters
 	// Tuple layout: T, K, sig, r, S, optType, unam, b_adjust (adjustment based on underlying security)
-	typedef boost::tuple<double, double, double, double, double, string, string, double> OptParams;
+	//typedef boost::tuple<double, double, double, double, double, string, string, double> OptParams;
 
 	//OptParams m_option;
 	double T;		// Strike price
@@ -66,7 +66,7 @@ private:
 	double S;		// Asset Price
 	double b;		// Cost of carry
 
-	string optType;	// Option name (call, put)
+	string opt_type;// Option name (call, put)
 	string unam;	// Name of underlying asset
 
 
@@ -90,8 +90,15 @@ public:	// Public functions
 	double Theta(double U) const;							// use with default constructor
 	double Theta() const;									// use with constructor
 
+	// getter functions
+	string OptionType() const { return opt_type; }			// get type of option
+	string Underlying() const { return unam; }				// get type of underlying security 
+
 	// Modifier functions
 	void toggle();		// Change option type (C/P, P/C)
+
+	// put_call_parity(): determine if put and call prices meet the put-call parity requirments
+	friend boost::tuple<double, double> put_call_parity(const EuropeanOption& EuroOption);
 
 	// print option parameters
 	void Print() const;
@@ -120,6 +127,9 @@ const vector<double> test_val[]
 	{ 1.0, 10, 0.5, 0.12, 5, 0.204058, 4.07326 },
 	{ 30.0, 100.0, 0.3, 0.08, 100.0, 92.1757, 1.2475 }
 };
+
+
+
 
 // create Tuple typedef: includes Option Parameters of types doubles and strings
 // tuples will be used as input argument to constructor

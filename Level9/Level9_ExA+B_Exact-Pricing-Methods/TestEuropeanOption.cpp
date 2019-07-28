@@ -51,13 +51,14 @@ int main()
 
 	// All options are European
 	
+	// **********************************
+	// a) Implement the above formulae for call and put option pricing using the data sets Batch 1 to Batch 4. Check
+	//    your answers, as you will need them when we discuss numerical methods for option pricing.
+
 	// create vector of Map containers: function set_batch() stores Test Values into Map containers
 	vector<map<string, double>> batches(map_size);
 	for (int i = 0; i < map_size; i++)
 		set_batch(batches[i], test_str0, test_val[i]);
-	
-	// ********************
-	map<string, double> opt_params; double dividend_yield; string underlying; string option_type;
 
 	/*
 	// Run the Batch Tests for Call and Put Options on a Stock
@@ -81,8 +82,79 @@ int main()
 	}
 	*/
 	
+	// ********************
+	// b) Apply the put-call parity relationship to compute call and put option prices. For example, given the call price,
+	//  compute the put price based on this formula using Batches 1 to 4. Check your answers with the prices from
+	//	part a).Note that there are two useful ways to implement parity : As a mechanism to calculate the call(or put)
+	//	price for a corresponding put(or call) price, or as a mechanism to check if a given set of put / call prices
+	//	satisfy parity.The ideal submission will neatly implement both approaches.
+
+
+	string option_types[]{ "C", "P", "C", "P" };
+	EuropeanOption test_option();
+	int i = 0;
+	for (auto it = batches.begin(); it != batches.end(); it++, i++)
+	{
+		EuropeanOption  euro_option(*it, option_types[i], "Stock");
+		boost::tuple<double, double> parity_vals(put_call_parity(euro_option));
+
+		cout << "\nPut-Call Parity values for Batch " << i+1 << ":\n"
+			<< "\nPut Option Price: " << parity_vals.get<0>()
+			<< "\nCall Option Price: " << parity_vals.get<1>() << endl << endl;		
+	}
 	
+	cout << endl;
+	//cout << " option on stock: " << test_option.Price() << endl << endl;
+	//test_option.toggle();
+	//cout << " option on stock: " << test_option.Price() << endl << endl;
+
+	/*
+	double res0 = batches[0]["C"] + batches[0]["K"] * exp(-(batches[0]["r"]) * batches[0]["T"]);
+	double res1 = batches[0]["P"] + batches[0]["S"];
 	
+	cout << "\nres0: " << res0 << endl;
+	cout << "\nres1: " << res1 << endl << endl;
+
+	cout << "\nput-call-parity: " << res0 - res1 << endl << endl;
+
+	res0 = batches[1]["C"] + batches[1]["K"] * exp(-(batches[1]["r"]) * batches[1]["T"]);
+	res1 = batches[1]["P"] + batches[1]["S"];
+
+	cout << "\nres0: " << res0 << endl;
+	cout << "\nres1: " << res1 << endl << endl;
+
+	cout << "\nput-call-parity: " << res0 - res1 << endl << endl;
+
+	res0 = batches[2]["C"] + batches[2]["K"] * exp(-(batches[2]["r"]) * batches[2]["T"]);
+	res1 = batches[2]["P"] + batches[2]["S"];
+
+	cout << "\nres0: " << res0 << endl;
+	cout << "\nres1: " << res1 << endl << endl;
+
+	cout << "\nput-call-parity: " << res0 - res1 << endl << endl;
+
+
+	res0 = batches[3]["C"] + batches[3]["K"] * exp(-(batches[3]["r"]) * batches[3]["T"]);
+	res1 = batches[3]["P"] + batches[3]["S"];
+
+	cout << "\nres0: " << res0 << endl;
+	cout << "\nres1: " << res1 << endl << endl;
+
+	cout << "\nput-call-parity: " << res0 - res1 << endl << endl;
+
+	cout << "***************************\n";
+
+
+	vector<map<string, double>> batches0(batches);
+	int i = 0;
+	for (auto it = batches.begin(); it != batches.end(); it++, i++)
+	{
+		batches0[i].emplace("P", ((*it)["C"] + (*it)["K"] * exp(-(*it)["r"]) * (*it)["T"]) - (*it)["S"]);
+		cout << "\nFor put-call parity, with Call Price: " << (*it)["C"] << ", Put Price: " << batches0[i]["P"] << endl;
+	}
+	
+	cout << endl << endl;
+
 	/*
 	// Call option on a stock (b = r by default)
 	EuropeanOption callOption;
@@ -103,7 +175,7 @@ int main()
 	// q = 0.0			// Dividend yield
 	// b = r - q		// Cost of Carry
 
-	//map<string, double> opt_params;
+	map<string, double> opt_params;
 	opt_params.emplace("K", 50.0);
 	opt_params.emplace("T", 0.41667);
 	opt_params.emplace("sig", 0.0);
@@ -250,9 +322,10 @@ int main()
 	stockOption.toggle();
 	cout << "Put Option on a stock: " << stockOption.Price() << endl;
 	cout << "Delta on a put stock: " << stockOption.Delta(63.0) << endl << endl;
-	*/
+	
 
 	
+	/*
 	// Calculating theta of a European stock index
 	//EuropeanOption indexOption2;
 	//indexOption2.optType = "P";
@@ -280,7 +353,7 @@ int main()
 	cout << " option on an index: " << indexOption.Price(395.0) << endl;
 	cout << "Delta on a call index: " << indexOption.Delta(395.0) << endl << endl;
 
-	indexOption.toggle();
+	//indexOption.toggle();
 	//cout << " option on an index: " << indexOption.Price(395.0) << endl;
 	//cout << "Delta on a put index: " << indexOption.Delta(395.0) << endl << endl;
 
