@@ -136,7 +136,7 @@ double EuropeanOption::PutRho(double U) const
 
 
 /////////////////////////////////////////////////////////////////////////////////////
-
+/*
 void EuropeanOption::init()
 {	// Initialise all default values
 
@@ -152,8 +152,6 @@ void EuropeanOption::init()
 	opt_type = "C";		// European Call Option (this is the default type)
 	unam = "Stock";
 }
-
-/*
 void EuropeanOption::copy( const EuropeanOption& o2)
 {
 
@@ -169,11 +167,10 @@ void EuropeanOption::copy( const EuropeanOption& o2)
 }
 */
 
-EuropeanOption::EuropeanOption() 
-{ // Default call option
-
-	init();
-}
+// default constructor
+EuropeanOption::EuropeanOption()
+	: T(0.5), K(110.0), sig(0.2), r(0.05), S(0.1),
+	opt_type("C"), unam("Stock"), b(0.05) {}
 
 
 // constructor takes four arguments: 
@@ -192,13 +189,10 @@ EuropeanOption::EuropeanOption(const map<string, double>& op, const string& ot,
 	else b = r;		// default to Stock cost of carry: Black and Scholes stock option model (1973) 
 }
 
+// copy constructor
 EuropeanOption::EuropeanOption(const EuropeanOption& o2)
 	: T(o2.T), K(o2.K), sig(o2.sig), r(o2.r), S(o2.S), 
-	opt_type(o2.opt_type), unam(o2.unam), b(o2.b)
-{ // Copy constructor
-
-	//copy(o2);
-}
+	opt_type(o2.opt_type), unam(o2.unam), b(o2.b) {}
 
 EuropeanOption::EuropeanOption (const string& optionType)
 {	// Create option type
@@ -344,27 +338,34 @@ void set_batch(map<string, double>& batch, const vector<string>& S, const vector
 	}
 }
 
-// put_call_parity() function: determine if put and call prices meet put-call parity
+// put_call_parity() function: calculate Put Price if Call Price is known
+// calculate Call Price if Put Price is known
+// use the put-call-parity formula, C + Ke^(-rT) = P + S, to determine if 
+// calculated put and call prices meet put-call parity reuirements
+// This is a Friend function that allows access to the EuroOption object's
+// data members
+// Returns a tuple of doubles: Put price and relevant Call price
 boost::tuple<double, double> put_call_parity(const EuropeanOption& EuroOption)
 {
-	// get call and put prices from option
-	double call_price, put_price, parity_call_price, parity_put_price;
-
-	if (EuroOption.OptionType() == "C")		// get option type
+	// Get call and put prices from option
+	// Calculate relevant put price when call price given
+	// Calculate relevant call price when put price given
+	// Calculate put or call parity price; return tuple with calculated prices
+	if (EuroOption.OptionType() == "C")				// check option type
 	{
-		call_price = EuroOption.Price();		// set call price
-		parity_put_price = call_price - EuroOption.S +
+		double call_price = EuroOption.Price();		// set call price
+		double parity_put_price = call_price - EuroOption.S +	// calculate put price
 			EuroOption.K * exp(-(EuroOption.r) * EuroOption.T);
 
 		return boost::tuple<double, double>(parity_put_price, call_price);
 	}
 	else
 	{
-		put_price = EuroOption.Price();
-		parity_call_price = put_price + EuroOption.S -
+		double put_price = EuroOption.Price();
+		double parity_call_price = put_price + EuroOption.S -
 			EuroOption.K * exp(-(EuroOption.r) * EuroOption.T);
 
-		return boost::tuple<double, double>(parity_call_price, put_price);
+		return boost::tuple<double, double>(put_price, parity_call_price);
 	}
 
 	return boost::tuple<double, double> (0.0, 0.0);

@@ -95,12 +95,16 @@ int main()
 	int i = 0;
 	for (auto it = batches.begin(); it != batches.end(); it++, i++)
 	{
+		cout << "\nBatch " << i + 1 << " calculating Put-Call Parity prices:\n";
 		EuropeanOption  euro_option(*it, option_types[i], "Stock");
 		boost::tuple<double, double> parity_vals(put_call_parity(euro_option));
 
-		cout << "\nPut-Call Parity values for Batch " << i+1 << ":\n"
-			<< "\nPut Option Price: " << parity_vals.get<0>()
-			<< "\nCall Option Price: " << parity_vals.get<1>() << endl << endl;		
+		cout << "\nPut Option Price:  " << parity_vals.get<0>()
+			<< "\nCall Option Price: " << parity_vals.get<1>() << endl << endl;
+
+		cout << "Batch " << i+1 << " stored call and put prices:\n"
+			<< "\nPut Option price:  " << (*it)["P"]
+			<< "\nCall Option price: " << (*it)["C"] << endl << endl << endl;
 	}
 	
 	cout << endl;

@@ -28,11 +28,7 @@ using namespace Turbopro::Containers;
 
 class EuropeanOption
 {
-private:		
-
-	void init();	// Initialise all default values
-	//void copy(const EuropeanOption& o2);
-
+private:
 	// 'Kernel' functions for option calculations
 	double CallPrice(double U) const;
 	double PutPrice(double U) const;
@@ -43,11 +39,9 @@ private:
 	double CallRho(double U) const;
 	double PutRho(double U) const;
 	
-
 	// Gaussian functions
 	double n(double x) const;
 	double N(double x) const;
-
 
 //public:
 
@@ -66,9 +60,8 @@ private:
 	double S;		// Asset Price
 	double b;		// Cost of carry
 
-	string opt_type;// Option name (call, put)
+	string opt_type;// Option type: "C" = call, "P" = put
 	string unam;	// Name of underlying asset
-
 
 public:	// Public functions
 	EuropeanOption();										// Default call option
@@ -97,7 +90,8 @@ public:	// Public functions
 	// Modifier functions
 	void toggle();		// Change option type (C/P, P/C)
 
-	// put_call_parity(): determine if put and call prices meet the put-call parity requirments
+	// Put_call_parity(): determine if put and call prices meet the put-call parity requirments
+	// Friend function to allow access to data members
 	friend boost::tuple<double, double> put_call_parity(const EuropeanOption& EuroOption);
 
 	// print option parameters
