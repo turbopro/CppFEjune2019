@@ -89,16 +89,29 @@ int main()
 	//	price for a corresponding put(or call) price, or as a mechanism to check if a given set of put / call prices
 	//	satisfy parity.The ideal submission will neatly implement both approaches.
 
+	// APPROACH 1: given a Stock price S, with T, K, r, sig, and its call price, we calculate the relevant put price
+	// that establishes the put-call parity relationship
+	// We use a function, put_call_arity(), that takes a EuropeanOption object argument, and returns a tuple of two
+	// doubles: the put price and the call price
 
-	string option_types[]{ "C", "P", "C", "P" };
-	EuropeanOption test_option();
-	int i = 0;
-	for (auto it = batches.begin(); it != batches.end(); it++, i++)
+	cout << "Approach 1: For a call option, we calculate the corresponding put option\n"
+		<< "price using the put-call parity formula, C + Ke^(-rT) = P + S\n"
+		<< "For a put option, we do the reverse\n"
+		<< "The call and put prices stored in each Batch are displayed as a reference:\n\n";
+
+	string option_types[]{ "C", "P", "C", "P" };	// used to set the option type for the EuropeanOption object
+	int i = 0;		// numeric indexer
+	for (auto it = batches.begin(); it != batches.end(); it++, i++)		// batches vector iterators
 	{
-		cout << "\nBatch " << i + 1 << " calculating Put-Call Parity prices:\n";
-		EuropeanOption  euro_option(*it, option_types[i], "Stock");
-		boost::tuple<double, double> parity_vals(put_call_parity(euro_option));
+		cout << "\nBatch " << i + 1 << " calculating Put-Call Parity prices\n";
 
+		// Create a EuropeanOption object with values from each Batch, set as a Stock option
+		EuropeanOption euro_option(*it, option_types[i], "Stock");
+		
+		// put_call_parity() function calculates and returns a tuple of put and call prices for the option object
+		boost::tuple<double, double> parity_vals(euro_option.put_call_parity());
+
+		// Display calculated prices
 		cout << "\nPut Option Price:  " << parity_vals.get<0>()
 			<< "\nCall Option Price: " << parity_vals.get<1>() << endl << endl;
 
@@ -108,6 +121,44 @@ int main()
 	}
 	
 	cout << endl;
+
+	// APPROACH 2: given a set of put and call prices, we calculate the call and put prices
+	// then compare the calculated prices vs the given prices
+	// We use our check_put_call_parity() function
+
+	cout << "Approach 2: We will compare the 'C' and 'P' prices stored for the individual\n" 
+		<< "batch vector, with the corresponding calculated Call and Put values for that\n"
+		<< "batch:\n";
+
+	i = 0;		// numeric indexer
+	for (auto it = batches.begin(); it != batches.end(); it++, i++)		// batches vector iterators
+	{
+		cout << "\nBatch " << i + 1 << " comparing stored vs calculated Put / Call prices\n";
+
+		// Create a EuropeanOption object with values from each Batch, set as a Stock option
+		EuropeanOption euro_option(*it, option_types[i], "Stock");
+
+		// put_call_parity() function calculates and returns a tuple of put and call prices for the option object
+		bool parity_check = euro_option.check_put_call_parity((*it)["C"], (*it)["P"]);
+
+		// Display calculated prices
+		if (parity_check) 
+			cout << "\nBatch " << i + 1 << " stored Call and Put prices are in put-call parity\n\n";
+		else
+			cout << "\nBatch " << i + 1 << " stored Call and Put prices are NOT in put-call parity\n\n";		
+	}
+
+	cout << endl;
+
+
+	//EuropeanOption test_option(batches[1], "C", "Stock");
+	//bool res = test_option.check_put_call_parity(batches[1]["C"], batches[1]["P"]);
+	
+	//if (res) cout << "\nWe have put-call parity people\n\n\n";
+
+	//cout << endl;
+
+
 	//cout << " option on stock: " << test_option.Price() << endl << endl;
 	//test_option.toggle();
 	//cout << " option on stock: " << test_option.Price() << endl << endl;

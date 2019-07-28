@@ -38,7 +38,7 @@ private:
 	double PutTheta(double U) const;
 	double CallRho(double U) const;
 	double PutRho(double U) const;
-	
+		
 	// Gaussian functions
 	double n(double x) const;
 	double N(double x) const;
@@ -84,15 +84,18 @@ public:	// Public functions
 	double Theta() const;									// use with constructor
 
 	// getter functions
-	string OptionType() const { return opt_type; }			// get type of option
-	string Underlying() const { return unam; }				// get type of underlying security 
+	string OptionType() const { return opt_type; }			// return type of option
+	string Underlying() const { return unam; }				// return type of underlying security
+	double ParityFactor()const								// return put-call parity factor
+	{ return (K * exp(-r * T)); }
 
 	// Modifier functions
 	void toggle();		// Change option type (C/P, P/C)
 
-	// Put_call_parity(): determine if put and call prices meet the put-call parity requirments
-	// Friend function to allow access to data members
-	friend boost::tuple<double, double> put_call_parity(const EuropeanOption& EuroOption);
+	// calculate and return a tuple of call and put prices at put-call parity
+	boost::tuple<double, double> put_call_parity() const;
+	// check if call and put prices at Stock price S make for a put-call parity
+	bool check_put_call_parity(const double& call_price, const double& put_price);
 
 	// print option parameters
 	void Print() const;
@@ -101,6 +104,7 @@ public:	// Public functions
 
 // store Test Values into a Map container
 void set_batch(map<string, double>& batch, const vector<string>& S, const vector<double>& V);
+
 
 
 // ==================================================================

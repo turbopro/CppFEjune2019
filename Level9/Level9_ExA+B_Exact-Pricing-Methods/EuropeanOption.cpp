@@ -133,8 +133,6 @@ double EuropeanOption::PutRho(double U) const
 
 
 
-
-
 /////////////////////////////////////////////////////////////////////////////////////
 /*
 void EuropeanOption::init()
@@ -338,35 +336,53 @@ void set_batch(map<string, double>& batch, const vector<string>& S, const vector
 	}
 }
 
-// put_call_parity() function: calculate Put Price if Call Price is known
-// calculate Call Price if Put Price is known
-// use the put-call-parity formula, C + Ke^(-rT) = P + S, to determine if 
-// calculated put and call prices meet put-call parity reuirements
-// This is a Friend function that allows access to the EuroOption object's
-// data members
+// put_call_parity() function: get the Call or Put price of the Stock option
+// Calculate the relevant Put price if Call Price is retireved; calculate
+// the Call price if Put price is retrieved
+// Use the put-call-parity formula, C + Ke^(-rT) = P + S, to calculate
+// Put price given Call price, or, conversely, Call price given Put price
 // Returns a tuple of doubles: Put price and relevant Call price
-boost::tuple<double, double> put_call_parity(const EuropeanOption& EuroOption)
+// ParityFactor() returns the value of Ke^(-rT)
+boost::tuple<double, double> EuropeanOption::put_call_parity() const
 {
 	// Get call and put prices from option
 	// Calculate relevant put price when call price given
 	// Calculate relevant call price when put price given
 	// Calculate put or call parity price; return tuple with calculated prices
-	if (EuroOption.OptionType() == "C")				// check option type
+	if (OptionType() == "C")				// check option type
 	{
-		double call_price = EuroOption.Price();		// set call price
-		double parity_put_price = call_price - EuroOption.S +	// calculate put price
-			EuroOption.K * exp(-(EuroOption.r) * EuroOption.T);
+		double call_price = Price();		// set call price
+		double parity_put_price = call_price - S + ParityFactor();	  // calculate put price
 
 		return boost::tuple<double, double>(parity_put_price, call_price);
 	}
 	else
 	{
-		double put_price = EuroOption.Price();
-		double parity_call_price = put_price + EuroOption.S -
-			EuroOption.K * exp(-(EuroOption.r) * EuroOption.T);
+		double put_price = Price();
+		double parity_call_price = put_price + S - ParityFactor();
 
 		return boost::tuple<double, double>(put_price, parity_call_price);
 	}
 
 	return boost::tuple<double, double> (0.0, 0.0);
+}
+
+//check if call and put prices for a given stock option at price S make for a put-call parity
+//bool check_put_call_parity(const double& u_price, const double& call_price, const double& put_price)
+bool EuropeanOption::check_put_call_parity(const double& call_price, const double& put_price)
+{
+	// Set upper and lower limits for tolerance of difference between given call/put price
+	// and calculated call/put price from put-call parity formula: C + Ke^(-rT) = P + S
+	// We assume that 0 +/- 1.0e-5 wiil account for marginal calculation errors 
+	double upper_limit = 1.0e-5, lower_limit = -1.0e-5;
+	
+	// get put and call prices for Stock at price S
+	boost::tuple<double, double> parity_vals(put_call_parity());
+
+	// calculate differences between calculated and given falues
+	double put_diff = parity_vals.get<0>() - put_price;
+	double call_diff = parity_vals.get<1>() - call_price;
+
+	return ((put_diff < upper_limit && put_diff > lower_limit) && 
+		(call_diff < upper_limit && call_diff > lower_limit));
 }
