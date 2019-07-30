@@ -21,21 +21,9 @@
     <ClCompile Include="TestEuropeanOption.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Array.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ArrayException.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EuropeanOption.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Array.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ArrayException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

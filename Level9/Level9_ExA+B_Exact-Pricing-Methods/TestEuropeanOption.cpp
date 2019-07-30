@@ -19,8 +19,9 @@
 #include <iterator>			// for iter
 #include <algorithm>		// for count_if
 #include <numeric>			// std::accumulate
-#include "Array.h"			// Array template class
-#include "ArrayException.h"	// Array exception class
+#include <random>
+//#include "Array.h"			// Array template class
+//#include "ArrayException.h"	// Array exception class
 //#include "STLHelperFunctions.h"	// STL helper functions
 #include <boost/shared_ptr.hpp>	// Boost C Library Shared Pointer header file
 //#include <boost/range/adaptors.hpp>
@@ -47,7 +48,7 @@
 
 int main()
 { 
-	using namespace Turbopro::Containers;		// namespace for Array template class
+	//using namespace Turbopro::Containers;		// namespace for Array template class
 
 	// All options are European
 	
@@ -164,38 +165,115 @@ int main()
 	}
 	
 	cout << endl << endl;
+	
+	
+	typedef vector< tuple<double, double>> my_tuple;
+	my_tuple tl;
+	tl.push_back(tuple<double, double> (0.01, 1.0));
+	for (my_tuple::const_iterator i = tl.begin(); i != tl.end(); ++i) {
+		cout << get<0>(*i) << endl;
+		cout << get<1>(*i) << endl;
+	}
+	cout << get<0>(tl[0]) << endl;
+	cout << get<1>(tl[0]) << endl;
 	*/
 
+	
+	//generate
+	
 
+	cout << endl << endl;
+
+	
 	// C setup matrix for testing various S prices
-	// row vector contains options: T, K, sig, r, S 
-	//vector<double> opt_vec{ 0.5, 110.0, 0.2, 0.05, 9 };
-	typedef map<string, double> map_sd;
-	map<string, double> opt_map { {"T", 0.5}, { "K", 110.0 }, { "sig",0.2 },
-		{ "r", 0.05 }, { "S", 100 } };
-	const int range = 5;
-	vector<map<string, double>> mat_options(range, opt_map);
-	for (int i = 0; i < 5; i++)
+	// map contains options parameters as key, value pairs of type <string, double>: 
+	// "T",T, "K",K, "sig",sig, "r",r, "S",S 
+	// T, K, sig, r will remain constant, while S will increase monotonically from 
+	// K-100 to K-1 in steps of 1
+	//
+	map<string, double> opt_map { {"T", 0.5}, { "K", 110.0 }, { "sig", 0.2 },
+		{ "r", 0.05 }, { "S", 106 } };
+	// create vector of option parameters with range of values
+	string param[] = { "T", "K", "sig", "r", "S" };
+	const int range_divider = 100;
+	vector<map<string, double>> mat_options(range_divider, opt_map);
+	//double range_lower, range_upper;
+	typedef vector<tuple<double, double>> tvec;
+	tvec range_vec;	
+	//range_lower = 0.01; range_upper = 1.0;
+	vector<double> vecT(100);
+	vec_range(vecT, 0.01, 1.01);
+
+	vector<double> vecK(100);
+	vec_range(vecK, 11.0, 111);
+
+	vector<double> vecsig(100);
+	vec_range(vecsig, 0.05, 0.55);
+
+	vector<double> vecr(100);
+	vec_range(vecr, 0.1, 10.1);
+
+	int i = 0;
+	for (auto it = mat_options.begin(); it != mat_options.end(); ++it, ++i)
 	{
-		//opt_vec[4] += i;	// increment S
-		mat_options[i]["S"] += i;		// save incremented S to new row vector
-		cout << "\nmat_prices[" << i << "]: " << mat_options[i]["S"] << endl;
+		(*it)["T"] = vecT[i];
+		(*it)["K"] = vecK[i];
+		(*it)["sig"] = vecsig[i];
+		(*it)["r"] = vecr[i];
+	}
+
+	i = 0;
+	for (auto it = mat_options.begin(); it != mat_options.end(); ++it, ++i)
+	{
+		cout << "\nmat_options[\"sig\"]: " << (*it)["sig"] << endl;
+	}
+
+
+	//for (auto v : vecr) cout << "v: " << v << endl;
+
+	cout << endl << endl;
+
+	//vector<double> param_factor;
+	//param_factor.push_back(get<0>(range_vec.at(0)));
+
+	//cout << "\nparam_factor:" << param_factor[0] << endl << endl;
+
+	/*
+	map<string, double> opt_map{ {"T", 0.5}, { "K", 110.0 }, { "sig", 0.2 },
+		{ "r", 0.05 }, { "S", 106 } };
+	const int range = 5;		// set number pf steps for S
+	// Create vector of map contaners with options
+	vector<map<string, double>> mat_options(range_divider, opt_map);
+	int i = 0;
+	for (auto it = mat_options.begin(); it != mat_options.end(); ++it, ++i)
+	{
+		(*it)["S"] += i;
 	}
 	
-	//cout << "\nopt_vec: " << opt_vec << endl;
+	
+	cout << endl << endl;
+	
 
+	// Get call option price for each value of S
+	// Add call option price to map_options
 	for (auto it = mat_options.begin(); it != mat_options.end(); it++)
 	{
 		(*it).emplace("C", EuropeanOption(*it, "C", "Stock").Price());
-		cout << "\nmat_options: " << (*it).at("C") << endl;
 	}
 	
 	cout << endl << endl;
 
-	//for (auto vec : mat_prices) cout << vec[0] ;
-	//for (int i = 0; i < 100; i++)
-		//for (int j = 0; j < 5; j++)
-			//cout << "\nmat+prices[" << i << "]: " << mat_prices[i][j] << endl;
+	
+	for (auto vec : mat_options)
+	{
+		cout << "for Stock Price: " << vec["S"] 
+			<< ", Call Option Price: " << vec["C"] << endl;
+	}
+	
+
+	cout << endl << endl;
+
+	cout << endl << endl;
 
 	/*
 	// Call option on a stock (b = r by default)

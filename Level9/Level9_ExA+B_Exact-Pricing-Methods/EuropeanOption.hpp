@@ -13,7 +13,8 @@
 #include <string>
 #include <array>
 #include <map>				// for map
-#include "Array.h"
+#include <algorithm>
+//#include "Array.h"
 
 // Boost C Libraries Header Files
 #include <boost/shared_ptr.hpp>			// for Shared Pointer: shared_ptr 
@@ -24,7 +25,7 @@
 #include <boost/math/distributions.hpp> // For non-member functions of distributions
 
 using namespace std;
-using namespace Turbopro::Containers;
+//using namespace Turbopro::Containers;
 
 class EuropeanOption
 {
@@ -144,5 +145,9 @@ const vector<OptParams> opt_params
 	(OptParams(30.0, 100.0, 0.3, 0.08, 100.0, "C", "Stock", 0.0))
 };
 
+// create a vector of doubles of increasing value
+// 
+// vector<double> vec_range(const double& start, const double& end, const int& length);
+void vec_range(vector<double>& vec, const double& start, const double& end);
 
 #endif

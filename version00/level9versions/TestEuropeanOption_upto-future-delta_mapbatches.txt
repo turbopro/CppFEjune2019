@@ -364,3 +364,23 @@ EuropeanOption::EuropeanOption(const OptParams& op)
 
 	cout << endl << endl;
 
+
+//print matrix options
+/*
+	for (auto vec : mat_options)
+	{
+		//cout << "vec is a " << typeid(vec).name() << endl;
+		for (auto vec_options : vec)
+			cout << "vec_options first: " << vec_options.first
+			<< ", vec_options second: " << vec_options.second << endl;
+		cout << endl;
+	}
+	*/
+
+for (auto vec : mat_options)
+	{
+		for (auto vec_options : vec)
+			cout << "vec_options first: " << vec_options.first
+			<< ", vec_options second: " << vec_options.second << endl;
+		cout << endl;
+	}

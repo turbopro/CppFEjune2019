@@ -11,7 +11,7 @@
 #include <iostream>
 #include <string>
 #include <map>
-#include "Array.h"
+//#include "Array.h"
 
 //using namespace boost::math;
 
@@ -379,4 +379,19 @@ bool EuropeanOption::check_put_call_parity(const double& call_price, const doubl
 	// return true if prices are "equal" (within epsilon tolerance)
 	return (std::abs(put_price - parity_prices.get<0>()) < epsilon &&
 			std::abs(call_price - parity_prices.get<1>()) < epsilon);
+}
+
+// create vector of doubles: increasing/decreasing monotonically
+//vector<double> vec_range(const double& start, const double& end, const int& length)
+void vec_range(vector<double>& vec, const double& start, const double& end)
+{
+	// create a vector of length num
+	size_t sz = vec.size();
+
+	// now assign the values to the vector
+	for (size_t i = 0; i < sz; i++)
+	{
+		vec[i] = start + i * ((end - start) / sz);
+	}
+	//return vec;
 }
