@@ -80,7 +80,7 @@ int main()
 			<< "\nBatch " << i + 1 << " 'Put' value:\t\t" << (*it)["P"]
 			<< endl << endl;
 	}
-	*/
+	
 	
 	// ********************
 	// b) Apply the put-call parity relationship to compute call and put option prices. For example, given the call price,
@@ -150,52 +150,7 @@ int main()
 
 	cout << endl;
 
-
-	//EuropeanOption test_option(batches[1], "C", "Stock");
-	//bool res = test_option.check_put_call_parity(batches[1]["C"], batches[1]["P"]);
-	
-	//if (res) cout << "\nWe have put-call parity people\n\n\n";
-
-	//cout << endl;
-
-
-	//cout << " option on stock: " << test_option.Price() << endl << endl;
-	//test_option.toggle();
-	//cout << " option on stock: " << test_option.Price() << endl << endl;
-
 	/*
-	double res0 = batches[0]["C"] + batches[0]["K"] * exp(-(batches[0]["r"]) * batches[0]["T"]);
-	double res1 = batches[0]["P"] + batches[0]["S"];
-	
-	cout << "\nres0: " << res0 << endl;
-	cout << "\nres1: " << res1 << endl << endl;
-
-	cout << "\nput-call-parity: " << res0 - res1 << endl << endl;
-
-	res0 = batches[1]["C"] + batches[1]["K"] * exp(-(batches[1]["r"]) * batches[1]["T"]);
-	res1 = batches[1]["P"] + batches[1]["S"];
-
-	cout << "\nres0: " << res0 << endl;
-	cout << "\nres1: " << res1 << endl << endl;
-
-	cout << "\nput-call-parity: " << res0 - res1 << endl << endl;
-
-	res0 = batches[2]["C"] + batches[2]["K"] * exp(-(batches[2]["r"]) * batches[2]["T"]);
-	res1 = batches[2]["P"] + batches[2]["S"];
-
-	cout << "\nres0: " << res0 << endl;
-	cout << "\nres1: " << res1 << endl << endl;
-
-	cout << "\nput-call-parity: " << res0 - res1 << endl << endl;
-
-
-	res0 = batches[3]["C"] + batches[3]["K"] * exp(-(batches[3]["r"]) * batches[3]["T"]);
-	res1 = batches[3]["P"] + batches[3]["S"];
-
-	cout << "\nres0: " << res0 << endl;
-	cout << "\nres1: " << res1 << endl << endl;
-
-	cout << "\nput-call-parity: " << res0 - res1 << endl << endl;
 
 	cout << "***************************\n";
 
@@ -209,6 +164,38 @@ int main()
 	}
 	
 	cout << endl << endl;
+	*/
+
+
+	// C setup matrix for testing various S prices
+	// row vector contains options: T, K, sig, r, S 
+	//vector<double> opt_vec{ 0.5, 110.0, 0.2, 0.05, 9 };
+	typedef map<string, double> map_sd;
+	map<string, double> opt_map { {"T", 0.5}, { "K", 110.0 }, { "sig",0.2 },
+		{ "r", 0.05 }, { "S", 100 } };
+	const int range = 5;
+	vector<map<string, double>> mat_options(range, opt_map);
+	for (int i = 0; i < 5; i++)
+	{
+		//opt_vec[4] += i;	// increment S
+		mat_options[i]["S"] += i;		// save incremented S to new row vector
+		cout << "\nmat_prices[" << i << "]: " << mat_options[i]["S"] << endl;
+	}
+	
+	//cout << "\nopt_vec: " << opt_vec << endl;
+
+	for (auto it = mat_options.begin(); it != mat_options.end(); it++)
+	{
+		(*it).emplace("C", EuropeanOption(*it, "C", "Stock").Price());
+		cout << "\nmat_options: " << (*it).at("C") << endl;
+	}
+	
+	cout << endl << endl;
+
+	//for (auto vec : mat_prices) cout << vec[0] ;
+	//for (int i = 0; i < 100; i++)
+		//for (int j = 0; j < 5; j++)
+			//cout << "\nmat+prices[" << i << "]: " << mat_prices[i][j] << endl;
 
 	/*
 	// Call option on a stock (b = r by default)
@@ -216,7 +203,7 @@ int main()
 	cout << "S: "; double S; cin >> S;
 	cout << "Option on a stock: " << callOption.Price(S) << endl;
 
-	
+	/*
 	// Option on a stock index
 	
 	// Input parameters:

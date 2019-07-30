@@ -15,6 +15,8 @@
 
 //using namespace boost::math;
 
+// static data member for comparison of double variables
+const double EuropeanOption::epsilon = 1.0e-05;
 
 //////////// Gaussian functions /////////////////////////////////
 
@@ -167,7 +169,7 @@ void EuropeanOption::copy( const EuropeanOption& o2)
 
 // default constructor
 EuropeanOption::EuropeanOption()
-	: T(0.5), K(110.0), sig(0.2), r(0.05), S(0.1),
+	: T(0.5), K(110.0), sig(0.2), r(0.05), S(1.0),		// delisting threshold for a stock = $1.00
 	opt_type("C"), unam("Stock"), b(0.05) {}
 
 
@@ -354,7 +356,7 @@ boost::tuple<double, double> EuropeanOption::put_call_parity() const
 		double call_price = Price();		// set call price
 		double parity_put_price = call_price - S + ParityFactor();	  // calculate put price
 
-		return boost::tuple<double, double>(parity_put_price, call_price);
+		return boost::tuple<double, double>(parity_put_price, call_price);	// tuple(put_price, call_price)
 	}
 	else
 	{
@@ -367,22 +369,14 @@ boost::tuple<double, double> EuropeanOption::put_call_parity() const
 	return boost::tuple<double, double> (0.0, 0.0);
 }
 
-//check if call and put prices for a given stock option at price S make for a put-call parity
-//bool check_put_call_parity(const double& u_price, const double& call_price, const double& put_price)
-bool EuropeanOption::check_put_call_parity(const double& call_price, const double& put_price)
+// Check if call and put prices for a given stock option at price S make for a put-call parity
+bool EuropeanOption::check_put_call_parity(const double& call_price, const double& put_price) const
 {
-	// Set upper and lower limits for tolerance of difference between given call/put price
-	// and calculated call/put price from put-call parity formula: C + Ke^(-rT) = P + S
-	// We assume that 0 +/- 1.0e-5 wiil account for marginal calculation errors 
-	double upper_limit = 1.0e-5, lower_limit = -1.0e-5;
-	
-	// get put and call prices for Stock at price S
-	boost::tuple<double, double> parity_vals(put_call_parity());
+	// get parity put and call prices for Stock at price S
+	boost::tuple<double, double> parity_prices(put_call_parity());
 
-	// calculate differences between calculated and given falues
-	double put_diff = parity_vals.get<0>() - put_price;
-	double call_diff = parity_vals.get<1>() - call_price;
-
-	return ((put_diff < upper_limit && put_diff > lower_limit) && 
-		(call_diff < upper_limit && call_diff > lower_limit));
+	// We use static data member epsilon for comparison of calculated vs given call/put prices
+	// return true if prices are "equal" (within epsilon tolerance)
+	return (std::abs(put_price - parity_prices.get<0>()) < epsilon &&
+			std::abs(call_price - parity_prices.get<1>()) < epsilon);
 }

@@ -43,6 +43,9 @@ private:
 	double n(double x) const;
 	double N(double x) const;
 
+	// static data member for comparison of double variables
+	static const double epsilon;
+
 //public:
 
 	// Member data public for convenience; anyway, the format will 
@@ -95,7 +98,7 @@ public:	// Public functions
 	// calculate and return a tuple of call and put prices at put-call parity
 	boost::tuple<double, double> put_call_parity() const;
 	// check if call and put prices at Stock price S make for a put-call parity
-	bool check_put_call_parity(const double& call_price, const double& put_price);
+	bool check_put_call_parity(const double& call_price, const double& put_price) const;
 
 	// print option parameters
 	void Print() const;
