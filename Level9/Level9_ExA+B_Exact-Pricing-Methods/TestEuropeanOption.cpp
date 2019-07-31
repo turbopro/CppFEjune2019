@@ -123,6 +123,7 @@ int main()
 	
 	cout << endl;
 
+	/*
 	// APPROACH 2: given a set of put and call prices, we calculate the call and put prices
 	// then compare the calculated prices vs the given prices
 	// We use our check_put_call_parity() function
@@ -179,12 +180,37 @@ int main()
 	*/
 
 	
-	//generate
 	
+	//generate ************************
+	
+	double a = 0.1, b = 1.1;
+	int c = (b - a) / 0.1;
+
+	cout << "\nc: " << c << endl << endl;
+
+	cout << "\nsetup map<string, double>:\n";
+	map<string, double> opt_map{ {"T", 0.25}, { "K", 65.0 }, { "sig", 0.3 },
+		{ "r", 0.08 }, { "S", 60 } };
+	// Batch 1: T = 0.25, K = 65, sig = 0.30, r = 0.08, S = 60 (then C = 2.13337, P = 5.84628).
+	//map<string, double> opt_map{ {"T", 0.5}, { "K", 110.0 }, { "sig", 0.2 },
+		//{ "r", 0.05 }, { "S", 106 } };
+
+	string tp = "S", ot = "C", su = "Stock";
+	double o_start = 55.0, o_end = 66.0, s_size = 1.0;
+	vector<double> opt_prices;
+
+	matrix_pricer(opt_map, o_start, o_end, s_size, opt_prices, tp, ot, su);
+
+	for (auto it = opt_prices.begin(); it != opt_prices.end(); ++it)
+	{
+		cout << "\nopt_prices: " << (*it) << endl;
+	}
 
 	cout << endl << endl;
-
 	
+
+
+	/*
 	// C setup matrix for testing various S prices
 	// map contains options parameters as key, value pairs of type <string, double>: 
 	// "T",T, "K",K, "sig",sig, "r",r, "S",S 
@@ -197,10 +223,6 @@ int main()
 	string param[] = { "T", "K", "sig", "r", "S" };
 	const int range_divider = 100;
 	vector<map<string, double>> mat_options(range_divider, opt_map);
-	//double range_lower, range_upper;
-	typedef vector<tuple<double, double>> tvec;
-	tvec range_vec;	
-	//range_lower = 0.01; range_upper = 1.0;
 	vector<double> vecT(100);
 	vec_range(vecT, 0.01, 1.01);
 
@@ -213,6 +235,9 @@ int main()
 	vector<double> vecr(100);
 	vec_range(vecr, 0.1, 10.1);
 
+	vector<double> vecS(100);
+	vec_range(vecS, 1, 101);
+
 	int i = 0;
 	for (auto it = mat_options.begin(); it != mat_options.end(); ++it, ++i)
 	{
@@ -220,6 +245,7 @@ int main()
 		(*it)["K"] = vecK[i];
 		(*it)["sig"] = vecsig[i];
 		(*it)["r"] = vecr[i];
+		(*it)["S"] = vecS[i];
 	}
 
 	i = 0;

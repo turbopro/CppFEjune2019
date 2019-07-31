@@ -395,3 +395,32 @@ void vec_range(vector<double>& vec, const double& start, const double& end)
 	}
 	//return vec;
 }
+
+// matrix_pricer
+void matrix_pricer(map<string, double>& test_params, const double& opt_start,
+	const double& opt_end, const double& step_size, vector<double>& prices, 
+	string test_param, string option_type, string underlying)
+{
+	// create container map<string, double> for input argument to constructor
+	//map<string, double> opt_map{ {"T", 0.0}, { "K", 0.0 }, { "sig", 0.0 },
+		//{ "r", 0.00 }, { "S", 0.0 } };
+	//map<string, double> opt_map;
+	// get size of container for option parameter, based on the number of steps of
+	// the parameter to be tested: container_size = (opt_end - opt_start)/step_size 
+	int container_size = (opt_end - opt_start) / step_size;		// set number pf steps for S
+	// Create vector of map contaners with options
+	vector<map<string, double>> mat_options(container_size, test_params);
+	int i = 0;
+	for (auto it = mat_options.begin(); it != mat_options.end(); ++it, ++i)
+	{
+		(*it)[test_param] += (opt_start + i*step_size);
+	}
+
+	// get option call or put price, store in map container
+	for (auto it = mat_options.begin(); it != mat_options.end(); it++)
+	{
+		//(*it).emplace("C", EuropeanOption(*it, "C", "Stock").Price());
+		(*it).emplace(option_type, EuropeanOption(*it, option_type, underlying).Price());
+		prices.push_back((*it)[option_type]);
+	}	
+}

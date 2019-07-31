@@ -150,4 +150,9 @@ const vector<OptParams> opt_params
 // vector<double> vec_range(const double& start, const double& end, const int& length);
 void vec_range(vector<double>& vec, const double& start, const double& end);
 
+// matrix_pricer
+void matrix_pricer(map<string, double>& test_params, const double& opt_start,
+	const double& opt_end, const double& step_size, vector<double>& prices, 
+	string test_param, string option_type = "C", string underlying = "Stock");
+
 #endif
