@@ -20,22 +20,30 @@
 #include <algorithm>		// for count_if
 #include <numeric>			// std::accumulate
 #include <random>
-//#include "Array.h"			// Array template class
-//#include "ArrayException.h"	// Array exception class
-//#include "STLHelperFunctions.h"	// STL helper functions
+
 #include <boost/shared_ptr.hpp>	// Boost C Library Shared Pointer header file
 //#include <boost/range/adaptors.hpp>
 
+int main()
+{
+	// All options are European
+	
+	
+/*	********************************** 
+	-- A --
+	Implement the above formulae for call and put option pricing using the data sets
+	Batch 1 to Batch 4. Check your answers, as you will need them when we discuss
+	numerical methods for option pricing.
 
-/* Cost of carry factor b must be included in formulae depending on the
-   derivative type. These are used in the generalised Black-Scholes formula. 
-   If r is the risk-free interest and q is the continuous dividend yield then 
-   the cost-of-carry b per derivative type is:
+	Cost of carry factor b must be included in formulae depending on the
+	derivative type. These are used in the generalised Black-Scholes formula.
+	If r is the risk-free interest and q is the continuous dividend yield then
+	the cost-of-carry b per derivative type is:
 
 	a) Black-Scholes (1973) stock option model: b = r
 	b) b = r - q Merton (1973) stock option model with continuous dividend yield
 	c) b = 0 Black (1976) futures option model
-	d) b = r - rf Garman and Kohlhagen (1983) currency option model, where rf is the 
+	d) b = r - rf Garman and Kohlhagen (1983) currency option model, where rf is the
 	   'foreign' interest rate
 
 	Test Values for option pricing follows:
@@ -45,23 +53,11 @@
 	Batch 4: T = 30.0, K = 100.0, sig = 0.30, r = 0.08, S = 100.0 (C = 92.17570, P = 1.24750)
 */
 
-
-int main()
-{ 
-	//using namespace Turbopro::Containers;		// namespace for Array template class
-
-	// All options are European
-	
-	// **********************************
-	// a) Implement the above formulae for call and put option pricing using the data sets Batch 1 to Batch 4. Check
-	//    your answers, as you will need them when we discuss numerical methods for option pricing.
-
-	// create vector of Map containers: function set_batch() stores Test Values into Map containers
+	// Create vector of Map containers: function set_batch() stores Test Values into Map containers
 	vector<map<string, double>> batches(map_size);
 	for (int i = 0; i < map_size; i++)
 		set_batch(batches[i], test_str0, test_val[i]);
 
-	/*
 	// Run the Batch Tests for Call and Put Options on a Stock
 	cout << "\nUnderlying Security = Stock\n";
 	int i = 0;
@@ -71,18 +67,19 @@ int main()
 		cout << "\nRun a 'Call' option using Batch " << i + 1 << " parameters:\n";
 		EuropeanOption callOption(*it, "C", "Stock");
 		//cout << "S: "; double S; cin >> S;
-		cout << "Option on a stock:\t" << callOption.Price()
+		cout << "Option on a stock:\t\t" << callOption.Price()
 			<< "\nBatch " << i + 1 << " 'Call' value:\t\t" << (*it)["C"]
 			<< endl << endl;
 
 		cout << "Run a 'Put' option using Batch " << i + 1 << " parameters:\n";
 		EuropeanOption putOption(batches[i], "P", "Stock");
-		cout << "Option on a stock:\t" << putOption.Price()
+		cout << "Option on a stock:\t\t" << putOption.Price()
 			<< "\nBatch " << i + 1 << " 'Put' value:\t\t" << (*it)["P"]
 			<< endl << endl;
 	}
 	
 	
+	/*
 	// ********************
 	// b) Apply the put-call parity relationship to compute call and put option prices. For example, given the call price,
 	//  compute the put price based on this formula using Batches 1 to 4. Check your answers with the prices from
@@ -101,7 +98,7 @@ int main()
 		<< "The call and put prices stored in each Batch are displayed as a reference:\n\n";
 
 	string option_types[]{ "C", "P", "C", "P" };	// used to set the option type for the EuropeanOption object
-	int i = 0;		// numeric indexer
+	i = 0;		// numeric indexer
 	for (auto it = batches.begin(); it != batches.end(); it++, i++)		// batches vector iterators
 	{
 		cout << "\nBatch " << i + 1 << " calculating Put-Call Parity prices\n";
@@ -180,30 +177,44 @@ int main()
 	*/
 
 	
+	/*
+	//generate **********--D--**************
+	//         *****************************
+	double test;
+	// Set test parameters, input/output matrix and vector
+	// Prices matrix is a vector of map<string, double> containers with test parameter values
+	// For the particular parameter under test, establish start/end values and step size, to 
+	// be used to determine vector size
+	// Set values for test parameter, option type, and underlying security
 	
-	//generate ************************
-	
-	double a = 0.1, b = 1.1;
-	int c = (b - a) / 0.1;
-
-	cout << "\nc: " << c << endl << endl;
-
-	cout << "\nsetup map<string, double>:\n";
-	map<string, double> opt_map{ {"T", 0.25}, { "K", 65.0 }, { "sig", 0.3 },
+	cout << "\nSetting up test parameters ... \n";
+	map<string, double> test_params_map{ {"T", 0.25}, { "K", 65.0 }, { "sig", 0.3 },
 		{ "r", 0.08 }, { "S", 60 } };
-	// Batch 1: T = 0.25, K = 65, sig = 0.30, r = 0.08, S = 60 (then C = 2.13337, P = 5.84628).
-	//map<string, double> opt_map{ {"T", 0.5}, { "K", 110.0 }, { "sig", 0.2 },
-		//{ "r", 0.05 }, { "S", 106 } };
+	string test_param = "S", option_type = "P", underlying_security = "Stock";
+	double param_start = 55.0, param_end = 66.0, step_size = 1.0;
 
-	string tp = "S", ot = "C", su = "Stock";
-	double o_start = 55.0, o_end = 66.0, s_size = 1.0;
-	vector<double> opt_prices;
+	// Create vector for option prices
+	cout << "\nCreating vector to store option prices ... \n";
+	vector<double> option_prices;				// option prices vector store
 
-	matrix_pricer(opt_map, o_start, o_end, s_size, opt_prices, tp, ot, su);
+	// Prices matrix container: vector of map<string, double>, of size based on test parameter values
+	cout << "\nCreating prices matrix container to store test parameters and option prices ... \n";
+	vector<map<string, double>> params_map(((param_end - param_start) / step_size), test_params_map);
 
-	for (auto it = opt_prices.begin(); it != opt_prices.end(); ++it)
+	// Call matrix_pricer() to calculate option prices for various values of stock price S
+	// matrix_pricer() takes a vector of map<string, double>, a vector of double, a test parameter double,
+	// a start value double for the test parameter, a step size double, an option type string, and
+	// an underlying security string  
+	cout << "\nCalling matrix pricer function to calculate option prices based on test parameter ... \n";
+	matrix_pricer(params_map, option_prices, test_param, param_start, step_size, 
+		option_type, underlying_security);
+
+	// display first N elements of prices vector
+	int N = 10;
+	for (auto it = option_prices.begin(); it != option_prices.begin() + N; ++it)
 	{
-		cout << "\nopt_prices: " << (*it) << endl;
+		if (option_type == "C") cout << "call option prices: " << (*it) << endl;
+		else cout << "put option prices: " << (*it) << endl;
 	}
 
 	cout << endl << endl;

@@ -11,11 +11,10 @@
 #include <iostream>
 #include <string>
 #include <map>
-//#include "Array.h"
 
 //using namespace boost::math;
 
-// static data member for comparison of double variables
+// definition of static data member for comparison of double variables
 const double EuropeanOption::epsilon = 1.0e-05;
 
 //////////// Gaussian functions /////////////////////////////////
@@ -25,7 +24,7 @@ const double EuropeanOption::epsilon = 1.0e-05;
 // follows a normal distribution with mean = 0.0, std dev = 1.0, we
 // would re-write n(x) and N(x) as follows:
 
-// standard normal probability density function
+// standard normal probability density function: use boost C++ library
 double EuropeanOption::n(double x) const
 {  
 	boost::math::normal_distribution<> myNormal(0.0, 1.0);
@@ -45,32 +44,25 @@ double EuropeanOption::N(double x) const
 double EuropeanOption::CallPrice(double U) const
 {
 	double tmp = sig * sqrt(T);
-
 	double d1 = ( log(U/K) + (b+ (sig*sig)*0.5 ) * T )/ tmp;
 	double d2 = d1 - tmp;
 
-
 	return (U * exp((b-r)*T) * N(d1)) - (K * exp(-r * T)* N(d2));
-
 }
 
 double EuropeanOption::PutPrice(double U) const
 {
-
 	double tmp = sig * sqrt(T);
 	double d1 = ( log(U/K) + (b+ (sig*sig)*0.5 ) * T )/ tmp;
 	double d2 = d1 - tmp;
 
 	return (K * exp(-r * T)* N(-d2)) - (U * exp((b-r)*T) * N(-d1));
-
 }
 
 double EuropeanOption::CallDelta(double U) const
 {
 	double tmp = sig * sqrt(T);
-
 	double d1 = ( log(U/K) + (b+ (sig*sig)*0.5 ) * T )/ tmp;
-
 
 	return exp((b-r)*T) * N(d1);
 }
@@ -78,12 +70,12 @@ double EuropeanOption::CallDelta(double U) const
 double EuropeanOption::PutDelta(double U) const
 {
 	double tmp = sig * sqrt(T);
-
 	double d1 = ( log(U/K) + (b+ (sig*sig)*0.5 ) * T )/ tmp;
 
 	return exp((b-r)*T) * (N(d1) - 1.0);
 }
 
+/*
 // CallTheta()
 double EuropeanOption::CallTheta(double U) const
 {
@@ -110,7 +102,9 @@ double EuropeanOption::PutTheta(double U) const
 		//(r * (K * exp(-r * T)) * N(-d2)); //s-
 		//((r - b) * (U * exp((b - r) * T) * N(-d1)));
 }
+*/
 
+/*
 // CallRho()
 double EuropeanOption::CallRho(double U) const
 {
@@ -132,7 +126,7 @@ double EuropeanOption::PutRho(double U) const
 
 	return -(K * exp(-r * T) * T * N(-d2));
 }
-
+*/
 
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -169,15 +163,22 @@ void EuropeanOption::copy( const EuropeanOption& o2)
 
 // default constructor
 EuropeanOption::EuropeanOption()
-	: T(0.5), K(110.0), sig(0.2), r(0.05), S(1.0),		// delisting threshold for a stock = $1.00
+	: T(0.5), K(110.0), sig(0.2), r(0.05), S(100.0),		// S set at 100 as default
 	opt_type("C"), unam("Stock"), b(0.05) {}
 
 
 // constructor takes four arguments: 
-// arg[0] = map with test parameter values
+// arg[0] = map<string, vector> with test parameter values
+//          we use a map to map option parameter to value for ease of reference 
 // arg[1] = option type
-// arg[2] = underlying security type
-// arg[3] = value to be used to adjust b: dividend or interest rate
+// arg[2] = name of underlying security type
+// arg[3] = value to be used to adjust b: adjusted by q = dividend, or foreign interest rate, R
+//          for a Stock, b = r; for an index, b = r - q(dividend); for a future, b = 0.0;
+//			for a currency, b = r - R(foreign exchange interest rate)
+//
+// We employ the colon initiliser to set data members
+// For the different types of underlying securities, additional initilisation occurs in the 
+// curly braces 
 EuropeanOption::EuropeanOption(const map<string, double>& op, const string& ot,
 	const string& security, const double& b_adjust)
 	: T(op.at("T")), K(op.at("K")), sig(op.at("sig")), r(op.at("r")), S(op.at("S")),
@@ -202,36 +203,22 @@ EuropeanOption::EuropeanOption (const string& optionType)
 	else if (optionType == "p" || optionType == "P")
 		opt_type = "P";
 	else opt_type = "C";
-
-	//init();
-	//optType = optionType;
-
-	//if (optType == "c")
-	//	optType = "C";
-
 }
 
+// destructor (virtual for base class)
+EuropeanOption::~EuropeanOption() {}
 
-
-EuropeanOption::~EuropeanOption()
-{
-
-}
-
-
+// assignment operator
 EuropeanOption& EuropeanOption::operator = (const EuropeanOption& option2)
 {
-
 	if (this == &option2) return *this;
 
-	//copy (option2);
 	r = option2.r;
 	sig = option2.sig;
 	K = option2.K;
 	T = option2.T;
 	b = option2.b;
 	S = option2.S;
-
 	opt_type = option2.opt_type;
 	unam = option2.unam;
 
@@ -239,54 +226,55 @@ EuropeanOption& EuropeanOption::operator = (const EuropeanOption& option2)
 }
 
 // Functions that calculate option price and sensitivities
-// use with constructor: asset price is provided within the input tuple
+// Use with constructor: asset price is provided within the input map container
 double EuropeanOption::Price() const
 {
 	if (opt_type == "C")
 	{	
-		cout << "calling call option on a/an " << unam << endl;
+		//cout << "calling call option on a/an " << unam << endl;
 		return CallPrice(S);
 	}
 	else
 	{
-		cout << "calling put option on a/an " << unam << endl;
+		//cout << "calling put option on a/an " << unam << endl;
 		return PutPrice(S);
 	}
 }
 
-// use with default constructor: asset price is provided as a single argument double
+// use with default constructor: asset price is accepted here as a single argument double
 double EuropeanOption::Price(double U) const
 {
 	if (opt_type == "C")
 	{
-		cout << "calling call option on a/an " << unam << endl;
+		//cout << "calling call option on a/an " << unam << endl;
 		return CallPrice(U);
 	}
 	else
 	{
-		cout << "calling put option on a/an " << unam << endl;
+		//cout << "calling put option on a/an " << unam << endl;
 		return PutPrice(U);
 	}
 }
 
+// use with default constructor: asset price is accepted here as a single argument double
 double EuropeanOption::Delta(double U) const 
 {
 	if (opt_type == "C")
 		return CallDelta(U);
 	else
 		return PutDelta(U);
-
 }
 
+// Use with constructor: asset price is provided within the input map container
 double EuropeanOption::Delta() const
 {
 	if (opt_type == "C")
 		return CallDelta(S);
 	else
 		return PutDelta(S);
-
 }
 
+/*
 double EuropeanOption::Theta(double U) const		// use with default constructor
 {
 	if (opt_type == "C")
@@ -302,6 +290,7 @@ double EuropeanOption::Theta() const
 	else
 		return PutTheta(S);
 }
+*/
 
 
 // Modifier functions
@@ -330,11 +319,13 @@ void EuropeanOption::Print() const
 }
 
 // set_batch() definition
-void set_batch(map<string, double>& batch, const vector<string>& S, const vector<double>& V)
+// set batch values from option_param and option_param_val vectors 
+void set_batch(map<string, double>& batch, const vector<string>& option_param, 
+	const vector<double>& option_param_val)
 {
-	for (unsigned int i = 0; i < V.size(); i++)
+	for (unsigned int i = 0; i < option_param_val.size(); i++)
 	{
-		batch[S[i]] = V[i];
+		batch[option_param[i]] = option_param_val[i];
 	}
 }
 
@@ -344,13 +335,13 @@ void set_batch(map<string, double>& batch, const vector<string>& S, const vector
 // Use the put-call-parity formula, C + Ke^(-rT) = P + S, to calculate
 // Put price given Call price, or, conversely, Call price given Put price
 // Returns a tuple of doubles: Put price and relevant Call price
-// ParityFactor() returns the value of Ke^(-rT)
+// ParityFactor() is an inline member method that returns the value of Ke^(-rT)
 boost::tuple<double, double> EuropeanOption::put_call_parity() const
 {
 	// Get call and put prices from option
 	// Calculate relevant put price when call price given
 	// Calculate relevant call price when put price given
-	// Calculate put or call parity price; return tuple with calculated prices
+	// Calculate put or call parity price from formula; return tuple with calculated prices
 	if (OptionType() == "C")				// check option type
 	{
 		double call_price = Price();		// set call price
@@ -360,10 +351,10 @@ boost::tuple<double, double> EuropeanOption::put_call_parity() const
 	}
 	else
 	{
-		double put_price = Price();
-		double parity_call_price = put_price + S - ParityFactor();
+		double put_price = Price();			// set put price
+		double parity_call_price = put_price + S - ParityFactor();	// calculate call price
 
-		return boost::tuple<double, double>(put_price, parity_call_price);
+		return boost::tuple<double, double>(put_price, parity_call_price);	// tuple(put_price, call_price)
 	}
 
 	return boost::tuple<double, double> (0.0, 0.0);
@@ -397,30 +388,17 @@ void vec_range(vector<double>& vec, const double& start, const double& end)
 }
 
 // matrix_pricer
-void matrix_pricer(map<string, double>& test_params, const double& opt_start,
-	const double& opt_end, const double& step_size, vector<double>& prices, 
-	string test_param, string option_type, string underlying)
+void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& prices,
+	const string test_param, const double& param_start, const double& step_size,
+	const string option_type, const string underlying)
 {
-	// create container map<string, double> for input argument to constructor
-	//map<string, double> opt_map{ {"T", 0.0}, { "K", 0.0 }, { "sig", 0.0 },
-		//{ "r", 0.00 }, { "S", 0.0 } };
-	//map<string, double> opt_map;
-	// get size of container for option parameter, based on the number of steps of
-	// the parameter to be tested: container_size = (opt_end - opt_start)/step_size 
-	int container_size = (opt_end - opt_start) / step_size;		// set number pf steps for S
-	// Create vector of map contaners with options
-	vector<map<string, double>> mat_options(container_size, test_params);
-	int i = 0;
-	for (auto it = mat_options.begin(); it != mat_options.end(); ++it, ++i)
+	int i = 0;				// indexer
+	double option_price;	// temp storage for calculated option price
+	for (auto it = price_matrix.begin(); it != price_matrix.end(); ++it, ++i)
 	{
-		(*it)[test_param] += (opt_start + i*step_size);
+		(*it)[test_param] = (param_start + i*step_size);	// set test parameter values
+		option_price = EuropeanOption(*it, option_type, underlying).Price();	// calculate option price
+		prices.push_back(option_price);						// add option price to prices vector
+		(*it).emplace(option_type, option_price);			// add option price to price_matrix vector
 	}
-
-	// get option call or put price, store in map container
-	for (auto it = mat_options.begin(); it != mat_options.end(); it++)
-	{
-		//(*it).emplace("C", EuropeanOption(*it, "C", "Stock").Price());
-		(*it).emplace(option_type, EuropeanOption(*it, option_type, underlying).Price());
-		prices.push_back((*it)[option_type]);
-	}	
 }
