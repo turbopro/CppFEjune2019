@@ -7,6 +7,7 @@
 
 
 #include "EuropeanOption.hpp"
+#include "EuropeanOptionException.h"
 #include <cmath>
 #include <iostream>
 #include <string>
@@ -61,6 +62,7 @@ double EuropeanOption::PutPrice(double U) const
 
 double EuropeanOption::CallDelta(double U) const
 {
+	std::cout << "\ninside " << __FUNCTION__ << ", U " << U << std::endl;
 	double tmp = sig * sqrt(T);
 	double d1 = ( log(U/K) + (b+ (sig*sig)*0.5 ) * T )/ tmp;
 
@@ -69,40 +71,36 @@ double EuropeanOption::CallDelta(double U) const
 
 double EuropeanOption::PutDelta(double U) const
 {
+	std::cout << "\ninside " << __FUNCTION__ << ", U: " << U << std::endl;
 	double tmp = sig * sqrt(T);
 	double d1 = ( log(U/K) + (b+ (sig*sig)*0.5 ) * T )/ tmp;
 
 	return exp((b-r)*T) * (N(d1) - 1.0);
 }
 
-/*
-// CallTheta()
-double EuropeanOption::CallTheta(double U) const
+// CallGamma()
+double EuropeanOption::CallGamma(double U) const
 {
 	double tmp = sig * sqrt(T);
 
 	double d1 = (log(U / K) + (b + (sig * sig) * 0.5) * T) / tmp;
 	double d2 = d1 - tmp;
 
-	return - (exp((b - r) * T) * U * n(d1) * sig) / (2 * sqrt(T)) -
-	//return -(U * exp((b - r) * T) * n(d1) * sig) / (2 * sqrt(T));// -
-		(r * (K * exp(-r * T)) * N(d2)) + 
-		((r - b) * (U * exp((b - r) * T) * N(d1)));
+	//return (exp(-r * T) * K * n(d2)) / (S * S * sig * sqrt(T));
+	return (exp((b-r) * T) * n(d1)) / (S * sig * sqrt(T));
 }
 
-// PutTheta()
-double EuropeanOption::PutTheta(double U) const
+// PutGamma()
+double EuropeanOption::PutGamma(double U) const
 {
 	double tmp = sig * sqrt(T);
 
 	double d1 = (log(U / K) + (b + (sig * sig) * 0.5) * T) / tmp;
 	double d2 = d1 - tmp;
 
-	return -(U * exp((b - r) * T) * n(d1) * sig) / (2 * sqrt(T));// +
-		//(r * (K * exp(-r * T)) * N(-d2)); //s-
-		//((r - b) * (U * exp((b - r) * T) * N(-d1)));
+	return (exp(-r * T) * K * n(d2)) / (S * S * sig * sqrt(T));
+	//return (exp((b - r) * T) * n(d1)) / (S * sig * sqrt(T));
 }
-*/
 
 /*
 // CallRho()
@@ -168,26 +166,36 @@ EuropeanOption::EuropeanOption()
 
 
 // constructor takes four arguments: 
-// arg[0] = map<string, vector> with test parameter values
-//          we use a map to map option parameter to value for ease of reference 
-// arg[1] = option type
-// arg[2] = name of underlying security type
-// arg[3] = value to be used to adjust b: adjusted by q = dividend, or foreign interest rate, R
-//          for a Stock, b = r; for an index, b = r - q(dividend); for a future, b = 0.0;
-//			for a currency, b = r - R(foreign exchange interest rate)
+// op		-	map<string, vector> with test parameter values
+//				We use a map to map option parameter to value for ease of reference 
+// ot		-	option type
+// security	-	Name of underlying security type
+// b_adjust	-	Value to be used to adjust b: adjusted by q = dividend, or foreign interest 
+//				rate, R
+//				For a Stock, b = r; for an index, b = r - q(dividend); for a future, b = 0.0;
+//				for a currency, b = r - R(foreign exchange interest rate)
 //
 // We employ the colon initiliser to set data members
 // For the different types of underlying securities, additional initilisation occurs in the 
-// curly braces 
+// curly braces
+// option type is checked for validity; throw exception if invalid value
+// underlying security type is checked for validity; throw exception if invalid value
 EuropeanOption::EuropeanOption(const map<string, double>& op, const string& ot,
 	const string& security, const double& b_adjust)
-	: T(op.at("T")), K(op.at("K")), sig(op.at("sig")), r(op.at("r")), S(op.at("S")),
-	opt_type(ot), unam(security), b(b_adjust)
+	: T(op.at("T")), K(op.at("K")), sig(op.at("sig")), r(op.at("r")), S(op.at("S")), b(b_adjust)
 {
-	if (unam == "Stock") b = r;
-	else if (unam == "Future") b = 0;
-	else if (unam == "Currency" || unam == "Index") b = r - b_adjust;
-	else b = r;		// default to Stock cost of carry: Black and Scholes stock option model (1973) 
+	// throw InvalidUnderlyingException if underlying security type not valid
+	if (security == "Currency" || security == "Future" ||
+		security == "Stock" || security == "Index") unam = security;
+	else throw InvalidUnderlyingException(security);
+	
+	if (security == "Stock") b = r;			// Black and Scholes stock option model (1973)
+	else if (security == "Future") b = 0;
+	else b = r - b_adjust;				// security = Currency or Index
+
+	// throw InvalidOptionTypeException if option_type not valid
+	if (ot == "C" || ot == "c" || ot == "P" || ot == "p") opt_type = ot;
+	else throw InvalidOptionTypeException(ot);
 }
 
 // copy constructor
@@ -274,24 +282,22 @@ double EuropeanOption::Delta() const
 		return PutDelta(S);
 }
 
-/*
-double EuropeanOption::Theta(double U) const		// use with default constructor
+
+double EuropeanOption::Gamma(double U) const		// use with default constructor
 {
 	if (opt_type == "C")
-		return CallTheta(U);
+		return CallGamma(U);
 	else
-		return PutTheta(U);
+		return PutGamma(U);
 }
 
-double EuropeanOption::Theta() const
+double EuropeanOption::Gamma() const
 {
 	if (opt_type == "C")
-		return CallTheta(S);
+		return CallGamma(S);
 	else
-		return PutTheta(S);
+		return PutGamma(S);
 }
-*/
-
 
 // Modifier functions
 void EuropeanOption::toggle()
@@ -330,34 +336,35 @@ void set_batch(map<string, double>& batch, const vector<string>& option_param,
 }
 
 // put_call_parity() function: get the Call or Put price of the Stock option
-// Calculate the relevant Put price if Call Price is retireved; calculate
-// the Call price if Put price is retrieved
-// Use the put-call-parity formula, C + Ke^(-rT) = P + S, to calculate
-// Put price given Call price, or, conversely, Call price given Put price
-// Returns a tuple of doubles: Put price and relevant Call price
+// Calculate the relevant Put price if option type is a call option; conversely,
+// calculate the Call price if option type is a put option
+// Use the put-call-parity formula, C + Ke^(-rT) = P + S, to calculate the 
+// corresponding Put price given a Call price, or, conversely, Call price given 
+// a Put price
+// Returns a tuple of doubles: Put price and corresponding Call price
 // ParityFactor() is an inline member method that returns the value of Ke^(-rT)
+// Throw InvalidOptionTypeException if option type is incorrect
 boost::tuple<double, double> EuropeanOption::put_call_parity() const
 {
-	// Get call and put prices from option
-	// Calculate relevant put price when call price given
-	// Calculate relevant call price when put price given
-	// Calculate put or call parity price from formula; return tuple with calculated prices
-	if (OptionType() == "C")				// check option type
+	if (OptionType() == "C" || OptionType() == "c")				// check option type
 	{
-		double call_price = Price();		// set call price
+		double call_price = Price();		// get call price
 		double parity_put_price = call_price - S + ParityFactor();	  // calculate put price
 
 		return boost::tuple<double, double>(parity_put_price, call_price);	// tuple(put_price, call_price)
 	}
-	else
+	else if (OptionType() == "P" || OptionType() == "p")
 	{
-		double put_price = Price();			// set put price
+		double put_price = Price();			// get put price
 		double parity_call_price = put_price + S - ParityFactor();	// calculate call price
 
 		return boost::tuple<double, double>(put_price, parity_call_price);	// tuple(put_price, call_price)
 	}
-
-	return boost::tuple<double, double> (0.0, 0.0);
+	else
+	{
+		// throw exception
+		throw InvalidOptionTypeException(OptionType());
+	}	
 }
 
 // Check if call and put prices for a given stock option at price S make for a put-call parity
@@ -367,7 +374,7 @@ bool EuropeanOption::check_put_call_parity(const double& call_price, const doubl
 	boost::tuple<double, double> parity_prices(put_call_parity());
 
 	// We use static data member epsilon for comparison of calculated vs given call/put prices
-	// return true if prices are "equal" (within epsilon tolerance)
+	// return true if prices are "equal": that is, if the prices lie within epsilon tolerance
 	return (std::abs(put_price - parity_prices.get<0>()) < epsilon &&
 			std::abs(call_price - parity_prices.get<1>()) < epsilon);
 }
@@ -387,28 +394,65 @@ void vec_range(vector<double>& vec, const double& start, const double& end)
 	//return vec;
 }
 
-// matrix_pricer
+// matrix_pricer()
+// Has seven input arguments:
+// price_matrix	-	a vector of map<string, double> that contains the option test parameters
+// prices		-	a vector<doubles> to store calculated Call or Put option prices
+// test_param	-	a string that holds the test parameter's character
+// param_start	-	a double that holds the value of the start value of the range of 
+//					the test parameter
+// step_size	-	a double that holds the step size for the test parameter
+// option_type	-	a string that holds the type of option, "C" = call or "P" = put, 
+//					to be calculated
+// underlying	-	a string that holds the type of underlying security
+//
+// Loop over from the test parameter start to end value in step_size steps
+// In each iteration, create an anonymous EuropeanOption object using the constant test
+// paramaters, and the current value of the increasing particular test parameter
+// Call the Price() member method (single argument version) to retrieve the relevant Call 
+// or Put option price
+// Add the retrieved option price to the storage vector for prices and to the price
+// matrix vector of map containers
+// No return value; void function
+// Both input vectors are reference objects whose values are updated during function execution
 void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& prices,
-	const string test_param, const double& param_start, const double& step_size,
+	const string test_param, const double& step_size,
 	const string option_type, const string underlying)
 {
 	int i = 0;				// indexer
 	double option_price;	// temp storage for calculated option price
 	for (auto it = price_matrix.begin(); it != price_matrix.end(); ++it, ++i)
 	{
-		(*it)[test_param] = (param_start + i*step_size);	// set test parameter values
+		(*it)[test_param] += (i*step_size);					// set test parameter values
 		option_price = EuropeanOption(*it, option_type, underlying).Price();	// calculate option price
 		prices.push_back(option_price);						// add option price to prices vector
 		(*it).emplace(option_type, option_price);			// add option price to vector of map containers
 	}
 }
 
-// vector_pricer()
+// vector_pricer() 
+// Has seven input arguments:
+// test_params	-	a map<string, double> that contains the option test parameters
+// prices		-	a vector<doubles> to store calculated Call or Put option prices
+// param_end	-	a double that holds the value of the end value of the range of 
+//					the test parameter
+// step_size	-	a double that holds the step size for the test parameter
+// test_param	-	a string that holds the test parameter's character
+// option_type	-	a string that holds the type of option, "C" = call or "P" = put, 
+//					to be calculated
+// underlying	-	a string that holds the type of underlying security
+//
+// Loop over from the test parameter start to end value in step_size steps
+// In each iteration, create an anonymous EuropeanOption object using the constant test
+// paramaters, and the current value of the increasing particular test parameter
+// Call the Price() member method (single argument version) to retrieve the relevant Call 
+// or Put option price
+// Add the retrieved option price to the storage vector for prices
 void vector_pricer(map<string, double>& test_params, vector<double>& prices,
-	const double& param_start, const double& param_end, const double& step_size,
+	const double& param_end, const double& step_size,
 	string test_param, string option_type, string underlying)
 {
-	for (double didx = param_start; didx < param_end; )
+	for (double didx = test_params["S"]; didx < param_end; )
 	{
 		prices.push_back(EuropeanOption(test_params, option_type, underlying).Price(didx));
 		didx += step_size;
