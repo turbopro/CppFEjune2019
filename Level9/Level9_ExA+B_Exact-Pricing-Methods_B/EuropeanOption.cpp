@@ -449,12 +449,17 @@ void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& pr
 // or Put option price
 // Add the retrieved option price to the storage vector for prices
 void vector_pricer(map<string, double>& test_params, vector<double>& prices,
-	const double& param_end, const double& step_size,
+	const double& param_end, const double& step_size, EuroMemFn m_fp,
 	string test_param, string option_type, string underlying)
 {
 	for (double didx = test_params["S"]; didx < param_end; )
 	{
-		prices.push_back(EuropeanOption(test_params, option_type, underlying).Price(didx));
+		//prices.push_back(EuropeanOption(test_params, option_type, underlying).Price(didx));
+		//EuropeanOption test_e(test_params, option_type, underlying);
+		//prices.push_back(test_e.f .Price(didx));
+		//prices.push_back(EuropeanOption(test_params, option_type, underlying).Price(didx));
+		EuropeanOption test_e(test_params, option_type, underlying);
+		prices.push_back(std::invoke(m_fp, test_e, didx));
 		didx += step_size;
 	}
 }

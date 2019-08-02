@@ -21,6 +21,7 @@
 #include <algorithm>		// for count_if
 #include <numeric>			// std::accumulate
 #include <random>
+//#include <functional>
 
 #include <boost/shared_ptr.hpp>	// Boost C Library Shared Pointer header file
 //#include <boost/range/adaptors.hpp>
@@ -360,8 +361,15 @@ int main()
 	// underlying security string  
 	cout << "\nCalling vector_pricer function to calculate option gamma prices based on "
 		<< "test parameter ... \n";
-	vector_pricer(test_params_map, option_prices, param_end, step_size, test_param,
-		option_type, underlying_security);
+	
+	// Create map of EuropeanOption member function names to pointer to member functions
+	// We use the typedef double (EuropeanOption::* EuroMemFn)(double) const;
+	map<string, EuroMemFn> member_fp
+	{ {"Price", &EuropeanOption::Price}, {"Delta", &EuropeanOption::Delta},
+		{"Gamma", &EuropeanOption::Gamma} };
+
+	vector_pricer(test_params_map, option_prices, param_end, step_size, member_fp["Price"],
+		test_param, option_type, underlying_security);
 
 	// display elements of prices vector
 	for (auto it = option_prices.begin(); it != option_prices.end(); ++it)

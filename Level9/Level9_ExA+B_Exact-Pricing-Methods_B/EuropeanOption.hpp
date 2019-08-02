@@ -91,6 +91,7 @@ public:	// Public functions
 
 	// print option parameters
 	void Print() const;
+
 };
 
 // store Test Parameter names and values into a Map<String, Double> container
@@ -133,6 +134,12 @@ void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& pr
 	const string test_param, const double& step_size,
 	const string option_type = "C", const string underlying = "Stock");
 
+// Pointer to const member function: used to pass member functions as arguments to
+// other functions
+// We use in the following vector_pricer() to pass either Price(), Gamma(), or 
+// Delta() member functions
+typedef double (EuropeanOption::* EuroMemFn)(double) const;
+
 // vector_pricer()
 // Has seven input arguments:
 // test_params	-	a map<string, double> that contains the option test parameters
@@ -144,8 +151,9 @@ void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& pr
 // option_type	-	a string that holds the type of option, "C" = call or "P" = put, 
 //					to be calculated
 // underlying	-	a string that holds the type of underlying security
-void vector_pricer(map<string, double>& test_params, vector<double>& prices, 
-	const double& param_end, const double& step_size, 
+//void vector_pricer(map<string, double>& test_params, vector<double>& prices, 
+void vector_pricer(map<string, double>& test_params, vector<double>& prices,
+	const double& param_end, const double& step_size, EuroMemFn m_fp,
 	string test_param, string option_type = "C", string underlying = "Stock");
 
 #endif
