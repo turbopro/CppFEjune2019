@@ -62,7 +62,7 @@ double EuropeanOption::PutPrice(double U) const
 
 double EuropeanOption::CallDelta(double U) const
 {
-	std::cout << "\ninside " << __FUNCTION__ << ", U " << U << std::endl;
+	//std::cout << "\ninside " << __FUNCTION__ << ", U " << U << std::endl;
 	double tmp = sig * sqrt(T);
 	double d1 = ( log(U/K) + (b+ (sig*sig)*0.5 ) * T )/ tmp;
 
@@ -71,7 +71,7 @@ double EuropeanOption::CallDelta(double U) const
 
 double EuropeanOption::PutDelta(double U) const
 {
-	std::cout << "\ninside " << __FUNCTION__ << ", U: " << U << std::endl;
+	//std::cout << "\ninside " << __FUNCTION__ << ", U: " << U << std::endl;
 	double tmp = sig * sqrt(T);
 	double d1 = ( log(U/K) + (b+ (sig*sig)*0.5 ) * T )/ tmp;
 
@@ -98,8 +98,8 @@ double EuropeanOption::PutGamma(double U) const
 	double d1 = (log(U / K) + (b + (sig * sig) * 0.5) * T) / tmp;
 	double d2 = d1 - tmp;
 
-	return (exp(-r * T) * K * n(d2)) / (S * S * sig * sqrt(T));
-	//return (exp((b - r) * T) * n(d1)) / (S * sig * sqrt(T));
+	//return (exp(-r * T) * K * n(d2)) / (S * S * sig * sqrt(T));
+	return (exp((b - r) * T) * n(d1)) / (S * sig * sqrt(T));
 }
 
 /*
@@ -431,35 +431,56 @@ void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& pr
 }
 
 // vector_pricer() 
-// Has seven input arguments:
+// Has nine input arguments:
 // test_params	-	a map<string, double> that contains the option test parameters
-// prices		-	a vector<doubles> to store calculated Call or Put option prices
+// prices		-	a map<string, vector<double>> to store calculated prices/values
 // param_end	-	a double that holds the value of the end value of the range of 
 //					the test parameter
 // step_size	-	a double that holds the step size for the test parameter
+// fn_ptr		-	a EuropeanOption pointer to member function
+// fn_name		-	a member function name
 // test_param	-	a string that holds the test parameter's character
 // option_type	-	a string that holds the type of option, "C" = call or "P" = put, 
 //					to be calculated
 // underlying	-	a string that holds the type of underlying security
 //
+// Create a temporary vector of doubles to stores calculated prices/values
 // Loop over from the test parameter start to end value in step_size steps
-// In each iteration, create an anonymous EuropeanOption object using the constant test
-// paramaters, and the current value of the increasing particular test parameter
-// Call the Price() member method (single argument version) to retrieve the relevant Call 
-// or Put option price
-// Add the retrieved option price to the storage vector for prices
-void vector_pricer(map<string, double>& test_params, vector<double>& prices,
-	const double& param_end, const double& step_size, EuroMemFn m_fp,
-	string test_param, string option_type, string underlying)
+// In each iteration:
+//	Get and store values/prices in temp_vec
+//	We use std::invoke which takes as arguments the pointer to member function,
+//	an anonymous EuropeanOption, and the current test parameter value, which is
+//	the argument to the member function 
+// Add the member function name and vector of calculated prices/values to the prices map
+void vector_pricer(map<string, double>& test_params, map<string, vector<double>>& prices,
+	const double& param_end, const double& step_size, const EuroMemFn fn_ptr, 
+	const string fn_name, const string test_param, const string option_type, 
+	const string underlying)
 {
-	for (double didx = test_params["S"]; didx < param_end; )
+	// Create temporary vector
+	vector<double> prices_vals_vec;
+
+	// Loop over test parameter range of values; get and store values/prices
+	for (double param_idx = test_params["S"]; param_idx < param_end; param_idx += step_size)
+	{		
+		prices_vals_vec.push_back(
+			std::invoke(fn_ptr, EuropeanOption(test_params, option_type, underlying), param_idx));
+	}
+
+	// assign member funtion name and vector of computed values to prices map
+	prices[fn_name] = prices_vals_vec;
+}
+
+// matrix_pricer_by_fn()
+void matrix_pricer_by_fn(
+	vector<map<string, double>>& price_matrix, map<string, vector<double>>& prices,
+	const double& param_end, const double& step_size, const EuroMemFn fn_ptr,
+	const string fn_name, const string test_param, const string option_type,
+	const string underlying)
+{
+	for (auto it = price_matrix.begin(); it != price_matrix.end(); ++it)
 	{
-		//prices.push_back(EuropeanOption(test_params, option_type, underlying).Price(didx));
-		//EuropeanOption test_e(test_params, option_type, underlying);
-		//prices.push_back(test_e.f .Price(didx));
-		//prices.push_back(EuropeanOption(test_params, option_type, underlying).Price(didx));
-		EuropeanOption test_e(test_params, option_type, underlying);
-		prices.push_back(std::invoke(m_fp, test_e, didx));
-		didx += step_size;
+		vector_pricer(*it, prices, param_end, step_size, fn_ptr, fn_name, test_param,
+			option_type, underlying);
 	}
 }

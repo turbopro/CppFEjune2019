@@ -143,17 +143,37 @@ typedef double (EuropeanOption::* EuroMemFn)(double) const;
 // vector_pricer()
 // Has seven input arguments:
 // test_params	-	a map<string, double> that contains the option test parameters
-// prices		-	a vector<doubles> to store calculated Call or Put option prices
+// prices		-	a map<string, vector<double>> to store calculated prices/values
 // param_end	-	a double that holds the value of the end value of the range of 
 //					the test parameter
 // step_size	-	a double that holds the step size for the test parameter
+// fn_ptr		-	a EuropeanOption pointer to member function
+// fn_name		-	a member function name
 // test_param	-	a string that holds the test parameter's character
 // option_type	-	a string that holds the type of option, "C" = call or "P" = put, 
 //					to be calculated
 // underlying	-	a string that holds the type of underlying security
-//void vector_pricer(map<string, double>& test_params, vector<double>& prices, 
-void vector_pricer(map<string, double>& test_params, vector<double>& prices,
-	const double& param_end, const double& step_size, EuroMemFn m_fp,
-	string test_param, string option_type = "C", string underlying = "Stock");
+void vector_pricer(map<string, double>& test_params, map<string, vector<double>>& prices,
+	const double& param_end, const double& step_size, const EuroMemFn fn_ptr, 
+	const string fn_name, const string test_param, const string option_type = "C", 
+	const string underlying = "Stock");
+
+
+// matrix_pricer_by_fn()
+// Has nine input arguments:
+// price_matrix	-	a vector of map<string, double> that contains the option test parameters
+// prices		-	a vector<doubles> to store calculated Call or Put option prices
+// test_param	-	a string that holds the test parameter's character
+// param_start	-	a double that holds the value of the start value of the range of 
+//					the test parameter
+// step_size	-	a double that holds the step size for the test parameter
+// option_type	-	a string that holds the type of option, "C" = call or "P" = put, 
+//					to be calculated
+// underlying	-	a string that holds the type of underlying security
+void matrix_pricer_by_fn(
+	vector<map<string, double>>& price_matrix, map<string, vector<double>>& prices,
+	const double& param_end, const double& step_size, const EuroMemFn fn_ptr, 
+	const string fn_name, const string test_param, const string option_type = "C", 
+	const string underlying = "Stock");
 
 #endif

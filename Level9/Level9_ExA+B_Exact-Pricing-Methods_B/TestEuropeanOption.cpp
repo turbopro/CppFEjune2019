@@ -338,44 +338,151 @@ int main()
 		// Set values for test parameter, option type, and underlying security
 		// As an example, when we test parameter "S," we will hold parameters "T" "K" "sig" "r" 
 		// constant, while we increase the value of "S" monotnonically from a start to and end value
-		// 
-		// For K = 100.0
-		// Start value for S = 50.0
-		// End value for S = 64
-		// Step size = 1.0
 
 	cout << "\nSetting up test parameters ... \n";
 	test_param = "S"; option_type = "C"; underlying_security = "Future";
 	double param_start = 85.0, param_end = 99.0, step_size = 1.0;
-	map<string, double> test_params_map{ {"T", 0.5}, { "K", 100.0 }, { "sig", 0.36 },
+	map<string, double> test_params_map{ {"T", 0.0833}, { "K", 100.0 }, { "sig", 0.36 },
 		{ "r", 0.1 }, { "S", param_start } };
 
-	// Create vector for option prices
-	cout << "\nCreating vector to store option prices ... \n";
-	vector<double> option_prices;
+	// Create map container for option prices: string stores the name of the member function, 
+	// vector<double> stores the calculated prices/values returned by the member function  
+	cout << "\nCreating map to hold vectors of Deltas, Gamma, and Option Prices ...\n";
+	map<string, vector<double>> option_prices;
 
-	// Call vector_pricer() to calculate option gamma prices for various values of stock 
-	// price S
-	// vector_pricer() takes a map<string, double>, a vector of double, an end value double 
-	// for the test parameter, a step size value double, an option type string, and an 
-	// underlying security string  
+	// Call vector_pricer() to calculate option gamma prices for a range of values of stock price S
+	// vector_pricer() takes a map<string, double>, a map<string, vector<double>>, 
+	// an end value double for the test parameter, a step size value double, a function pointer, 
+	// a function name, an option type string, and an underlying security string  
 	cout << "\nCalling vector_pricer function to calculate option gamma prices based on "
 		<< "test parameter ... \n";
 	
-	// Create map of EuropeanOption member function names to pointer to member functions
-	// We use the typedef double (EuropeanOption::* EuroMemFn)(double) const;
-	map<string, EuroMemFn> member_fp
-	{ {"Price", &EuropeanOption::Price}, {"Delta", &EuropeanOption::Delta},
-		{"Gamma", &EuropeanOption::Gamma} };
+	// Create vector of strings for EuropeanOption member function names, Delta, Gamma, Price
+	// Create map<string, EuroMemFn> that maps EuropeanOption member function names to pointer
+	// to member functions
+	// We use the "typedef double (EuropeanOption::* EuroMemFn)(double) const" declared in
+	// EuropeanOption.h for the type EuroMemFn
+	// We use the above containers as vector_pricer function arguments:
+	// Function names serve as keys for the option_prices map<string, vector<double>> container
+	// Function pointers point to the relevant member functions that calculate the prices/values
+	vector<string> fn_names {"Delta", "Gamma", "Price" };
+	map<string, EuroMemFn> fn_name_ptr { {"Price", &EuropeanOption::Price},
+		{"Delta", &EuropeanOption::Delta}, {"Gamma", &EuropeanOption::Gamma} };
 
-	vector_pricer(test_params_map, option_prices, param_end, step_size, member_fp["Price"],
-		test_param, option_type, underlying_security);
+	// get prices
+	vector_pricer(test_params_map, option_prices, param_end, step_size, fn_name_ptr[fn_names[1]],
+		fn_names[1], test_param, option_type, underlying_security);
 
-	// display elements of prices vector
+	// display elements of prices map<string, vector<double>>
 	for (auto it = option_prices.begin(); it != option_prices.end(); ++it)
 	{
-		if (option_type == "C") cout << "call option gamma prices: " << (*it) << endl;
-		else cout << "put option gamma prices: " << (*it) << endl;
+		if (option_type == "C")
+		{
+			cout << "call option for " << it->first << ", Values are:\n";
+			for (auto val : it->second)
+				cout << val << endl;
+		}
+			//<< " prices: " << (*it) << endl;
+		else
+		{
+			cout << "put option for " << it->first << ", Values are:\n";
+			for (auto val : it->second)
+				cout << val << endl;
+		}
+	}
+
+
+	cout << endl << endl;
+
+	/*
+	c) Incorporate this into your above matrix pricer code, so you can input a matrix of 
+	option parameters and receive a matrix of either Delta or Gamma as the result.
+	*/
+
+	// Set test parameters matrix
+	// Use vector_pricer on each input vector
+
+	cout << "\nResetting and Setting up test parameters ... \n";
+	//map<string, double> test_params_map{ {"T", 0.25}, { "K", 65.0 }, { "sig", 0.3 },
+		//{ "r", 0.08 }, { "S", 60 } };
+	test_params_map["T"] = 0.25; test_params_map["K"] = 65.0;
+	test_params_map["sig"] = 0.3; test_params_map["r"] = 0.08;
+
+	param_start = 55.0; param_end = 65.0; step_size = 1.0;
+	test_params_map["S"] = param_start;		// set test parameter to start value
+
+	test_param = "S"; option_type = "C"; underlying_security = "Stock";
+
+	// Clear vector for option prices
+	cout << "\nClearing map to store option prices ... \n";
+	option_prices.clear();				// option prices map store
+
+	// Prices matrix container: vector of map<string, double>, of size based on test parameter values
+	cout << "\nCreating prices matrix container to store test parameters and option prices ... \n";
+	vector<map<string, double>> params_map(((param_end - param_start) / step_size), test_params_map);
+
+	// Call matrix_pricer() to calculate option prices for various values of stock price S
+	// matrix_pricer() takes a vector of map<string, double>, a vector of double, a test parameter string,
+	// a step size double, an option type string, and an underlying security string  
+	cout << "\nCalling matrix pricer function to calculate option prices, deltas and gammas "
+		<< "\nbased on test parameter ... \n";
+	for (auto name_ptr : fn_name_ptr)
+	{
+		matrix_pricer_by_fn(params_map, option_prices, param_end, step_size, name_ptr.second,
+			name_ptr.first, test_param, option_type, underlying_security);
+	}
+	
+	/*
+	cout << "\nSetting up test parameters ... \n";
+	//test_param = "S"; option_type = "C"; underlying_security = "Future";
+	//double param_start = 85.0, param_end = 99.0, step_size = 1.0;
+	map<string, double> test_params_matrix{ {"T", 0.0833}, { "K", 100.0 }, { "sig", 0.36 },
+		{ "r", 0.1 }, { "S", param_start } };
+
+	// Create map container for option prices: string stores the name of the member function, 
+	// vector<double> stores the calculated prices/values returned by the member function  
+	cout << "\nCreating map to hold vectors of Deltas, Gamma, and Option Prices ...\n";
+	map<string, vector<double>> option_prices;
+
+	// Call vector_pricer() to calculate option gamma prices for a range of values of stock price S
+	// vector_pricer() takes a map<string, double>, a map<string, vector<double>>, 
+	// an end value double for the test parameter, a step size value double, a function pointer, 
+	// a function name, an option type string, and an underlying security string  
+	cout << "\nCalling vector_pricer function to calculate option gamma prices based on "
+		<< "test parameter ... \n";
+
+	// Create vector of strings for EuropeanOption member function names, Delta, Gamma, Price
+	// Create map<string, EuroMemFn> that maps EuropeanOption member function names to pointer
+	// to member functions
+	// We use the "typedef double (EuropeanOption::* EuroMemFn)(double) const" declared in
+	// EuropeanOption.h for the type EuroMemFn
+	// We use the above containers as vector_pricer function arguments:
+	// Function names serve as keys for the option_prices map<string, vector<double>> container
+	// Function pointers point to the relevant member functions that calculate the prices/values
+	vector<string> fn_names{ "Delta", "Gamma", "Price" };
+	map<string, EuroMemFn> fn_name_ptr{ {"Price", &EuropeanOption::Price},
+		{"Delta", &EuropeanOption::Delta}, {"Gamma", &EuropeanOption::Gamma} };
+
+	// get prices
+	vector_pricer(test_params_map, option_prices, param_end, step_size, fn_name_ptr[fn_names[1]],
+		fn_names[1], test_param, option_type, underlying_security);
+
+	// display elements of prices map<string, vector<double>>
+	for (auto it = option_prices.begin(); it != option_prices.end(); ++it)
+	{
+		if (option_type == "C")
+		{
+			cout << "call option for " << it->first << ", Values are:\n";
+			for (auto val : it->second)
+				cout << val << endl;
+		}
+		//<< " prices: " << (*it) << endl;
+		else
+		{
+			cout << "put option for " << it->first << ", Values are:\n";
+			for (auto val : it->second)
+				cout << val << endl;
+		}
 	}
 
 
@@ -383,240 +490,8 @@ int main()
 
 
 
-
 	cout << endl << endl;
-
-	/*
-	// Call option on a stock (b = r by default)
-	EuropeanOption callOption;
-	cout << "S: "; double S; cin >> S;
-	cout << "Option on a stock: " << callOption.Price(S) << endl;
-
-	/*
-	// Option on a stock index
-	
-	// Input parameters:
-	// optType = "C"
-	// underlying = "Index"
-	// K = 50.0;
-	// T = 0.41667;
-	// sig = 0.00;
-	// r = 0.1;
-	// S = 50.0			// Stock Price
-	// q = 0.0			// Dividend yield
-	// b = r - q		// Cost of Carry
-
-	map<string, double> opt_params;
-	opt_params.emplace("K", 50.0);
-	opt_params.emplace("T", 0.41667);
-	opt_params.emplace("sig", 0.0);
-	opt_params.emplace("r", 0.1);
-	opt_params.emplace("S", 50.0);
-	string option_type = "C";
-	string underlying = "Index";
-	double dividend_yield = 0.0;		// Dividend yield (b_adjust input parameter)
-
-
-	// create an index option object
-	EuropeanOption optionIndex(opt_params, option_type, underlying, dividend_yield);
-	
-	cout << "\nOption Type: " << option_type << endl;
-	
-	cout << "\nOption on an index at Asset Price = 50.00:\n" 
-		<< optionIndex.Price() << endl << endl;
-
-	optionIndex.Print();
-
-	cout << endl << endl;
-
-	
-	// Options on a future
-
-	opt_params.clear();
-	opt_params.emplace("K", 19.0);
-	opt_params.emplace("T", 0.75);
-	opt_params.emplace("r", 0.1);
-	opt_params.emplace("sig", 0.28);
-	opt_params.emplace("S", 20.0);
-	option_type = "P";
-	underlying = "Future";
-	double future_b = 0.0;
-
-	EuropeanOption futureOption(opt_params, option_type, underlying, future_b);
-
-	//futureOption.optType = "P";
-	//futureOption.K = 19.0;
-	//futureOption.T = 0.75;
-	//futureOption.r = 0.10;
-	//futureOption.sig = 0.28;
-
-	//futureOption.b = 0.0;
-
-	cout << " option on a future: " << futureOption.Price() << endl;
-	
-	// Now change over to a call on the option
-	futureOption.toggle();
-	cout << " option on a future: " << futureOption.Price() << endl << endl;
-
-	futureOption.Print();
-
-	cout << endl;
-	
-	
-	// Call option on currency
-	
-	opt_params.clear();
-	opt_params.emplace("K", 1.60);
-	opt_params.emplace("T", 0.5);
-	opt_params.emplace("r", 0.06);
-	opt_params.emplace("sig", 0.12);
-	opt_params.emplace("S", 1.56);
-	double risk_free_rate = 0.08;		// risk-free rate of foreign currency
-	option_type = "C";
-	underlying = "Currency";
-
-	EuropeanOption currencyOption(opt_params, option_type, underlying, risk_free_rate);
-	//currencyOption.optType = "C";
-	//currencyOption.K = 1.60;
-	//currencyOption.T = 0.5;
-	//currencyOption.r = 0.06;
-	//currencyOption.sig = 0.12;
-
-	//double rf = 0.08;			// risk-free rate of foreign currency
-	//currencyOption.b = currencyOption.r - rf;
-	
-
-	cout << " option on a currency: " << currencyOption.Price() << endl;
-
-	currencyOption.Print();
-
-	cout << endl << endl;
-
-	
-	cout << endl << "** Other pricing examples **" << endl << endl;
-
-	
-	////////   NOW CALCULATIONS OF SENSITIVITIES //////////////////////////////////
-
-	// Call and put options on a future: Delta and Elasticity
-	opt_params.clear();
-	opt_params.emplace("K", 100.0);
-	opt_params.emplace("T", 0.5);
-	opt_params.emplace("r", 0.10);
-	opt_params.emplace("sig", 0.36);
-	opt_params.emplace("S", 105.0);
-	future_b = 0.0;
-	option_type = "P";
-	underlying = 'F';
-	
-	EuropeanOption futureOption2(opt_params, option_type, underlying, future_b);
-	//futureOption2.optType = "P";
-	//futureOption2.K = 100.0;
-	//futureOption2.T = 0.5;
-	//futureOption2.r = 0.10;
-	//futureOption2.sig = 0.36;
-
-	//futureOption2.b = 0.0;
-
-	cout << "Delta on a put future: " << futureOption2.Delta() << endl;
-
-	// Now change over to a call on the option
-	futureOption2.toggle();
-	cout << "\nDelta on a call future: " << futureOption2.Delta() << endl << endl;
-
-	
-	// Some more data for testing; Calcuate price and delta a
-	// For Stock, b = r: constructor creates the option properly
-	opt_params.clear();
-	opt_params.emplace("K", 60.0);
-	opt_params.emplace("T", 0.75);
-	opt_params.emplace("r", 0.10);
-	opt_params.emplace("sig", 0.30);
-	option_type = "C";
-	underlying = "Stock";
-		
-	//stockOption.optType = "C";
-	//stockOption.K = 60.0;
-	//stockOption.T = 0.75;
-	//stockOption.r = 0.10;
-	//stockOption.sig = 0.30;
-
-	//stockOption.b = stockOption.r;
-
-	cout << "\nS: "; cin >> S;
-	opt_params.emplace("S", S);
-	EuropeanOption stockOption(opt_params, option_type, underlying);
-
-	cout << "Call Option on a stock: " << stockOption.Price() << endl;
-	cout << "Delta on a call stock: " << stockOption.Delta(63.0) << endl << endl;
-
-	stockOption.toggle();
-	cout << "Put Option on a stock: " << stockOption.Price() << endl;
-	cout << "Delta on a put stock: " << stockOption.Delta(63.0) << endl << endl;
-	
-
-	
-	/*
-	// Calculating theta of a European stock index
-	//EuropeanOption indexOption2;
-	//indexOption2.optType = "P";
-	//indexOption2.K = 405.0;
-	//indexOption2.T = 0.0833;	// One month expiration
-	//indexOption2.r = 0.07;
-	//indexOption2.sig = 0.20;
-
-	opt_params.clear();
-	opt_params.emplace("K", 405.0);
-	opt_params.emplace("T", 0.0833);
-	opt_params.emplace("r", 0.07);
-	opt_params.emplace("sig", 0.20);
-	// assuming S = 395.0
-	opt_params.emplace("S", 395.0);
-	dividend_yield = 0.05;
-	option_type = "P";
-	underlying = "Index";
-	 //double divYield = 0.05;		// Dividend yield, 5% per annum
-	//indexOption2.b = indexOption2.r - divYield;
-	 
-	cout << "\nCalculating Price and Theta:\n";
-	EuropeanOption indexOption(opt_params, option_type, underlying, dividend_yield);
-
-	cout << " option on an index: " << indexOption.Price(395.0) << endl;
-	cout << "Delta on a call index: " << indexOption.Delta(395.0) << endl << endl;
-
-	//indexOption.toggle();
-	//cout << " option on an index: " << indexOption.Price(395.0) << endl;
-	//cout << "Delta on a put index: " << indexOption.Delta(395.0) << endl << endl;
-
-	double res = indexOption.Theta();
-
-	cout << "\nTheta: " << res << endl << endl;
-	//cout << "\nTheta: " << indexOption.Theta() << endl << endl;
-	
-
-	/*
-	// Stock Option: Rho
-	EuropeanOption stockOption2;
-	stockOption2.optType = "C";
-	stockOption2.K = 75.0;
-	stockOption2.T = 1.0;
-	stockOption2.r = 0.09;
-	stockOption2.sig = 0.19;
-
-	stockOption2.b = stockOption2.r;
-
-
-	// Calculating Cost of Carry of a European stock index
-	EuropeanOption indexOption3;
-	indexOption3.optType = "P";
-	indexOption3.K = 490.0;
-	indexOption3.T = 0.222225;
-	indexOption3.r = 0.08;
-	indexOption3.sig = 0.15;
-
-	double divYield3 = 0.05;		// Dividend yield, 5% per annum
-	indexOption3.b = indexOption3.r - divYield3 ;
-
 	*/
+	
 	return 0;
 }
