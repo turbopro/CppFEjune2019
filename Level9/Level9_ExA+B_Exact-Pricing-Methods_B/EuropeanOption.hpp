@@ -35,7 +35,7 @@ private:
 	double PutDelta(double U) const;
 	double CallGamma(double U) const;
 	double PutGamma(double U) const;
-	//double CallRho(double U) const;
+	//double DeltaDividedDiff(double U) const;
 	//double PutRho(double U) const;
 		
 	// Gaussian functions
@@ -74,6 +74,8 @@ public:	// Public functions
 	double Delta() const;									// use with constructor
 	double Gamma(double U) const;							// use with default constructor
 	double Gamma() const;									// use with constructor
+	double DeltaDividedDiff(double h);						// divided differences to approximate option sensitivities
+	double GammaDividedDiff(double h);						// divided differences to approximate option sensitivities
 
 	// getter functions
 	string OptionType() const { return opt_type; }			// return type of option
@@ -175,5 +177,31 @@ void matrix_pricer_by_fn(
 	const double& param_end, const double& step_size, const EuroMemFn fn_ptr, 
 	const string fn_name, const string test_param, const string option_type = "C", 
 	const string underlying = "Stock");
+
+
+// **********************************************
+/* Divided Difference:
+
+Formulas:
+
+Delta may be estimated by twking the first derivative of the option price function
+V = Option price, S = Asset price, h = Delta change in Asset price
+
+d = (V(S + h) - V(S - h)) / 2h
+
+We use our matrix_pricer with S constant and vary the value of h
+
+*/ 
+
+// generate a range of doubles for h
+template<typename ForwardIterator, typename T>
+void strided_iota(ForwardIterator first, ForwardIterator last, T value, T stride)
+{
+	while (first != last) 
+	{
+		*first++ = value;
+		value *= stride;
+	}
+}
 
 #endif

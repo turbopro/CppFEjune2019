@@ -484,3 +484,23 @@ void matrix_pricer_by_fn(
 			option_type, underlying);
 	}
 }
+
+//
+// divided differences to approximate option sensitivities
+// Delta approximation using formula: d = (V(S + h) - V(S - h)) / 2h
+double EuropeanOption::DeltaDividedDiff(double h)
+{
+	double price_plus_h  = Price(S + h);	
+	double price_minus_h = Price(S - h);
+	return  (price_plus_h - price_minus_h) / (2 * h);
+}
+
+// divided differences to approximate option sensitivities
+// Gamma approximation using formula: g = (V(S + h) - 2V(S) + V(S - h)) / h^2
+double EuropeanOption::GammaDividedDiff(double h)
+{
+	double price_plus_h  = Price(S + h);
+	double price_minus_h = Price(S - h);
+	double price_at_S    = Price(S);
+	return  (price_plus_h - (2 * price_at_S) + price_minus_h) / (h * h);
+}

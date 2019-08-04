@@ -653,3 +653,23 @@ original code:
 	indexOption3.b = indexOption3.r - divYield3 ;
 
 	*/
+
+=====================================
+generate a range of doubles
+
+//std::vector<double> v(100);
+//std::iota(v.begin(), v.end(), 0.01);
+
+//for (auto i : v) cout << i << ", ";
+
+//std::vector<double> myVec;
+//for (double didx = 0.01; didx <= 1.0; didx += 0.01)
+	//myVec.push_back(didx);
+
+
+//vector<double> vec(5);
+//double decrement = 0.1;
+//std::generate(begin(vec), end(vec), [&decrement]() {static double start = 10.0; return start *= decrement; });
+
+
+

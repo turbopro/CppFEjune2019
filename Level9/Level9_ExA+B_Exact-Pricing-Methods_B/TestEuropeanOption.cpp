@@ -432,66 +432,107 @@ int main()
 			name_ptr.first, test_param, option_type, underlying_security);
 	}
 	
-	/*
-	cout << "\nSetting up test parameters ... \n";
-	//test_param = "S"; option_type = "C"; underlying_security = "Future";
-	//double param_start = 85.0, param_end = 99.0, step_size = 1.0;
-	map<string, double> test_params_matrix{ {"T", 0.0833}, { "K", 100.0 }, { "sig", 0.36 },
-		{ "r", 0.1 }, { "S", param_start } };
-
-	// Create map container for option prices: string stores the name of the member function, 
-	// vector<double> stores the calculated prices/values returned by the member function  
-	cout << "\nCreating map to hold vectors of Deltas, Gamma, and Option Prices ...\n";
-	map<string, vector<double>> option_prices;
-
-	// Call vector_pricer() to calculate option gamma prices for a range of values of stock price S
-	// vector_pricer() takes a map<string, double>, a map<string, vector<double>>, 
-	// an end value double for the test parameter, a step size value double, a function pointer, 
-	// a function name, an option type string, and an underlying security string  
-	cout << "\nCalling vector_pricer function to calculate option gamma prices based on "
-		<< "test parameter ... \n";
-
-	// Create vector of strings for EuropeanOption member function names, Delta, Gamma, Price
-	// Create map<string, EuroMemFn> that maps EuropeanOption member function names to pointer
-	// to member functions
-	// We use the "typedef double (EuropeanOption::* EuroMemFn)(double) const" declared in
-	// EuropeanOption.h for the type EuroMemFn
-	// We use the above containers as vector_pricer function arguments:
-	// Function names serve as keys for the option_prices map<string, vector<double>> container
-	// Function pointers point to the relevant member functions that calculate the prices/values
-	vector<string> fn_names{ "Delta", "Gamma", "Price" };
-	map<string, EuroMemFn> fn_name_ptr{ {"Price", &EuropeanOption::Price},
-		{"Delta", &EuropeanOption::Delta}, {"Gamma", &EuropeanOption::Gamma} };
-
-	// get prices
-	vector_pricer(test_params_map, option_prices, param_end, step_size, fn_name_ptr[fn_names[1]],
-		fn_names[1], test_param, option_type, underlying_security);
-
 	// display elements of prices map<string, vector<double>>
 	for (auto it = option_prices.begin(); it != option_prices.end(); ++it)
 	{
 		if (option_type == "C")
 		{
-			cout << "call option for " << it->first << ", Values are:\n";
+			cout << "\ncall option for " << it->first << ", Values are:\n";
 			for (auto val : it->second)
 				cout << val << endl;
 		}
 		//<< " prices: " << (*it) << endl;
 		else
 		{
-			cout << "put option for " << it->first << ", Values are:\n";
+			cout << "\nput option for " << it->first << ", Values are:\n";
 			for (auto val : it->second)
 				cout << val << endl;
 		}
 	}
 
 
-	cout << endl << endl;
+	/*
+	d) We now use divided differences to approximate option sensitivities. In some cases, 
+	an exact formula may not exist (or is difficult to find) and we resort to numerical 
+	methods. In general, we can approximate first and second-order derivatives in S by 
+	3-point second order approximations, for example:
 
+		Delta =>	d = (V(S + h) - V(S - h)) / 2h
+		Gamma =>	g = (V(S + h) - 2V(S) + V(S - h)) / h^2
 
+		d => delta
+		g => gamma
+		V(S) => option price at Asset price S
+		h => delta change in S
 
-	cout << endl << endl;
-	*/
+	In this case the parameter h is ‘small’ in some sense. By Taylor’s expansion you can 
+	show that the above approximations are second order accurate in h to the corresponding 
+	derivatives. 
 	
+	The objective of this part is to perform the same calculations as in parts a and b, 
+	but now using divided differences. Compare the accuracy with various values of the 
+	parameter h (In general, smaller values of h produce better approximations but we need 
+	to avoid round-offer errors and subtraction of quantities that are very close to each 
+	other). Incorporate this into your well-designed class structure.
+
+	*/
+
+
+	// Set range of h with a vector of doubles
+	int range = 10;
+	std::vector<double> h_range(range);
+	//strided_iota(std::begin(h_range), std::next(std::begin(h_range), vec_size), 10.0, 0.1);
+	strided_iota(std::begin(h_range), std::end(h_range), 10.0, 0.1);
+
+	// Set option test parameters
+	test_params_map["T"] = 0.25; test_params_map["K"] = 65.0;
+	test_params_map["sig"] = 0.3; test_params_map["r"] = 0.08;
+
+	//param_start = 55.0; param_end = 65.0; step_size = 1.0;
+	test_params_map["S"] = 64;		// set test parameter to start value
+
+	test_param = "S"; option_type = "C"; underlying_security = "Stock";
+
+	// Clear vector for option prices
+	cout << "\nClearing map to store option prices ... \n";
+	option_prices.clear();				// option prices map store
+
+	
+	vector<double> gammas;
+
+	for (auto h : h_range)
+	{
+		//EuropeanOption (test_params_map, option_type, underlying_security);
+		gammas.push_back(
+			EuropeanOption(test_params_map, option_type, underlying_security).GammaDividedDiff(h));
+	}
+
+	cout << endl;
+
+	for (auto gamma : gammas) cout << "gamma: " << gamma << endl;
+	
+
+	vector<double> deltas;
+
+	for (auto h : h_range)
+	{
+		//EuropeanOption (test_params_map, option_type, underlying_security);
+		deltas.push_back(
+			EuropeanOption(test_params_map, option_type, underlying_security).DeltaDividedDiff(h));
+	}
+
+	cout << endl;
+
+	for (auto delta : deltas) cout << "delta: " << delta << endl;
+
+
+	cout << endl << endl;
+	
+	cout << "\nGamma at S = 64 by default: " 
+		<< EuropeanOption(test_params_map, option_type, underlying_security).Gamma();
+	cout << "\nGamma at S = 64 as arg: "
+		<< EuropeanOption(test_params_map, option_type, underlying_security).Gamma(64)
+		<< endl << endl;
+
 	return 0;
 }
