@@ -53,3 +53,21 @@ std::string InvalidUnderlyingException::GetMessage()const
 	return ("\nInvalid underlying security type: -" + m_error_underlying +
 		"-\nValid underlying security types: -Stock-, -Index-, -Future-, -Currency-\n");
 }
+
+// ***** InvalidParameterValueException *****
+// constructor InvalidParameterValueException
+InvalidParameterValueException::InvalidParameterValueException(std::string error_param_value)
+	: m_error_param_value{ error_param_value } {}
+
+// default constructor
+InvalidParameterValueException::InvalidParameterValueException() : m_error_param_value{ "" } {}
+
+// destructor
+InvalidParameterValueException::~InvalidParameterValueException() {}
+
+// GetMessage() method
+std::string InvalidParameterValueException::GetMessage()const
+{
+	return ("\nInvalid parameter value : -" + m_error_param_value +
+		"-\nParameters T, K, S, sig cannot be '0'\n");
+}

@@ -77,5 +77,19 @@ public:
 	virtual std::string GetMessage() const;					// getter method
 };
 
+// InvalidParameterValueException class to handle invalid parameter values: T = K = S = sig = 0
+class InvalidParameterValueException : public EuropeanOptionException
+{
+private:
+	std::string m_error_param_value;
+
+public:
+	InvalidParameterValueException();							// default constructor
+	InvalidParameterValueException(std::string error_param_value);	// constructor
+	virtual ~InvalidParameterValueException();					// destructor
+	virtual std::string GetMessage() const;						// getter method
+};
+
+
 #endif // EUROPEANOPTIONEXCEPTION_H_INCLUDED
 

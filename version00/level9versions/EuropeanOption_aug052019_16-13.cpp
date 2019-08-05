@@ -20,12 +20,12 @@ const double EuropeanOption::epsilon = 1.0e-05;
 
 //////////// Gaussian functions /////////////////////////////////
 
-// From the Black-Scholes stock option model, we assume, inter alia, 
-// that the distribution for the underlying Stock Price follows a 
-// normal distribution with mean = 0.0, std dev = 1.0.
-// Thus, we re-write n(x) and N(x) using the Boost::Math libraries as follows:
+// In general, we would use similar functions in Boost::Math Toolkit
+// And assuming that the distribution for the underlying Stock Price 
+// follows a normal distribution with mean = 0.0, std dev = 1.0, we
+// would re-write n(x) and N(x) as follows:
 
-// standard normal probability density function
+// standard normal probability density function: use boost C++ library
 double EuropeanOption::n(double x) const
 {  
 	boost::math::normal_distribution<> myNormal(0.0, 1.0);
@@ -42,7 +42,17 @@ double EuropeanOption::N(double x) const
 
 
 // Kernel Functions (Haug)
+
 /*
+// calculate d1 and d2
+double EuropeanOption::D1D2Probabilities() const
+{
+	double tmp = sig * sqrt(T);
+	d1 = (log(S / K) + (b + (sig * sig) * 0.5) * T) / tmp;
+	d2 = d1 - tmp;
+}
+*/
+
 double EuropeanOption::CallPrice(double U) const
 {
 	double tmp = sig * sqrt(T);
@@ -102,15 +112,69 @@ double EuropeanOption::PutGamma(double U) const
 	//return (exp(-r * T) * K * n(d2)) / (S * S * sig * sqrt(T));
 	return (exp((b - r) * T) * n(d1)) / (S * sig * sqrt(T));
 }
+
+/*
+// CallRho()
+double EuropeanOption::CallRho(double U) const
+{
+	double tmp = sig * sqrt(T);
+
+	double d1 = (log(U / K) + (b + (sig * sig) * 0.5) * T) / tmp;
+	double d2 = d1 - tmp;
+
+	return K * exp(-r * T) * T * N(d2);
+}
+
+// PutRho()
+double EuropeanOption::PutRho(double U) const
+{
+	double tmp = sig * sqrt(T);
+
+	double d1 = (log(U / K) + (b + (sig * sig) * 0.5) * T) / tmp;
+	double d2 = d1 - tmp;
+
+	return -(K * exp(-r * T) * T * N(-d2));
+}
 */
 
 
 /////////////////////////////////////////////////////////////////////////////////////
+/*
+void EuropeanOption::init()
+{	// Initialise all default values
+
+	// Default values
+	r = 0.05;
+	sig= 0.2;
+
+	K = 110.0;
+	T = 0.5;
+
+	b = r;			// Black and Scholes stock option model (1973)
+	
+	opt_type = "C";		// European Call Option (this is the default type)
+	unam = "Stock";
+}
+void EuropeanOption::copy( const EuropeanOption& o2)
+{
+
+	r	= o2.r;
+	sig = o2.sig;	
+	K	= o2.K;
+	T	= o2.T;
+	b	= o2.b;
+	S	= o2.S;
+	
+	optType = o2.optType;
+	unam = o2.unam;	
+}
+*/
 
 // default constructor
-// default constructor takes seceral default values, which includes a value for S
 EuropeanOption::EuropeanOption()
-	: T(0.5), K(110.0), sig(0.2), r(0.05), S(100.0), opt_type("C"), unam("Stock"), b(0.05) {}
+	: T(0.5), K(110.0), sig(0.2), r(0.05), S(100.0),		// S set at 100 as default
+	opt_type("C"), unam("Stock"), b(0.05) {}
+
 
 // constructor takes four arguments: 
 // op		-	map<string, vector> with test parameter values
@@ -125,38 +189,25 @@ EuropeanOption::EuropeanOption()
 // We employ the colon initiliser to set data members
 // For the different types of underlying securities, additional initilisation occurs in the 
 // curly braces
-// Input value checking is done here, which may incur cost in construction of the option,
-// but input errors should be intercepted at input time: perhaps a check_input_valid class
-// may be more optimal
-// Option type is checked for validity; throw exception if invalid value
-// Underlying security type is checked for validity; throw exception if invalid value
-// T, K, S, and sig checked for input value of 0
+// option type is checked for validity; throw exception if invalid value
+// underlying security type is checked for validity; throw exception if invalid value
 EuropeanOption::EuropeanOption(const map<string, double>& op, const string& ot,
 	const string& security, const double& b_adjust)
 	: T(op.at("T")), K(op.at("K")), sig(op.at("sig")), r(op.at("r")), 
 	S(op.at("S")), b(b_adjust)
 {
-	// check for valid input values
 	// throw InvalidUnderlyingException if underlying security type not valid
 	if (security == "Currency" || security == "Future" ||
 		security == "Stock" || security == "Index") unam = security;
 	else throw InvalidUnderlyingException(security);
+	
+	if (security == "Stock") b = r;			// Black and Scholes stock option model (1973)
+	else if (security == "Future") b = 0;
+	else b = r - b_adjust;				// security = Currency or Index
 
 	// throw InvalidOptionTypeException if option_type not valid
 	if (ot == "C" || ot == "c" || ot == "P" || ot == "p") opt_type = ot;
 	else throw InvalidOptionTypeException(ot);
-
-	// throw InvalidParameterValueException if either of parameter values, T, K, S,
-	// or sig is zero
-	// T, K, or sig would generate divide by zero problems
-	// S = 0 is not a sensible value for an asset price 
-	if (T == 0 || K == 0 || S == 0 || sig == 0)
-		throw InvalidParameterValueException("0");
-
-	// set b based on type of underlying asset
-	if (security == "Stock") b = r;		// Black and Scholes stock option model (1973)
-	else if (security == "Future") b = 0;
-	else b = r - b_adjust;				// security = Currency or Index
 }
 
 // copy constructor
@@ -164,9 +215,9 @@ EuropeanOption::EuropeanOption(const EuropeanOption& o2)
 	: T(o2.T), K(o2.K), sig(o2.sig), r(o2.r), S(o2.S), 
 	opt_type(o2.opt_type), unam(o2.unam), b(o2.b) {}
 
-// Set option type
 EuropeanOption::EuropeanOption (const string& optionType)
-{
+{	// Create option type
+
 	if (optionType == "c" || optionType == "C")
 		opt_type = "C";
 	else if (optionType == "p" || optionType == "P")
@@ -182,75 +233,98 @@ EuropeanOption& EuropeanOption::operator = (const EuropeanOption& option2)
 {
 	if (this == &option2) return *this;
 
-	r = option2.r; sig = option2.sig; K = option2.K; T = option2.T;
-	b = option2.b; S = option2.S;
-	opt_type = option2.opt_type; unam = option2.unam;
+	r = option2.r;
+	sig = option2.sig;
+	K = option2.K;
+	T = option2.T;
+	b = option2.b;
+	S = option2.S;
+	opt_type = option2.opt_type;
+	unam = option2.unam;
 
 	return *this;
 }
 
-
 // Functions that calculate option price and sensitivities
-// Use with default constructor: asset price is accepted here as a single argument double
+
+
+
+// use with default constructor: asset price is accepted here as a single argument double
 double EuropeanOption::Price(double U) const
 {
-	// calculate d1 and d2 once for either call or put option
-	//double tmp = sig * sqrt(T);
-	//double d1 = (log(U / K) + (b + (sig * sig) * 0.5) * T) / tmp;
-	//double d2 = d1 - tmp;
+	double tmp = sig * sqrt(T);
+	double d1 = (log(U / K) + (b + (sig * sig) * 0.5) * T) / tmp;
+	double d2 = d1 - tmp;
+
+	//return (U * exp((b - r) * T) * N(d1)) - (K * exp(-r * T) * N(d2));
 	
-	// return either call price or put price
-	// 
 	return (opt_type == "C" || opt_type == "c") ?
-		//(U * exp((b - r) * T) * N(d1)) - (K * exp(-r * T) * N(d2)) :	// call price
-		(U * exp((b - r) * T) * N(D1())) - (K * exp(-r * T) * N(D2())) :	// call price
-		(K * exp(-r * T) * N(-D2())) - (U * exp((b - r) * T) * N(-D1()));	// put price
-		//(K * exp(-r * T) * N(-d2)) - (U * exp((b - r) * T) * N(-d1));	// put price
+		(U * exp((b - r) * T) * N(d1)) - (K * exp(-r * T) * N(d2)) :	// call price
+		(K * exp(-r * T) * N(-d2)) - (U * exp((b - r) * T) * N(-d1));	// put price
+
+	/*
+	if (opt_type == "C" || opt_type == "c")
+	{
+		//cout << "calling call option on a/an " << unam << endl;
+		//return CallPrice(U);
+		return (U * exp((b - r) * T) * N(d1)) - (K * exp(-r * T) * N(d2));
+	}
+	else
+	{
+		//cout << "calling put option on a/an " << unam << endl;
+		//return PutPrice(U);
+		return (K * exp(-r * T) * N(-d2)) - (U * exp((b - r) * T) * N(-d1));
+	}
+	*/
 }
 
 // Use with constructor: asset price is provided within the input map container
-// call single argument Price member function
 double EuropeanOption::Price() const
 {
 	return Price(S);
 }
 
-// Use with default constructor: asset price is accepted here as a single argument double
+// use with default constructor: asset price is accepted here as a single argument double
 double EuropeanOption::Delta(double U) const 
 {
-	// calculate d1 once for either call or put option
-	//double d1 = (log(U / K) + (b + (sig * sig) * 0.5) * T) / (sig * sqrt(T));
+	//double tmp = sig * sqrt(T);
+	double d1 = (log(U / K) + (b + (sig * sig) * 0.5) * T) / (sig * sqrt(T));
+
+	//return exp((b - r) * T) * N(d1);
 	
-	// return either call delta or put delta
 	return (opt_type == "C" || opt_type == "c") ?
-		exp((b - r) * T) * N(D1()) :		// call delta
-		exp((b - r) * T) * (N(D1()) - 1.0);	// put delta
+		exp((b - r) * T) * N(d1) :			// call delta
+		exp((b - r) * T) * (N(d1) - 1.0);	// put delta
+
+	/*
+	if (opt_type == "C" || opt_type == "c")
+		return CallDelta(U);
+	else
+		return PutDelta(U);
+	*/
 }
 
 // Use with constructor: asset price is provided within the input map container
-// call single argument Delta member function
 double EuropeanOption::Delta() const
 {
 	return Delta(S);
 }
 
-// Use with default constructor: asset price is accepted here as a single argument double
-// Gamma value is the same for call or put options
-double EuropeanOption::Gamma(double U) const
+
+double EuropeanOption::Gamma(double U) const		// use with default constructor
 {
-	//double tmp = sig * sqrt(T);
-
-	//double d1 = (log(U / K) + (b + (sig * sig) * 0.5) * T) / tmp;
-	//double d2 = d1 - tmp;
-
-	return (exp(-r * T) * K * n(D2())) / (S * S * sig * sqrt(T));
-	//return (exp((b - r) * T) * n(D1())) / (S * sig * sqrt(T));
+	if (opt_type == "C")
+		return CallGamma(U);
+	else
+		return PutGamma(U);
 }
 
-// Use with constructor: asset price is provided within the input map container
-// call single argument Gamma member function
 double EuropeanOption::Gamma() const
 {
+	//if (opt_type == "C")
+		//return CallGamma(S);
+	//else
+		//return PutGamma(S);
 	return Gamma(S);
 }
 
@@ -382,7 +456,7 @@ void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& pr
 	double option_price;	// temp storage for calculated option price
 	for (auto it = price_matrix.begin(); it != price_matrix.end(); ++it, ++i)
 	{
-		(*it)[test_param] += (i*step_size);					// set test parameter value
+		(*it)[test_param] += (i*step_size);					// set test parameter values
 		option_price = EuropeanOption(*it, option_type, underlying).Price();	// calculate option price
 		prices.push_back(option_price);						// add option price to prices vector
 		(*it).emplace(option_type, option_price);			// add option price to vector of map containers

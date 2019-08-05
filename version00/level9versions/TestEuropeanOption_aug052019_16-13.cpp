@@ -97,8 +97,8 @@ int main()
 		to calculate the call(or put) price for a corresponding put (or call) price, or as a mechanism to 
 		check if a given set of put / call prices satisfy parity.The ideal submission will neatly implement 
 		both approaches.
-		*/
-		/*
+		
+
 		// APPROACH 1: given a Stock price S, with T, K, r, sig, and its call price, we calculate the relevant 
 		// put price that establishes the put-call parity relationship
 		// We use a function, put_call_arity(), that takes a EuropeanOption object argument, and returns a 
@@ -280,10 +280,9 @@ int main()
 	{
 		cout << error_msg.GetMessage() << endl << endl;
 	}
-	
-
-	cout << endl << endl;
 	*/
+	cout << endl << endl;
+	
 
 	cout << "\n\n"
 		<< "|==============================================|\n"
@@ -407,8 +406,6 @@ int main()
 	//map<string, double> test_params_map{ {"T", 0.25}, { "K", 65.0 }, { "sig", 0.3 },
 		//{ "r", 0.08 }, { "S", 60 } };
 	test_params_map["T"] = 0.25; test_params_map["K"] = 65.0;
-	//test_params_map["T"] = 0; test_params_map["K"] = 65.0;
-	//test_params_map["sig"] = 0.3; test_params_map["r"] = 0.08;
 	test_params_map["sig"] = 0.3; test_params_map["r"] = 0.08;
 
 	param_start = 55.0; param_end = 65.0; step_size = 1.0;
@@ -434,7 +431,7 @@ int main()
 		matrix_pricer_by_fn(params_map, option_prices, param_end, step_size, name_ptr.second,
 			name_ptr.first, test_param, option_type, underlying_security);
 	}
-
+	
 	// display elements of prices map<string, vector<double>>
 	for (auto it = option_prices.begin(); it != option_prices.end(); ++it)
 	{
@@ -452,6 +449,7 @@ int main()
 				cout << val << endl;
 		}
 	}
+
 
 	/*
 	d) We now use divided differences to approximate option sensitivities. In some cases, 

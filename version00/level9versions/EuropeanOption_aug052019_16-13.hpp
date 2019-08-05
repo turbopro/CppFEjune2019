@@ -29,33 +29,36 @@ class EuropeanOption
 {
 private:
 	// 'Kernel' functions for option calculations
-	//double CallPrice(double U) const;
-	//double PutPrice(double U) const;
-	//double CallDelta(double U) const;
-	//double PutDelta(double U) const;
-	//double CallGamma(double U) const;
-	//double PutGamma(double U) const;
-	//double DeltaDividedDiff(double U) const;
-	//double PutRho(double U) const;
+	//double D1D2Probabilities() const;
+	double CallPrice(double U) const;
+	double PutPrice(double U) const;
+	double CallDelta(double U) const;
+	double PutDelta(double U) const;
+	double CallGamma(double U) const;
+	double PutGamma(double U) const;
+	double DeltaDividedDiff(double U) const;
+	double PutRho(double U) const;
 		
-	// Gaussian functions: using Boost::Math library functions
+	// Gaussian functions
 	double n(double x) const;
 	double N(double x) const;
-	
+
+	// static data member for comparison of double variables
+	static const double epsilon;
+
 	// Member data are private
+
 	double T;		// Strike price
 	double K;		// Expiry date
 	double sig;		// Volatility
 	double r;		// Interest rate
 	double S;		// Asset Price
 	double b;		// Cost of carry
+	//double d1;		// conditional probability based on future value
+	//double d2;		// risk-adjusted probability that option will be exercised
 
 	string opt_type;// Option type: "C" = call, "P" = put
 	string unam;	// Name of underlying asset
-
-	// static data member for comparison of double variables
-	// floating point precision factor
-	static const double epsilon;
 
 public:	// Public functions
 	EuropeanOption();										// Default call option
@@ -77,10 +80,6 @@ public:	// Public functions
 	double DeltaDividedDiff(double h);						// divided differences to approximate option sensitivities
 	double GammaDividedDiff(double h);						// divided differences to approximate option sensitivities
 
-	// member functions to calculate d1 and d2
-	double D1() const { return (log(S / K) + (b + (sig * sig) * 0.5) * T) / (sig * sqrt(T)); }
-	double D2() const { return (D1() - (sig * sqrt(T))); }
-
 	// getter functions
 	string OptionType() const { return opt_type; }			// return type of option
 	string Underlying() const { return unam; }				// return type of underlying security
@@ -96,6 +95,7 @@ public:	// Public functions
 
 	// print option parameters
 	void Print() const;
+
 };
 
 // store Test Parameter names and values into a Map<String, Double> container
