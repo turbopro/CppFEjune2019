@@ -29,6 +29,7 @@ class EuropeanOption
 {
 private:
 	// 'Kernel' functions for option calculations
+	double D1D2Probabilities() const;
 	double CallPrice(double U) const;
 	double PutPrice(double U) const;
 	double CallDelta(double U) const;
@@ -59,8 +60,8 @@ private:
 
 public:	// Public functions
 	EuropeanOption();										// Default call option
-	EuropeanOption(const map<string, double>& op,			// constructor		--	added july 24
-		const string& ot, const string& security, const double& b_adjust = 0.0);
+	EuropeanOption(const map<string, double>& option_parameters,	// constructor
+		const string& option_type, const string& security, const double& b_adjust = 0.0);
 	EuropeanOption(const EuropeanOption& option2);			// Copy constructor
 	EuropeanOption(const string& optionType);				// Create option type
 	virtual ~EuropeanOption();								// destructor for base class
@@ -68,11 +69,11 @@ public:	// Public functions
 	EuropeanOption& operator = (const EuropeanOption& option2);	// assignment operator
 
 	// Functions that calculate option price and sensitivities
-	double Price(double U) const;							// use with default constructor
+	double Price(double U) const;							// use with default constructed EuroOption
 	double Price() const;									// use with constructor
-	double Delta(double U) const;							// use with default constructor
+	double Delta(double U) const;							// use with default constructed EuroOption
 	double Delta() const;									// use with constructor
-	double Gamma(double U) const;							// use with default constructor
+	double Gamma(double U) const;							// use with default constructed EuroOption
 	double Gamma() const;									// use with constructor
 	double DeltaDividedDiff(double h);						// divided differences to approximate option sensitivities
 	double GammaDividedDiff(double h);						// divided differences to approximate option sensitivities
@@ -80,8 +81,7 @@ public:	// Public functions
 	// getter functions
 	string OptionType() const { return opt_type; }			// return type of option
 	string Underlying() const { return unam; }				// return type of underlying security
-	double ParityFactor()const								// return put-call parity factor
-	{ return (K * exp(-r * T)); }
+	double ParityFactor()const { return (K * exp(-r * T)); }	// return put-call parity factor	
 
 	// Modifier functions
 	void toggle();		// Change option type (C/P, P/C)
@@ -155,7 +155,7 @@ typedef double (EuropeanOption::* EuroMemFn)(double) const;
 // option_type	-	a string that holds the type of option, "C" = call or "P" = put, 
 //					to be calculated
 // underlying	-	a string that holds the type of underlying security
-void vector_pricer(map<string, double>& test_params, map<string, vector<double>>& prices,
+void vector_pricer(const map<string, double>& test_params, map<string, vector<double>>& prices,
 	const double& param_end, const double& step_size, const EuroMemFn fn_ptr, 
 	const string fn_name, const string test_param, const string option_type = "C", 
 	const string underlying = "Stock");
@@ -173,7 +173,7 @@ void vector_pricer(map<string, double>& test_params, map<string, vector<double>>
 //					to be calculated
 // underlying	-	a string that holds the type of underlying security
 void matrix_pricer_by_fn(
-	vector<map<string, double>>& price_matrix, map<string, vector<double>>& prices,
+	const vector<map<string, double>>& price_matrix, map<string, vector<double>>& prices,
 	const double& param_end, const double& step_size, const EuroMemFn fn_ptr, 
 	const string fn_name, const string test_param, const string option_type = "C", 
 	const string underlying = "Stock");

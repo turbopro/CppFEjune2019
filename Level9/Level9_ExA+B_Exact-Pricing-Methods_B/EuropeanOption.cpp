@@ -42,6 +42,14 @@ double EuropeanOption::N(double x) const
 
 
 // Kernel Functions (Haug)
+
+// calculate d1 and d2
+double EuropeanOption::D1D2Probabilities() const
+{
+
+}
+
+
 double EuropeanOption::CallPrice(double U) const
 {
 	double tmp = sig * sqrt(T);
@@ -237,16 +245,7 @@ EuropeanOption& EuropeanOption::operator = (const EuropeanOption& option2)
 // Use with constructor: asset price is provided within the input map container
 double EuropeanOption::Price() const
 {
-	if (opt_type == "C")
-	{	
-		//cout << "calling call option on a/an " << unam << endl;
-		return CallPrice(S);
-	}
-	else
-	{
-		//cout << "calling put option on a/an " << unam << endl;
-		return PutPrice(S);
-	}
+	return Price(S);
 }
 
 // use with default constructor: asset price is accepted here as a single argument double
@@ -276,10 +275,7 @@ double EuropeanOption::Delta(double U) const
 // Use with constructor: asset price is provided within the input map container
 double EuropeanOption::Delta() const
 {
-	if (opt_type == "C")
-		return CallDelta(S);
-	else
-		return PutDelta(S);
+	return Delta(S);
 }
 
 
@@ -293,10 +289,11 @@ double EuropeanOption::Gamma(double U) const		// use with default constructor
 
 double EuropeanOption::Gamma() const
 {
-	if (opt_type == "C")
-		return CallGamma(S);
-	else
-		return PutGamma(S);
+	//if (opt_type == "C")
+		//return CallGamma(S);
+	//else
+		//return PutGamma(S);
+	return Gamma(S);
 }
 
 // Modifier functions
@@ -349,16 +346,20 @@ boost::tuple<double, double> EuropeanOption::put_call_parity() const
 	if (OptionType() == "C" || OptionType() == "c")				// check option type
 	{
 		double call_price = Price();		// get call price
-		double parity_put_price = call_price - S + ParityFactor();	  // calculate put price
+		//double parity_put_price = call_price - S + ParityFactor();	  // calculate put price
 
-		return boost::tuple<double, double>(parity_put_price, call_price);	// tuple(put_price, call_price)
+		//return boost::tuple<double, double>(parity_put_price, call_price);	// tuple(put_price, call_price)
+		// tuple(put_price, call_price)
+		return boost::tuple<double, double>((call_price - S + ParityFactor()), call_price);	
 	}
 	else if (OptionType() == "P" || OptionType() == "p")
 	{
 		double put_price = Price();			// get put price
-		double parity_call_price = put_price + S - ParityFactor();	// calculate call price
+		//double parity_call_price = put_price + S - ParityFactor();	// calculate call price
 
-		return boost::tuple<double, double>(put_price, parity_call_price);	// tuple(put_price, call_price)
+		//return boost::tuple<double, double>(put_price, parity_call_price);	// tuple(put_price, call_price)
+		// tuple(put_price, call_price)
+		return boost::tuple<double, double>(put_price, (put_price + S - ParityFactor()));
 	}
 	else
 	{
@@ -452,7 +453,7 @@ void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& pr
 //	an anonymous EuropeanOption, and the current test parameter value, which is
 //	the argument to the member function 
 // Add the member function name and vector of calculated prices/values to the prices map
-void vector_pricer(map<string, double>& test_params, map<string, vector<double>>& prices,
+void vector_pricer(const map<string, double>& test_params, map<string, vector<double>>& prices,
 	const double& param_end, const double& step_size, const EuroMemFn fn_ptr, 
 	const string fn_name, const string test_param, const string option_type, 
 	const string underlying)
@@ -461,7 +462,8 @@ void vector_pricer(map<string, double>& test_params, map<string, vector<double>>
 	vector<double> prices_vals_vec;
 
 	// Loop over test parameter range of values; get and store values/prices
-	for (double param_idx = test_params["S"]; param_idx < param_end; param_idx += step_size)
+	//for (double param_idx = test_params["S"]; param_idx < param_end; param_idx += step_size)
+	for (double param_idx = test_params.at("S"); param_idx < param_end; param_idx += step_size)
 	{		
 		prices_vals_vec.push_back(
 			std::invoke(fn_ptr, EuropeanOption(test_params, option_type, underlying), param_idx));
@@ -469,11 +471,13 @@ void vector_pricer(map<string, double>& test_params, map<string, vector<double>>
 
 	// assign member funtion name and vector of computed values to prices map
 	prices[fn_name] = prices_vals_vec;
+	//prices.at(fn_name) = prices_vals_vec;
+
 }
 
 // matrix_pricer_by_fn()
 void matrix_pricer_by_fn(
-	vector<map<string, double>>& price_matrix, map<string, vector<double>>& prices,
+	const vector<map<string, double>>& price_matrix, map<string, vector<double>>& prices,
 	const double& param_end, const double& step_size, const EuroMemFn fn_ptr,
 	const string fn_name, const string test_param, const string option_type,
 	const string underlying)
