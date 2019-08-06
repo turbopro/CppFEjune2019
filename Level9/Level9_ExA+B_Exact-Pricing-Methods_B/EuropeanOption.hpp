@@ -77,9 +77,10 @@ public:	// Public functions
 	double DeltaDividedDiff(double h);						// divided differences to approximate option sensitivities
 	double GammaDividedDiff(double h);						// divided differences to approximate option sensitivities
 
-	// member functions to calculate d1 and d2
-	double D1() const { return (log(S / K) + (b + (sig * sig) * 0.5) * T) / (sig * sqrt(T)); }
-	double D2() const { return (D1() - (sig * sqrt(T))); }
+	// Inline member functions to calculate d1 and d2
+	double D1(const double U) const 
+	{ return (log(U / K) + (b + (sig * sig) * 0.5) * T) / (sig * sqrt(T)); }
+	double D2(const double U) const { return (D1(U) - (sig * sqrt(T))); }
 
 	// getter functions
 	string OptionType() const { return opt_type; }			// return type of option
@@ -138,25 +139,28 @@ void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& pr
 	const string test_param, const double& step_size,
 	const string option_type = "C", const string underlying = "Stock");
 
-// Pointer to const member function: used to pass member functions as arguments to
-// other functions
-// We use in the following vector_pricer() to pass either Price(), Gamma(), or 
-// Delta() member functions
+// Typedef definition of pointer to const member function: used to pass member functions
+// as arguments to functions
+// We use in the vector_pricer() and matrix_pricer() functions, to pass either the Price(),
+// Gamma(), or Delta() member functions
 typedef double (EuropeanOption::* EuroMemFn)(double) const;
 
 // vector_pricer()
-// Has seven input arguments:
+// Has nine input arguments:
 // test_params	-	a map<string, double> that contains the option test parameters
 // prices		-	a map<string, vector<double>> to store calculated prices/values
 // param_end	-	a double that holds the value of the end value of the range of 
 //					the test parameter
 // step_size	-	a double that holds the step size for the test parameter
 // fn_ptr		-	a EuropeanOption pointer to member function
+//					(allows us to choose the requisite member function for testing)
 // fn_name		-	a member function name
-// test_param	-	a string that holds the test parameter's character
-// option_type	-	a string that holds the type of option, "C" = call or "P" = put, 
-//					to be calculated
-// underlying	-	a string that holds the type of underlying security
+//					(to be used as a tag for the output vector of values)
+// test_param	-	a string that holds the test parameter's string
+// option_type	-	a string that holds the type of option, "C" = call or "P" = put
+// underlying	-	a string that holds the type of underlying security/asset
+// option_type and underlying default to "C," for call options, and "Stock," for the
+// underlying security
 void vector_pricer(const map<string, double>& test_params, map<string, vector<double>>& prices,
 	const double& param_end, const double& step_size, const EuroMemFn fn_ptr, 
 	const string fn_name, const string test_param, const string option_type = "C", 

@@ -348,7 +348,7 @@ int main()
 
 	// Create map container for option prices: string stores the name of the member function, 
 	// vector<double> stores the calculated prices/values returned by the member function  
-	cout << "\nCreating map to hold vectors of Deltas, Gamma, and Option Prices ...\n";
+	cout << "\nCreating map to hold vectors of Deltas, Gammas, and Option Prices ...\n";
 	map<string, vector<double>> option_prices;
 
 	// Call vector_pricer() to calculate option gamma prices for a range of values of stock price S
@@ -356,7 +356,7 @@ int main()
 	// an end value double for the test parameter, a step size value double, a function pointer, 
 	// a function name, an option type string, and an underlying security string  
 	cout << "\nCalling vector_pricer function to calculate option gamma prices based on "
-		<< "test parameter ... \n";
+		<< "test parameter: " << test_param << " ... \n";
 	
 	// Create vector of strings for EuropeanOption member function names, Delta, Gamma, Price
 	// Create map<string, EuroMemFn> that maps EuropeanOption member function names to pointer
@@ -370,11 +370,11 @@ int main()
 	map<string, EuroMemFn> fn_name_ptr { {"Price", &EuropeanOption::Price},
 		{"Delta", &EuropeanOption::Delta}, {"Gamma", &EuropeanOption::Gamma} };
 
-	// get prices
+	// get values for gamma
 	vector_pricer(test_params_map, option_prices, param_end, step_size, fn_name_ptr[fn_names[1]],
 		fn_names[1], test_param, option_type, underlying_security);
 
-	// display elements of prices map<string, vector<double>>
+	// display elements of option_prices map
 	for (auto it = option_prices.begin(); it != option_prices.end(); ++it)
 	{
 		if (option_type == "C")
@@ -407,8 +407,6 @@ int main()
 	//map<string, double> test_params_map{ {"T", 0.25}, { "K", 65.0 }, { "sig", 0.3 },
 		//{ "r", 0.08 }, { "S", 60 } };
 	test_params_map["T"] = 0.25; test_params_map["K"] = 65.0;
-	//test_params_map["T"] = 0; test_params_map["K"] = 65.0;
-	//test_params_map["sig"] = 0.3; test_params_map["r"] = 0.08;
 	test_params_map["sig"] = 0.3; test_params_map["r"] = 0.08;
 
 	param_start = 55.0; param_end = 65.0; step_size = 1.0;
@@ -425,17 +423,22 @@ int main()
 	vector<map<string, double>> params_map(((param_end - param_start) / step_size), test_params_map);
 
 	// Call matrix_pricer() to calculate option prices for various values of stock price S
-	// matrix_pricer() takes a vector of map<string, double>, a vector of double, a test parameter string,
-	// a step size double, an option type string, and an underlying security string  
+	// matrix_pricer() takes a vector of map<string, double>, a map of <string, vector<double>>, 
+	// a test parameter end value double, a step size double, a member function pointer, a member
+	// function name string, a test parameter string, an option type string, and an underlying
+	// security string
+	// matrix_pricer() has no return value: the map of <string, vector<double>> is a reference to an
+	// output container
+	// The matrix_pricer() definition includes a call to the vector_pricer() function
 	cout << "\nCalling matrix pricer function to calculate option prices, deltas and gammas "
-		<< "\nbased on test parameter ... \n";
+		<< "\nbased on test parameter: " << test_param << " ... \n";
 	for (auto name_ptr : fn_name_ptr)
 	{
 		matrix_pricer_by_fn(params_map, option_prices, param_end, step_size, name_ptr.second,
 			name_ptr.first, test_param, option_type, underlying_security);
 	}
 
-	// display elements of prices map<string, vector<double>>
+	// display elements of option_prices map
 	for (auto it = option_prices.begin(); it != option_prices.end(); ++it)
 	{
 		if (option_type == "C")
@@ -444,7 +447,6 @@ int main()
 			for (auto val : it->second)
 				cout << val << endl;
 		}
-		//<< " prices: " << (*it) << endl;
 		else
 		{
 			cout << "\nput option for " << it->first << ", Values are:\n";

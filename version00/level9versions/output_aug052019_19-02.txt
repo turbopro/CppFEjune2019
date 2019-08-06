@@ -1,0 +1,123 @@
+
+
+|==============================================|
+|     Option Sensitivities, aka the Greeks     |
+|==============================================|
+
+
+Resetting and Setting up test parameters ...
+
+Creating EuropeanOption ...
+
+Call option Delta price: 0.594629
+
+Put option Delta price: -0.356601
+
+
+
+Setting up test parameters ...
+
+Creating map to hold vectors of Deltas, Gamma, and Option Prices ...
+
+Calling vector_pricer function to calculate option gamma prices based on test pa
+rameter ...
+call option for Gamma, Values are:
+0.0142786
+0.0168214
+0.0195348
+0.0223731
+0.0252821
+0.0282004
+0.0310624
+0.0338006
+0.0363487
+0.0386447
+0.0406331
+0.0422676
+0.0435126
+0.0443445
+
+
+
+Resetting and Setting up test parameters ...
+
+Clearing map to store option prices ...
+
+Creating prices matrix container to store test parameters and option prices ...
+
+
+Calling matrix pricer function to calculate option prices, deltas and gammas
+based on test parameter ...
+
+call option for Delta, Values are:
+0.182637
+0.216157
+0.252309
+0.290716
+0.330935
+0.372483
+0.414849
+0.457519
+0.499993
+0.541801
+
+call option for Gamma, Values are:
+0.0320971
+0.0355274
+0.0387062
+0.0415393
+0.0439465
+0.0458648
+0.0472509
+0.0480822
+0.0483566
+0.0480909
+
+call option for Price, Values are:
+0.76652
+0.965684
+1.19971
+1.47106
+1.78175
+2.13337
+2.52699
+2.96317
+3.44196
+3.96293
+
+Clearing map to store option prices ...
+
+gamma: 0.0382075
+gamma: 0.0412947
+gamma: 0.0413278
+gamma: 0.0413282
+gamma: 0.0413282
+gamma: 0.0413291
+gamma: 0.0413181
+gamma: 0.0461853
+gamma: -0.710543
+gamma: -35.5271
+
+delta: 0.527388
+delta: 0.541619
+delta: 0.541799
+delta: 0.541801
+delta: 0.541801
+delta: 0.541801
+delta: 0.541801
+delta: 0.541801
+delta: 0.541801
+delta: 0.541801
+
+
+
+Gamma at S = 64 by default: 0.0413282
+Gamma at S = 64 as arg: 0.0413282
+
+
+C:\Users\paola\source\repos\CppFEjune2019\Level9\Level9_ExA+B_Exact-Pricing-Meth
+ods_B\x64\Release\Level9_ExA+B_Exact-Pricing-Methods_B.exe (process 10192) exite
+d with code 0.
+To automatically close the console when debugging stops, enable Tools->Options->
+Debugging->Automatically close the console when debugging stops.
+Press any key to close this window . . .

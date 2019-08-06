@@ -108,7 +108,7 @@ double EuropeanOption::PutGamma(double U) const
 /////////////////////////////////////////////////////////////////////////////////////
 
 // default constructor
-// default constructor takes seceral default values, which includes a value for S
+// default constructor takes default values, which includes a value for S
 EuropeanOption::EuropeanOption()
 	: T(0.5), K(110.0), sig(0.2), r(0.05), S(100.0), opt_type("C"), unam("Stock"), b(0.05) {}
 
@@ -148,8 +148,8 @@ EuropeanOption::EuropeanOption(const map<string, double>& op, const string& ot,
 
 	// throw InvalidParameterValueException if either of parameter values, T, K, S,
 	// or sig is zero
-	// T, K, or sig would generate divide by zero problems
-	// S = 0 is not a sensible value for an asset price 
+	// T, K, S, or sig should create divide by zero problems
+	// Oreover, S = 0 is not a sensible value for an asset price 
 	if (T == 0 || K == 0 || S == 0 || sig == 0)
 		throw InvalidParameterValueException("0");
 
@@ -189,23 +189,15 @@ EuropeanOption& EuropeanOption::operator = (const EuropeanOption& option2)
 	return *this;
 }
 
-
 // Functions that calculate option price and sensitivities
 // Use with default constructor: asset price is accepted here as a single argument double
 double EuropeanOption::Price(double U) const
 {
-	// calculate d1 and d2 once for either call or put option
-	//double tmp = sig * sqrt(T);
-	//double d1 = (log(U / K) + (b + (sig * sig) * 0.5) * T) / tmp;
-	//double d2 = d1 - tmp;
-	
+	// Use member functions D1 and D2 only when needed
 	// return either call price or put price
-	// 
 	return (opt_type == "C" || opt_type == "c") ?
-		//(U * exp((b - r) * T) * N(d1)) - (K * exp(-r * T) * N(d2)) :	// call price
-		(U * exp((b - r) * T) * N(D1())) - (K * exp(-r * T) * N(D2())) :	// call price
-		(K * exp(-r * T) * N(-D2())) - (U * exp((b - r) * T) * N(-D1()));	// put price
-		//(K * exp(-r * T) * N(-d2)) - (U * exp((b - r) * T) * N(-d1));	// put price
+		(U * exp((b - r) * T) * N(D1(U))) - (K * exp(-r * T) * N(D2(U))) :	// call price
+		(K * exp(-r * T) * N(-(D2(U)))) - (U * exp((b - r) * T) * N(-(D1(U))));	// put price
 }
 
 // Use with constructor: asset price is provided within the input map container
@@ -218,13 +210,10 @@ double EuropeanOption::Price() const
 // Use with default constructor: asset price is accepted here as a single argument double
 double EuropeanOption::Delta(double U) const 
 {
-	// calculate d1 once for either call or put option
-	//double d1 = (log(U / K) + (b + (sig * sig) * 0.5) * T) / (sig * sqrt(T));
-	
 	// return either call delta or put delta
 	return (opt_type == "C" || opt_type == "c") ?
-		exp((b - r) * T) * N(D1()) :		// call delta
-		exp((b - r) * T) * (N(D1()) - 1.0);	// put delta
+		exp((b - r) * T) * N(D1(U)) :		// call delta
+		exp((b - r) * T) * (N(D1(U)) - 1.0);	// put delta
 }
 
 // Use with constructor: asset price is provided within the input map container
@@ -238,13 +227,8 @@ double EuropeanOption::Delta() const
 // Gamma value is the same for call or put options
 double EuropeanOption::Gamma(double U) const
 {
-	//double tmp = sig * sqrt(T);
-
-	//double d1 = (log(U / K) + (b + (sig * sig) * 0.5) * T) / tmp;
-	//double d2 = d1 - tmp;
-
-	return (exp(-r * T) * K * n(D2())) / (S * S * sig * sqrt(T));
-	//return (exp((b - r) * T) * n(D1())) / (S * sig * sqrt(T));
+	return (exp(-r * T) * K * n(D2(U))) / (S * S * sig * sqrt(T));
+	//return (exp((b - r) * T) * n(D1(U))) / (S * sig * sqrt(T));
 }
 
 // Use with constructor: asset price is provided within the input map container
@@ -296,7 +280,7 @@ void set_batch(map<string, double>& batch, const vector<string>& option_param,
 // Use the put-call-parity formula, C + Ke^(-rT) = P + S, to calculate the 
 // corresponding Put price given a Call price, or, conversely, Call price given 
 // a Put price
-// Returns a tuple of doubles: Put price and corresponding Call price
+// Returns a tuple of doubles, Put price with corresponding Call price
 // ParityFactor() is an inline member method that returns the value of Ke^(-rT)
 // Throw InvalidOptionTypeException if option type is incorrect
 boost::tuple<double, double> EuropeanOption::put_call_parity() const
@@ -365,14 +349,16 @@ void vec_range(vector<double>& vec, const double& start, const double& end)
 //					to be calculated
 // underlying	-	a string that holds the type of underlying security
 //
-// Loop over from the test parameter start to end value in step_size steps
-// In each iteration, create an anonymous EuropeanOption object using the constant test
-// paramaters, and the current value of the increasing particular test parameter
-// Call the Price() member method (single argument version) to retrieve the relevant Call 
-// or Put option price
-// Add the retrieved option price to the storage vector for prices and to the price
+// Loop over the test parameter from start to end value in step_size steps
+// In each iteration, create an anonymous EuropeanOption object using the test parameters
+// held constant, along with the current value of the particular test parameter
+// Call the Price() member method to retrieve the relevant Call or Put option price
+// (the zero argument version makes use of the current test parameter value updated via
+// the ierator it)
+// Add the retrieved option price to the storage vector for prices, and to the price
 // matrix vector of map containers
-// No return value; void function
+// No return value: price_matrix vector serves as an input/output container, while prices
+// vector serves as an output container
 // Both input vectors are reference objects whose values are updated during function execution
 void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& prices,
 	const string test_param, const double& step_size,
@@ -382,7 +368,7 @@ void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& pr
 	double option_price;	// temp storage for calculated option price
 	for (auto it = price_matrix.begin(); it != price_matrix.end(); ++it, ++i)
 	{
-		(*it)[test_param] += (i*step_size);					// set test parameter value
+		(*it)[test_param] += (i*step_size);					// set/update test parameter value
 		option_price = EuropeanOption(*it, option_type, underlying).Price();	// calculate option price
 		prices.push_back(option_price);						// add option price to prices vector
 		(*it).emplace(option_type, option_price);			// add option price to vector of map containers
@@ -397,19 +383,20 @@ void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& pr
 //					the test parameter
 // step_size	-	a double that holds the step size for the test parameter
 // fn_ptr		-	a EuropeanOption pointer to member function
+//					(we choose the requisite member function for testing)
 // fn_name		-	a member function name
-// test_param	-	a string that holds the test parameter's character
-// option_type	-	a string that holds the type of option, "C" = call or "P" = put, 
-//					to be calculated
-// underlying	-	a string that holds the type of underlying security
+//					(to be used as a tag for the output vector of values)
+// test_param	-	a string that holds the test parameter's string
+// option_type	-	a string that holds the type of option, "C" = call or "P" = put
+// underlying	-	a string that holds the type of underlying security/asset
 //
-// Create a temporary vector of doubles to stores calculated prices/values
-// Loop over from the test parameter start to end value in step_size steps
-// In each iteration:
-//	Get and store values/prices in temp_vec
-//	We use std::invoke which takes as arguments the pointer to member function,
-//	an anonymous EuropeanOption, and the current test parameter value, which is
-//	the argument to the member function 
+// Create a temporary vector of doubles to store calculated prices/values
+// Loop over from the test parameter start to end value in step_size steps:
+//	In each iteration
+//		Get and store values/prices in temp_vec
+//		We use std::invoke which takes as arguments the pointer to member function,
+//		an anonymous EuropeanOption, and the current test parameter value, the
+//		argument to the member function 
 // Add the member function name and vector of calculated prices/values to the prices map
 void vector_pricer(const map<string, double>& test_params, map<string, vector<double>>& prices,
 	const double& param_end, const double& step_size, const EuroMemFn fn_ptr, 
@@ -420,8 +407,7 @@ void vector_pricer(const map<string, double>& test_params, map<string, vector<do
 	vector<double> prices_vals_vec;
 
 	// Loop over test parameter range of values; get and store values/prices
-	//for (double param_idx = test_params["S"]; param_idx < param_end; param_idx += step_size)
-	for (double param_idx = test_params.at("S"); param_idx < param_end; param_idx += step_size)
+	for (double param_idx = test_params.at(test_param); param_idx < param_end; param_idx += step_size)
 	{		
 		prices_vals_vec.push_back(
 			std::invoke(fn_ptr, EuropeanOption(test_params, option_type, underlying), param_idx));
@@ -429,8 +415,6 @@ void vector_pricer(const map<string, double>& test_params, map<string, vector<do
 
 	// assign member funtion name and vector of computed values to prices map
 	prices[fn_name] = prices_vals_vec;
-	//prices.at(fn_name) = prices_vals_vec;
-
 }
 
 // matrix_pricer_by_fn()
