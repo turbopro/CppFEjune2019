@@ -213,7 +213,8 @@ double EuropeanOption::Delta(double U) const
 	// return either call delta or put delta
 	return (opt_type == "C" || opt_type == "c") ?
 		exp((b - r) * T) * N(D1(U)) :		// call delta
-		exp((b - r) * T) * (N(D1(U)) - 1.0);	// put delta
+		//exp((b - r) * T) * (N(D1(U)) - 1.0);	// put delta
+		-(exp((b - r) * T) * N(-(D1(U))));	// put delta
 }
 
 // Use with constructor: asset price is provided within the input map container
@@ -337,6 +338,18 @@ void vec_range(vector<double>& vec, const double& start, const double& end)
 	//return vec;
 }
 
+// vector_pricer()
+void vector_pricer(map<string, double>& test_params, vector<double>& prices,
+	const string test_param, const double& param_end, const double& step_size,
+	const string option_type, const string underlying, const double& b_adjust)
+{
+	for (double param_idx = test_params.at(test_param); param_idx <= param_end; param_idx += step_size)
+	{
+		test_params[test_param] = param_idx;
+		prices.push_back(EuropeanOption(test_params, option_type, underlying, b_adjust).Price());
+	}
+}
+
 // matrix_pricer()
 // Has seven input arguments:
 // price_matrix	-	a vector of map<string, double> that contains the option test parameters
@@ -361,21 +374,34 @@ void vec_range(vector<double>& vec, const double& start, const double& end)
 // vector serves as an output container
 // Both input vectors are reference objects whose values are updated during function execution
 void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& prices,
-	const string test_param, const double& step_size,
-	const string option_type, const string underlying)
+	const string test_param, const double& step_size, const string option_type, 
+	const string underlying, const double& b_adjust)
 {
+	/*
+	for (auto it = price_matrix.begin(); it != price_matrix.end(); ++it)
+	{
+		vector_pricer(*it, prices, test_param, param_end, step_size,
+			option_type, underlying);
+	}
+	*/
+	
 	int i = 0;				// indexer
 	double option_price;	// temp storage for calculated option price
 	for (auto it = price_matrix.begin(); it != price_matrix.end(); ++it, ++i)
 	{
-		(*it)[test_param] += (i*step_size);					// set/update test parameter value
-		option_price = EuropeanOption(*it, option_type, underlying).Price();	// calculate option price
-		prices.push_back(option_price);						// add option price to prices vector
-		(*it).emplace(option_type, option_price);			// add option price to vector of map containers
+		(*it)[test_param] += (i*step_size);			// set/update test parameter value
+		// calculate option price
+		option_price = EuropeanOption(*it, option_type, underlying, b_adjust).Price();	
+		prices.push_back(option_price);				// add option price to prices vector
+		(*it).emplace(option_type, option_price);	// add option price to vector of map containers
 	}
+	
 }
 
-// vector_pricer() 
+
+
+
+// vector_pricer_by_fn() 
 // Has nine input arguments:
 // test_params	-	a map<string, double> that contains the option test parameters
 // prices		-	a map<string, vector<double>> to store calculated prices/values
@@ -398,7 +424,7 @@ void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& pr
 //		an anonymous EuropeanOption, and the current test parameter value, the
 //		argument to the member function 
 // Add the member function name and vector of calculated prices/values to the prices map
-void vector_pricer(const map<string, double>& test_params, map<string, vector<double>>& prices,
+void vector_pricer_by_fn(const map<string, double>& test_params, map<string, vector<double>>& prices,
 	const double& param_end, const double& step_size, const EuroMemFn fn_ptr, 
 	const string fn_name, const string test_param, const string option_type, 
 	const string underlying)
@@ -426,7 +452,7 @@ void matrix_pricer_by_fn(
 {
 	for (auto it = price_matrix.begin(); it != price_matrix.end(); ++it)
 	{
-		vector_pricer(*it, prices, param_end, step_size, fn_ptr, fn_name, test_param,
+		vector_pricer_by_fn(*it, prices, param_end, step_size, fn_ptr, fn_name, test_param,
 			option_type, underlying);
 	}
 }

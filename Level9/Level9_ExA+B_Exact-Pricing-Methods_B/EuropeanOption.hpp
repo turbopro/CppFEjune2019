@@ -136,8 +136,8 @@ const vector<double> test_val[]
 //					to be calculated
 // underlying	-	a string that holds the type of underlying security
 void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& prices, 
-	const string test_param, const double& step_size,
-	const string option_type = "C", const string underlying = "Stock");
+	const string test_param, const double& step_size, const string option_type = "C", 
+	const string underlying = "Stock", const double& b_adjust = 0.0);
 
 // Typedef definition of pointer to const member function: used to pass member functions
 // as arguments to functions
@@ -146,6 +146,13 @@ void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& pr
 typedef double (EuropeanOption::* EuroMemFn)(double) const;
 
 // vector_pricer()
+void vector_pricer(map<string, double>& price_matrix, vector<double>& prices,
+	const string test_param, const double& param_end, const double& step_size,
+	const string option_type = "C", const string underlying = "Stock",
+	const double& b_adjust = 0.0);
+
+
+// vector_pricer_by_fn()
 // Has nine input arguments:
 // test_params	-	a map<string, double> that contains the option test parameters
 // prices		-	a map<string, vector<double>> to store calculated prices/values
@@ -161,7 +168,7 @@ typedef double (EuropeanOption::* EuroMemFn)(double) const;
 // underlying	-	a string that holds the type of underlying security/asset
 // option_type and underlying default to "C," for call options, and "Stock," for the
 // underlying security
-void vector_pricer(const map<string, double>& test_params, map<string, vector<double>>& prices,
+void vector_pricer_by_fn(const map<string, double>& test_params, map<string, vector<double>>& prices,
 	const double& param_end, const double& step_size, const EuroMemFn fn_ptr, 
 	const string fn_name, const string test_param, const string option_type = "C", 
 	const string underlying = "Stock");

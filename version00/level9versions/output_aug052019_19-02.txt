@@ -121,3 +121,119 @@ d with code 0.
 To automatically close the console when debugging stops, enable Tools->Options->
 Debugging->Automatically close the console when debugging stops.
 Press any key to close this window . . .
+
+
+
+TESTING: refactored Price(), using D1() and D2() call
+
+
+
+|==============================================|
+|     Option Sensitivities, aka the Greeks     |
+|==============================================|
+
+
+Resetting and Setting up test parameters ...
+
+Creating EuropeanOption ...
+
+Call option Delta price: 0.594629
+
+Put option Delta price: 0.594629
+
+
+
+Setting up test parameters ...
+
+Creating map to hold vectors of Deltas, Gamma, and Option Prices ...
+
+Calling vector_pricer function to calculate option gamma prices based on test pa
+rameter ...
+call option for Gamma, Values are:
+0.0142786
+0.0168214
+0.0195348
+0.0223731
+0.0252821
+0.0282004
+0.0310624
+0.0338006
+0.0363487
+0.0386447
+0.0406331
+0.0422676
+0.0435126
+0.0443445
+
+
+
+Resetting and Setting up test parameters ...
+
+Clearing map to store option prices ...
+
+Creating prices matrix container to store test parameters and option prices ...
+
+
+Calling matrix pricer function to calculate option prices, deltas and gammas
+based on test parameter ...
+
+Function: EuropeanOption::Price, opt_type: C
+D1: -0.905361
+
+
+
+
+|==============================================|
+|     Option Sensitivities, aka the Greeks     |
+|==============================================|
+
+
+Resetting and Setting up test parameters ...
+
+Creating EuropeanOption ...
+
+Call option Delta price: 0.594629
+
+Put option Delta price: 0.594629
+
+
+
+Setting up test parameters ...
+
+Creating map to hold vectors of Deltas, Gamma, and Option Prices ...
+
+Calling vector_pricer function to calculate option gamma prices based on test pa
+rameter ...
+call option for Gamma, Values are:
+0.0142786
+0.0168214
+0.0195348
+0.0223731
+0.0252821
+0.0282004
+0.0310624
+0.0338006
+0.0363487
+0.0386447
+0.0406331
+0.0422676
+0.0435126
+0.0443445
+
+
+
+Resetting and Setting up test parameters ...
+
+Clearing map to store option prices ...
+
+Creating prices matrix container to store test parameters and option prices ...
+
+
+Calling matrix pricer function to calculate option prices, deltas and gammas
+based on test parameter ...
+
+Function: EuropeanOption::Price, opt_type: C
+D1: -0.905361
+D2: -1.05536
+
+
