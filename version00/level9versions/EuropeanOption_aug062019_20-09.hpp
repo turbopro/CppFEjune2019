@@ -28,11 +28,21 @@ using namespace std;
 class EuropeanOption
 {
 private:
+	// 'Kernel' functions for option calculations
+	//double CallPrice(double U) const;
+	//double PutPrice(double U) const;
+	//double CallDelta(double U) const;
+	//double PutDelta(double U) const;
+	//double CallGamma(double U) const;
+	//double PutGamma(double U) const;
+	//double DeltaDividedDiff(double U) const;
+	//double PutRho(double U) const;
+		
 	// Gaussian functions: using Boost::Math library functions
 	double n(double x) const;
 	double N(double x) const;
 	
-	// Member data 
+	// Member data are private
 	double T;		// Strike price
 	double K;		// Expiry date
 	double sig;		// Volatility
