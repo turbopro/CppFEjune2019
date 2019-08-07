@@ -340,7 +340,7 @@ void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& pr
 
 
 // vector_pricer_by_fn() 
-// Has nine input arguments:
+// Argumentlist:
 // test_params	-	a map<string, double> that contains the option test parameters
 // prices		-	a map<string, vector<double>> to store calculated prices/values
 // param_end	-	a double that holds the value of the end value of the range of 
@@ -362,26 +362,46 @@ void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& pr
 //		an anonymous EuropeanOption, and the current test parameter value, the
 //		argument to the member function 
 // Add the member function name and vector of calculated prices/values to the prices map
-void vector_pricer_by_fn(const map<string, double>& test_params, map<string, vector<double>>& prices,
-	const double& param_end, const double& step_size, const EuroMemFn fn_ptr, 
-	const string fn_name, const string test_param, const string option_type, 
-	const string underlying)
+void vector_pricer_by_fn(const map<string, double>& test_params, map<string, vector<double>>& measures,
+	const string test_param, const double& param_end, const double& step_size, 
+	const EuroMemFn fn_ptr, const string fn_name, 
+	const string option_type, const string underlying, const double& b_adjust)
 {
 	// Create temporary vector
-	vector<double> prices_vals_vec;
+	vector<double> measures_vec;
 
 	// Loop over test parameter range of values; get and store values/prices
-	for (double param_idx = test_params.at(test_param); param_idx < param_end; param_idx += step_size)
+	for (double param_idx = test_params.at(test_param); param_idx <= param_end; param_idx += step_size)
 	{		
-		prices_vals_vec.push_back(
-			std::invoke(fn_ptr, EuropeanOption(test_params, option_type, underlying), param_idx));
+		measures_vec.push_back(
+			std::invoke(
+				fn_ptr,							// pointer to member function 
+				EuropeanOption(test_params, option_type, underlying, b_adjust),		// anon option
+				param_idx));					// member function argument
 	}
 
-	// assign member funtion name and vector of computed values to prices map
-	prices[fn_name] = prices_vals_vec;
+	// assign member funtion name and vector of computed prices/values to prices map
+	measures[fn_name] = measures_vec;
 }
 
 // matrix_pricer_by_fn()
+void matrix_pricer_by_fn(
+	map<string, map<string, double>>& price_matrix, map<string, vector<double>>& measures,
+	const EuroMemFn fn_ptr, const string fn_name, const string option_type,
+	const string underlying, const double& b_adjust)
+{
+	for (auto it = price_matrix.begin(); it != price_matrix.end(); ++it)
+	{
+		vector_pricer_by_fn(it->second, measures, it->first, it->second.at("param_end"),
+			it->second.at("step_size"), fn_ptr, fn_name, option_type, underlying, b_adjust);
+
+		//vector_pricer(it->second, prices, it->first, it->second.at("param_end"),
+			//it->second.at("step_size"), option_type, underlying, b_adjust)
+	}
+}
+
+/*
+
 void matrix_pricer_by_fn(
 	const vector<map<string, double>>& price_matrix, map<string, vector<double>>& prices,
 	const double& param_end, const double& step_size, const EuroMemFn fn_ptr,
@@ -394,6 +414,8 @@ void matrix_pricer_by_fn(
 			option_type, underlying);
 	}
 }
+
+*/
 
 //
 // divided differences to approximate option sensitivities

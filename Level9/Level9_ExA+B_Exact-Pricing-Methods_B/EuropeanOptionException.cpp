@@ -50,8 +50,8 @@ InvalidUnderlyingException::~InvalidUnderlyingException() {}
 // GetMessage() method
 std::string InvalidUnderlyingException::GetMessage()const
 {
-	return ("\nInvalid underlying security type: -" + m_error_underlying +
-		"-\nValid underlying security types:\n\tStock\n\tIndex\n\tFuture\n\tCurrency\n");
+	return ("\nInvalid underlying security type: - " + m_error_underlying +
+		" -\nValid underlying security types:\n\tStock\n\tIndex\n\tFuture\n\tCurrency\n");
 }
 
 // ***** InvalidParameterValueException *****

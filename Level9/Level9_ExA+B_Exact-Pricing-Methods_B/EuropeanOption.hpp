@@ -193,10 +193,10 @@ typedef double (EuropeanOption::* EuroMemFn)(double) const;
 //
 // option_type, underlying, and b_adjust default to "C" for call options, "Stock" for the
 // underlying security/asset, and 0.0 for the adjustment for Stock, respectively
-void vector_pricer_by_fn(const map<string, double>& test_params, map<string, vector<double>>& prices,
-	const double& param_end, const double& step_size, const EuroMemFn fn_ptr, 
-	const string fn_name, const string test_param, const string option_type = "C", 
-	const string underlying = "Stock");
+void vector_pricer_by_fn(const map<string, double>& test_params, map<string, vector<double>>& measures,
+	const string test_param, const double& param_end, const double& step_size,
+	const EuroMemFn fn_ptr, const string fn_name,
+	const string option_type = "C", const string underlying = "Stock", const double& b_adjust = 0.0);
 
 
 // matrix_pricer_by_fn()
@@ -211,10 +211,26 @@ void vector_pricer_by_fn(const map<string, double>& test_params, map<string, vec
 //					to be calculated
 // underlying	-	a string that holds the type of underlying security
 void matrix_pricer_by_fn(
+	map<string, map<string, double>>& price_matrix, map<string, vector<double>>& prices,
+	const EuroMemFn fn_ptr, const string fn_name, const string option_type = "C", 
+	const string underlying = "Stock", const double& b_adjust = 0.0);
+
+//void matrix_pricer(map<string, map<string, double>>& price_matrix, vector<double>& prices,
+	//const string option_type = "C", const string underlying = "Stock", const double& b_adjust = 0.0);
+
+/*
+void matrix_pricer_by_fn(
 	const vector<map<string, double>>& price_matrix, map<string, vector<double>>& prices,
-	const double& param_end, const double& step_size, const EuroMemFn fn_ptr, 
-	const string fn_name, const string test_param, const string option_type = "C", 
+	const double& param_end, const double& step_size, const EuroMemFn fn_ptr,
+	const string fn_name, const string test_param, const string option_type = "C",
 	const string underlying = "Stock");
+
+
+
+*/
+
+
+
 
 
 // **********************************************
