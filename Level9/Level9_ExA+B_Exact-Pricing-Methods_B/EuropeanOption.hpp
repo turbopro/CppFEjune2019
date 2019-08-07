@@ -125,9 +125,18 @@ const vector<double> test_val[]
 // option_type	-	a string that holds the type of option, "C" = call or "P" = put, 
 //					to be calculated
 // underlying	-	a string that holds the type of underlying security
-void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& prices, 
-	const string test_param, const double& step_size, const string option_type = "C", 
-	const string underlying = "Stock", const double& b_adjust = 0.0);
+void matrix_pricer(map<string, map<string, double>>& price_matrix, vector<double>& prices, 
+	const string test_param, const double& param_end, const double& step_size,
+	const string option_type = "C", const string underlying = "Stock",
+	const double& b_adjust = 0.0);
+
+/*
+void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& prices,
+	const string test_param, const double& param_end, const double& step_size,
+	const string option_type = "C", const string underlying = "Stock",
+	const double& b_adjust = 0.0);
+*/
+
 
 // Typedef definition of pointer to const member function: used to pass member functions
 // as arguments to functions
@@ -136,6 +145,22 @@ void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& pr
 typedef double (EuropeanOption::* EuroMemFn)(double) const;
 
 // vector_pricer()
+// Has eight input arguments:
+// test_params	-	a map<string, double> that contains the option test parameters
+// prices		-	a vector of double to store calculated prices
+// test_param	-	a string that holds the test parameter's string
+// param_end	-	a double that holds the value of the end value of the range of 
+//					the test parameter
+// step_size	-	a double that holds the step size for the test parameter
+// option_type	-	a string that holds the type of option, "C" = call or "P" = put
+// underlying	-	a string that holds the type of underlying security/asset
+// b_adjust		-	a double that holds the cost of carry adjustment
+//
+// Loop over the test parameter from start to end value in step_size steps:
+//	In each iteration
+//		Set test_param to the current test value
+//		get option price from an anonymous EuropeanOption object
+//		add to output vector 
 void vector_pricer(map<string, double>& price_matrix, vector<double>& prices,
 	const string test_param, const double& param_end, const double& step_size,
 	const string option_type = "C", const string underlying = "Stock",

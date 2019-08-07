@@ -318,18 +318,35 @@ void vector_pricer(map<string, double>& test_params, vector<double>& prices,
 // vector serves as an output container
 // The input map and output vectors are reference objects whose values are updated during 
 // function execution
-void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& prices,
-	const string test_param, const double& step_size, const string option_type, 
-	const string underlying, const double& b_adjust)
+void matrix_pricer(map<string, map<string, double>>& price_matrix, vector<double>& prices,
+	const string test_param, const double& param_end, const double& step_size, 
+	const string option_type, const string underlying, const double& b_adjust)
 {
-	/*
+	
 	for (auto it = price_matrix.begin(); it != price_matrix.end(); ++it)
 	{
-		vector_pricer(*it, prices, test_param, param_end, step_size,
-			option_type, underlying);
+		//vector_pricer(*it, prices, test_param, param_end, step_size,
+			//option_type, underlying, b_adjust);
+
+		vector_pricer(it->second, prices, it->first, it->second.at("param_end"), 
+			it->second.at("step_size"), option_type, underlying, b_adjust);
+	}
+
+	/*
+	int i = 0;				// indexer
+	double option_price;	// temp storage for calculated option price
+	for (auto it = price_matrix.begin(); it != price_matrix.end(); ++it, ++i)
+	{
+		(*it)[test_param] += (i * step_size);			// set/update test parameter value
+		// calculate option price
+		//vector_pricer(*it, prices, test_param, param_end, step_size,
+			//option_type, underlying, b_adjust);
+		option_price = EuropeanOption(*it, option_type, underlying, b_adjust).Price();
+		prices.push_back(option_price);				// add option price to prices vector
+		(*it).emplace(option_type, option_price);	// add option price to vector of map containers
 	}
 	*/
-	
+	/*
 	int i = 0;				// indexer
 	double option_price;	// temp storage for calculated option price
 	for (auto it = price_matrix.begin(); it != price_matrix.end(); ++it, ++i)
@@ -340,10 +357,14 @@ void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& pr
 		prices.push_back(option_price);				// add option price to prices vector
 		(*it).emplace(option_type, option_price);	// add option price to vector of map containers
 	}
-	
+	*/
 }
 
-
+/*
+void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& prices,
+	const string test_param, const double& param_end, const double& step_size,
+	const string option_type, const string underlying, const double& b_adjust)
+*/
 
 
 // vector_pricer_by_fn() 
