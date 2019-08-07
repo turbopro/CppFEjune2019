@@ -270,7 +270,12 @@ void vec_range(vector<double>& vec, const double& start, const double& end)
 }
 
 // vector_pricer()
-// Has eight input arguments:
+// Takes as input a map<string, double> of test parameters and a vector<double> to store
+// calculated call and put option prices
+// A test parameter is monotonically increased while other test parameters are held constant
+// For each step, the call or put price is calculated and stored in the vector<double>
+//
+// Argument list:
 // test_params	-	a map<string, double> that contains the option test parameters
 // prices		-	a vector of double to store calculated prices
 // test_param	-	a string that holds the test parameter's string
@@ -282,10 +287,10 @@ void vec_range(vector<double>& vec, const double& start, const double& end)
 // b_adjust		-	a double that holds the cost of carry adjustment
 //
 // Loop over the test parameter from start to end value in step_size steps:
-//	In each iteration
-//		Set test_param to the current test value
-//		get option price from an anonymous EuropeanOption object
-//		add to output vector 
+//	For each iteration
+//	  Set test_param to the current test value
+//	  Get option price from an anonymous EuropeanOption object
+//	  Add to output vector  
 void vector_pricer(map<string, double>& test_params, vector<double>& prices,
 	const string test_param, const double& param_end, const double& step_size,
 	const string option_type, const string underlying, const double& b_adjust)
@@ -298,66 +303,33 @@ void vector_pricer(map<string, double>& test_params, vector<double>& prices,
 }
 
 // matrix_pricer()
-// Has seven input arguments:
-// price_matrix	-	a vector of map<string, double> that contains the option test parameters
-// prices		-	a vector<doubles> to store calculated Call or Put option prices
-// test_param	-	a string that holds the test parameter's character
-// param_start	-	a double that holds the value of the start value of the range of 
-//					the test parameter
-// step_size	-	a double that holds the step size for the test parameter
+// Takes as input a map<string, map<string, double>> of test parameters and a vector<double>
+// to store calculated call and put option prices
+// We loop through the map and call the vector_pricer() function that calculates and stores
+// the prices in the vector<double>
+//
+// Agument list:
+// price_matrix	-	a vector of map<string, map<string, double>> that contains the option
+//					test parameters
+// prices		-	a vector<double> to store calculated Call or Put option prices
 // option_type	-	a string that holds the type of option, "C" = call or "P" = put, 
 //					to be calculated
 // underlying	-	a string that holds the type of underlying security
 // b_adjust		-	a double that holds the cost of carry adjustment
 //
 // Loop over the test_params map with an iterator
-// Set/update the test_param to the current value being tested
-// Get the option price from an anonymous EuropeanOption object
-// Add the returned option price to the output vector and to the input map
-// No return value: price_matrix vector serves as an input/output container, while prices
-// vector serves as an output container
-// The input map and output vectors are reference objects whose values are updated during 
+// Call vector_pricer() to calculate and store the option prices
+// The map and vector are reference objects whose values are updated during 
 // function execution
-void matrix_pricer(map<string, map<string, double>>& price_matrix, vector<double>& prices,
-	const string test_param, const double& param_end, const double& step_size, 
+void matrix_pricer(map<string, map<string, double>>& price_matrix, vector<double>& prices, 
 	const string option_type, const string underlying, const double& b_adjust)
 {
 	
 	for (auto it = price_matrix.begin(); it != price_matrix.end(); ++it)
 	{
-		//vector_pricer(*it, prices, test_param, param_end, step_size,
-			//option_type, underlying, b_adjust);
-
 		vector_pricer(it->second, prices, it->first, it->second.at("param_end"), 
 			it->second.at("step_size"), option_type, underlying, b_adjust);
 	}
-
-	/*
-	int i = 0;				// indexer
-	double option_price;	// temp storage for calculated option price
-	for (auto it = price_matrix.begin(); it != price_matrix.end(); ++it, ++i)
-	{
-		(*it)[test_param] += (i * step_size);			// set/update test parameter value
-		// calculate option price
-		//vector_pricer(*it, prices, test_param, param_end, step_size,
-			//option_type, underlying, b_adjust);
-		option_price = EuropeanOption(*it, option_type, underlying, b_adjust).Price();
-		prices.push_back(option_price);				// add option price to prices vector
-		(*it).emplace(option_type, option_price);	// add option price to vector of map containers
-	}
-	*/
-	/*
-	int i = 0;				// indexer
-	double option_price;	// temp storage for calculated option price
-	for (auto it = price_matrix.begin(); it != price_matrix.end(); ++it, ++i)
-	{
-		(*it)[test_param] += (i*step_size);			// set/update test parameter value
-		// calculate option price
-		option_price = EuropeanOption(*it, option_type, underlying, b_adjust).Price();	
-		prices.push_back(option_price);				// add option price to prices vector
-		(*it).emplace(option_type, option_price);	// add option price to vector of map containers
-	}
-	*/
 }
 
 /*

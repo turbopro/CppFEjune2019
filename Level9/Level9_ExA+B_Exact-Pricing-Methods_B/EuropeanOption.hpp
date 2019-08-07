@@ -115,20 +115,18 @@ const vector<double> test_val[]
 
 // **********************************************
 // matrix_pricer()
-// Has seven input arguments:
-// price_matrix	-	a vector of map<string, double> that contains the option test parameters
+// Argument list:
+// price_matrix	-	a map<string, map<string, double>> that contains the option test parameters
+//					The string stores the name of the parameter under test: "S", "T", "K", "r" ...
+//					The map<string, double> contains a map of the test parameters' names as strings
+//					and the test parameters' values as doubles
 // prices		-	a vector<doubles> to store calculated Call or Put option prices
-// test_param	-	a string that holds the test parameter's character
-// param_start	-	a double that holds the value of the start value of the range of 
-//					the test parameter
-// step_size	-	a double that holds the step size for the test parameter
 // option_type	-	a string that holds the type of option, "C" = call or "P" = put, 
 //					to be calculated
 // underlying	-	a string that holds the type of underlying security
+// b_adjust		-	a double that holds the cost of carry adjustment
 void matrix_pricer(map<string, map<string, double>>& price_matrix, vector<double>& prices, 
-	const string test_param, const double& param_end, const double& step_size,
-	const string option_type = "C", const string underlying = "Stock",
-	const double& b_adjust = 0.0);
+	const string option_type = "C", const string underlying = "Stock", const double& b_adjust = 0.0);
 
 /*
 void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& prices,
@@ -138,14 +136,13 @@ void matrix_pricer(vector<map<string, double>>& price_matrix, vector<double>& pr
 */
 
 
-// Typedef definition of pointer to const member function: used to pass member functions
-// as arguments to functions
-// We use in the vector_pricer_by_fn() and matrix_pricer_by_fn() functions, to pass either the Price(),
-// Gamma(), or Delta() member functions
-typedef double (EuropeanOption::* EuroMemFn)(double) const;
-
 // vector_pricer()
-// Has eight input arguments:
+// Takes as input a map<string, double> of test parameters and a vector<double> to store
+// calculated call and put option prices
+// A test parameter is monotonically increased while other test parameters are held constant
+// For each step, the call or put price is calculated and stored in the vector<double>
+//
+// Argument list:
 // test_params	-	a map<string, double> that contains the option test parameters
 // prices		-	a vector of double to store calculated prices
 // test_param	-	a string that holds the test parameter's string
@@ -155,20 +152,31 @@ typedef double (EuropeanOption::* EuroMemFn)(double) const;
 // option_type	-	a string that holds the type of option, "C" = call or "P" = put
 // underlying	-	a string that holds the type of underlying security/asset
 // b_adjust		-	a double that holds the cost of carry adjustment
-//
-// Loop over the test parameter from start to end value in step_size steps:
-//	In each iteration
-//		Set test_param to the current test value
-//		get option price from an anonymous EuropeanOption object
-//		add to output vector 
 void vector_pricer(map<string, double>& price_matrix, vector<double>& prices,
 	const string test_param, const double& param_end, const double& step_size,
 	const string option_type = "C", const string underlying = "Stock",
 	const double& b_adjust = 0.0);
 
 
+// ******************************************************************
+
+// Typedef definition of pointer to const member function: used to pass member functions
+// as arguments to functions
+// We use in the declarations for vector_pricer_by_fn() and matrix_pricer_by_fn() functions,
+// to pass either the Price(), Gamma(), or Delta() member functions as function arguments
+// The pointer points to a const member function that takes a single argument double and
+// returns a double
+typedef double (EuropeanOption::* EuroMemFn)(double) const;
+
 // vector_pricer_by_fn()
-// Has nine input arguments:
+// Takes as input a map<string, double> of test parameters and a vector<double> to store
+// calculated call and put option prices, or, various greeks' measures like Deltas and
+// Gammas
+// A test parameter is monotonically increased while other test parameters are held constant
+// For each step, the relevant member function, Price(), Gamma(), or Delta() is calculated,
+// and stored in the vector<double>
+//
+// Argument list:
 // test_params	-	a map<string, double> that contains the option test parameters
 // prices		-	a map<string, vector<double>> to store calculated prices/values
 // param_end	-	a double that holds the value of the end value of the range of 
@@ -181,8 +189,10 @@ void vector_pricer(map<string, double>& price_matrix, vector<double>& prices,
 // test_param	-	a string that holds the test parameter's string
 // option_type	-	a string that holds the type of option, "C" = call or "P" = put
 // underlying	-	a string that holds the type of underlying security/asset
-// option_type and underlying default to "C," for call options, and "Stock," for the
-// underlying security
+// b_adjust		-	a double that holds the cost of carry adjustment
+//
+// option_type, underlying, and b_adjust default to "C" for call options, "Stock" for the
+// underlying security/asset, and 0.0 for the adjustment for Stock, respectively
 void vector_pricer_by_fn(const map<string, double>& test_params, map<string, vector<double>>& prices,
 	const double& param_end, const double& step_size, const EuroMemFn fn_ptr, 
 	const string fn_name, const string test_param, const string option_type = "C", 
@@ -190,7 +200,7 @@ void vector_pricer_by_fn(const map<string, double>& test_params, map<string, vec
 
 
 // matrix_pricer_by_fn()
-// Has nine input arguments:
+// Argument list:
 // price_matrix	-	a vector of map<string, double> that contains the option test parameters
 // prices		-	a vector<doubles> to store calculated Call or Put option prices
 // test_param	-	a string that holds the test parameter's character

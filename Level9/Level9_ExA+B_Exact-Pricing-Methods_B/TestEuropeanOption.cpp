@@ -255,42 +255,46 @@ int main()
 		//test_params_map["param_start"] = 55.0; test_params_map["param_end"] = 65.0;
 		//test_params_map["step_size"] = 1.0;
 		
+		// create a map for testing parameter "S"
 		map<string, double> test_params_S;
 		test_params_S["T"] = 0.25; test_params_S["K"] = 65.0;
 		test_params_S["sig"] = 0.3; test_params_S["r"] = 0.08;
 		test_params_S["S"] = 55.0; test_params_S["param_end"] = 65.0;
 		test_params_S["step_size"] = 1.0;
 		
+		// create a map for testing parameter "K"
 		map<string, double> test_params_K;
 		test_params_K["T"] = 0.25; test_params_K["S"] = 60.0;
 		test_params_K["sig"] = 0.3; test_params_K["r"] = 0.08;
 		test_params_K["K"] = 40.0; test_params_K["param_end"] = 90.0;
 		test_params_K["step_size"] = 1.0;
 		
+		// create a map for testing parameter "T"
 		map<string, double> test_params_T;
 		test_params_T["S"] = 60.0; test_params_T["K"] = 65.0;
 		test_params_T["sig"] = 0.3; test_params_T["r"] = 0.08;
 		test_params_T["T"] = 0.083; test_params_T["param_end"] = 1.0;
 		test_params_T["step_size"] = 0.083;
 
+		// create a map for testing parameter "r"
 		map<string, double> test_params_r;
 		test_params_r["S"] = 60.0; test_params_r["K"] = 65.0;
 		test_params_r["sig"] = 0.3; test_params_r["T"] = 0.25;
 		test_params_r["r"] = 0.005; test_params_r["param_end"] = 0.1;
 		test_params_r["step_size"] = 0.005;
 
+		// create a map for testing parameter "sig"
 		map<string, double> test_params_sig;
 		test_params_sig["S"] = 60.0; test_params_sig["K"] = 65.0;
 		test_params_sig["r"] = 0.08; test_params_sig["T"] = 0.25;
 		test_params_sig["sig"] = 0.01; test_params_sig["param_end"] = 0.5;
 		test_params_sig["step_size"] = 0.01;
 
+		//param_start = 55.0; param_end = 65.0; step_size = 1.0;
+		//test_params_map["S"] = param_start;		// set test parameter to start value
 		
-
-		param_start = 55.0; param_end = 65.0; step_size = 1.0;
-		test_params_map["S"] = param_start;		// set test parameter to start value
-		
-		test_param = "S"; option_type = "C"; underlying_security = "Stock";		
+		//test_param = "S"; 
+		option_type = "C"; underlying_security = "Sotock";		
 
 		// Clear vector for option prices
 		cout << "\n2.  Clearing vector to store option prices ... \n";
@@ -299,18 +303,12 @@ int main()
 		// Prices matrix container: vector of map<string, double>, of size based on test parameter values
 		cout << "\n3.  Creating prices matrix container to store input test parameters and\n"
 			<< "output option prices ... \n";
-		//vector<map<string, double>> params_map(((param_end - param_start) / step_size), test_params_map);
 		map<string, map<string, double>> params_map;
-		//params_map.push_back(test_params_S);
 		params_map["S"] = (test_params_S);
 		//params_map["K"] = (test_params_K);
 		//params_map["T"] = (test_params_T);
 		//params_map["r"] = (test_params_r);
 		//params_map["sig"] = (test_params_sig);
-		//params_map.push_back(test_params_K);
-		//params_map.push_back(test_params_T);
-		//params_map.push_back(test_params_r);
-		//params_map.push_back(test_params_sig);
 
 		// Call matrix_pricer() to calculate option prices for various values of stock price S, with other
 		// parameters, K, T, sig, r, b, option type, and underlying asset held constant
@@ -318,7 +316,7 @@ int main()
 		// a step size double, an option type string, and an underlying security string  
 		cout << "\n4.  Calling matrix pricer function to calculate option prices based on\ntest parameter: "
 			<< test_param << ", in the range: " << param_start << " to " << param_end << endl << endl;
-		matrix_pricer(params_map, option_prices, test_param, param_end, step_size, option_type, underlying_security);
+		matrix_pricer(params_map, option_prices, option_type, underlying_security);
 
 		// display elements of prices vector
 		for (auto it = option_prices.begin(); it != option_prices.end(); ++it)
