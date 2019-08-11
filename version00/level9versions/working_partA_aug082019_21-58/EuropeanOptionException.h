@@ -90,19 +90,6 @@ public:
 	virtual std::string GetMessage() const;						// getter method
 };
 
-// InvalidValueException class to handle invalid values that may generate errors: in
-// particular, divide by zero errors
-class InvalidValueException : public EuropeanOptionException
-{
-private:
-	std::string m_error_value;
-
-public:
-	InvalidValueException();							// default constructor
-	InvalidValueException(std::string error_value);		// constructor
-	virtual ~InvalidValueException();					// destructor
-	virtual std::string GetMessage() const;				// getter method
-};
 
 #endif // EUROPEANOPTIONEXCEPTION_H_INCLUDED
 

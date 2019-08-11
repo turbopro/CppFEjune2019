@@ -15,21 +15,33 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EuropeanOption.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TestEuropeanOption.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EuropeanOptionException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ExactPricingMethods.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EuropeanOption.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AmericanOption.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EuropeanOption.hpp">
+    <ClInclude Include="EuropeanOptionException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EuropeanOptionException.h">
+    <ClInclude Include="ExactPricingMethods.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EuropeanOption.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AmericanOption.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

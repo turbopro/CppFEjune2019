@@ -1,19 +1,21 @@
-// EuropeanOption.hpp
+/* Option.hpp
 //
-// Class that represents  solutions to European options. This is
-// an implementation using basic C++ syntax only.
+// Base class for the European, American and other options
+// a
 //
 // (C) Datasim Component Technology BV 2003-2011
-//
+*/
 
-#ifndef EuropeanOption_hpp
-#define EuropeanOption_hpp
+#ifndef ExactPricingMethods_hpp
+#define ExactPricingMethods_hpp
 
 
 #include <string>
 #include <array>
 #include <map>				// for map
 #include <algorithm>
+//#include "Option.h"
+#include "EuropeanOption.h"
 
 // Boost C Libraries Header Files
 #include <boost/shared_ptr.hpp>			// for Shared Pointer: shared_ptr 
@@ -24,14 +26,14 @@
 #include <boost/math/distributions.hpp> // For non-member functions of distributions
 
 using namespace std;
-
-class EuropeanOption
+/*
+class Option
 {
 private:
 	// Gaussian functions: using Boost::Math library functions
 	double n(double x) const;
 	double N(double x) const;
-	
+
 	// Member data 
 	double T;		// Strike price
 	double K;		// Expiry date
@@ -48,14 +50,14 @@ private:
 	static const double epsilon;
 
 public:	// Public functions
-	EuropeanOption();										// Default call option
-	EuropeanOption(const map<string, double>& option_parameters,	// constructor
+	Option();										// Default call option
+	Option(const map<string, double>& option_parameters,	// constructor
 		const string& option_type, const string& security, const double& b_adjust = 0.0);
-	EuropeanOption(const EuropeanOption& option2);			// Copy constructor
-	EuropeanOption(const string& optionType);				// Create option type
-	virtual ~EuropeanOption();								// destructor for base class
+	Option(const Option& option2);			// Copy constructor
+	Option(const string& optionType);				// Create option type
+	virtual ~Option();								// destructor for base class
 
-	EuropeanOption& operator = (const EuropeanOption& option2);	// assignment operator
+	Option& operator = (const Option& option2);	// assignment operator
 
 	// Functions that calculate option price and sensitivities
 	double Price(double U) const;							// use with default constructed EuroOption
@@ -68,8 +70,10 @@ public:	// Public functions
 	double GammaDividedDiff(double h);						// divided differences to approximate option sensitivities
 
 	// Inline member functions to calculate d1 and d2
-	double D1(const double U) const 
-	{ return (log(U / K) + (b + (sig * sig) * 0.5) * T) / (sig * sqrt(T)); }
+	double D1(const double U) const
+	{
+		return (log(U / K) + (b + (sig * sig) * 0.5) * T) / (sig * sqrt(T));
+	}
 	double D2(const double U) const { return (D1(U) - (sig * sqrt(T))); }
 
 	// getter functions
@@ -88,6 +92,7 @@ public:	// Public functions
 	// print option parameters
 	void Print() const;
 };
+*/
 
 // store Test Parameter names and values into a Map<String, Double> container
 void set_batch(map<string, double>& batch, const vector<string>& option_param,
@@ -125,7 +130,7 @@ const vector<double> test_val[]
 //					to be calculated
 // underlying	-	a string that holds the type of underlying security
 // b_adjust		-	a double that holds the cost of carry adjustment
-void matrix_pricer(map<string, map<string, double>>& price_matrix, vector<double>& prices, 
+void matrix_pricer(map<string, map<string, double>>& price_matrix, vector<double>& prices,
 	const string option_type = "C", const string underlying = "Stock", const double& b_adjust = 0.0);
 
 /*
@@ -166,19 +171,22 @@ void vector_pricer(map<string, double>& price_matrix, vector<double>& prices,
 // to pass either the Price(), Gamma(), or Delta() member functions as function arguments
 // The pointer points to a const member function that takes a single argument double and
 // returns a double
-typedef double (EuropeanOption::* EuroMemFn)(double) const;
+typedef double (EuropeanOption::* EuroMemFn)(double) const;		// for EuropeanOption
+//typedef double (AmericanOption::* AmerMemFn)(double) const;		// for AmericanOption
 
 // vector_pricer_by_fn()
-// Takes as input a map<string, double> of test parameters and a vector<double> to store
-// calculated call and put option prices, or, various greeks' measures like Deltas and
-// Gammas
+// Takes as input a map<string, double> of test parameters and a map<string, vector<double>>
+// to store calculated call and put option prices, or, various greeks' measures like Deltas
+// and Gammas
 // A test parameter is monotonically increased while other test parameters are held constant
 // For each step, the relevant member function, Price(), Gamma(), or Delta() is calculated,
-// and stored in the vector<double>
+// and stored in the map<string, vector<double>> with the name of the relevant member
+// function
 //
 // Argument list:
 // test_params	-	a map<string, double> that contains the option test parameters
-// prices		-	a map<string, vector<double>> to store calculated prices/values
+// measures		-	a map<string, vector<double>> to store calculated prices/values
+// test_param	-	a string that holds the test parameter's string
 // param_end	-	a double that holds the value of the end value of the range of 
 //					the test parameter
 // step_size	-	a double that holds the step size for the test parameter
@@ -186,7 +194,6 @@ typedef double (EuropeanOption::* EuroMemFn)(double) const;
 //					(allows us to choose the requisite member function for testing)
 // fn_name		-	a member function name
 //					(to be used as a tag for the output vector of values)
-// test_param	-	a string that holds the test parameter's string
 // option_type	-	a string that holds the type of option, "C" = call or "P" = put
 // underlying	-	a string that holds the type of underlying security/asset
 // b_adjust		-	a double that holds the cost of carry adjustment
@@ -200,37 +207,30 @@ void vector_pricer_by_fn(const map<string, double>& test_params, map<string, vec
 
 
 // matrix_pricer_by_fn()
+// Takes as input a map<string, map<string, double>> of test parameters and a
+// map<string, vector<double>> to store calculated call and put option prices with a string
+// identifier
+// The map<string, map<string, double> container includes the parameter to be tested, the
+// list of other parameters that are held constant, and the step size and end value of the
+// test parameter
+// vector_pricer_by_fn() function is called to calculate and store the values/prices in a vector
+//
 // Argument list:
-// price_matrix	-	a vector of map<string, double> that contains the option test parameters
-// prices		-	a vector<doubles> to store calculated Call or Put option prices
-// test_param	-	a string that holds the test parameter's character
-// param_start	-	a double that holds the value of the start value of the range of 
-//					the test parameter
-// step_size	-	a double that holds the step size for the test parameter
+// price_matrix	-	a map<string, map<string, double>> that contains the option test parameters
+// measures		-	a map<string, vector<double>> to store calculated Call or Put option prices
+//					in a vector with a string identifier
+// fn_ptr		-	a EuropeanOption pointer to member function
+//					(allows us to choose the requisite member function for testing)
+// fn_name		-	a member function name
+//					(to be used as a tag for the output vector of values)
 // option_type	-	a string that holds the type of option, "C" = call or "P" = put, 
 //					to be calculated
 // underlying	-	a string that holds the type of underlying security
+// b_adjust		-	a double that holds the cost of carry adjustment
 void matrix_pricer_by_fn(
 	map<string, map<string, double>>& price_matrix, map<string, vector<double>>& prices,
-	const EuroMemFn fn_ptr, const string fn_name, const string option_type = "C", 
+	const EuroMemFn fn_ptr, const string fn_name, const string option_type = "C",
 	const string underlying = "Stock", const double& b_adjust = 0.0);
-
-//void matrix_pricer(map<string, map<string, double>>& price_matrix, vector<double>& prices,
-	//const string option_type = "C", const string underlying = "Stock", const double& b_adjust = 0.0);
-
-/*
-void matrix_pricer_by_fn(
-	const vector<map<string, double>>& price_matrix, map<string, vector<double>>& prices,
-	const double& param_end, const double& step_size, const EuroMemFn fn_ptr,
-	const string fn_name, const string test_param, const string option_type = "C",
-	const string underlying = "Stock");
-
-
-
-*/
-
-
-
 
 
 // **********************************************
@@ -245,17 +245,24 @@ d = (V(S + h) - V(S - h)) / 2h
 
 We use our matrix_pricer with S constant and vary the value of h
 
-*/ 
+*/
 
 // generate a range of doubles for h
 template<typename ForwardIterator, typename T>
 void strided_iota(ForwardIterator first, ForwardIterator last, T value, T stride)
 {
-	while (first != last) 
+	while (first != last)
 	{
 		*first++ = value;
 		value *= stride;
 	}
 }
+
+
+
+// test v_pricer()
+vector<double> prices(EuropeanOption& option, double param_start, double param_end,
+	double step);
+
 
 #endif

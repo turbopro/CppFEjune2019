@@ -71,22 +71,3 @@ std::string InvalidParameterValueException::GetMessage()const
 	return ("\nInvalid parameter value : - " + m_error_param_value +
 		" -\nParameters T, K, S, sig cannot be '0'\n");
 }
-
-
-// ***** InvalidParameterValueException *****
-// constructor InvalidParameterValueException
-InvalidValueException::InvalidValueException(std::string error_value)
-	: m_error_value{ error_value } {}
-
-// default constructor
-InvalidValueException::InvalidValueException() : m_error_value{ "" } {}
-
-// destructor
-InvalidValueException::~InvalidValueException() {}
-
-// GetMessage() method
-std::string InvalidValueException::GetMessage()const
-{
-	return ("\nInvalid value : - " + m_error_value +
-		" -\nThis value may generate a divide by zero error\n");
-}

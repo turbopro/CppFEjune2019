@@ -1,0 +1,244 @@
+
+
+|==============================================|
+|        B. Perpetual American Options         |
+|==============================================|
+
+Option Parameters:
+
+Option Type:    C
+Underlying Security:    Stock
+T: 0.25
+K: 65
+sig: 0.3
+r: 0.08
+b: 0.08
+S: 60
+
+
+
+call option price: -nan(ind)
+
+
+put option price: 12.2024
+
+Option Parameters:
+
+Option Type:    C
+Underlying Security:    Index
+T: 1
+K: 100
+sig: 0.1
+r: 0.1
+b: 0.02
+S: 110
+
+test_am_option, call option price: 18.5035
+test_am_option, put option price: 3.03106
+
+
+
+
+
+
+
+
+C:\Users\paola\source\repos\CppFEjune2019\Level9\Level9_ExA+B_Exact-Pricing-Meth
+ods_B\Debug\Level9_ExA+B_Exact-Pricing-Methods_B.exe (process 11164) exited with
+ code 0.
+To automatically close the console when debugging stops, enable Tools->Options->
+Debugging->Automatically close the console when debugging stops.
+Press any key to close this window . . .
+
+
+
+
+
+Underlying Security = Stock
+
+BATCH 1:  Test Run
+
+Run a 'Call' option using Batch 1 parameters:
+Option on a stock:              2.13337
+Batch 1 'Call' value:           2.13337
+
+Run a 'Put' option using Batch 1 parameters:
+Option on a stock:              5.84628
+Batch 1 'Put' value:            5.84628
+
+
+BATCH 2:  Test Run
+
+Run a 'Call' option using Batch 2 parameters:
+Option on a stock:              7.96557
+Batch 2 'Call' value:           7.96557
+
+Run a 'Put' option using Batch 2 parameters:
+Option on a stock:              7.96557
+Batch 2 'Put' value:            7.96557
+
+
+BATCH 3:  Test Run
+
+Run a 'Call' option using Batch 3 parameters:
+Option on a stock:              0.204058
+Batch 3 'Call' value:           0.204058
+
+Run a 'Put' option using Batch 3 parameters:
+Option on a stock:              4.07326
+Batch 3 'Put' value:            4.07326
+
+
+BATCH 4:  Test Run
+
+Run a 'Call' option using Batch 4 parameters:
+Option on a stock:              92.1757
+Batch 4 'Call' value:           92.1757
+
+Run a 'Put' option using Batch 4 parameters:
+Option on a stock:              1.2475
+Batch 4 'Put' value:            1.2475
+
+
+
+
+
+|===============================================|
+|      B: Batch 1 thru 4, Put-Call Parity:      |
+|                  Approach 1                   |
+|===============================================|
+
+Approach 1: For a call option, we calculate the corresponding put option
+price using the put-call parity formula, C + Ke^(-rT) = P + S
+For a put option, we do the reverse
+The call and put prices stored in each Batch are displayed as a reference:
+
+
+Batch 1 calculating Put-Call Parity prices
+
+Put Option Price:  5.84628
+Call Option Price: 2.13337
+
+Batch 1 stored call and put prices:
+
+Put Option price:  5.84628
+Call Option price: 2.13337
+
+
+
+Batch 2 calculating Put-Call Parity prices
+
+Put Option Price:  7.96557
+Call Option Price: 7.96557
+
+Batch 2 stored call and put prices:
+
+Put Option price:  7.96557
+Call Option price: 7.96557
+
+
+
+Batch 3 calculating Put-Call Parity prices
+
+Put Option Price:  4.07326
+Call Option Price: 0.204058
+
+Batch 3 stored call and put prices:
+
+Put Option price:  4.07326
+Call Option price: 0.204058
+
+
+
+Batch 4 calculating Put-Call Parity prices
+
+Put Option Price:  1.2475
+Call Option Price: 92.1757
+
+Batch 4 stored call and put prices:
+
+Put Option price:  1.2475
+Call Option price: 92.1757
+
+
+
+
+|===============================================|
+|      B: Batch 1 thru 4, Put-Call Parity:      |
+|                  Approach 2                   |
+|===============================================|
+
+Approach 2: We will compare the 'C' and 'P' prices stored for the individual bat
+ch
+vector, with the corresponding calculated Call and Put values for that batch:
+
+Batch 1 comparing stored vs calculated Put / Call prices
+
+Batch 1 stored Call and Put prices are in put-call parity
+
+
+Batch 2 comparing stored vs calculated Put / Call prices
+
+Batch 2 stored Call and Put prices are in put-call parity
+
+
+Batch 3 comparing stored vs calculated Put / Call prices
+
+Batch 3 stored Call and Put prices are in put-call parity
+
+
+Batch 4 comparing stored vs calculated Put / Call prices
+
+Batch 4 stored Call and Put prices are in put-call parity
+
+
+
+
+|==============================================|
+|               C: vector_pricer               |
+|==============================================|
+
+
+Setting up test parameters ...
+
+test_euro parameters:
+Option Parameters:
+
+Option Type:    C
+Underlying Security:    Stock
+T: 0.25
+K: 65
+sig: 0.3
+r: 0.08
+b: 0.08
+S: 50
+
+Creating vector to store option prices ...
+
+Calling vector_pricer function to calculate option prices based on test paramete
+r ...
+call option prices: 0.189181
+call option prices: 0.259494
+call option prices: 0.349151
+call option prices: 0.461376
+call option prices: 0.599432
+call option prices: 0.76652
+call option prices: 0.965684
+call option prices: 1.19971
+call option prices: 1.47106
+call option prices: 1.78175
+call option prices: 2.13337
+call option prices: 2.52699
+call option prices: 2.96317
+call option prices: 3.44196
+call option prices: 3.96293
+
+
+
+C:\Users\paola\source\repos\CppFEjune2019\Level9\Level9_ExA+B_Exact-Pricing-Meth
+ods_B\x64\Debug\Level9_ExA+B_Exact-Pricing-Methods_B.exe (process 8844) exited w
+ith code 0.
+To automatically close the console when debugging stops, enable Tools->Options->
+Debugging->Automatically close the console when debugging stops.
+Press any key to close this window . . .
+

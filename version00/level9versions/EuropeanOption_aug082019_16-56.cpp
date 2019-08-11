@@ -1,4 +1,4 @@
-// Option.cpp
+// EurpeanOption.cpp
 //
 //	Author: Daniel Duffy
 //
@@ -6,9 +6,8 @@
 //
 
 
-//#include "EuropeanOption.hpp"
+#include "EuropeanOption.hpp"
 #include "EuropeanOptionException.h"
-#include "EuropeanOption.h"
 #include <cmath>
 #include <iostream>
 #include <string>
@@ -28,7 +27,7 @@ const double EuropeanOption::epsilon = 1.0e-05;
 
 // standard normal probability density function
 double EuropeanOption::n(double x) const
-{
+{  
 	boost::math::normal_distribution<> myNormal(0.0, 1.0);
 	return pdf(myNormal, x);
 }
@@ -75,7 +74,7 @@ EuropeanOption::EuropeanOption()
 // Moreover, S = 0 is not a sensible value for an asset price
 EuropeanOption::EuropeanOption(const map<string, double>& op, const string& ot,
 	const string& security, const double& b_adjust)
-	: T(op.at("T")), K(op.at("K")), sig(op.at("sig")), r(op.at("r")),
+	: T(op.at("T")), K(op.at("K")), sig(op.at("sig")), r(op.at("r")), 
 	S(op.at("S")), b(b_adjust)
 {
 	// check for valid input values
@@ -101,11 +100,11 @@ EuropeanOption::EuropeanOption(const map<string, double>& op, const string& ot,
 
 // copy constructor
 EuropeanOption::EuropeanOption(const EuropeanOption& o2)
-	: T(o2.T), K(o2.K), sig(o2.sig), r(o2.r), S(o2.S),
+	: T(o2.T), K(o2.K), sig(o2.sig), r(o2.r), S(o2.S), 
 	opt_type(o2.opt_type), unam(o2.unam), b(o2.b) {}
 
 // Set option type
-EuropeanOption::EuropeanOption(const string& optionType)
+EuropeanOption::EuropeanOption (const string& optionType)
 {
 	if (optionType == "c" || optionType == "C")
 		opt_type = "C";
@@ -148,7 +147,7 @@ double EuropeanOption::Price() const
 }
 
 // Use with default constructor: asset price is accepted here as a single argument double
-double EuropeanOption::Delta(double U) const
+double EuropeanOption::Delta(double U) const 
 {
 	// return either call delta or put delta
 	return (opt_type == "C" || opt_type == "c") ?
@@ -205,12 +204,6 @@ void EuropeanOption::Print() const
 }
 
 
-//vector<double>& option_prices()const
-//{
-
-//}
-
-
 // put_call_parity() function: get the Call or Put price of the Stock option
 // Calculate the relevant Put price if option type is a call option; conversely,
 // calculate the Call price if option type is a put option
@@ -225,7 +218,7 @@ boost::tuple<double, double> EuropeanOption::put_call_parity() const
 	if (OptionType() == "C" || OptionType() == "c")				// check option type
 	{
 		double call_price = Price();		// get call price
-		return boost::tuple<double, double>((call_price - S + ParityFactor()), call_price);
+		return boost::tuple<double, double>((call_price - S + ParityFactor()), call_price);	
 	}
 	else if (OptionType() == "P" || OptionType() == "p")
 	{
@@ -236,7 +229,7 @@ boost::tuple<double, double> EuropeanOption::put_call_parity() const
 	{
 		// throw exception
 		throw InvalidOptionTypeException(OptionType());
-	}
+	}	
 }
 
 // Check if call and put prices for a given stock option at price S make for a put-call parity
@@ -248,7 +241,7 @@ bool EuropeanOption::check_put_call_parity(const double& call_price, const doubl
 	// We use static data member epsilon for comparison of calculated vs given call/put prices
 	// return true if prices are "equal": that is, if the prices lie within epsilon tolerance
 	return (std::abs(put_price - parity_prices.get<0>()) < epsilon &&
-		std::abs(call_price - parity_prices.get<1>()) < epsilon);
+			std::abs(call_price - parity_prices.get<1>()) < epsilon);
 }
 
 
@@ -256,7 +249,7 @@ bool EuropeanOption::check_put_call_parity(const double& call_price, const doubl
 // Delta approximation using formula: d = (V(S + h) - V(S - h)) / 2h
 double EuropeanOption::DeltaDividedDiff(double h)
 {
-	double price_plus_h = Price(S + h);
+	double price_plus_h  = Price(S + h);	
 	double price_minus_h = Price(S - h);
 	return  (price_plus_h - price_minus_h) / (2 * h);
 }
@@ -265,8 +258,8 @@ double EuropeanOption::DeltaDividedDiff(double h)
 // Gamma approximation using formula: g = (V(S + h) - 2V(S) + V(S - h)) / h^2
 double EuropeanOption::GammaDividedDiff(double h)
 {
-	double price_plus_h = Price(S + h);
+	double price_plus_h  = Price(S + h);
 	double price_minus_h = Price(S - h);
-	double price_at_S = Price(S);
+	double price_at_S    = Price(S);
 	return  (price_plus_h - (2 * price_at_S) + price_minus_h) / (h * h);
 }

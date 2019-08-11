@@ -205,12 +205,6 @@ void EuropeanOption::Print() const
 }
 
 
-//vector<double>& option_prices()const
-//{
-
-//}
-
-
 // put_call_parity() function: get the Call or Put price of the Stock option
 // Calculate the relevant Put price if option type is a call option; conversely,
 // calculate the Call price if option type is a put option
