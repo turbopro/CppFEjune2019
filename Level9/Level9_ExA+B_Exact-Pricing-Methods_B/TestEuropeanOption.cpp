@@ -502,12 +502,6 @@ int main()
 		}
 	}
 
-	//for (auto it = option_prices.begin(); it != option_prices.end(); ++it)
-	//{
-		//if (option_type == "C") cout << "call option prices: " << (*it) << endl;
-		//else cout << "put option prices: " << (*it) << endl;
-	//}
-
 	////////////////////////////////////
 	// We now do the same range of value for S for delta, gamma, and price
 	// Use the same test_option
@@ -560,7 +554,8 @@ int main()
 	*/
 
 	// Set test parameters matrix
-	// Use vector_pricer on each input vector
+	// data set: K = 100, S = 105, T = 0.5, r = 0.1, b = 0 and sig = 0.36. 
+	// (exact delta call = 0.5946, delta put = -0.3566).
 	
 	//====================
 
@@ -578,40 +573,7 @@ int main()
 	cout << "\n1.  Resetting and Setting up test parameters ... \n";
 
 	// create a map for testing parameter "S"
-	map<string, double> test_params_S;
-	test_params_S["T"] = 0.25; test_params_S["K"] = 65.0;
-	test_params_S["sig"] = 0.3; test_params_S["r"] = 0.08;
-	test_params_S["S"] = 55.0; test_params_S["param_end"] = 65.0;
-	test_params_S["step_size"] = 1.0;
-
-	// create a map for testing parameter "K"
-	map<string, double> test_params_K;
-	test_params_K["T"] = 0.25; test_params_K["S"] = 60.0;
-	test_params_K["sig"] = 0.3; test_params_K["r"] = 0.08;
-	test_params_K["K"] = 40.0; test_params_K["param_end"] = 90.0;
-	test_params_K["step_size"] = 1.0;
-
-	// create a map for testing parameter "T"
-	map<string, double> test_params_T;
-	test_params_T["S"] = 60.0; test_params_T["K"] = 65.0;
-	test_params_T["sig"] = 0.3; test_params_T["r"] = 0.08;
-	test_params_T["T"] = 0.083; test_params_T["param_end"] = 1.0;
-	test_params_T["step_size"] = 0.083;
-
-	// create a map for testing parameter "r"
-	map<string, double> test_params_r;
-	test_params_r["S"] = 60.0; test_params_r["K"] = 65.0;
-	test_params_r["sig"] = 0.3; test_params_r["T"] = 0.25;
-	test_params_r["r"] = 0.005; test_params_r["param_end"] = 0.1;
-	test_params_r["step_size"] = 0.005;
-
-	// create a map for testing parameter "sig"
-	map<string, double> test_params_sig;
-	test_params_sig["S"] = 60.0; test_params_sig["K"] = 65.0;
-	test_params_sig["r"] = 0.08; test_params_sig["T"] = 0.25;
-	test_params_sig["sig"] = 0.01; test_params_sig["param_end"] = 0.5;
-	test_params_sig["step_size"] = 0.01;
-
+	
 	option_type = "C"; underlying_security = "Stock";
 
 	// Clear vector for option prices
@@ -622,11 +584,17 @@ int main()
 	cout << "\n3.  Creating prices matrix container to store input test parameters and\n"
 		<< "output option prices ... \n";
 	map<string, map<string, double>> params_map;
-	params_map["S"] = (test_params_S);
-	//params_map["K"] = (test_params_K);
-	//params_map["T"] = (test_params_T);
-	//params_map["r"] = (test_params_r);
-	//params_map["sig"] = (test_params_sig);
+	
+	// create map<string, vector<double>> to store input parameters 
+	map<string, vector<double>> params
+	{
+		{ "S", { 85.0, 125.0, 1.0 } },
+		{ "K", { 80.0, 120.0, 1.0 } },
+		{ "T", { 0.25, 0.75, 0.05 } },
+		{ "r", { 0.05, 0.15, 0.01 } },
+		{ "sig", { 0.05, 0.5, 0.05 } }
+	};
+
 
 	// Call matrix_pricer() to calculate option prices for various values of stock price S, with other
 	// parameters, K, T, sig, r, b, option type, and underlying asset held constant
@@ -638,11 +606,16 @@ int main()
 	// The matrix_pricer_by_fn() definition includes a call to the vector_pricer_by_fn() function
 	cout << "\nCalling matrix pricer function to calculate option prices, deltas and gammas "
 		<< "\nbased on test parameter: " << test_param << " ... \n";
-	for (auto name_ptr : fn_name_ptr)
-	{
-		matrix_pricer_by_fn(params_map, option_measures, name_ptr.second, name_ptr.first, 
-			option_type, underlying_security);
-	}
+	//for (auto name_ptr : fn_name_ptr)
+	//{
+		//matrix_pricer_by_fn(params_map, option_measures, name_ptr.second, name_ptr.first, 
+			//option_type, underlying_security);
+	//}
+
+
+	// test each option parameter across a range of values: get Deltas for test_option
+	m_prices_fn(test_option, params, option_measures, fn_name_ptr["Delta"], "Delta");
+
 
 	// display elements of option_measures map
 	for (auto it = option_measures.begin(); it != option_measures.end(); ++it)

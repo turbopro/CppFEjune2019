@@ -282,13 +282,19 @@ void m_prices(EuropeanOption& option, map<string, vector<double>>& params,
 
 
 // testing ****************************
-// --- not yet WORKING
+// WORKING
 // does part A, EuroOption basics
 // prices()
-void prices_fn(EuropeanOption& option, map<string, vector<double>>& prices_map, EuroMemFn fn_ptr,
+void prices_fn(EuropeanOption option, map<string, vector<double>>& prices_map, EuroMemFn fn_ptr,
 	string fn_name, string test_param, double param_start, double param_end, double step);
 
 // vector<double>& option_prices, 
 
+// testing ****************************
+// not yet WORKING
+// does part A, EuroOption basics
+// m_prices_fn()
+void m_prices_fn(EuropeanOption& option, map<string, vector<double>>& params,
+	map<string, vector<double>>& prices_map, EuroMemFn fn_ptr, string fn_name);
 
 #endif

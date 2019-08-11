@@ -292,10 +292,8 @@ void v_pricer(vector<EuropeanOption>& test_option, vector<double>& prices)
 // WORKING
 // does part A, EuroOption basics
 // m_prices()
-//map<string, vector<double>> m_prices(EuropeanOption& option, map<string, vector<double>>& params)
 void m_prices(EuropeanOption& option, map<string, vector<double>>& params,
 	map<string, vector<double>>& prices_map)
-//map<string, vector<double>> m_prices(EuropeanOption& option, map<string, vector<double>>& params)
 {
 	for (auto it = params.begin(); it != params.end(); ++it)
 		prices(option, prices_map[it->first], it->first, it->second[0], it->second[1], it->second[2]);
@@ -305,7 +303,7 @@ void m_prices(EuropeanOption& option, map<string, vector<double>>& params,
 // WORKING
 // does part A, EuroOption basics
 // prices_fn()
-void prices_fn(EuropeanOption& option, map<string, vector<double>>& prices_map, EuroMemFn fn_ptr,
+void prices_fn(EuropeanOption option, map<string, vector<double>>& prices_map, EuroMemFn fn_ptr,
 	string fn_name, string test_param, double param_start, double param_end, double step)
 {
 	//vector<double> option_prices;
@@ -324,3 +322,19 @@ void prices_fn(EuropeanOption& option, map<string, vector<double>>& prices_map, 
 
 
 // vector<double>& option_prices, 
+
+
+// testing ****************************
+// -- not yet WORKING
+// does part A, EuroOption basics
+// m_prices_fn()
+void m_prices_fn(EuropeanOption& option, map<string, vector<double>>& params,
+	map<string, vector<double>>& prices_map, EuroMemFn fn_ptr, string fn_name)
+{
+	for (auto it = params.begin(); it != params.end(); ++it)
+		prices_fn(option, prices_map, fn_ptr, fn_name, 
+		it->first, it->second[0], it->second[1], it->second[2]);
+}
+
+
+
