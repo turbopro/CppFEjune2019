@@ -321,14 +321,8 @@ void m_prices_fn(EuropeanOption option, map<string, vector<double>>& params,
 // prices()
 //template <typename T>
 void prices_setfn(EuropeanOption& option, vector<double>& option_prices,
-	const EuroSetFn p_setter_fn, const vector<double>& param_vec);
+	EuroSetFn p_setter_fn, const vector<double>& param_vec);
 
-// testing ****************************
-// not yet WORKING
-// does part A, EuroOption basics
-// matrix_pricer_by_fn()
-void matrix_prices_setfn(EuropeanOption& option, map<string, vector<double>>& params,
-	map<string, vector<double>>& option_prices_map, map <string, EuroSetFn> p_setter_fn);
 
 
 // testing ****************************

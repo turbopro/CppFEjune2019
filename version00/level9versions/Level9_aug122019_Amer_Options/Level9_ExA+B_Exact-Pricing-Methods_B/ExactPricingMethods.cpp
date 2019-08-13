@@ -317,7 +317,7 @@ void prices(EuropeanOption& option, vector<double>& option_prices,
 // does part A, EuroOption basics
 // prices_setfn()
 void prices_setfn(EuropeanOption& option, vector<double>& option_prices,
-	const EuroSetFn p_setter_fn, const vector<double>& param_vec)
+	EuroSetFn p_setter_fn, const vector<double>& param_vec)
 {
 	for (double param_idx = param_vec[1]; param_idx <= param_vec[2]; param_idx += param_vec[3])
 	{
@@ -358,18 +358,6 @@ void matrix_pricer_by_fn0(EuropeanOption& option, map<string, vector<double>>& p
 			p_pricer_fn, it->second);
 }
 
-
-// testing ****************************
-// not yet WORKING
-// does part A, EuroOption basics
-// matrix_pricer_by_fn()
-void matrix_prices_setfn(EuropeanOption& option, map<string, vector<double>>& params,
-	map<string, vector<double>>& option_prices_map, map <string, EuroSetFn> p_setter_fn)
-{
-	for (auto it = params.begin(); it != params.end(); ++it)
-		prices_setfn(option, option_prices_map[it->first], p_setter_fn[it->first],
-		it->second);
-}
 
 
 
@@ -471,9 +459,8 @@ void display_measures(map<string, vector<double>> option_measures, string option
 }
 
 
-void display_measures(vector<double> option_measures, string option_type)
+void display_measures(vector<double> option_measures)
 {
-	cout << "\nOption values/prices are:\n";
 	for (auto measure : option_measures)
-		cout << measure << endl;
+		cout << "\npotion values/prices are:\n" << measure << endl;
 }
