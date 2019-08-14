@@ -53,7 +53,7 @@ public:	// Public functions
 	EuropeanOption(const map<string, double>& option_parameters,	// constructor
 		const string& option_type, const string& security, const double& b_adjust = 0.0);
 	EuropeanOption(const EuropeanOption& option2);			// Copy constructor
-	//EuropeanOption(const string& optionType);				// Create option type
+	EuropeanOption(const string& optionType);				// Create option type
 	virtual ~EuropeanOption();								// destructor for base class
 
 	EuropeanOption& operator = (const EuropeanOption& option2);	// assignment operator
@@ -88,7 +88,7 @@ public:	// Public functions
 	void SetR(double U) { r = U; }
 	void SetSig(double U) { sig = U; }
 	void SetB(double U) { b = U; }
-	void SetOptionType(const string& ot);
+
 
 	// Modifier functions
 	virtual void toggle();		// Change option type (C/P, P/C)

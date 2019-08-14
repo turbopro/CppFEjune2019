@@ -104,6 +104,16 @@ EuropeanOption::EuropeanOption(const EuropeanOption& o2)
 	: T(o2.T), K(o2.K), sig(o2.sig), r(o2.r), S(o2.S),
 	opt_type(o2.opt_type), unam(o2.unam), b(o2.b) {}
 
+// Set option type
+EuropeanOption::EuropeanOption(const string& optionType)
+{
+	if (optionType == "c" || optionType == "C")
+		opt_type = "C";
+	else if (optionType == "p" || optionType == "P")
+		opt_type = "P";
+	else opt_type = "C";
+}
+
 // destructor (virtual for base class)
 EuropeanOption::~EuropeanOption() {}
 
@@ -177,16 +187,6 @@ void EuropeanOption::toggle()
 		opt_type = "P";
 	else
 		opt_type = "C";
-}
-
-// Set option type
-void EuropeanOption::SetOptionType(const string& optionType)
-{
-	if (optionType == "c" || optionType == "C")
-		opt_type = "C";
-	else if (optionType == "p" || optionType == "P")
-		opt_type = "P";
-	else opt_type = "C";
 }
 
 

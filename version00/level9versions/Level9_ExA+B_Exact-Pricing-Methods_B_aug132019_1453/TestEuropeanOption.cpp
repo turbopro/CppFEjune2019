@@ -31,7 +31,7 @@
 int main()
 {
 	// We make the class EuropeanOption a base class
-	// An American option may be considered a special case of an European option
+	// An American optionmay be considered a special case of an European option
 	// The class AmericanOption is derived from the class EuropeanOption
 	// We use public inheritance
 	
@@ -158,7 +158,6 @@ int main()
 			cout << "\nPut Option Price:  " << parity_vals.get<0>()
 				<< "\nCall Option Price: " << parity_vals.get<1>() << endl << endl;
 
-			// As a reference, display the given values listed in the Batches matrix
 			cout << "Batch " << i+1 << " stored call and put prices:\n"
 				<< "\nPut Option price:  " << (*it)["P"]
 				<< "\nCall Option price: " << (*it)["C"] << endl << endl << endl;
@@ -171,12 +170,11 @@ int main()
 			<< "|                  Approach 2                   |\n"
 			<< "|===============================================|\n\n";
 
+		 //APPROACH 2: given a set of put and call prices, we calculate the call and put prices
+		 //then compare the calculated prices vs the given prices
+		 //We use our check_put_call_parity() function
 
-		// APPROACH 2: given a set of put and call prices, we calculate the call and put prices
-		// then compare the calculated prices vs the given prices
-		// We use our check_put_call_parity() function
-
-		cout << "Approach 2: We will compare the 'C' and 'P' prices listed for the individual batch\n" 
+		cout << "Approach 2: We will compare the 'C' and 'P' prices stored for the individual batch\n" 
 			<< "vector, with the corresponding calculated Call and Put values for that batch:\n";
 
 		i = 0;		// numeric indexer
@@ -199,7 +197,6 @@ int main()
 	
 		cout << endl;
 
-
 		/*    *********************************
 		-- C --
 		Say we wish to compute option prices for a monotonically increasing range of underlying values 
@@ -212,80 +209,76 @@ int main()
 
 		cout << "\n\n"
 			<< "|==============================================|\n"
-			<< "|               C: matrix_pricer               |\n"
+			<< "|               C: vector_pricer               |\n"
 			<< "|==============================================|\n\n";
 
-		// Set test parameters, input option, output vector, and option parameter function
-		// pointer: the function pointer allows us to set any option parameter to a required
-		// value
-		// Input option is a European Option that is set with the option parameters that we will
-		// hold constant; the test parameter, "S", will be monotonically increased, the set as
-		// an updated value to the option, then the price calculated
-		// Output vector is a vector of doubles that will store the calculated prices
+		// Set test parameters, input map and output vector
+		// Input map<string,double> is a container with test parameter values
 		// For the particular parameter under test, establish start/end values and step size, to 
 		// be used to retrieve option prices relevant to the test parameter value
 		// Set values for test parameter, option type, and underlying security
 		// As an example, when we test parameter "S," we will hold parameters "T" "K" "sig" "r" 
 		// constant, while we increase the value of "S" monotnonically from a start to and end value
 		 
-		// Test paramter = S
-		// S start value = 50.0
-		// S end value   = 80.0
-		// S step size   = 1.0
-		// For a Stock, the b_adjust (cost of carry) parameter will be assigned the r value in
-		// the class constructor; the default b_adjust parameter value of vector_pricer will suffice
+		// For K = 65.0
+		// Start value for S = 50.0
+		// End value for S = 64
+		// Step size = 1.0
+		// For a Stock, the b_adjust (cost of carry) parameter will be assigned the r value for in
+		// the constructor; the default b_adjust parameter value of vector_pricer will suffice
 	
-		// Option paramters from Batch 1 will be used to create/test our EuropeanOption object
+
 		// Batch 1: T = 0.25, K = 65, sig = 0.30, r = 0.08, S = 60 (then C = 2.13337, P = 5.84628)
 
 		cout << "\nSetting up test parameters ... \n";
-		string test_param = "S", option_type = "C", underlying_security = "Stock";
-		double param_initial = 60.0, param_start = 50.0, param_end = 80.0, step_size = 1.0;
-		// input vector of values for test parameter 
-		vector<double> input_param_vec{ param_initial, param_start, param_end, step_size };
-		EuropeanOption test_euro(batches[0], option_type, underlying_security);
-		
-		// Create function pointers to setter member functions as a map<string, EuroSetFN> container
-		// EuroSetFn is a typedef pointer to a EuropeanOption setter member function 
-		// We set option parameters by use of the function pointers in our vector_pricer function
+		string test_param = "K", option_type = "C", underlying_security = "Stock";
+		double param_initial = 60.0, param_start = 50.0, param_end = 64.0, step_size = 1.0;
+		map<string, double> test_params_map{ {"T", 0.25}, { "K", 65.0 }, { "sig", 0.3 },
+			{ "r", 0.08 }, { "S", 60.0 } };
+		EuropeanOption test_euro(test_params_map, option_type, underlying_security);
+		cout << "\ntest_euro parameters:\n";
+		test_euro.Print();
+		cout << "\ntest_euro call price: " << test_euro.Price() << endl;
+		test_euro.toggle();
+		cout << "\ntest_euro put price: " << test_euro.Price() << endl;
+		test_euro.toggle();
+
+		EuropeanOption test_euro_0(batches[0], option_type, underlying_security);
+		double p_start = 60.0, p_end = 70.0, step_sz = 1.0;
+		vector<EuropeanOption> k_test_vec;
+
+		// Create vector for option prices
+		cout << "\nCreating vector to store option prices ... \n";
+		vector<double> option_prices;
+
+		// Call vector_pricer() to calculate option prices for various values of stock price S
+		// vector_pricer() takes a map<string, double>, a vector of double, an end value double 
+		// for the test parameter, a step size value double, an option type string, and an 
+		// underlying security string  
+		cout << "\nCalling vector_pricer function to calculate option prices based on test parameter ... \n";
+		//vector_pricer(test_params_map, option_prices, test_param, param_end, step_size,
+			//option_type, underlying_security);
+		//prices(test_euro, option_prices, test_param, p_start, p_end, step_sz);
+
+		// create function pointers to setter member functions
 		map<string, EuroSetFn> p_setter_fn
 		{ {"S", &EuropeanOption::SetS}, {"K", &EuropeanOption::SetK}, {"T", &EuropeanOption::SetT},
 			{"r", &EuropeanOption::SetR}, {"sig", &EuropeanOption::SetSig}, {"b", &EuropeanOption::SetB},
 		};
 
-		cout << "\ntest_euro ";
-		test_euro.Print();
-		cout << "\ntest_euro call price: " << test_euro.Price() << endl;
-		test_euro.toggle();			// change option_type to put, "P"
-		cout << "\ntest_euro put price: " << test_euro.Price() << endl;
-		test_euro.toggle();			// reset option_type to call, "C"
+		// input vector of values for test parameter 
+		vector<double> param_vec{ param_initial, param_start, param_end, step_size };
 
-		// Create output vector for option prices
-		cout << "\n\nCreating vector to store option prices ... \n";
-		vector<double> option_prices;
-
-		// Call vector_pricer() to calculate option prices for various values of stock price S
-		// vector_pricer() takes an option, a vector of double to store option prices, a
-		// function pointer that points to the relevant test parameter set member function,
-		// and a vector of doubles of input parameters 
-		// Test parameter "param_initial" storesthe initial value ofthe parameter, which will
-		// be used to reset the test parameter after testing through its range of values
-
-		cout << "\nCalling vector_pricer function to calculate option prices based on test parameter ... \n";
-		
 		// get Call option prices for monotonically increasing values of S
-		vector_pricer(test_euro, option_prices, p_setter_fn["S"], input_param_vec);
+		prices_setfn(test_euro, option_prices, p_setter_fn["S"], param_vec);
 
-		// display call option prices
-		cout << "\nFor Test Parameter 'S', Call ";
-		display_measures(option_prices, "C");
+		// display elements of prices vector
+		for (auto it = option_prices.begin(); it != option_prices.end(); ++it)
+		{
+			if (option_type == "C") cout << "call option prices: " << (*it) << endl;
+			else cout << "put option prices: " << (*it) << endl;
+		}
 
-		// display put option prices
-		test_euro.toggle();
-		option_prices.clear();
-		vector_pricer(test_euro, option_prices, p_setter_fn["S"], input_param_vec);
-		cout << "\n\nFor Test Parameter 'S', Put ";
-		display_measures(option_prices, "C");
 		
 		cout << endl << endl;
 	
@@ -298,36 +291,32 @@ int main()
 		/*	*****************************
 			-- D --
 		d) Now we wish to extend part c and compute option prices as a function of
-		i) expiry time, ii) volatility, or iii) any of the option pricing parameters.
-		Essentially, the purpose here is to be able to input a matrix (vector of vectors)
-		of option parameters and receive a matrix of option prices as the result.
-		Encapsulate this functionality in the most flexible/robust way you can think of.
+		// i) expiry time, ii) volatility, or iii) any of the option pricing parameters.
+		// Essentially, the purpose here is to be able to input a matrix (vector of vectors)
+		// of option parameters and receive a matrix of option prices as the result.
+		// Encapsulate this functionality in the most flexible/robust way you can think of.
+		
+		Reset/Set test parameters, input/output matrix and vector
+		 Prices matrix is a vector of map<string, double> containers with test parameter values
+		 For the particular parameter under test, establish start/end values and step size, to 
+		 be used to determine vector size
+		 Set values for test parameter, option type, and underlying security
+		 As an example, when we test parameter "S," we will hold parameters "T" "K" "sig" "r" 
+		 constant, while we increase the value of "S" monotnonically from a start to and end value
+		 For a Stock, the b_adjust (cost of carry) parameter will be assigned the r value for in
+		 the constructor; the default b_adjust parameter value of matrix_pricer will suffice
 		*/
-		
-		// Reset/Set test parameters, input/output matrix and vector
-		// Prices matrix is a vector of map<string, double> containers with test parameter values
-		// For the particular parameter under test, establish start/end values and step size, to 
-		// be used to determine vector size
-		// Set values for test parameter, option type, and underlying security
-		// As an example, when we test parameter "S," we will hold parameters "T" "K" "sig" "r" 
-		// constant, while we increase the value of "S" monotnonically from a start to and end value
-		// For a Stock, the b_adjust (cost of carry) parameter will be assigned the r value for in
-		// the constructor; the default b_adjust parameter value of matrix_pricer will suffice
-		
 
 		cout << "\n1.  Resetting and Setting up test parameters ... \n";
 		
-		// We will use the same batches map container for test options
+		// We will use the batches map container for test options
 		// Batch 1: T = 0.25, K = 65, sig = 0.30, r = 0.08, S = 60 (then C = 2.13337, P = 5.84628) 
+
+		//EuropeanOption test_euro_0(batches[0], option_type, underlying_security);
+		p_start = 60.0; p_end = 70.0; step_size = 1.0;
 		
-		// Create map<string, vector<double>> to store input parameters 
-		// Each element has the test parameter as a string key with its corresponding vector of 
-		// doubles for the test parameter values:
-		// vector position 0 -> parameter initial value
-		// vector position 1 -> parameter start value
-		// vector position 2 -> parameter end value
-		// vector position 3 -> parameter step size
-		map<string, vector<double>> input_params_mat
+		// create map<string, vector<double>> to store input parameters 
+		map<string, vector<double>> params
 		{
 			{ "S", { 60.0, 60.0, 70.0, 1.0 } },
 			{ "K", { 65.0, 60.0, 70.0, 1.0 } },
@@ -336,16 +325,32 @@ int main()
 			{ "sig", { 0.3, 0.05, 0.5, 0.05 } }
 		};
 
-		// Given that the matrix_pricer will calculate vectors of doubles for each test parameter,
-		// a map<string, vector<double>> container will be used to collect output
-		map<string, vector<double>> euro_prices_mat;
-		matrix_pricer(test_euro, input_params_mat, euro_prices_mat, p_setter_fn);
+		//map<string, vector<double>> euro_prices = m_prices(test_euro_0, params);
+		map<string, vector<double>> euro_prices;
+		matrix_prices_setfn(test_euro_0, params, euro_prices, p_setter_fn);
 
 		// display elements of prices vector
-		cout << "\nmatrix_prices_setfn output:\n\n";
-		display_measures(euro_prices_mat, test_euro.OptionType());
-		
-		cout << endl << endl;
+		cout << "\nmarix_prices_setfn output:\n\n";
+		display_measures(euro_prices, "C");
+		/*
+		for (auto it = euro_prices.begin(); it != euro_prices.end(); ++it)
+		{
+			if (option_type == "C")
+			{
+				cout << "call option prices for testparameter, - "
+					<< (*it).first << " - are:\n";
+				for (auto price : it->second)
+					cout << price << endl;
+			}
+			else
+			{
+				cout << "\nput option prices for testparameter, - "
+					<< (*it).first << " - are:\n";
+				for (auto price : it->second)
+					cout << price << endl;
+			}
+		}
+		*/
 
 	}
 	catch (EuropeanOptionException& error_msg)	// catch OptionExceptions
@@ -375,6 +380,7 @@ int main()
 			<< "|     Option Sensitivities, aka the Greeks     |\n"
 			<< "|==============================================|\n\n";
 
+		//Option Sensitivities, aka the Greeks
 
 		/*
 		a) Implement the above formulae for gamma for call and put future option pricing 
@@ -401,7 +407,8 @@ int main()
 		else
 			cout << "\nPut option Delta value: " << test_option.Delta() << endl;
 
-		// Toggle option type to get put option prices
+		// Get put option price
+		// Toggle option type from call to put
 		test_option.toggle();
 	
 		// Display 
@@ -417,15 +424,15 @@ int main()
 	
 		cout << endl << endl;
 	
-		/*
-		b) We now use the code in part a to compute call delta price for a monotonically 
-		increasing range of underlying values of S, for example 10, 11, 12, …, 50. To 
-		this end, the output will be a vector and it entails calling the above formula 
-		for a call delta for each value S and each computed option price will be store 
-		in a std::vector<double> object. It will be useful to reuse the above global 
-		function that produces a mesh array of double separated by a mesh size h.
-		*/
-		
+		///*
+		//b) We now use the code in part a to compute call delta price for a monotonically 
+		//increasing range of underlying values of S, for example 10, 11, 12, …, 50. To 
+		//this end, the output will be a vector and it entails calling the above formula 
+		//for a call delta for each value S and each computed option price will be store 
+		//in a std::vector<double> object. It will be useful to reuse the above global 
+		//function that produces a mesh array of double separated by a mesh size h.
+		//*/
+		//
 		// Set test parameters, input map and output vector
 		// Input map<string,double> is a container with test parameter values
 		// For the particular parameter under test, establish start/end values and step size, to 
@@ -449,7 +456,7 @@ int main()
 		};
 
 		// input vector of values for test parameter 
-		vector<double> input_param_vec{ param_initial, param_start, param_end, step_size };
+		vector<double> param_vec{ param_initial, param_start, param_end, step_size };
 
 		// Create a map<string, vector<double>> container for option prices: 
 		// The string stores the name of the member function used to obtain the prices/values 
@@ -482,18 +489,16 @@ int main()
 			{"Delta", &EuropeanOption::Delta}, {"Gamma", &EuropeanOption::Gamma} };
 
 		// change option type to call, "C"
-		test_option.SetOptionType("C");
-		cout << "\n\ntest_option type :";
-		test_option.Print();
-		cout << "\n\n";
+		test_option.toggle();
 	
 		// create vector of doubles to collect/store deltas
 		vector<double> option_prices;
 		//map<string, vector<double>> option_measures;
-		
-		// call vector_pricer with 5 arguments: extra argument is "p_price_fn" function
-		// pointer to delta, gamma, or price member functions
-		vector_pricer(test_option, option_prices, p_setter_fn["S"], p_price_fn[fn_name[0]], input_param_vec);
+		// get values for delta for a monotonically increasing range of S values
+		//prices_fn(test_option, option_measures, fn_name_ptr[fn_name[0]], fn_name[0], test_param, 
+			//param_start, param_end, step_size);
+
+		pricer_set_by_fn(test_option, option_prices, p_setter_fn["S"], p_price_fn[fn_name[0]], param_vec);
 
 		// display deltas for range of S
 		cout << "\nTest parameter:\t" << test_param
@@ -538,8 +543,8 @@ int main()
 
 		for (auto name : fn_name)
 		{
-			// get values for delta, gamma,prices for a monotonically increasing range of S values
-			vector_pricer(test_option, option_prices, p_setter_fn["S"], p_price_fn[name], input_param_vec);
+			// get values for delta for a monotonically increasing range of S values
+			pricer_set_by_fn(test_option, option_prices, p_setter_fn["S"], p_price_fn[name], param_vec);
 			
 			option_measures[name] = option_prices;		// add option measures to map container
 			option_prices.clear();						// clear vector of measures
@@ -601,8 +606,8 @@ int main()
 	
 		option_type = "C"; underlying_security = "Stock";
 
-		// Clear map container for option prices
-		cout << "\n2.  Clearing map container to store option delta, gamma, and prices ... \n";
+		// Clear vector for option prices
+		cout << "\n2.  Clearing vector to store option prices ... \n";
 		option_measures.clear();				// option measures vector store
 
 		// Prices matrix container: vector of map<string, double>, of size based on test parameter values
@@ -660,8 +665,6 @@ int main()
 			}
 		}
 
-		cout << endl << endl;
-
 	}
 	catch (EuropeanOptionException& error_msg)	// catch OptionExceptions
 	{
@@ -674,8 +677,6 @@ int main()
 
 	cout << endl << endl;
 
-
-	//////////////////////////////////////////////
 	/*
 	d) We now use divided differences to approximate option sensitivities. In some cases, 
 	an exact formula may not exist (or is difficult to find) and we resort to numerical 
@@ -868,8 +869,7 @@ int main()
 	cout << "\nCalling prices_setfn function to calculate perpetual American call option\n"
 		<< "prices based on test parameter ... \n";
 	
-	//prices_setfn(amer_option, amer_call_option_prices, p_setter_fn["S"], param_vec);
-	vector_pricer(amer_option, amer_call_option_prices, p_setter_fn["S"], param_vec);
+	prices_setfn(amer_option, amer_call_option_prices, p_setter_fn["S"], param_vec);
 
 	cout << endl << endl;
 	for (auto it : amer_call_option_prices) 
@@ -878,7 +878,7 @@ int main()
 	cout << "\nCalling prices_setfn function to calculate perpetual American put option\n"
 		<< "prices based on test parameter ... \n";
 	amer_option.toggle();
-	vector_pricer(amer_option, amer_put_option_prices, p_setter_fn["S"], param_vec);
+	prices_setfn(amer_option, amer_put_option_prices, p_setter_fn["S"], param_vec);
 
 	cout << endl << endl;
 	for (auto it : amer_put_option_prices)
@@ -898,7 +898,7 @@ int main()
 	amer_option.Print();
 
 	// get call option prices
-	vector_pricer(amer_option, amer_call_option_prices, p_setter_fn["S"], p_price_fn["Price"], param_vec);
+	pricer_set_by_fn(amer_option, amer_call_option_prices, p_setter_fn["S"], p_price_fn["Price"], param_vec);
 
 	cout << endl << endl;
 	for (auto it = amer_call_option_prices.begin(); it != amer_call_option_prices.end(); ++it)
@@ -910,7 +910,7 @@ int main()
 
 	// get put option prices
 	amer_option.toggle();
-	vector_pricer(amer_option, amer_call_option_prices, p_setter_fn["S"], p_price_fn["Price"], param_vec);
+	pricer_set_by_fn(amer_option, amer_call_option_prices, p_setter_fn["S"], p_price_fn["Price"], param_vec);
 
 	cout << endl << endl;
 	for (auto it = amer_call_option_prices.begin(); it != amer_call_option_prices.end(); ++it)
