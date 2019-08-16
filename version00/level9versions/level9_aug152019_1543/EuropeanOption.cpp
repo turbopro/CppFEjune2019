@@ -52,7 +52,6 @@ double EuropeanOption::N(double x) const
 EuropeanOption::EuropeanOption()
 	: T(0.5), K(110.0), sig(0.2), r(0.05), S(100.0), opt_type("C"), unam("Stock"), b(0.05) {}
 
-
 // constructor takes four arguments: 
 // op		-	map<string, vector> with test parameter values
 //				We use a map to map option parameter to value for ease of reference 
@@ -107,16 +106,13 @@ EuropeanOption::EuropeanOption(const map<string, double>& op, const string& ot,
 	else b = r - b_adjust;				// asset/security = Currency or Index
 }
 
-
 // copy constructor
 EuropeanOption::EuropeanOption(const EuropeanOption& o2)
 	: T(o2.T), K(o2.K), sig(o2.sig), r(o2.r), S(o2.S),
 	opt_type(o2.opt_type), unam(o2.unam), b(o2.b) {}
 
-
 // destructor (virtual for base class)
 EuropeanOption::~EuropeanOption() {}
-
 
 // assignment operator
 EuropeanOption& EuropeanOption::operator = (const EuropeanOption& option2)
@@ -131,7 +127,6 @@ EuropeanOption& EuropeanOption::operator = (const EuropeanOption& option2)
 
 	return *this;
 }
-
 
 // Functions that calculate option price and sensitivities
 // Use with default constructor: asset price is accepted here as a single argument double
@@ -183,9 +178,7 @@ double EuropeanOption::Gamma() const
 	return Gamma(S);
 }
 
-
 // Modifier functions
-// toggle the option type: if "C" set to "P", and vice versa
 void EuropeanOption::toggle()
 { // Change option type (C/P, P/C)
 
@@ -221,7 +214,6 @@ void EuropeanOption::Print() const
 }
 
 
-// -------------- Put-Call Parity -----------------
 // put_call_parity() function: get the Call or Put price of the Stock option
 // Calculate the relevant Put price if option type is a call option; conversely,
 // calculate the Call price if option type is a put option

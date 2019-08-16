@@ -47,8 +47,8 @@ protected:
 	string opt_type;// Option type: "C" = call, "P" = put
 	string unam;	// Name of underlying asset
 
-	// Static data member for comparison of double variables
-	// Floating point precision factor
+	// static data member for comparison of double variables
+	// floating point precision factor
 	static const double epsilon;
 
 public:	// Public functions
@@ -97,7 +97,7 @@ public:	// Public functions
 	void SetOptionType(const string& ot);		// Set the option type
 	void toggle();								// Change option type: from C to P, or from P to C)
 
-	// ---------- Put-Call parity ------------
+	// ---------- Put/Call parity ------------
 	// calculate and return a tuple of call and put prices at put-call parity
 	boost::tuple<double, double> put_call_parity() const;
 	// check if call and put prices at Stock price S make for a put-call parity

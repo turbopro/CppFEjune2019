@@ -124,7 +124,7 @@ EuropeanOption& EuropeanOption::operator = (const EuropeanOption& option2)
 	// guard against self assignment
 	if (this == &option2) return *this;
 
-	// deep copy member data
+	// assign member data
 	r = option2.r; sig = option2.sig; K = option2.K; T = option2.T;
 	b = option2.b; S = option2.S;
 	opt_type = option2.opt_type; unam = option2.unam;
@@ -281,3 +281,6 @@ double EuropeanOption::GammaDividedDiff(double h)
 	double price_at_S = Price(S);
 	return  (price_plus_h - (2 * price_at_S) + price_minus_h) / (h * h);
 }
+
+
+

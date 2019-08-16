@@ -51,7 +51,6 @@ public:
 	virtual std::string GetMessage() const = 0;		// pure virtual function: returns a string
 };
 
-
 // InvalidOptionTypeException class to handle invalid EuropeanOption type errors
 class InvalidOptionTypeException : public EuropeanOptionException
 {
@@ -64,8 +63,7 @@ public:
 	virtual ~InvalidOptionTypeException();					// destructor
 	virtual std::string GetMessage() const;					// getter method
 };
-
-
+	
 // InvalidUnderlyingException class to handle invalid EuropeanOption underlying
 // asset/security type errors
 class InvalidUnderlyingException : public EuropeanOptionException
@@ -80,7 +78,6 @@ public:
 	virtual std::string GetMessage() const;					// getter method
 };
 
-
 // InvalidParameterValueException class to handle invalid parameter values: T = K = S = sig = 0
 class InvalidParameterValueException : public EuropeanOptionException
 {
@@ -93,7 +90,6 @@ public:
 	virtual ~InvalidParameterValueException();					// destructor
 	virtual std::string GetMessage() const;						// getter method
 };
-
 
 // InvalidValueException class to handle invalid values that may generate errors: in
 // particular, divide by zero errors

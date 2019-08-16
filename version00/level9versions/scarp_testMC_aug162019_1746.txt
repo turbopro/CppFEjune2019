@@ -1,0 +1,81 @@
+/*
+	long N;
+	cout << "Number of subintervals in time: ";
+	cin >> N;
+
+	// Create the basic SDE (Context class)
+	Range<double> range(0.0, cev_option.T());
+	double VOld = S_0;
+	double VNew = 0.0;
+
+	std::vector<double> t_mesh = range.mesh(N);
+	
+	// V2 mediator stuff
+	long NSim = 50000;
+	cout << "Number of simulations: ";
+	cin >> NSim;
+
+	double k = cev_option.T() / double(N);
+	double sqrk = sqrt(k);
+
+	// Normal random number
+	double dW;
+	double price = 0.0;	// Option price
+
+	// NormalGenerator is a base class
+	// unique_ptr will manage the heap memory allocated for the random number
+	std::unique_ptr<NormalGenerator> uptr_normal(new BoostNormal());
+
+	//std::vector<double> res;
+	int count = 0; // Number of times S hits origin
+	double sim_price = 0.0;
+
+	// A.
+	for (long i = 1; i <= NSim; ++i)
+	{ // Calculate a path at each iteration
+			
+		if ((i/10000) * 10000 == i)
+		{// Give status after each 1000th iteration
+
+				cout << i << endl;
+		}
+
+		VOld = S_0;
+		for (unsigned long index = 1; index < t_mesh.size(); ++index)
+		{
+			// Create a random number
+			dW = uptr_normal->getNormal();
+				
+			// The FDM (in this case explicit Euler)
+			VNew = VOld  + (k * cev_option.drift(t_mesh[index-1], VOld))
+				+ (sqrk * cev_option.diffusion(t_mesh[index-1], VOld) * dW);
+			
+			VOld = VNew;
+
+			// Spurious values
+			if (VNew <= 0.0) count++;
+		}
+			
+		double tmp = cev_option.PayOff(VNew);
+		price += (tmp)/double(NSim);
+	}
+	*/
+
+
+1 factor MC with explicit Euler
+Number of subintervals in time: 1000
+Number of simulations: 50000
+10000
+20000
+30000
+40000
+50000
+Price, after discounting: 5.83591,
+Number of times origin is hit: 0
+
+C:\Users\paola\source\repos\CppFEjune2019\Level9\Level9_ExC+D_MonteCarlo-Pricing
+-Methods\Release\Level9_ExC+D_MonteCarlo-Pricing-Methods.exe (process 8424) exit
+ed with code 0.
+To automatically close the console when debugging stops, enable Tools->Options->
+Debugging->Automatically close the console when debugging stops.
+Press any key to close this window . . .

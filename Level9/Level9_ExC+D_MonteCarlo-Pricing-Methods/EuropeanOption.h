@@ -80,10 +80,14 @@ public:	// Public functions
 	double D2(const double U) const { return (D1(U) - (sig * sqrt(T))); }
 
 	// getter functions
-	string OptionType() const { return opt_type; }			// return type of option
-	string Underlying() const { return unam; }				// return type of underlying security
-	double ParityFactor()const { return (K * exp(-r * T)); }	// return put-call parity factor
+	string OptionType() const { return opt_type; }		// return type of option
+	string Underlying() const { return unam; }			// return type of underlying security	
 	double GetS() const { return S; }						// return the price of the underlying Asset/Security
+	double GetR() const { return r; }						// return the interest rate
+	double GetT() const { return T; }						// return the Time to maturity
+	double GetK() const { return K; }						// return the strike price
+	double GetB() const { return b; }						// return the cost of carry
+	double GetSig() const { return sig; }					// return the volatility
 
 	// setter functions
 	void SetS(double U) { S = U; }
@@ -98,6 +102,7 @@ public:	// Public functions
 	void toggle();								// Change option type: from C to P, or from P to C)
 
 	// ---------- Put-Call parity ------------
+	double ParityFactor()const { return (K * exp(-r * T)); }	// return put-call parity factor
 	// calculate and return a tuple of call and put prices at put-call parity
 	boost::tuple<double, double> put_call_parity() const;
 	// check if call and put prices at Stock price S make for a put-call parity
