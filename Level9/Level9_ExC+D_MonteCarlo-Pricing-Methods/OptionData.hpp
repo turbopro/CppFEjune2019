@@ -15,42 +15,7 @@
 
 using namespace std;
 
-// Encapsulate all data in one place
-struct OptionData
-{ // Option data + behaviour
-
-	double K;
-	double T;
-	double r;
-	double sig;
-
-	// Extra data 
-	double H;		// down and out barrier
-	double D;		// dividend
-	double betaCEV;	// elasticity factor (CEV model)
-	double scale;	// scale factor in CEV model
-
-	int type;		// 1 == call, -1 == put
-
-	double myPayOffFunction(double S)
-	{ // Payoff function
-
-		if (type == 1)
-		{ // Call
-
-			return max(S - K, 0.0);
-		}
-		else
-		{ // Put
-		
-			return max (K - S, 0.0);
-		}
-	}
-};
-
-
-
-class OptionDataCEV
+class OptionData
 {
 	typedef std::unique_ptr<EuropeanOption> sp_EuroOption;
 private:
@@ -63,13 +28,13 @@ private:
 	double scale;	// scale factor in CEV model
 
 public:
-	OptionDataCEV();										// default constructor
-	OptionDataCEV(const EuropeanOption& op, const map<string, double>& CEV_data);	// constructor
-	OptionDataCEV(const map<string, double>& op, string ot,	// build option constructor
+	OptionData();											// default constructor
+	OptionData(const EuropeanOption& op, const map<string, double>& CEV_data);	// constructor
+	OptionData(const map<string, double>& op, string ot,	// build option constructor
 		string underlying, map<string, double> cev_data, double b_adjust = 0.0);
-	OptionDataCEV(const OptionDataCEV& opd);				// copy constructor
-	~OptionDataCEV() {}										// destructor
-	OptionDataCEV& operator=(const OptionDataCEV& opd);		// assignment operator
+	OptionData(const OptionData& opd);						// copy constructor
+	~OptionData() {}										// destructor
+	OptionData& operator=(const OptionData& opd);			// assignment operator
 
 	// Getter functions
 	double T() const { return m_option.GetT(); }
@@ -100,7 +65,7 @@ public:
 			m_option.GetR() * X;
 	}
 
-	// Diffusion()
+	// Diffusion
 	double diffusion(double t, double X) const
 	{
 		return m_option.GetSig() * pow(X, betaCEV);
@@ -118,7 +83,7 @@ public:
 // Takes an option_data object, an initial asset/underlying price, a double for the 
 // simulated price calculated, and an integer for the count of surious values during
 // the simulation run
-void run_sim(const OptionDataCEV& option_data, const double& S_initial,
+void run_sim(const OptionData& option_data, const double& s_initial,
 	double& sim_price, int& count);
 
 

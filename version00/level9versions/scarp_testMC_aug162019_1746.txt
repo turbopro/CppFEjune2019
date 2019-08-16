@@ -79,3 +79,37 @@ ed with code 0.
 To automatically close the console when debugging stops, enable Tools->Options->
 Debugging->Automatically close the console when debugging stops.
 Press any key to close this window . . .
+
+
+/*
+Study the source code in the file TestMC.cpp and relate it to the theory that we have 
+just discussed. The project should contain the following source files and you need to 
+set project settings in VS to point to the correct header files:
+Compile and run the program as is and make sure there are no errors.
+
+*/
+
+
+/*
+
+b) Run the MC program again with data from Batches 1 and 2. Experiment with different 
+value of NT (time steps) and NSIM (simulations or draws). In particular, how many time 
+steps and draws do you need in order to get the same accuracy as the exact solution? 
+How is the accuracy affected by different values for NT/NSIM?
+*/
+
+/*
+c) Now we do some stress-testing of the MC method. Take Batch 4. What values do we 
+need to assign to NT and NSIM in order to get an accuracy to two places behind the 
+decimal point? How is the accuracy affected by different values for NT/NSIM?
+*/
+
+
+
+Test Values for option pricing follows:
+	Batch 1: T = 0.25, K = 65, sig = 0.30, r = 0.08, S = 60 (then C = 2.13337, P = 5.84628)
+	Batch 2: T = 1.0, K = 100, sig = 0.2, r = 0.0, S = 100 (then C = 7.96557, P = 7.96557).
+	Batch 3: T = 1.0, K = 10, sig = 0.50, r = 0.12, S = 5 (C = 0.204058, P = 4.07326).
+	Batch 4: T = 30.0, K = 100.0, sig = 0.30, r = 0.08, S = 100.0 (C = 92.17570, P = 1.24750)
+	*/
+
