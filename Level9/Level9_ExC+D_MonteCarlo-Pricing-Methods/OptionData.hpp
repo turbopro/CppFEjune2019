@@ -83,8 +83,8 @@ public:
 // Takes an option_data object, an initial asset/underlying price, a double for the 
 // simulated price calculated, and an integer for the count of surious values during
 // the simulation run
-void run_sim(const OptionData& option_data, const double& s_initial,
-	double& sim_price, int& count);
+void run_sim(const OptionData& option_data, const double& s_initial, double& sim_price,
+	int& count, int N, int NSim);
 
 
 #endif

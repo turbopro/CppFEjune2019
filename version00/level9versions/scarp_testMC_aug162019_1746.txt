@@ -1,3 +1,376 @@
+// N = 1000
+   NSim from 50000 to 2000000
+
+
+Number of simulations run: 50000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.83591
+count of spurious values: 0
+
+Number of simulations run: 100000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.87066
+count of spurious values: 0
+
+Number of simulations run: 200000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.8708
+count of spurious values: 0
+
+Number of simulations run: 300000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.85655
+count of spurious values: 0
+
+Number of simulations run: 400000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.84859
+count of spurious values: 0
+
+Number of simulations run: 500000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.84122
+count of spurious values: 0
+
+Number of simulations run: 600000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.84157
+count of spurious values: 0
+
+Number of simulations run: 700000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.83725
+count of spurious values: 0
+
+Number of simulations run: 800000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.83424
+count of spurious values: 0
+
+Number of simulations run: 900000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.83612
+count of spurious values: 0
+
+Number of simulations run: 1e+06
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.83585
+count of spurious values: 0
+
+Number of simulations run: 2e+06
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.83868
+count of spurious values: 0
+
+
+
+C:\Users\paola\source\repos\CppFEjune2019\Level9\Level9_ExC+D_MonteCarlo-Pricing
+-Methods\Release\Level9_ExC+D_MonteCarlo-Pricing-Methods.exe (process 9692) exit
+ed with code 0.
+To automatically close the console when debugging stops, enable Tools->Options->
+Debugging->Automatically close the console when debugging stops.
+Press any key to close this window . . .
+
+
+/////////////////////////////////////////
+
+N = 500
+
+NSim from 50000 to 2000000
+
+
+Number of simulations run: 50000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.84315
+count of spurious values: 0
+
+Number of simulations run: 100000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.83818
+count of spurious values: 0
+
+Number of simulations run: 200000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.85533
+count of spurious values: 0
+
+Number of simulations run: 300000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.85286
+count of spurious values: 0
+
+Number of simulations run: 400000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.85729
+count of spurious values: 0
+
+Number of simulations run: 500000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.85493
+count of spurious values: 0
+
+Number of simulations run: 600000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.8509
+count of spurious values: 0
+
+Number of simulations run: 700000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.85036
+count of spurious values: 0
+
+Number of simulations run: 800000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.84551
+count of spurious values: 0
+
+Number of simulations run: 900000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.84038
+count of spurious values: 0
+
+Number of simulations run: 1e+06
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.84125
+count of spurious values: 0
+
+Number of simulations run: 2e+06
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.83901
+count of spurious values: 0
+
+
+
+C:\Users\paola\source\repos\CppFEjune2019\Level9\Level9_ExC+D_MonteCarlo-Pricing
+-Methods\Release\Level9_ExC+D_MonteCarlo-Pricing-Methods.exe (process 7944) exit
+ed with code 0.
+To automatically close the console when debugging stops, enable Tools->Options->
+Debugging->Automatically close the console when debugging stops.
+Press any key to close this window . . .
+
+
+//////////////////////////////////////
+
+/////////////////////////////////////////
+
+N = 1500
+
+NSim from 50000 to 2000000
+
+
+
+|===================================================|
+|         A: Run Simulation: Explicit Euler         |
+|===================================================|
+
+
+1 factor MC with explicit Euler
+
+
+
+Number of simulations run: 50000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.86002
+count of spurious values: 0
+
+Number of simulations run: 100000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.87535
+count of spurious values: 0
+
+Number of simulations run: 200000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.86242
+count of spurious values: 0
+
+Number of simulations run: 300000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.84577
+count of spurious values: 0
+
+Number of simulations run: 400000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.84708
+count of spurious values: 0
+
+Number of simulations run: 500000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.83855
+count of spurious values: 0
+
+Number of simulations run: 600000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.84125
+count of spurious values: 0
+
+Number of simulations run: 700000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.84439
+count of spurious values: 0
+
+Number of simulations run: 800000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.84438
+count of spurious values: 0
+
+Number of simulations run: 900000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.84592
+count of spurious values: 0
+
+Number of simulations run: 1e+06
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.84402
+count of spurious values: 0
+
+Number of simulations run: 2e+06
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.84311
+count of spurious values: 0
+
+
+
+C:\Users\paola\source\repos\CppFEjune2019\Level9\Level9_ExC+D_MonteCarlo-Pricing
+-Methods\Release\Level9_ExC+D_MonteCarlo-Pricing-Methods.exe (process 1648) exit
+ed with code 0.
+To automatically close the console when debugging stops, enable Tools->Options->
+Debugging->Automatically close the console when debugging stops.
+Press any key to close this window . . .
+
+
+
+
+
+//////////////////////////////////////
+
+/////////////////////////////////////////
+
+N = 2000
+
+NSim from 50000 to 2000000
+
+
+
+
+|===================================================|
+|         A: Run Simulation: Explicit Euler         |
+|===================================================|
+
+
+1 factor MC with explicit Euler
+
+
+
+Number of simulations run: 50000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.88236
+count of spurious values: 0
+
+Number of simulations run: 100000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.88521
+count of spurious values: 0
+
+Number of simulations run: 200000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.85507
+count of spurious values: 0
+
+Number of simulations run: 300000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.84616
+count of spurious values: 0
+
+Number of simulations run: 400000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.83545
+count of spurious values: 0
+
+Number of simulations run: 500000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.83902
+count of spurious values: 0
+
+Number of simulations run: 600000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.84253
+count of spurious values: 0
+
+Number of simulations run: 700000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.84001
+count of spurious values: 0
+
+Number of simulations run: 800000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.83929
+count of spurious values: 0
+
+Number of simulations run: 900000
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.8383
+count of spurious values: 0
+
+Number of simulations run: 1e+06
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.83971
+count of spurious values: 0
+
+Number of simulations run: 2e+06
+'Exact' price: 5.84628 :: vs :: simulated approximation: 5.8438
+count of spurious values: 0
+
+
+
+C:\Users\paola\source\repos\CppFEjune2019\Level9\Level9_ExC+D_MonteCarlo-Pricing
+-Methods\Release\Level9_ExC+D_MonteCarlo-Pricing-Methods.exe (process 3512) exit
+ed with code 0.
+To automatically close the console when debugging stops, enable Tools->Options->
+Debugging->Automatically close the console when debugging stops.
+Press any key to close this window . . .
+
+
+
+
+//////////////////////////////////////
+
+/////////////////////////////////////////
+
+BATCH 2
+
+N = 500
+
+NSim from 50000 to 2000000
+
+
+
+
+|===================================================|
+|         A: Run Simulation: Explicit Euler         |
+|===================================================|
+
+
+1 factor MC with explicit Euler
+
+
+
+Number of simulations run: 50000
+Target price: 7.96557 :: vs :: simulated approximation: 7.97047
+count of spurious values: 0
+
+Number of simulations run: 100000
+Target price: 7.96557 :: vs :: simulated approximation: 7.95795
+count of spurious values: 0
+
+Number of simulations run: 200000
+Target price: 7.96557 :: vs :: simulated approximation: 7.98477
+count of spurious values: 0
+
+Number of simulations run: 300000
+Target price: 7.96557 :: vs :: simulated approximation: 7.97273
+count of spurious values: 0
+
+Number of simulations run: 400000
+Target price: 7.96557 :: vs :: simulated approximation: 7.98306
+count of spurious values: 0
+
+Number of simulations run: 500000
+Target price: 7.96557 :: vs :: simulated approximation: 7.97869
+count of spurious values: 0
+
+Number of simulations run: 600000
+Target price: 7.96557 :: vs :: simulated approximation: 7.97165
+count of spurious values: 0
+
+Number of simulations run: 700000
+Target price: 7.96557 :: vs :: simulated approximation: 7.97051
+count of spurious values: 0
+
+Number of simulations run: 800000
+Target price: 7.96557 :: vs :: simulated approximation: 7.96304
+count of spurious values: 0
+
+Number of simulations run: 900000
+Target price: 7.96557 :: vs :: simulated approximation: 7.95525
+count of spurious values: 0
+
+Number of simulations run: 1e+06
+Target price: 7.96557 :: vs :: simulated approximation: 7.95663
+count of spurious values: 0
+
+Number of simulations run: 2e+06
+Target price: 7.96557 :: vs :: simulated approximation: 7.95385
+count of spurious values: 0
+
+
+
+C:\Users\paola\source\repos\CppFEjune2019\Level9\Level9_ExC+D_MonteCarlo-Pricing
+-Methods\Release\Level9_ExC+D_MonteCarlo-Pricing-Methods.exe (process 10580) exi
+ted with code 0.
+To automatically close the console when debugging stops, enable Tools->Options->
+Debugging->Automatically close the console when debugging stops.
+Press any key to close this window . . .
+
+
+
+
+
+
+
+
 /*
 	long N;
 	cout << "Number of subintervals in time: ";
@@ -64,6 +437,17 @@
 
 1 factor MC with explicit Euler
 Number of subintervals in time: 1000
+
+
+
+
+
+
+
+
+
+
+
 Number of simulations: 50000
 10000
 20000

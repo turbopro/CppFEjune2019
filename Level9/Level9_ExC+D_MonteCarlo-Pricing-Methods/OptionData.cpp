@@ -48,24 +48,25 @@ OptionData& OptionData::operator=(const OptionData& opd)
 
 
 // run_sim function
-void run_sim(const OptionData& option_data, const double& s_initial,
-	double& sim_price, int& count)
+void run_sim(const OptionData& option_data, const double& s_initial, double& sim_price,
+	int& count, int N, int NSim)
 {
-	long N;
-	cout << "Number of subintervals in time: ";
-	cin >> N;
+	//long N;
+	//cout << "Number of subintervals in time: ";
+	//cin >> N;
 
 	// Create the basic SDE (Context class)
 	Range<double> range(0.0, option_data.T());
 	double v_prev = s_initial;
 	double v_curr = 0.0;
 
+	//std::vector<double> t_mesh = range.mesh(n);
 	std::vector<double> t_mesh = range.mesh(N);
 
 	// V2 mediator stuff
-	long NSim = 50000;
-	cout << "Number of simulations: ";
-	cin >> NSim;
+	//long NSim;
+	//cout << "Number of simulations: ";
+	//cin >> NSim;
 
 	double k = option_data.T() / double(N);
 	double sqrk = sqrt(k);
@@ -81,12 +82,13 @@ void run_sim(const OptionData& option_data, const double& s_initial,
 	for (long i = 1; i <= NSim; ++i)
 	{ // Calculate a path at each iteration
 
+		/*
 		if ((i / 10000) * 10000 == i)
 		{// Give status after each 1000th iteration
 
 			cout << i << endl;
 		}
-
+		*/
 		v_prev = s_initial;
 		for (unsigned long index = 1; index < t_mesh.size(); ++index)
 		{
@@ -107,6 +109,9 @@ void run_sim(const OptionData& option_data, const double& s_initial,
 		
 		sim_price += (payoff) / double(NSim);
 	}
+
+	sim_price *= exp(-option_data.r() * option_data.T());
+	//sim_prices.push_back(sim_price);
 }
 
 
