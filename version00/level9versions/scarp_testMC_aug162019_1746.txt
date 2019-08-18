@@ -368,6 +368,418 @@ Press any key to close this window . . .
 
 
 
+//////////////////////////////////////
+
+/////////////////////////////////////////
+
+BATCH 2
+
+N = 500 to 1500
+
+NSim from 50000 to 300000
+
+
+
+
+
+|===================================================|
+|         A: Run Simulation: Explicit Euler         |
+|===================================================|
+
+
+1 factor MC with explicit Euler
+
+
+
+Size of mesh: 500
+Number of simulations run: 50000
+Target price: 7.96557 :: vs :: simulated approximation: 7.97047
+count of spurious values: 0
+
+Size of mesh: 500
+Number of simulations run: 100000
+Target price: 7.96557 :: vs :: simulated approximation: 7.95795
+count of spurious values: 0
+
+Size of mesh: 500
+Number of simulations run: 200000
+Target price: 7.96557 :: vs :: simulated approximation: 7.98477
+count of spurious values: 0
+
+Size of mesh: 500
+Number of simulations run: 300000
+Target price: 7.96557 :: vs :: simulated approximation: 7.97273
+count of spurious values: 0
+
+Size of mesh: 600
+Number of simulations run: 50000
+Target price: 7.96557 :: vs :: simulated approximation: 7.9561
+count of spurious values: 0
+
+Size of mesh: 600
+Number of simulations run: 100000
+Target price: 7.96557 :: vs :: simulated approximation: 7.98522
+count of spurious values: 0
+
+Size of mesh: 600
+Number of simulations run: 200000
+Target price: 7.96557 :: vs :: simulated approximation: 8.00162
+count of spurious values: 0
+
+Size of mesh: 600
+Number of simulations run: 300000
+Target price: 7.96557 :: vs :: simulated approximation: 7.99543
+count of spurious values: 0
+
+Size of mesh: 700
+Number of simulations run: 50000
+Target price: 7.96557 :: vs :: simulated approximation: 7.95531
+count of spurious values: 0
+
+Size of mesh: 700
+Number of simulations run: 100000
+Target price: 7.96557 :: vs :: simulated approximation: 7.98503
+count of spurious values: 0
+
+Size of mesh: 700
+Number of simulations run: 200000
+Target price: 7.96557 :: vs :: simulated approximation: 7.99688
+count of spurious values: 0
+
+Size of mesh: 700
+Number of simulations run: 300000
+Target price: 7.96557 :: vs :: simulated approximation: 7.99258
+count of spurious values: 0
+
+Size of mesh: 800
+Number of simulations run: 50000
+Target price: 7.96557 :: vs :: simulated approximation: 7.91271
+count of spurious values: 0
+
+Size of mesh: 800
+Number of simulations run: 100000
+Target price: 7.96557 :: vs :: simulated approximation: 7.96345
+count of spurious values: 0
+
+Size of mesh: 800
+Number of simulations run: 200000
+Target price: 7.96557 :: vs :: simulated approximation: 7.98166
+count of spurious values: 0
+
+Size of mesh: 800
+Number of simulations run: 300000
+Target price: 7.96557 :: vs :: simulated approximation: 7.9887
+count of spurious values: 0
+
+Size of mesh: 900
+Number of simulations run: 50000
+Target price: 7.96557 :: vs :: simulated approximation: 7.96005
+count of spurious values: 0
+
+Size of mesh: 900
+Number of simulations run: 100000
+Target price: 7.96557 :: vs :: simulated approximation: 7.9914
+count of spurious values: 0
+
+Size of mesh: 900
+Number of simulations run: 200000
+Target price: 7.96557 :: vs :: simulated approximation: 7.99581
+count of spurious values: 0
+
+Size of mesh: 900
+Number of simulations run: 300000
+Target price: 7.96557 :: vs :: simulated approximation: 7.9828
+count of spurious values: 0
+
+Size of mesh: 1000
+Number of simulations run: 50000
+Target price: 7.96557 :: vs :: simulated approximation: 7.94237
+count of spurious values: 0
+
+Size of mesh: 1000
+Number of simulations run: 100000
+Target price: 7.96557 :: vs :: simulated approximation: 8.00674
+count of spurious values: 0
+
+Size of mesh: 1000
+Number of simulations run: 200000
+Target price: 7.96557 :: vs :: simulated approximation: 8.00891
+count of spurious values: 0
+
+Size of mesh: 1000
+Number of simulations run: 300000
+Target price: 7.96557 :: vs :: simulated approximation: 7.98281
+count of spurious values: 0
+
+Size of mesh: 1100
+Number of simulations run: 50000
+Target price: 7.96557 :: vs :: simulated approximation: 7.95453
+count of spurious values: 0
+
+Size of mesh: 1100
+Number of simulations run: 100000
+Target price: 7.96557 :: vs :: simulated approximation: 8.01378
+count of spurious values: 0
+
+Size of mesh: 1100
+Number of simulations run: 200000
+Target price: 7.96557 :: vs :: simulated approximation: 8.00416
+count of spurious values: 0
+
+Size of mesh: 1100
+Number of simulations run: 300000
+Target price: 7.96557 :: vs :: simulated approximation: 7.97945
+count of spurious values: 0
+
+Size of mesh: 1200
+Number of simulations run: 50000
+Target price: 7.96557 :: vs :: simulated approximation: 7.99214
+count of spurious values: 0
+
+Size of mesh: 1200
+Number of simulations run: 100000
+Target price: 7.96557 :: vs :: simulated approximation: 8.02578
+count of spurious values: 0
+
+Size of mesh: 1200
+Number of simulations run: 200000
+Target price: 7.96557 :: vs :: simulated approximation: 8.00456
+count of spurious values: 0
+
+Size of mesh: 1200
+Number of simulations run: 300000
+Target price: 7.96557 :: vs :: simulated approximation: 7.98121
+count of spurious values: 0
+
+Size of mesh: 1300
+Number of simulations run: 50000
+Target price: 7.96557 :: vs :: simulated approximation: 7.97123
+count of spurious values: 0
+
+Size of mesh: 1300
+Number of simulations run: 100000
+Target price: 7.96557 :: vs :: simulated approximation: 8.01119
+count of spurious values: 0
+
+Size of mesh: 1300
+Number of simulations run: 200000
+Target price: 7.96557 :: vs :: simulated approximation: 7.99395
+count of spurious values: 0
+
+Size of mesh: 1300
+Number of simulations run: 300000
+Target price: 7.96557 :: vs :: simulated approximation: 7.96714
+count of spurious values: 0
+
+Size of mesh: 1400
+Number of simulations run: 50000
+Target price: 7.96557 :: vs :: simulated approximation: 7.97201
+count of spurious values: 0
+
+Size of mesh: 1400
+Number of simulations run: 100000
+Target price: 7.96557 :: vs :: simulated approximation: 8.00753
+count of spurious values: 0
+
+Size of mesh: 1400
+Number of simulations run: 200000
+Target price: 7.96557 :: vs :: simulated approximation: 7.9862
+count of spurious values: 0
+
+Size of mesh: 1400
+Number of simulations run: 300000
+Target price: 7.96557 :: vs :: simulated approximation: 7.96258
+count of spurious values: 0
+
+Size of mesh: 1500
+Number of simulations run: 50000
+Target price: 7.96557 :: vs :: simulated approximation: 7.98561
+count of spurious values: 0
+
+Size of mesh: 1500
+Number of simulations run: 100000
+Target price: 7.96557 :: vs :: simulated approximation: 8.01542
+count of spurious values: 0
+
+Size of mesh: 1500
+Number of simulations run: 200000
+Target price: 7.96557 :: vs :: simulated approximation: 7.98998
+count of spurious values: 0
+
+Size of mesh: 1500
+Number of simulations run: 300000
+Target price: 7.96557 :: vs :: simulated approximation: 7.96341
+count of spurious values: 0
+
+
+
+
+//////////////////////////////////////
+
+/////////////////////////////////////////
+
+BATCH 4
+
+N = 500 and 1000
+
+NSim from 50000 to 2000000
+
+
+
+|===================================================|
+|         A: Run Simulation: Explicit Euler         |
+|===================================================|
+
+
+1 factor MC with explicit Euler
+
+
+
+Size of mesh: 500
+Number of simulations run: 50000
+Target price: 92.17570 :: vs :: simulated approximation: 94.3209
+count of spurious values: 0
+
+Size of mesh: 500
+Number of simulations run: 100000
+Target price: 92.17570 :: vs :: simulated approximation: 93.4061
+count of spurious values: 0
+
+Size of mesh: 500
+Number of simulations run: 200000
+Target price: 92.17570 :: vs :: simulated approximation: 92.2504
+count of spurious values: 0
+
+Size of mesh: 500
+Number of simulations run: 300000
+Target price: 92.17570 :: vs :: simulated approximation: 92.2058
+count of spurious values: 0
+
+Size of mesh: 500
+Number of simulations run: 400000
+Target price: 92.17570 :: vs :: simulated approximation: 92.0834
+count of spurious values: 0
+
+Size of mesh: 500
+Number of simulations run: 500000
+Target price: 92.17570 :: vs :: simulated approximation: 91.858
+count of spurious values: 0
+
+Size of mesh: 500
+Number of simulations run: 600000
+Target price: 92.17570 :: vs :: simulated approximation: 91.833
+count of spurious values: 0
+
+Size of mesh: 500
+Number of simulations run: 700000
+Target price: 92.17570 :: vs :: simulated approximation: 91.7686
+count of spurious values: 0
+
+Size of mesh: 500
+Number of simulations run: 800000
+Target price: 92.17570 :: vs :: simulated approximation: 91.898
+count of spurious values: 0
+
+Size of mesh: 500
+Number of simulations run: 900000
+Target price: 92.17570 :: vs :: simulated approximation: 91.9232
+count of spurious values: 0
+
+Size of mesh: 500
+Number of simulations run: 1000000
+Target price: 92.17570 :: vs :: simulated approximation: 91.845
+count of spurious values: 0
+
+Size of mesh: 500
+Number of simulations run: 2000000
+Target price: 92.17570 :: vs :: simulated approximation: 91.7973
+count of spurious values: 0
+
+Size of mesh: 1000
+Number of simulations run: 50000
+Target price: 92.17570 :: vs :: simulated approximation: 93.5268
+count of spurious values: 0
+
+Size of mesh: 1000
+Number of simulations run: 100000
+Target price: 92.17570 :: vs :: simulated approximation: 92.7001
+count of spurious values: 0
+
+Size of mesh: 1000
+Number of simulations run: 200000
+Target price: 92.17570 :: vs :: simulated approximation: 92.1709
+count of spurious values: 0
+
+Size of mesh: 1000
+Number of simulations run: 300000
+Target price: 92.17570 :: vs :: simulated approximation: 91.9817
+count of spurious values: 0
+
+Size of mesh: 1000
+Number of simulations run: 400000
+Target price: 92.17570 :: vs :: simulated approximation: 92.172
+count of spurious values: 0
+
+Size of mesh: 1000
+Number of simulations run: 500000
+Target price: 92.17570 :: vs :: simulated approximation: 91.9841
+count of spurious values: 0
+
+Size of mesh: 1000
+Number of simulations run: 600000
+Target price: 92.17570 :: vs :: simulated approximation: 91.6596
+count of spurious values: 0
+
+Size of mesh: 1000
+Number of simulations run: 700000
+Target price: 92.17570 :: vs :: simulated approximation: 91.5285
+count of spurious values: 0
+
+Size of mesh: 1000
+Number of simulations run: 800000
+Target price: 92.17570 :: vs :: simulated approximation: 91.7111
+count of spurious values: 0
+
+Size of mesh: 1000
+Number of simulations run: 900000
+Target price: 92.17570 :: vs :: simulated approximation: 91.7119
+count of spurious values: 0
+
+Size of mesh: 1000
+Number of simulations run: 1000000
+Target price: 92.17570 :: vs :: simulated approximation: 91.5646
+count of spurious values: 0
+
+Size of mesh: 1000
+Number of simulations run: 2000000
+Target price: 92.17570 :: vs :: simulated approximation: 91.743
+count of spurious values: 0
+
+
+
+C:\Users\paola\source\repos\CppFEjune2019\Level9\Level9_ExC+D_MonteCarlo-Pricing
+-Methods\Release\Level9_ExC+D_MonteCarlo-Pricing-Methods.exe (process 5940) exit
+ed with code 0.
+To automatically close the console when debugging stops, enable Tools->Options->
+Debugging->Automatically close the console when debugging stops.
+Press any key to close this window . . .
+
+
+
+
+
+
+
+
+C:\Users\paola\source\repos\CppFEjune2019\Level9\Level9_ExC+D_MonteCarlo-Pricing
+-Methods\Release\Level9_ExC+D_MonteCarlo-Pricing-Methods.exe (process 8896) exit
+ed with code 0.
+To automatically close the console when debugging stops, enable Tools->Options->
+Debugging->Automatically close the console when debugging stops.
+Press any key to close this window . . .
+
+
+
 
 
 
