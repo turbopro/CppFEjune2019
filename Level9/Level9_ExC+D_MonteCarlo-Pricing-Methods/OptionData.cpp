@@ -4,6 +4,7 @@ Implementation file for OptionDatacCEV class from header file OptionData.hpp
 
 */
 
+
 #include "OptionData.hpp"
 
 
@@ -49,26 +50,23 @@ OptionData& OptionData::operator=(const OptionData& opd)
 
 // run_sim function
 void run_sim(const OptionData& option_data, const double& s_initial, double& sim_price,
-	int& count, int N, int NSim)
+	int& count, const int N, const int NSim)
 {
-	//long N;
-	//cout << "Number of subintervals in time: ";
-	//cin >> N;
-
 	// Create the basic SDE (Context class)
-	Range<double> range(0.0, option_data.T());
+	//Range<double> range(0.0, option_data.T());
 	double v_prev = s_initial;
 	double v_curr = 0.0;
 
 	//std::vector<double> t_mesh = range.mesh(n);
-	std::vector<double> t_mesh = range.mesh(N);
+	//std::vector<double> t_mesh = range.mesh(N);
 
-	// V2 mediator stuff
-	//long NSim;
-	//cout << "Number of simulations: ";
-	//cin >> NSim;
+	double step = option_data.T() / N;
+	vector<double> t_mesh(double(N)+1);
+	std::generate(t_mesh.begin(), t_mesh.end(),
+		[start = 0.0, step]() mutable { return start += step; });
 
-	double k = option_data.T() / double(N);
+	//double k = option_data.T() / double(N);
+	double k = option_data.T() / N;
 	double sqrk = sqrt(k);
 
 	// NormalGenerator is a base class
@@ -77,49 +75,37 @@ void run_sim(const OptionData& option_data, const double& s_initial, double& sim
 
 	// Normal random number
 	double dW = 0.0;
-	double price = 0.0;	// Option price
 
 	for (long i = 1; i <= NSim; ++i)
 	{ // Calculate a path at each iteration
 
-		/*
+		
 		if ((i / 10000) * 10000 == i)
 		{// Give status after each 1000th iteration
 
 			cout << i << endl;
 		}
-		*/
+		
+
 		v_prev = s_initial;
-		for (unsigned long index = 1; index < t_mesh.size(); ++index)
+		for (auto it = t_mesh.begin()+1; it != t_mesh.end(); ++it)
 		{
 			// Create a random number
 			dW = uptr_normal->getNormal();
 
 			// The FDM (in this case explicit Euler)
-			v_curr = v_prev + (k * option_data.drift(t_mesh[index - 1], v_prev))
-				+ (sqrk * option_data.diffusion(t_mesh[index - 1], v_prev) * dW);
+			v_curr = v_prev + (k * option_data.drift(*(it-1), v_prev))
+				+ (sqrk * option_data.diffusion(*(it-1), v_prev) * dW);
 
 			v_prev = v_curr;
 
 			// Spurious values
 			if (v_curr <= 0.0) count++;
 		}
-
-		double payoff = option_data.PayOff(v_curr);
 		
-		sim_price += (payoff) / double(NSim);
-	}
+		sim_price += option_data.PayOff(v_curr) / NSim;
+	}			// std::unique_ptr uptr_normal is destructed here
 
 	sim_price *= exp(-option_data.r() * option_data.T());
-	//sim_prices.push_back(sim_price);
 }
 
-
-// print function for vector
-template <class T> void print(const std::vector<T>& vec)
-{  // A generic print function for vectors
-
-	std::cout << std::endl << "Size of vector is " << vec.size() << "\n[";
-	for (auto it : vec) std::cout << it << ",";
-	std::cout << "]\n";
-}

@@ -10,6 +10,7 @@
 //
 
 #include "OptionData.hpp"
+//#include "OptionData.cpp"
 #include "EuropeanOption.h"
 #include "EuropeanOptionException.h"
 #include "NormalGenerator.hpp"
@@ -144,31 +145,47 @@ int main()
 	int count = 0;						// Count spurious values
 	double sim_price = 0.0;				// simulated price
 	double target_price = 92.17570;		// 'exact' price
-	double epsilon = 0.03;				// delta to determine acceptable simulated price 
+	double epsilon = 10.025;				// delta to determine range of acceptable simulated prices 
 
-	// time_steps remain as for items a and b above
-	// sims remain as for items a and b above// 
-	//vector<int> time_steps{ 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500 };
-	vector<int> time_steps{ 500, 1000 };
-	vector<int> sims{ 50000, 100000, 200000, 300000, 400000, 500000, 600000,
-		700000, 800000, 900000, 1000000, 2000000 };
+	// Create ranges for time_steps and nsims
+	Range<int> t_range(500, 1500);
+	vector<int> time_steps{ 1000 }; // = t_range.mesh(10);
+	//vector<int> time_steps = t_range.mesh(10);
+	Range<int> s_range(100000, 2000000);
+	vector<int> sims{ 200000 }; // = s_range.mesh(19);
+	//vector<int> sims = s_range.mesh(19);
+
+	double x = 30.0 / 1000;
+	vector<double> testvec(10);
+	std::generate(testvec.begin(), testvec.end(),
+		[step = 0.0, x]() mutable { return step += x; });
+	
+	cout << endl << endl;
+	for (auto x : testvec)
+		std::cout << x << endl;
+	cout << endl << endl;
+
+	cout << "\n\nt_steps:\n";
+	print(time_steps);
+	cout << "\n\nsims:\n";
+	print(sims);
 
 	// Reset vector to store prices from simulation runs
 	//prices.clear();
 	// Create vector to store prices from simulation runs
 	vector<tuple<int, int, double, int>> prices;
 
-	for (auto step : time_steps)
+	for (auto step : time_steps)		// loop over time steps
 	{
-		for (auto sim : sims)
+		for (auto sim : sims)			// loop over simulations
 		{
 			run_sim(cev_option, S_initial, sim_price, count, step, sim);
-			if (abs(sim_price - target_price) <= 0.03)
-			{
-				auto sim_run = std::make_tuple(step, sim, sim_price, count);
-				prices.push_back(sim_run);
-			}
-			sim_price = 0; count = 0;
+			//if (abs(sim_price - target_price) <= epsilon)	// filter simulation price
+			//{
+				auto sim_run = std::make_tuple(step, sim, sim_price, count);	// build output
+				prices.push_back(sim_run);					// add filtered price to output vector 
+			//}
+			sim_price = 0; count = 0;	// reset simulation variables
 		}
 	}
 
@@ -177,10 +194,11 @@ int main()
 	cout << endl << endl;
 	for (auto price : prices)
 	{
-		cout << "\nSize of mesh: " << get<0>(price)
-			<< "\nNumber of simulations run: " << get<1>(price)
-			<< "\nTarget price: 92.17570 :: vs :: simulated approximation: " << get<2>(price)
-			<< "\ncount of spurious values: " << get<3>(price) << endl;
+		cout << "\nNumber of Time Steps:\t\t" << get<0>(price)
+			<< "\nNumber of simulations run:\t" << get<1>(price)
+			<< "\nTarget price:\t\t\t" << target_price 
+			<< "\nSimulated approximation:\t" << get<2>(price)
+			<< "\nCount of spurious values:\t" << get<3>(price) << endl;
 	}
 
 	cout << endl << endl;

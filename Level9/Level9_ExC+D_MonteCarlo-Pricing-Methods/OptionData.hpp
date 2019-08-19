@@ -12,6 +12,8 @@
 #include "EuropeanOption.h"
 #include "Range.cpp"
 #include "NormalGenerator.hpp"
+#include <boost/range/irange.hpp>
+#include <iostream>
 
 using namespace std;
 
@@ -84,7 +86,34 @@ public:
 // simulated price calculated, and an integer for the count of surious values during
 // the simulation run
 void run_sim(const OptionData& option_data, const double& s_initial, double& sim_price,
-	int& count, int N, int NSim);
+	int& count, const int N, const int NSim);
+
+//////////////////////////////////////////
+// Utility Functions
+
+// print function for vector
+template <class T> void print(const std::vector<T>& vec)
+{  // A generic print function for vectors
+
+	std::cout << std::endl << "Size of vector is " << vec.size() << "\n[";
+	for (auto it : vec) std::cout << it << ",";
+	std::cout << "]\n";
+}
+
+
+// create range with Boost.Range irange
+template<class Integer>
+decltype(auto) iota_n(Integer last)
+{
+	return boost::irange(0, last);
+}
+
+template<class Integer, class StepSize>
+decltype(auto) iota_n(Integer last, StepSize step_size)
+{
+	return boost::irange(0, last, step_size);
+}
+
 
 
 #endif
