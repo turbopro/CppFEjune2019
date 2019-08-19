@@ -1,3 +1,352 @@
+/////////////////////////////////////////////////////////////////////
+Aug 19 2019
+07:17
+
+N = 500, 1000, 1500
+NSim = 200000 .. 600000
+
+Size of mesh:           500
+Number of simulations run:      200000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.85533
+Count of spurious values:       0
+
+Size of mesh:           500
+Number of simulations run:      300000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.85286
+Count of spurious values:       0
+
+Size of mesh:           500
+Number of simulations run:      400000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.85729
+Count of spurious values:       0
+
+Size of mesh:           500
+Number of simulations run:      500000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.85493
+Count of spurious values:       0
+
+Size of mesh:           500
+Number of simulations run:      600000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.8509
+Count of spurious values:       0
+
+Size of mesh:           1000
+Number of simulations run:      200000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.8708
+Count of spurious values:       0
+
+Size of mesh:           1000
+Number of simulations run:      300000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.85655
+Count of spurious values:       0
+
+Size of mesh:           1000
+Number of simulations run:      400000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.84859
+Count of spurious values:       0
+
+Size of mesh:           1000
+Number of simulations run:      500000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.84122
+Count of spurious values:       0
+
+Size of mesh:           1000
+Number of simulations run:      600000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.84157
+Count of spurious values:       0
+
+Size of mesh:           1500
+Number of simulations run:      200000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.86242
+Count of spurious values:       0
+
+Size of mesh:           1500
+Number of simulations run:      300000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.84577
+Count of spurious values:       0
+
+Size of mesh:           1500
+Number of simulations run:      400000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.84708
+Count of spurious values:       0
+
+Size of mesh:           1500
+Number of simulations run:      500000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.83855
+Count of spurious values:       0
+
+Size of mesh:           1500
+Number of simulations run:      600000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.84125
+Count of spurious values:       0
+
+From the simulation runs above, the following NT/NSIM values generate
+the best simulated price approximations:
+NT:     500
+NSIM:   400000 & 600000
+
+
+
+C:\Users\paola\source\repos\CppFEjune2019\Level9\Level9_ExC+D_MonteCarlo-Pricing
+-Methods\Release\Level9_ExC+D_MonteCarlo-Pricing-Methods.exe (process 8800) exit
+ed with code 0.
+To automatically close the console when debugging stops, enable Tools->Options->
+Debugging->Automatically close the console when debugging stops.
+Press any key to close this window . . .
+
+
+
+/////////////////////////////////////////////////////////////////////
+Aug 19 2019
+07:53
+
+N = 500, 1000, 1500
+NSim = 700000 .. 1000000
+
+
+Size of mesh:           500
+Number of simulations run:      700000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.85036
+Count of spurious values:       0
+
+Size of mesh:           500
+Number of simulations run:      800000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.84551
+Count of spurious values:       0
+
+Size of mesh:           500
+Number of simulations run:      900000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.84038
+Count of spurious values:       0
+
+Size of mesh:           500
+Number of simulations run:      1000000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.84125
+Count of spurious values:       0
+
+Size of mesh:           1000
+Number of simulations run:      700000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.83725
+Count of spurious values:       0
+
+Size of mesh:           1000
+Number of simulations run:      800000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.83424
+Count of spurious values:       0
+
+Size of mesh:           1000
+Number of simulations run:      900000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.83612
+Count of spurious values:       0
+
+Size of mesh:           1000
+Number of simulations run:      1000000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.83585
+Count of spurious values:       0
+
+Size of mesh:           1500
+Number of simulations run:      700000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.84439
+Count of spurious values:       0
+
+Size of mesh:           1500
+Number of simulations run:      800000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.84438
+Count of spurious values:       0
+
+********************************************
+Size of mesh:           1500
+Number of simulations run:      900000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.84592
+Count of spurious values:       0
+********************************************
+Size of mesh:           1500
+Number of simulations run:      1000000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.84402
+Count of spurious values:       0
+
+From the simulation runs above, the following NT/NSIM values generate
+the best simulated price approximations:
+NT:     500
+NSIM:   900000 & 922404833
+
+
+
+C:\Users\paola\source\repos\CppFEjune2019\Level9\Level9_ExC+D_MonteCarlo-Pricing
+-Methods\Release\Level9_ExC+D_MonteCarlo-Pricing-Methods.exe (process 11260) exi
+ted with code 0.
+To automatically close the console when debugging stops, enable Tools->Options->
+Debugging->Automatically close the console when debugging stops.
+Press any key to close this window . . .
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////
+Aug 19 2019
+08:37
+
+N = 500, 1000, 1500
+NSim = 1000000 .. 1500000
+
+
+Size of mesh:           500
+Number of simulations run:      1000000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.84125
+Count of spurious values:       0
+
+Size of mesh:           500
+Number of simulations run:      1100000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.84114
+Count of spurious values:       0
+
+Size of mesh:           500
+Number of simulations run:      1200000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.8424
+Count of spurious values:       0
+
+Size of mesh:           500
+Number of simulations run:      1300000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.84245
+Count of spurious values:       0
+
+Size of mesh:           500
+Number of simulations run:      1400000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.84008
+Count of spurious values:       0
+
+Size of mesh:           500
+Number of simulations run:      1500000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.83893
+Count of spurious values:       0
+
+Size of mesh:           1000
+Number of simulations run:      1000000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.83585
+Count of spurious values:       0
+
+Size of mesh:           1000
+Number of simulations run:      1100000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.83973
+Count of spurious values:       0
+
+Size of mesh:           1000
+Number of simulations run:      1200000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.83934
+Count of spurious values:       0
+
+Size of mesh:           1000
+Number of simulations run:      1300000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.83866
+Count of spurious values:       0
+
+Size of mesh:           1000
+Number of simulations run:      1400000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.83948
+Count of spurious values:       0
+
+Size of mesh:           1000
+Number of simulations run:      1500000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.83948
+Count of spurious values:       0
+
+Size of mesh:           1500
+Number of simulations run:      1000000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.84402
+Count of spurious values:       0
+
+Size of mesh:           1500
+Number of simulations run:      1100000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.84318
+Count of spurious values:       0
+
+Size of mesh:           1500
+Number of simulations run:      1200000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.84203
+Count of spurious values:       0
+
+Size of mesh:           1500
+Number of simulations run:      1300000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.84289
+Count of spurious values:       0
+
+Size of mesh:           1500
+Number of simulations run:      1400000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.84347
+Count of spurious values:       0
+
+Size of mesh:           1500
+Number of simulations run:      1500000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.8434
+Count of spurious values:       0
+
+From the simulation runs above, the following NT/NSIM values generate
+the best simulated price approximations:
+NT:     500
+NSIM:   1200000 & 1400000
+
+
+
+C:\Users\paola\source\repos\CppFEjune2019\Level9\Level9_ExC+D_MonteCarlo-Pricing
+-Methods\Release\Level9_ExC+D_MonteCarlo-Pricing-Methods.exe (process 8976) exit
+ed with code 0.
+To automatically close the console when debugging stops, enable Tools->Options->
+Debugging->Automatically close the console when debugging stops.
+Press any key to close this window . . .
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////
+
 // N = 1000
    NSim from 50000 to 2000000
 

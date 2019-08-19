@@ -60,64 +60,70 @@ int main()
 	// parameters particular to the simulation requirements
 	// Moved the simulation loop to a global function
 
-	/*
+	
 	cout <<  "1 factor MC with explicit Euler\n";	 
 	// create parameters for testing Batch 1 and 2
 	map<string, double> cev_params{ { "H", 0.0 }, { "D", 0.0 }, { "betaCEV", 1.0 }, { "scale", 1.0 } };
 	string option_type = "P", underlying = "Stock";
-	double S_initial = 100.0;
+	
 	// create test option from Batch 1	
-	//map<string, double> option_params_1{ {"K", 65.0}, {"S", S_initial}, {"T", 0.25}, 
-	//{"r", 0.08}, {"sig", 0.3} };
+	double S_initial = 60.0;
+	map<string, double> params_b1{ {"K", 65.0}, {"S", S_initial}, {"T", 0.25}, 
+	{"r", 0.08}, {"sig", 0.3} };
+	
 	// create test option from Batch 2
-	map<string, double> option_params_2{ {"K", 100.0}, {"S", S_initial}, {"T", 1.0},
-	{"r", 0.0}, {"sig", 0.2} };
+	//map<string, double> option_params_2{ {"K", 100.0}, {"S", S_initial}, {"T", 1.0},
+	//{"r", 0.0}, {"sig", 0.2} };
 	
 	//EuropeanOption test_option(option_params, option_type, underlying);
 	//OptionData cev_option0(test_option, cev_params);
-	OptionData cev_option(option_params_2, option_type, underlying, cev_params);
+	OptionData cev_b1(params_b1, option_type, underlying, cev_params);
 	
 	int count = 0;						// Count spurious values
 	double sim_price = 0.0;				// Price after sim_run
-	//int n = 500; //, nsim = 1000000;
-
-	vector<int> time_steps{ 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500 };
-	vector<int> sims{ 50000, 100000, 200000, 300000 }; // , 400000, 500000, 600000,
+	double target_price = 5.84628;		// Batch 1 'exact' price
+	
+	// Create vectors for a range of time steps and simulations
+	vector<int> time_steps{ 500, 1000, 1500 }; // , 1000, 1500 };
+	vector<int> sims{ 1000000, 1100000, 1200000, 1300000, 1400000, 1500000 };
+	//vector<int> time_steps{ 500, 1000, 1500 };
+	//vector<int> sims{ 50000, 100000, 200000, 300000 , 400000 , 500000, 600000,
 		//700000, 800000, 900000, 1000000, 2000000 };
 	
 	// Simulation run moved to a function in OptionData.hpp
+	
 	// Create vector to store prices from simulation runs
 	vector<tuple<int, int, double, int>> prices;
-	for (auto step : time_steps)
+
+	// Run simulations for Batch 1
+	for (auto step : time_steps)	// loop over range of time steps
 	{
-		for (auto sim : sims)
+		for (auto sim : sims)		// loop over range of simulations
 		{
-			run_sim(cev_option, S_initial, sim_price, count, step, sim);
-			auto sim_run = std::make_tuple(step, sim, sim_price, count);
-			prices.push_back(sim_run);
-			sim_price = 0; count = 0;
+			run_sim(cev_b1, S_initial, sim_price, count, step, sim);		// run simulation
+			auto sim_run = std::make_tuple(step, sim, sim_price, count);	// build output
+			prices.push_back(sim_run);			// store simulation values
+			sim_price = 0; count = 0;			// reset simulation price and count
 		}
 	}
-	
-	
-	// display results
+		
+	// Display results
 	cout << endl << endl;
 	for (auto price : prices)
 	{
-		cout << "\nSize of mesh: " << get<0>(price)
-			<< "\nNumber of simulations run: " << get<1>(price)
-			<< "\nTarget price: 7.96557 :: vs :: simulated approximation: " << get<2>(price) 
-			<< "\ncount of spurious values: " << get<3>(price) << endl;
+		cout << "\nSize of mesh:\t\t" << get<0>(price)
+			<< "\nNumber of simulations run:\t" << get<1>(price)
+			<< "\nBatch 1 Put price:\t\t" << target_price 
+			<< "\nSimulated approximation:\t" << get<2>(price) 
+			<< "\nCount of spurious values:\t" << get<3>(price) << endl;
 	}
 	
+	cout << "\nFrom the simulation runs above, the following NT/NSIM values generate"
+		<< "\nthe best simulated price approximations:\nNT:\t" << time_steps[2]
+		<< "\nNSIM:\t" << sims[2] << " & " << sims[4] << endl;
 	cout << endl << endl;
 
-	//cout << "Price, after discounting: " << sim_price << ", " << endl;
-	//cout << "Number of times origin is hit: " << count << endl;
-
-	*/ 
-
-	
+		
 	/////////////////////////
 	/*
 	// c) Now we do some stress-testing of the MC method. Take Batch 4. What values	
@@ -128,24 +134,21 @@ int main()
 	Batch 4: T = 30.0, K = 100.0, sig = 0.30, r = 0.08, S = 100.0 (C = 92.17570, P = 1.24750)
 	*/
 
-	
+	/*
 	cout <<  "1 factor MC with explicit Euler\n";
-	// create parameters for testing Batch 1 and 2
+	// create parameters for testing Batch 4
 	map<string, double> cev_params{ { "H", 0.0 }, { "D", 0.0 }, { "betaCEV", 1.0 }, { "scale", 1.0 } };
 	string option_type = "C", underlying = "Stock";
 	double S_initial = 100.0;
-	// create test option from Batch 4
-	map<string, double> option_params_4{ {"K", 100.0}, {"S", S_initial}, {"T", 30.0},
+	map<string, double> params_b4{ {"K", 100.0}, {"S", S_initial}, {"T", 30.0},
 		{"r", 0.08}, {"sig", 0.3} };
 
-	//EuropeanOption test_option(option_params, option_type, underlying);
-	//OptionData cev_option0(test_option, cev_params);
-	OptionData cev_option(option_params_4, option_type, underlying, cev_params);
+	OptionData cev_b4(params_b4, option_type, underlying, cev_params);
 
-	int count = 0;						// Count spurious values
-	double sim_price = 0.0;				// simulated price
-	double target_price = 92.17570;		// 'exact' price
-	double epsilon = 10.025;				// delta to determine range of acceptable simulated prices 
+	count = 0;						// Count spurious values
+	sim_price = 0.0;				// simulated price
+	target_price = 92.17570;		// 'exact' price
+	double sim_epsilon = 0.025;			// delta to determine range of acceptable simulated prices 
 
 	// Create ranges for time_steps and nsims
 	Range<int> t_range(500, 1500);
@@ -155,6 +158,7 @@ int main()
 	vector<int> sims{ 200000 }; // = s_range.mesh(19);
 	//vector<int> sims = s_range.mesh(19);
 
+	/*
 	double x = 30.0 / 1000;
 	vector<double> testvec(10);
 	std::generate(testvec.begin(), testvec.end(),
@@ -169,7 +173,8 @@ int main()
 	print(time_steps);
 	cout << "\n\nsims:\n";
 	print(sims);
-
+	
+	
 	// Reset vector to store prices from simulation runs
 	//prices.clear();
 	// Create vector to store prices from simulation runs
@@ -179,8 +184,8 @@ int main()
 	{
 		for (auto sim : sims)			// loop over simulations
 		{
-			run_sim(cev_option, S_initial, sim_price, count, step, sim);
-			//if (abs(sim_price - target_price) <= epsilon)	// filter simulation price
+			run_sim(cev_b4, S_initial, sim_price, count, step, sim);
+			//if (abs(sim_price - target_price) <= sim_epsilon)	// filter simulation price
 			//{
 				auto sim_run = std::make_tuple(step, sim, sim_price, count);	// build output
 				prices.push_back(sim_run);					// add filtered price to output vector 
@@ -206,6 +211,6 @@ int main()
 	//cout << "Price, after discounting: " << sim_price << ", " << endl;
 	//cout << "Number of times origin is hit: " << count << endl;
 
-
+	*/
 	return 0;
 }
