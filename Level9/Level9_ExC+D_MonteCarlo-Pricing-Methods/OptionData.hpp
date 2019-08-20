@@ -81,12 +81,40 @@ public:
 };
 
 
-// run simulation loop
+////////////////////////////////////////////////////////
+// Monte Carlo Simulation
+
+// run_simulation
 // Takes an option_data object, an initial asset/underlying price, a double for the 
 // simulated price calculated, and an integer for the count of surious values during
 // the simulation run
 void run_sim(const OptionData& option_data, const double& s_initial, double& sim_price,
 	int& count, const int N, const int NSim);
+
+//double sim_option_price(const OptionData& option_data, const double& s_initial, const int N, const int NSim);
+
+// option_price_t
+// return the option price for a calculate the option 
+double option_price_t(const OptionData opd, double S_initial, int N);
+
+
+////////////////
+// run_sim1
+// simulation using the option_price_t function
+void run_sim1(const OptionData& option_data, const double& s_initial, double& sim_price,
+	int& count, const int& N, const int& NSim);
+
+
+///////////////////////////////////////////////////////
+// Standard Deviation & Standard Error
+
+// SD
+//double SD(const OptionData& option_data, const double& s_initial, const int N, 
+	//const int NSim);
+
+// SE
+//double SE(const int NSim);
+
 
 //////////////////////////////////////////
 // Utility Functions
@@ -99,6 +127,8 @@ template <class T> void print(const std::vector<T>& vec)
 	for (auto it : vec) std::cout << it << ",";
 	std::cout << "]\n";
 }
+
+
 
 
 // create range with Boost.Range irange

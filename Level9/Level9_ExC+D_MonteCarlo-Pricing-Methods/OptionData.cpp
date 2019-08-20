@@ -109,3 +109,146 @@ void run_sim(const OptionData& option_data, const double& s_initial, double& sim
 	sim_price *= exp(-option_data.r() * option_data.T());
 }
 
+
+///////////////////////////////////////////////////////
+// Standard Deviation & Standard Error
+
+/*
+// sim_option_price
+double sim_option_price(const OptionData& option_data, const double& s_initial, 
+	const int N, const int NSim)
+{
+	// Create the basic SDE (Context class)
+	//Range<double> range(0.0, option_data.T());
+	double v_prev = s_initial;
+	double v_curr = 0.0;
+
+	double step = option_data.T() / N;
+	vector<double> t_mesh(double(N) + 1);
+	std::generate(t_mesh.begin(), t_mesh.end(),
+		[start = 0.0, step]() mutable { return start += step; });
+
+	//double k = option_data.T() / double(N);
+	double k = option_data.T() / N;
+	double sqrk = sqrt(k);
+
+	// NormalGenerator is a base class
+	// unique_ptr will manage the heap memory allocated for the random number
+	std::unique_ptr<NormalGenerator> uptr_normal(new BoostNormal());
+
+	// Normal random number
+	double dW = 0.0, price = 0.0;
+	int count = 0;
+
+	for (long i = 1; i <= NSim; ++i)
+	{ // Calculate a path at each iteration
+
+
+		if ((i / 10000) * 10000 == i)
+		{// Give status after each 1000th iteration
+
+			cout << i << endl;
+		}
+
+
+		v_prev = s_initial;
+		for (auto it = t_mesh.begin() + 1; it != t_mesh.end(); ++it)
+		{
+			// Create a random number
+			dW = uptr_normal->getNormal();
+
+			// The FDM (in this case explicit Euler)
+			v_curr = v_prev + (k * option_data.drift(*(it - 1), v_prev))
+				+ (sqrk * option_data.diffusion(*(it - 1), v_prev) * dW);
+
+			v_prev = v_curr;
+
+			// Spurious values
+			if (v_curr <= 0.0) count++;
+		}
+
+		double tmp_price = option_data.PayOff(v_curr);
+		//price += option_data.PayOff(v_curr) / NSim;
+
+
+
+	}			// std::unique_ptr uptr_normal is destructed here
+
+	//sim_price *= exp(-option_data.r() * option_data.T());
+}
+
+
+// SE
+double SE(const int NSim)
+{
+	for (long i = 1; i <= NSim; ++i)
+	{ // Calculate a path at each iteration
+
+	}
+}
+*/
+
+/////////////
+// run_sim1(
+
+// run_sim function
+void run_sim1(const OptionData& option_data, const double& s_initial, double& sim_price,
+	int& count, const int& N, const int& NSim)
+{
+	double tmp_price = 0.0;
+	for (long i = 1; i <= NSim; ++i)
+	{ // Calculate a path at each iteration		
+		tmp_price += option_price_t(option_data, s_initial, N) / NSim;
+	}
+	tmp_price *= exp(-option_data.r() * option_data.T());
+	sim_price = tmp_price;
+}
+
+
+
+////////
+// option_price_t
+// return the option price for a calculate the option 
+double option_price_t(const OptionData opd, double S_initial, int N)
+{
+	// Create the basic SDE (Context class)
+	//Range<double> range(0.0, option_data.T());
+	double v_prev = S_initial;
+	double v_curr = 0.0;
+
+	double step = opd.T() / N;
+	vector<double> t_mesh(double(N) + 1);
+	std::generate(t_mesh.begin(), t_mesh.end(),
+		[start = 0.0, step]() mutable { return start += step; });
+
+	//double k = option_data.T() / double(N);
+	double k = opd.T() / N;
+	double sqrk = sqrt(k);
+
+	// NormalGenerator is a base class
+	// unique_ptr will manage the heap memory allocated for the random number
+	std::unique_ptr<NormalGenerator> uptr_normal(new BoostNormal());
+
+	// Normal random number
+	double dW = 0.0, price = 0.0;
+	int count = 0;
+
+	for (auto it = t_mesh.begin() + 1; it != t_mesh.end(); ++it)
+	{
+		// Create a random number
+		dW = uptr_normal->getNormal();
+
+		// The FDM (in this case explicit Euler)
+		v_curr = v_prev + (k * opd.drift(*(it - 1), v_prev))
+			+ (sqrk * opd.diffusion(*(it - 1), v_prev) * dW);
+
+		v_prev = v_curr;
+
+		// Spurious values
+		if (v_curr <= 0.0) count++;
+	}
+
+	double tmp_price = opd.PayOff(v_curr);
+	//return price += opd.PayOff(v_curr);
+	return price += tmp_price;
+}
