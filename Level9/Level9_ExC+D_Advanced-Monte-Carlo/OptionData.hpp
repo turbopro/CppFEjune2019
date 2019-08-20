@@ -9,6 +9,7 @@
 
 #include <algorithm> // for max()
 using namespace std;
+//using namespace SDEDefinition;
 
 // Encapsulate all data in one place
 struct OptionData
@@ -37,11 +38,30 @@ struct OptionData
 		}
 		else
 		{ // Put
-		
-			return max (K - S, 0.0);
+
+			return max(K - S, 0.0);
 		}
 	}
 };
+
+
+
+
+//////////////////////////////////////////////
+////
+
+
+// Standard Deviation, Standard Error definitions
+// SD
+double SD(double price);
+
+// SE
+inline double SE(double price, int NSim) { return SD(price) / sqrt(NSim); }
+
+
+
+
+
 
 
 #endif
