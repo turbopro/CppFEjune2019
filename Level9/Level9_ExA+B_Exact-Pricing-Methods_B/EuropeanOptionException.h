@@ -1,37 +1,17 @@
 /* EuropeanOptionException.h
-Level3.6_Ex2: Exception Handling - Exception Objects
 
 header file for the EuropeanOptionException class
 
 Our EuropeanOptionException class supports an exception hierarchy with an 
-EuropeanOptionException base class and an OutOfBoundsException derived class
-We implement both exception classes in this header file for simplicity
+EuropeanOptionException base class and several OptionException derived classes
+All classes are declared in this header file for simplicity
 
 The EuropeanOptionException has an abstract GetMessage() function that returns a 
 std::string 
 The InvalidOptionTypeException class has a constructor with an int as argument that
 indicates the erroneous array index and store it in a data member
 We override the GetMessage() function and let the implementation return a message
-string saying the given index is out of bounds
-
-Member data variables will be prefixed with 'm_' to signify the variable is a class member
-
-private members:
-DATA:
-...
-
-METHODS:
-...
-
-public members:
-DATA:
-...
-
-METHODS:
-EuropeanOptionException()		-	default constructor
-~EuropeanOptionException()		-	destructor
-GetMessage()			-	abstract method
-
+string indicating that the given index is out of bounds
 
 */
 

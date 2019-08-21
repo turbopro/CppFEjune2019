@@ -2,8 +2,6 @@
 
 Implementation file for the AmericanOption.h header file
 
-
-
 */
 
 #include "AmericanOption.h"
@@ -16,7 +14,7 @@ AmericanOption::AmericanOption() : EuropeanOption() {}
 
 // Constructor
 // Calls the EuropeanOption() constructor
-AmericanOption::AmericanOption(const map<string, double>& option_parameters,	// constructor
+AmericanOption::AmericanOption(const map<string, double>& option_parameters,	
 	const string& option_type, const string& security, const double& b_adjust) 
 	: EuropeanOption( option_parameters, option_type, security, b_adjust ) {}
 
@@ -47,7 +45,9 @@ AmericanOption& AmericanOption::operator = (const AmericanOption& option2)
 double AmericanOption::Price(double U) const
 {
 	// Use member functions D1 and D2 only when needed; no need for temporary variables
-	// return either call price or put price
+	// Return either call price or put price
+	// Throw exception if either of Y1 or Y2 are set to values that may generate divide by
+	// zero or other similar errors
 	
 	if (Y1() == 0 || Y1() == 1)
 		throw InvalidValueException(to_string(Y1()));
@@ -60,7 +60,7 @@ double AmericanOption::Price(double U) const
 }
 
 // Use with constructor: asset price is provided within the input map container
-// call single argument Price member function
+// Call single argument Price member function
 double AmericanOption::Price() const
 {
 	return Price(S);

@@ -1,4 +1,4 @@
-// HardCoded.cpp
+// TestMC.cpp
 //
 // C++ code to price an option, essential algorithms.
 //
@@ -68,80 +68,61 @@ int main()
 	double Batch1_price = 5.84628;		// Put price 
 	double Batch2_price = 7.96557;		// Call price
 
+	// Create vectors for time steps and number of simulations
 	vector<int> t_steps{ 500, 1000, 1500 };
-	vector<int> sims{ 50000, 100000, 200000 }; // , 300000, 400000}; // , 500000};
+	vector<int> NSims{ 50000, 100000 }; // , 200000, 300000, 400000, 500000};
+		//600000, 700000, 800000, 900000, 1000000, 1500000, 2000000 };
 
-	//boost::tuple<boost::tuple<double, double>, double, int> vals;
+	//vector<int> NSims{ 50000, 100000, 200000, 300000, 400000, 500000,
+		//600000, 700000, 800000, 900000, 1000000, 1500000, 2000000 };
+
+	// Create tuple to hold simulation details and output
 	vector<boost::tuple<boost::tuple<double, double>, double, int, int, int>> vals;
-	vals.reserve(15);
+	vals.reserve(NSims.size() * t_steps.size());		// reserve space for optimisation
 
-	double prices = 0.0;	
+	double prices = 0.0;	// prices calculated from each simulation run 
 
-	for (auto N : t_steps)
+	for (auto N : t_steps)		// loop over t_steps vector for time steps values
 	{
-		for (auto sim : sims)
+		for (auto NSim : NSims)	// loop over sims vector for number of simulations values
 		{
-			//long N = 100;
-			//std::cout << "Number of subintervals in time: ";
-			//std::cin >> N;
-
-
 			// Create the basic SDE (Context class)
 			Range<double> range(0.0, myOption.T);
-			double VOld = S_0;
-			double VNew = 0.0;
+			double VOld = S_0;			// initial and current asset price 
+			double VNew = 0.0;			// simulated price based on current price
 
-			std::vector<double> x = range.mesh(N);
-			std::vector<double> avg_prices;
-			//avg_prices.reserve(NSim);
-
-			// V2 mediator stuff
-			//long NSim = 400000;
-			//std::cout << "Number of simulations: ";
-			//std::cin >> NSim;
-
-			//avg_prices.reserve(NSim);
-			avg_prices.reserve(sim);
+			std::vector<double> x = range.mesh(N);		// mesh range
+			std::vector<double> avg_prices;				// simulated prices vector
+			avg_prices.reserve(NSim);					// reserve space for optimisation
 
 			double k = myOption.T / double(N);
 			double sqrk = sqrt(k);
 
 			// Normal random number
-			double dW = 0.0;
-			double price = 0.0;	// Option price
-			//double output_price = 0.0; // , output_price_sq = 0.0;
+			double dW = 0.0;			// random number variable
+			double price = 0.0;			// Option price
 
 			// NormalGenerator is a base class
-			//NormalGenerator* myNormal = new BoostNormal();
-			//std::unique_ptr manages heap memory without the need to use the delete
+			// std::unique_ptr manages heap memory without the need to use the delete
 			// function to clean up memory
 			std::unique_ptr<NormalGenerator> myNormal{ new BoostNormal() };
 
 			using namespace SDEDefinition;
 			SDEDefinition::data = &myOption;
 
-			std::vector<double> res;
-			int coun = 0; // Number of times S hits origin
+			int count = 0;				// Number of times S hits origin
 
-
-
-			// A.
-			//for (long i = 1; i <= NSim; ++i)
-			for (long i = 1; i <= sim; ++i)
+			// Run simulation
+			for (long i = 1; i <= NSim; ++i)
 			{ // Calculate a path at each iteration
 
-				if ((i / 10000) * 10000 == i)
-				{// Give status after each 1000th iteration
-
-					std::cout << i << std::endl;
-				}
+				// Give status after each 1000th iteration for debug purposes
+				if ((i / 10000) * 10000 == i) { std::cout << i << std::endl; }
 
 				VOld = S_0;
 				for (unsigned long index = 1; index < x.size(); ++index)
 				{
-
-					// Create a random number
-					dW = myNormal->getNormal();
+					dW = myNormal->getNormal();	// Create a random number
 
 					// The FDM (in this case explicit Euler)
 					VNew = VOld + (k * drift(x[index - 1], VOld))
@@ -149,45 +130,32 @@ int main()
 
 					VOld = VNew;
 
-					// Spurious values
-					if (VNew <= 0.0) coun++;
+					if (VNew <= 0.0) count++;	// Count spurious values
 				}
 
-				double tmp = myOption.myPayOffFunction(VNew);
-				//price += (tmp) / double(NSim);
-				price += (tmp) / double(sim);
+				double tmp = myOption.myPayOffFunction(VNew);	// calculate payoff
+				price += (tmp) / double(NSim);
 
-				avg_prices.push_back(price);	// collect price for SD and SE calculations
+				avg_prices.push_back(price);	// collect prices for SD and SE calculations
 			}
 
 
-			// D. Finally, discounting the average price
+			// discounting the average price
 			price *= exp(-myOption.r * myOption.T);
 
-			std::cout << "\navg_prices.size(): " << avg_prices.size() << endl << endl;
-
-			// calculate SD, SE
+			// calculate SD and SE
 			boost::tuple<double, double> sum_and_squares(SumSquaresAndSum(avg_prices));
 			boost::tuple<double, double> SDandSE(
 				StandardDeviationAndError(avg_prices, myOption.r, myOption.T));
 
-			//get<0>(vals) = SDandSE;
-			//get<1>(vals) = price;
-			//get<2>(vals) = coun;
-
+			// collect values
 			boost::tuple<boost::tuple<double, double>, double, int, int, int> 
-				val{ SDandSE, price, coun, N, sim };
+				val{ SDandSE, price, count, N, NSim };
 			vals.push_back(val);
-
-			//delete myNormal;
 		}
 	}
 	
-	
-	//cout << "\nsum: " << get<0>(sum_and_squares) << endl;
-	//cout << "\nsquares: " << get<1>(sum_and_squares) << endl << endl;
-	
-	for (auto val : vals)
+	for (auto val : vals)	// loop and print values for simulations
 	{
 		std::cout << "\nTime Steps:\t" << get<3>(val) << endl;
 		std::cout << "\nNo of sims:\t" << get<4>(val) << endl;
@@ -197,17 +165,9 @@ int main()
 		std::cout << "\nPrice from exact method: " << Batch1_price << endl;
 		std::cout << "\nNo of times origin  hit: " << get<2>(val) << endl << endl;
 	}
-	
-	//cout << "\nSD : " << get<0>(get<0>(vals)) << endl;
-	//cout << "\nSE : " << get<1>(get<0>(vals)) << endl << endl;
 
-	// Cleanup; V2 use scoped pointer
+	// unique_ptr manages memory without the need for delete
 	//delete myNormal;
-
-
-	//std::cout << "\nPrice, after discounting: " << get<1>(vals) << ", " << std::endl;
-	//std::cout << "Number of times origin is hit: " << get<2>(vals) << endl;
-
 
 	return 0;
 }

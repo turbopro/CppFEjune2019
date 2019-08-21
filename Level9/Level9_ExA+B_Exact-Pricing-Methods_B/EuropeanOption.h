@@ -35,6 +35,7 @@ private:
 	// Member data is set as "protected" to allow easier access by derived classes
 	// for derived class member function instantiations: see calculations of Y1()
 	// and Y2() in derived class AmericanOption
+
 protected:
 	// Member data 
 	double T;		// Strike price
@@ -45,7 +46,7 @@ protected:
 	double b;		// Cost of carry
 
 	string opt_type;// Option type: "C" = call, "P" = put
-	string unam;	// Name of underlying asset
+	string unam;	// Name of underlying asset/security
 
 	// Static data member for comparison of double variables
 	// Floating point precision factor
@@ -53,6 +54,17 @@ protected:
 
 public:	// Public functions
 	EuropeanOption();										// Default constructor
+	// constructor takes four arguments: 
+	// op		-	map<string, vector> with test parameter values
+	//				We use a map to map option parameter name to parameter name value for
+	//				ease of reference 
+	// ot		-	option type
+	// security	-	Name of underlying security type
+	// b_adjust	-	Value to be used to adjust parameter b:
+	//				b's value is calculated in the constructor based on type of underlying
+	//				asset/security
+	//				For a Stock, b = r; for an index, b = r - q(dividend); for a future, b = 0.0;
+	//				for a currency, b = r - R(foreign exchange interest rate)
 	EuropeanOption(const map<string, double>& option_parameters,	// constructor
 		const string& option_type, const string& security, const double& b_adjust = 0.0);
 	EuropeanOption(const EuropeanOption& option2);			// Copy constructor
@@ -63,14 +75,14 @@ public:	// Public functions
 
 	// Functions that calculate option price and sensitivities
 	// All functions here set to virtual to allow instantiations by derived classes
-	virtual double Price(double U) const;					// use with default constructed EuroOption
-	virtual double Price() const;							// use with constructor
-	virtual double Delta(double U) const;					// use with default constructed EuroOption
-	virtual double Delta() const;							// use with constructor
-	virtual double Gamma(double U) const;					// use with default constructed EuroOption
-	virtual double Gamma() const;							// use with constructor
-	virtual double DeltaDividedDiff(double h);				// divided differences to approximate option sensitivities
-	virtual double GammaDividedDiff(double h);				// divided differences to approximate option sensitivities
+	virtual double Price(double U) const;			// use with default constructed EuroOption
+	virtual double Price() const;					// use with constructor
+	virtual double Delta(double U) const;			// use with default constructed EuroOption
+	virtual double Delta() const;					// use with constructor
+	virtual double Gamma(double U) const;			// use with default constructed EuroOption
+	virtual double Gamma() const;					// use with constructor
+	virtual double DeltaDividedDiff(double h);		// divided differences to approximate option sensitivities
+	virtual double GammaDividedDiff(double h);		// divided differences to approximate option sensitivities
 
 	// Inline member functions to calculate d1 and d2
 	double D1(const double U) const

@@ -6,8 +6,6 @@ All functions declared in the header files are defined hereunder
 
 set_batch():	set batch values from option_param and option_param_val vectors 
 
-vec_range():	create vector of doubles: increasing/decreasing monotonically
-
 vector_pricer():	(4-argument version)
 Takes as input an option, a vector of doubles to store calculated prices, a function
 pointer to member setter functions, and a vector of doubles with input values for 
@@ -38,7 +36,7 @@ in a vector
 
 
 // set_batch() definition
-// set batch values from option_param and option_param_val vectors 
+// Set batch values from option_param and option_param_val vectors 
 void set_batch(map<string, double>& batch, const vector<string>& option_param,
 	const vector<double>& option_param_val)
 {
@@ -66,21 +64,22 @@ void vec_range(vector<double>& vec, const double& start, const double& end)
 
 
 // vector_pricer()
-// Set an indexer to the test parameter's start value, then loop until the end vlue by step size
+// Set an indexer to the test parameter's start value, then loop until the end value by
+// step size
 // For each loop:
 //	set the test parameter of the option
 //	call the Price() function
-//	add the returned c\value to the output vector
+//	add the returned value to the output vector
 //	after the loop completes, reset the test parameter to its inital value
 void vector_pricer(EuropeanOption& option, vector<double>& option_prices,
 	const EuroSetFn p_setter_fn, const vector<double>& param_vec)
 {
 	for (double param_idx = param_vec[1]; param_idx <= param_vec[2]; param_idx += param_vec[3])
 	{
-		std::invoke(p_setter_fn, option, param_idx);		// set option test parameter
+		std::invoke(p_setter_fn, option, param_idx);	// set option test parameter
 		option_prices.push_back(option.Price());		// get option price
 	}
-	std::invoke(p_setter_fn, option, param_vec[0]);		// reset test parameter
+	std::invoke(p_setter_fn, option, param_vec[0]);		// set test parameter to initial value
 }
 
 
@@ -89,7 +88,7 @@ void vector_pricer(EuropeanOption& option, vector<double>& option_prices,
 // For each loop:
 //	set the test parameter of the option
 //	call the relevant member function, Delta, Gamma, Price, given by the p_price_fn pointer 
-//	add the returned c\value to the output vector
+//	add the returned value to the output vector
 //	after the loop completes, reset the test parameter to its inital value
 void vector_pricer(EuropeanOption& option, vector<double>& option_prices,
 	const EuroSetFn p_setter_fn, const EuroPriceFn p_price_fn, const vector<double>& param_vec)
@@ -97,14 +96,16 @@ void vector_pricer(EuropeanOption& option, vector<double>& option_prices,
 	for (double param_idx = param_vec[1]; param_idx <= param_vec[2]; param_idx += param_vec[3])
 	{
 		std::invoke(p_setter_fn, option, param_idx);		// set option test parameter
-		option_prices.push_back(							// get option price
+		option_prices.push_back(							// get option price/sensitivity
 			std::invoke(p_price_fn, option, option.GetS()));		
 	}
-	std::invoke(p_setter_fn, option, param_vec[0]);			// reset test parameter
+	std::invoke(p_setter_fn, option, param_vec[0]);		// set test parameter to initial value
 }
 
 
 // matrix_pricer()
+// Loop over input option parameter map
+// For each loop, call vector_pricer to get and then store option prices to a vector
 void matrix_pricer(EuropeanOption& option, const map<string, vector<double>>& params,
 	map<string, vector<double>>& option_prices_map, const map <string, EuroSetFn> p_setter_fn)
 {
@@ -115,6 +116,9 @@ void matrix_pricer(EuropeanOption& option, const map<string, vector<double>>& pa
 
 
 // matrix_pricer()
+// Loop over input option parameter map
+// For each loop, call vector_pricer to get and then store option prices or sensitivities
+// to a vector
 void matrix_pricer(EuropeanOption& option, const map<string, vector<double>>& params,
 	map<string, vector<double>>& prices_map, const EuroPriceFn p_pricer_fn, 
 	const map<string, EuroSetFn> p_setter_fn)

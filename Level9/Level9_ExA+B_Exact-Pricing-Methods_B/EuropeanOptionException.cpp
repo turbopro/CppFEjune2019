@@ -1,5 +1,4 @@
 /* EuropeanOptionException.cpp
-Level9_ExA+B
 
 Source file that implements the EuropeanOptionException class declared in the
 EuropeanOptionException.h header file.
