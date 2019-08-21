@@ -57,7 +57,7 @@ namespace SDEDefinition
 int main()
 {
 	std::cout <<  "1 factor MC with explicit Euler\n";
-	OptionData myOption;
+	OptionData myOption;		// Batch 1 parameters
 	myOption.K = 65.0;
 	myOption.T = 0.25;
 	myOption.r = 0.08;
@@ -65,118 +65,122 @@ int main()
 	myOption.type = -1;	// Put -1, Call +1
 	double S_0 = 60;
 	
+	double Batch1_price = 5.84628;		// Put price 
+	double Batch2_price = 7.96557;		// Call price
 
 	vector<int> t_steps{ 500, 1000, 1500 };
-	vector<int> sims{ 50000, 100000, 200000, 300000, 400000, 500000 };
+	vector<int> sims{ 50000, 100000, 200000 }; // , 300000, 400000}; // , 500000};
 
 	//boost::tuple<boost::tuple<double, double>, double, int> vals;
-	vector<boost::tuple<boost::tuple<double, double>, double, int>> vals;
-	vals.reserve(5);
+	vector<boost::tuple<boost::tuple<double, double>, double, int, int, int>> vals;
+	vals.reserve(15);
 
-	//double prices = 0.0;
-	//long NSim = 20;
-
-	//std::vector<double> avg_prices;
-	//avg_prices.reserve(NSim);
-	
+	double prices = 0.0;	
 
 	for (auto N : t_steps)
 	{
-		//long N = 100;
-		//std::cout << "Number of subintervals in time: ";
-		//std::cin >> N;
+		for (auto sim : sims)
+		{
+			//long N = 100;
+			//std::cout << "Number of subintervals in time: ";
+			//std::cin >> N;
 
 
-		// Create the basic SDE (Context class)
-		Range<double> range(0.0, myOption.T);
-		double VOld = S_0;
-		double VNew = 0.0;
+			// Create the basic SDE (Context class)
+			Range<double> range(0.0, myOption.T);
+			double VOld = S_0;
+			double VNew = 0.0;
 
-		std::vector<double> x = range.mesh(N);
-		std::vector<double> avg_prices;
-		//avg_prices.reserve(NSim);
+			std::vector<double> x = range.mesh(N);
+			std::vector<double> avg_prices;
+			//avg_prices.reserve(NSim);
 
-		// V2 mediator stuff
-		long NSim = 400000;
-		std::cout << "Number of simulations: ";
-		std::cin >> NSim;
+			// V2 mediator stuff
+			//long NSim = 400000;
+			//std::cout << "Number of simulations: ";
+			//std::cin >> NSim;
 
-		avg_prices.reserve(NSim);
+			//avg_prices.reserve(NSim);
+			avg_prices.reserve(sim);
 
-		double k = myOption.T / double(N);
-		double sqrk = sqrt(k);
+			double k = myOption.T / double(N);
+			double sqrk = sqrt(k);
 
-		// Normal random number
-		double dW = 0.0;
-		double price = 0.0;	// Option price
-		//double output_price = 0.0; // , output_price_sq = 0.0;
+			// Normal random number
+			double dW = 0.0;
+			double price = 0.0;	// Option price
+			//double output_price = 0.0; // , output_price_sq = 0.0;
 
-		// NormalGenerator is a base class
-		NormalGenerator* myNormal = new BoostNormal();
-		//std::unique_ptr manages heap memory without the need to use the delete
-		// function to clean up memory
-		//std::unique_ptr<NormalGenerator> myNormal{ new BoostNormal() };
+			// NormalGenerator is a base class
+			//NormalGenerator* myNormal = new BoostNormal();
+			//std::unique_ptr manages heap memory without the need to use the delete
+			// function to clean up memory
+			std::unique_ptr<NormalGenerator> myNormal{ new BoostNormal() };
 
-		using namespace SDEDefinition;
-		SDEDefinition::data = &myOption;
+			using namespace SDEDefinition;
+			SDEDefinition::data = &myOption;
 
-		std::vector<double> res;
-		int coun = 0; // Number of times S hits origin
+			std::vector<double> res;
+			int coun = 0; // Number of times S hits origin
 
 
 
-		// A.
-		for (long i = 1; i <= NSim; ++i)
-		{ // Calculate a path at each iteration
+			// A.
+			//for (long i = 1; i <= NSim; ++i)
+			for (long i = 1; i <= sim; ++i)
+			{ // Calculate a path at each iteration
 
-			if ((i / 10000) * 10000 == i)
-			{// Give status after each 1000th iteration
+				if ((i / 10000) * 10000 == i)
+				{// Give status after each 1000th iteration
 
-				std::cout << i << std::endl;
+					std::cout << i << std::endl;
+				}
+
+				VOld = S_0;
+				for (unsigned long index = 1; index < x.size(); ++index)
+				{
+
+					// Create a random number
+					dW = myNormal->getNormal();
+
+					// The FDM (in this case explicit Euler)
+					VNew = VOld + (k * drift(x[index - 1], VOld))
+						+ (sqrk * diffusion(x[index - 1], VOld) * dW);
+
+					VOld = VNew;
+
+					// Spurious values
+					if (VNew <= 0.0) coun++;
+				}
+
+				double tmp = myOption.myPayOffFunction(VNew);
+				//price += (tmp) / double(NSim);
+				price += (tmp) / double(sim);
+
+				avg_prices.push_back(price);	// collect price for SD and SE calculations
 			}
 
-			VOld = S_0;
-			for (unsigned long index = 1; index < x.size(); ++index)
-			{
 
-				// Create a random number
-				dW = myNormal->getNormal();
+			// D. Finally, discounting the average price
+			price *= exp(-myOption.r * myOption.T);
 
-				// The FDM (in this case explicit Euler)
-				VNew = VOld + (k * drift(x[index - 1], VOld))
-					+ (sqrk * diffusion(x[index - 1], VOld) * dW);
+			std::cout << "\navg_prices.size(): " << avg_prices.size() << endl << endl;
 
-				VOld = VNew;
+			// calculate SD, SE
+			boost::tuple<double, double> sum_and_squares(SumSquaresAndSum(avg_prices));
+			boost::tuple<double, double> SDandSE(
+				StandardDeviationAndError(avg_prices, myOption.r, myOption.T));
 
-				// Spurious values
-				if (VNew <= 0.0) coun++;
-			}
+			//get<0>(vals) = SDandSE;
+			//get<1>(vals) = price;
+			//get<2>(vals) = coun;
 
-			double tmp = myOption.myPayOffFunction(VNew);
-			price += (tmp) / double(NSim);
+			boost::tuple<boost::tuple<double, double>, double, int, int, int> 
+				val{ SDandSE, price, coun, N, sim };
+			vals.push_back(val);
 
-			avg_prices.push_back(price);	// collect price for SD and SE calculations
+			//delete myNormal;
 		}
-
-
-		// D. Finally, discounting the average price
-		price *= exp(-myOption.r * myOption.T);
-
-		std::cout << "\navg_prices.size(): " << avg_prices.size() << endl << endl;
-
-		// calculate SD, SE
-		boost::tuple<double, double> sum_and_squares(SumSquaresAndSum(avg_prices));
-		boost::tuple<double, double> SDandSE(
-			StandardDeviationAndError(avg_prices, myOption.r, myOption.T));
-
-		//get<0>(vals) = SDandSE;
-		//get<1>(vals) = price;
-		//get<2>(vals) = coun;
-
-		boost::tuple<boost::tuple<double, double>, double, int> val{ SDandSE, price, coun };
-		vals.push_back(val);
-
-		delete myNormal;
 	}
 	
 	
@@ -185,10 +189,13 @@ int main()
 	
 	for (auto val : vals)
 	{
-		std::cout << "\nSD : " << get<0>(get<0>(val)) << endl;
-		std::cout << "\nSE : " << get<1>(get<0>(val)) << endl << endl;
-		std::cout << "\nPrice, after discounting: " << get<1>(val) << ", " << std::endl;
-		std::cout << "Number of times origin is hit: " << get<2>(val) << endl << endl;
+		std::cout << "\nTime Steps:\t" << get<3>(val) << endl;
+		std::cout << "\nNo of sims:\t" << get<4>(val) << endl;
+		std::cout << "\nStd Deviation:\t" << get<0>(get<0>(val)) << endl;
+		std::cout << "\nStd Error:\t" << get<1>(get<0>(val)) << endl;
+		std::cout << "\nPrice after discounting: " << get<1>(val) << endl;
+		std::cout << "\nPrice from exact method: " << Batch1_price << endl;
+		std::cout << "\nNo of times origin  hit: " << get<2>(val) << endl << endl;
 	}
 	
 	//cout << "\nSD : " << get<0>(get<0>(vals)) << endl;
