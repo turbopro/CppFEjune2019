@@ -139,7 +139,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="NormalGenerator.cpp" />
-    <ClCompile Include="OptionData.cpp" />
     <ClCompile Include="Range.cpp" />
     <ClCompile Include="TestMC.cpp" />
   </ItemGroup>

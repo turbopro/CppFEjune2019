@@ -1,9 +1,7 @@
-/* Option.hpp
-//
-// EuropeanOption Base class
-// a
-//
-// (C) Datasim Component Technology BV 2003-2011
+/* AmericanOption.hpp
+
+AmericanOption class header file
+
 */
 
 #ifndef AmericanOption_hpp
@@ -50,7 +48,6 @@ public:	// Public functions
 		return (0.5 - (b / (sig * sig)) - sqrt((b / (sig * sig) - 0.5) * (b / (sig * sig) - 
 			0.5) + ((2 * r) / (sig * sig))));
 	}
-
 };
 
 

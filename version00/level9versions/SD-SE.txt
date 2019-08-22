@@ -1,0 +1,18 @@
+1 factor MC with explicit Euler
+Number of subintervals in time: 1000
+Number of simulations: 400000
+
+
+Price, after discounting: 5.84859,
+Number of times origin is hit: 0
+
+SD:     0.0907142
+
+SE:     0.000143432
+
+C:\Users\paola\source\repos\CppFEjune2019\Level9\Level9_ExC+D_Advanced-Monte-Car
+lo\x64\Release\Level9_ExC+D_Advanced-Monte-Carlo.exe (process 8356) exited with
+code 0.
+To automatically close the console when debugging stops, enable Tools->Options->
+Debugging->Automatically close the console when debugging stops.
+Press any key to close this window . . .

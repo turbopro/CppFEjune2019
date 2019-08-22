@@ -1,9 +1,8 @@
-/* Option.hpp
-//
-// Base class for the European, American and other options
-// a
-//
-// (C) Datasim Component Technology BV 2003-2011
+/* ExactPricingMethods.h
+
+Header file for declarations of helper functions for the European and
+American options
+ 
 */
 
 #ifndef ExactPricingMethods_hpp
@@ -26,14 +25,15 @@
 
 using namespace std;
 
-// store Test Parameter names and values into a Map<String, Double> container
+// Store test parameter names and values for Batches 1 thru 4 into a
+// Map<String, Double> container
 void set_batch(map<string, double>& batch, const vector<string>& option_param,
 	const vector<double>& option_param_val);
 
 // **********************************************
 // The following constants are used to create a Vector of Map containers to store the
 // four Batches of test values, and, also for creating map<string, double> 
-// containers to be used as input arguments to the constructor
+// containers to be used as input arguments to the option constructor
 
 const int map_size = 4;			// size of the Map Array
 
@@ -48,6 +48,7 @@ const vector<double> test_val[]
 	{ 1.0, 10, 0.5, 0.12, 5, 0.204058, 4.07326 },
 	{ 30.0, 100.0, 0.3, 0.08, 100.0, 92.1757, 1.2475 }
 };
+
 
 // ******************************************************************
 
@@ -106,7 +107,7 @@ void vector_pricer(EuropeanOption& option, vector<double>& option_prices,
 // function pointer and a string idenfier to the member setter function
 // This function loops over the input map parameters, and for each map element
 // sets the option test parameter, then calls the Price() function
-// The returned option price is added to the output map vector long with the
+// The returned option price is added to the output map vector along with the
 // relevant test parameter as an identifier
 // option			-	input option with the test parameters
 // params			-	input map of parameters
@@ -117,14 +118,14 @@ void matrix_pricer(EuropeanOption& option, const map<string, vector<double>>& pa
 
 
 // matrix_pricer()
-// This version takes an additional argument, a function pointer to a price and
+// This version takes an additional argument, a function pointer to a price and/or
 // sensitivities member function
 // We use this version to test each option parameter over a range of values for each
 // option price or option delta or option gamma functions
 // p_price_fn		-	map of function pointers to member setter functions
 // fn_name			-	name of the price and sensitivities member functions
 void matrix_pricer(EuropeanOption& option, const map<string, vector<double>>& params,
-	map<string, vector<double>>& prices_map, const EuroPriceFn p_pricer_fn,
+	map<string, vector<double>>& prices_map, const EuroPriceFn p_price_fn,
 	const map<string, EuroSetFn> p_setter_fn);
 
 

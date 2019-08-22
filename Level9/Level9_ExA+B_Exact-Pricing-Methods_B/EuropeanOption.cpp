@@ -24,7 +24,8 @@ const double EuropeanOption::epsilon = 1.0e-05;
 // From the Black-Scholes stock option model, we assume, inter alia, 
 // that the distribution for the underlying Stock Price follows a 
 // normal distribution with mean = 0.0, std dev = 1.0.
-// Thus, we re-write n(x) and N(x) using the Boost::Math libraries as follows:
+// For improved accuracy, we re-write n(x) and N(x) using the Boost::Math
+// libraries as follows:
 
 // standard normal probability density function
 double EuropeanOption::n(double x) const
@@ -55,31 +56,33 @@ EuropeanOption::EuropeanOption()
 
 // constructor takes four arguments: 
 // op		-	map<string, vector> with test parameter values
-//				We use a map to map option parameter to value for ease of reference 
+//				We use a map to map option parameter name to parameter name value for
+//				ease of reference 
 // ot		-	option type
 // security	-	Name of underlying security type
-// b_adjust	-	Value to be used to adjust b: adjusted by q = dividend, or foreign interest 
-//				rate, R
+// b_adjust	-	Value to be used to adjust parameter b:
+//				b's value is calculated in the constructor based on type of underlying
+//				asset/security
 //				For a Stock, b = r; for an index, b = r - q(dividend); for a future, b = 0.0;
 //				for a currency, b = r - R(foreign exchange interest rate)
 //
-// Colon initialisation used to set data members
-// For the different types of underlying securities/assets, additional initilisation occurs in the 
-// curly braces
-// Input value checking is done here in construction of the option
+// Colon initialisation is used to set data members
+// For the different types of underlying securities/assets, additional initilisation occurs
+// within the curly braces
+// Input value checking is done here in the constructor
 // Option type is checked for validity: throw exception if invalid value
 // Underlying security type is checked for validity: throw exception if invalid value
 // Parameters T, K, S, or sig are checked for zero value: throw exception if either of these
-// parameter are zero 
+// parameters has a zero value 
 // If set to sero, "T", "K", "S", or "sig" will create divide by zero errors
-// Moreover, S = 0 is not a sensible value for an asset price
+// Moreover, S or K = 0 is not a sensible value for an asset or strike price
 //
 // A map container is used for input parameters as it is easier for the sake of reference to
 // map input parameter strings to input values. An input vector may be more striaghtforward,
-// but we would need to keep track separeately of which element of the input vector is mapped
+// but we may need to keep track separeately of which element of the input vector is mapped
 // to which input parameter
 //
-// input b_adjust is used to set the correct value for parameter b: the value is determined
+// Input b_adjust is used to set the correct value for parameter b: the value is determined
 // by the type of the underlying asset/security
 EuropeanOption::EuropeanOption(const map<string, double>& op, const string& ot,
 	const string& security, const double& b_adjust)
@@ -92,12 +95,11 @@ EuropeanOption::EuropeanOption(const map<string, double>& op, const string& ot,
 		security == "Stock" || security == "Index") unam = security;
 	else throw InvalidUnderlyingException(security);
 
-	// throw InvalidOptionTypeException if option_type not valid
+	// throw InvalidOptionTypeException if option type not valid
 	if (ot == "C" || ot == "c" || ot == "P" || ot == "p") opt_type = ot;
 	else throw InvalidOptionTypeException(ot);
 
-	// throw InvalidParameterValueException if either of parameter values, T, K, S,
-	// or sig is zero
+	// throw InvalidParameterValueException if either of parameter T, K, S, or sig is zero
 	if (T == 0 || K == 0 || S == 0 || sig == 0)
 		throw InvalidParameterValueException("0");
 
@@ -145,7 +147,7 @@ double EuropeanOption::Price(double U) const
 }
 
 // Use with constructor: asset price is provided within the input map container
-// call single argument Price member function
+// Call single argument Price member function
 double EuropeanOption::Price() const
 {
 	return Price(S);
@@ -162,7 +164,7 @@ double EuropeanOption::Delta(double U) const
 }
 
 // Use with constructor: asset price is provided within the input map container
-// call single argument Delta member function
+// Call single argument Delta member function
 double EuropeanOption::Delta() const
 {
 	return Delta(S);
@@ -177,7 +179,7 @@ double EuropeanOption::Gamma(double U) const
 }
 
 // Use with constructor: asset price is provided within the input map container
-// call single argument Gamma member function
+// Call single argument Gamma member function
 double EuropeanOption::Gamma() const
 {
 	return Gamma(S);
@@ -253,11 +255,11 @@ boost::tuple<double, double> EuropeanOption::put_call_parity() const
 // Check if call and put prices for a given stock option at price S make for a put-call parity
 bool EuropeanOption::check_put_call_parity(const double& call_price, const double& put_price) const
 {
-	// get parity put and call prices for Stock at price S
+	// Get parity put and call prices for asset/security at price S
 	boost::tuple<double, double> parity_prices(put_call_parity());
 
-	// We use static data member epsilon for comparison of calculated vs given call/put prices
-	// return true if prices are "equal": that is, if the prices lie within epsilon tolerance
+	// Static data member 'epsilon' is used for comparison of calculated vs given call/put prices
+	// Return true if prices are "equal": that is, if the prices lie within epsilon tolerance
 	return (std::abs(put_price - parity_prices.get<0>()) < epsilon &&
 		std::abs(call_price - parity_prices.get<1>()) < epsilon);
 }

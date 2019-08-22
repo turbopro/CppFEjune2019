@@ -19,10 +19,7 @@ using namespace std;
 struct OptionData
 { // Option data + behaviour
 
-	double K;
-	double T;
-	double r;
-	double sig;
+	double K, T, r, sig;
 
 	// Extra data 
 	double H;		// down and out barrier
@@ -35,24 +32,18 @@ struct OptionData
 	double myPayOffFunction(double S)
 	{ // Payoff function
 
-		if (type == 1)
-		{ // Call
-
-			return max(S - K, 0.0);
-		}
-		else
-		{ // Put
-
-			return max(K - S, 0.0);
-		}
+		if (type == 1) { return max(S - K, 0.0); }	// Call
+		else { return max(K - S, 0.0); }			// Put
 	}
 };
 
 
-/// AdjunctFunctions
+////////////////////////////////////////////////////////
+// Helper Functions
 //*************** Note ****************
-// The below functions "borrowed" from thread, "Level 9 Homework comments/questions",
-// thread #29, dated 3/13/12, by Dr Duffy
+// The below temp[late functions, SumSquaresAndSum and StandardDeviationAndError, are
+// "borrowed" as is from thread, "Level 9 Homework comments/questions", thread #29,
+// dated 3/13/12, by Dr Duffy
 
 template <typename V>
 boost::tuple<double, double> SumSquaresAndSum(const V& container);
@@ -61,18 +52,15 @@ template <typename V>
 boost::tuple<double, double> StandardDeviationAndError(const V& container, double r, double T);
 
 
-/// UTIL FUNCTIONS
+////////////////////////////////////////////////////////
+/// Utility Funtions
 
 template <class T>
 void print(const std::vector<T>& vec);
 
 
-//////////////////////////////////////////////
-////
-
-//*************** Note ****************
-// The below functions "borrowed" from thread, "Level 9 Homework comments/questions",
-// thread #29, dated 3/13/12, by Dr Duffy
+/////////////////////////////////////////////////////////
+// Template functions definitions
 
 // Some statistics-based functions
 template <typename V>
@@ -87,7 +75,6 @@ boost::tuple<double, double> SumSquaresAndSum(const V& container)
 
 	return boost::tuple<double, double>(sum, sumSquares);
 }
-
 
 template <typename V>
 boost::tuple<double, double> StandardDeviationAndError(const V& container, double r, double T)
