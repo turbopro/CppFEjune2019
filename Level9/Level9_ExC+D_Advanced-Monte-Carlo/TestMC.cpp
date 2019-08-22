@@ -24,34 +24,6 @@
 #include <boost/tuple/tuple_io.hpp>
 
 
-// SDEDefinition
-namespace SDEDefinition
-{ // Defines drift + diffusion + data
-
-	OptionData* data;				// The data for the option MC
-
-	double drift(double t, double X)
-	{ // Drift term
-
-		return (data->r) * X; // r - D
-	}
-
-
-	double diffusion(double t, double X)
-	{ // Diffusion term
-
-		double betaCEV = 1.0;
-		return data->sig * pow(X, betaCEV);
-
-	}
-
-	double diffusionDerivative(double t, double X)
-	{ // Diffusion term, needed for the Milstein method
-
-		double betaCEV = 1.0;
-		return 0.5 * (data->sig) * (betaCEV)* pow(X, 2.0 * betaCEV - 1.0);
-	}
-} // End of namespace
 
 
 int main()
@@ -64,53 +36,62 @@ int main()
 	myOption.sig = 0.3;
 	myOption.type = -1;	// Put -1, Call +1
 	double S_0 = 60;
-	
 	double Batch1_price = 5.84628;		// Put price 
-	double Batch2_price = 7.96557;		// Call price
 
+	/*
+	OptionData myOption;		// Batch 2 parameters
+	myOption.K = 100.0;
+	myOption.T = 1.0;
+	myOption.r = 0.0;
+	myOption.sig = 0.2;
+	myOption.type = 1;	// Put -1, Call +1
+	double S_0 = 100.0;
+	double Batch2_price = 7.96557;		// Call price
+	*/
+	
 	// Create vectors for time steps and number of simulations
 	vector<int> t_steps{ 500, 1000, 1500 };
-	vector<int> NSims{ 50000, 100000 }; // , 200000, 300000, 400000, 500000};
-		//600000, 700000, 800000, 900000, 1000000, 1500000, 2000000 };
-
-	//vector<int> NSims{ 50000, 100000, 200000, 300000, 400000, 500000,
-		//600000, 700000, 800000, 900000, 1000000, 1500000, 2000000 };
+	vector<int> NSims{ 50000, 100000, 200000, 300000, 400000, 500000,
+		600000, 700000, 800000, 900000, 1000000, 1500000, 2000000 };
 
 	// Create tuple to hold simulation details and output
 	vector<boost::tuple<boost::tuple<double, double>, double, int, int, int>> vals;
-	vals.reserve(NSims.size() * t_steps.size());		// reserve space for optimisation
+	vals.reserve(NSims.size() * t_steps.size());		// reserve space
 
-	double prices = 0.0;	// prices calculated from each simulation run 
+	// Create random number and option price variables
+	double dW = 0.0;
+	double price = 0.0;
 
-	for (auto N : t_steps)		// loop over t_steps vector for time steps values
+	// Create variables for simulation run
+	double VOld = S_0;			// initial and current asset price 
+	double VNew = 0.0;			// simulated price based on current price
+
+	// Create SDE data, a pointer to an OptionData object
+	using namespace SDEDefinition;
+	SDEDefinition::data = &myOption;
+
+	std::vector<double> prices;					// simulated prices vector
+
+	// loop over t_steps vector for time steps values
+	for (auto N : t_steps)
 	{
-		for (auto NSim : NSims)	// loop over sims vector for number of simulations values
+		// Create the basic SDE (Context class)
+		Range<double> range(0.0, myOption.T);
+		std::vector<double> x = range.mesh(N);		// mesh range
+
+		double k = myOption.T / double(N);
+		double sqrk = sqrt(k);
+		
+		int count = 0;				// Number of times S hits origin
+
+		// Loop over sims vector for number of simulations values
+		for (auto NSim : NSims)
 		{
-			// Create the basic SDE (Context class)
-			Range<double> range(0.0, myOption.T);
-			double VOld = S_0;			// initial and current asset price 
-			double VNew = 0.0;			// simulated price based on current price
-
-			std::vector<double> x = range.mesh(N);		// mesh range
-			std::vector<double> avg_prices;				// simulated prices vector
-			avg_prices.reserve(NSim);					// reserve space for optimisation
-
-			double k = myOption.T / double(N);
-			double sqrk = sqrt(k);
-
-			// Normal random number
-			double dW = 0.0;			// random number variable
-			double price = 0.0;			// Option price
+			prices.reserve(NSim);						// reserve space
 
 			// NormalGenerator is a base class
-			// std::unique_ptr manages heap memory without the need to use the delete
-			// function to clean up memory
+			// std::unique_ptr manages heap memory without the need for the delete function
 			std::unique_ptr<NormalGenerator> myNormal{ new BoostNormal() };
-
-			using namespace SDEDefinition;
-			SDEDefinition::data = &myOption;
-
-			int count = 0;				// Number of times S hits origin
 
 			// Run simulation
 			for (long i = 1; i <= NSim; ++i)
@@ -118,8 +99,7 @@ int main()
 
 				// Give status after each 1000th iteration for debug purposes
 				if ((i / 10000) * 10000 == i) { std::cout << i << std::endl; }
-
-				VOld = S_0;
+				
 				for (unsigned long index = 1; index < x.size(); ++index)
 				{
 					dW = myNormal->getNormal();	// Create a random number
@@ -136,22 +116,27 @@ int main()
 				double tmp = myOption.myPayOffFunction(VNew);	// calculate payoff
 				price += (tmp) / double(NSim);
 
-				avg_prices.push_back(price);	// collect prices for SD and SE calculations
+				prices.push_back(price);	// collect prices for SD and SE calculations
+
+				VOld = S_0, VNew = 0.0;		// reset values
 			}
 
+			price *= exp(-myOption.r * myOption.T);		// Discounting the average price
 
-			// discounting the average price
-			price *= exp(-myOption.r * myOption.T);
-
-			// calculate SD and SE
-			boost::tuple<double, double> sum_and_squares(SumSquaresAndSum(avg_prices));
+			// Calculate SD and SE
+			boost::tuple<double, double> sum_and_squares(SumSquaresAndSum(prices));
 			boost::tuple<double, double> SDandSE(
-				StandardDeviationAndError(avg_prices, myOption.r, myOption.T));
+				StandardDeviationAndError(prices, myOption.r, myOption.T));
 
-			// collect values
+			// Collect values
 			boost::tuple<boost::tuple<double, double>, double, int, int, int> 
 				val{ SDandSE, price, count, N, NSim };
 			vals.push_back(val);
+
+			dW = 0.0;				// reset random number variable
+			price = 0.0;			// reset Option price
+			count = 0;				// reset count
+			prices.clear();			// reset prices vector
 		}
 	}
 	

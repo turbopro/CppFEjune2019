@@ -1,0 +1,115 @@
+HW: Level 9, Groups C&D: Monte Carlo Pricing Methods
+
+C. Monte Carlo 101
+
+
+
+1.	In order to make the program perhaps a little more readable, the OptionData struct,
+the SDEDefinition namespace definition, and all function declaraions and definitions
+have been placed into the 'OptionData.hpp' header file.
+
+
+i.	struct OptionData :
+
+Includes nine (9) data members to build OptionData objects: Four standard option
+parameters, K, T, r, and sig, plus five extra parameters particular to the MC simulation
+requirements, H, D, betaCEV, scale, and type. In addition, the myPayOffFunction
+returns the payoff based on the simulation price after a run.
+
+
+ii	SDEDefinition namespace
+
+Namespace definition to hold together a pointer to an OptionData object and the 
+associated SDE functions to be used for the various models in the simulations.
+
+
+iii	SumSquaresAndSum
+
+Template function to calculate and return the sum of, and the sum of the squares of,
+the elements of a container 
+
+
+iv	StandardDeviationAndError
+
+Template function to calculate and return the Standard dEviation and Standard Error
+for the simulated prices returned after a run. Makes use of the SumSquaresAndSum
+function.
+
+
+v.	print
+
+Utility function to print the elements of a vector.
+
+
+
+2.	TestMC.cpp
+
+i.	In the main TestMC.cpp file, Range.hpp and Range.cpp are included to allow the use
+of the mesh function. The mesh function creates a mesh of the T parameter of the
+OptionData object for the simulation run.
+
+ii.	Firstly, create an OptionData object based on a list of Option parameters. Also,
+create/set a variable with the 'exact' price associated with that list of option parameters.
+
+iii.	In the simulation run, we create a random number, dW, which makes use of the 
+NormalGenerator and BoostNormal functions. NormalGenerator.hpp provides for these
+functions.  A std::unique_ptr of type NormalGenerator (BoosNormal) is created on 
+the heap and used to generate dW during the simulation runs.  The std::unique_ptr
+manages the heap memory efficiently without the need for the delete function.
+
+iv.	Template functions SumSquaresAndSum and StandardDeviationAndError, defined in the
+OptionData.hpp header file, calculate the SD and SE for a simulation run. SD and SE will 
+help determine the accuracy of the simulation to caclulate a price that best approximates
+the 'exact' price.
+
+
+v.	In the main function:
+	
+-	create an OptionData struct object
+-	set the initial price of the asset
+-	set the target 'exact' price
+-	create time steps and simulation vectors
+-	create a vector of tuple to hold the details and results of the simulation runs
+-	Create/initialise a variable to hold the simulation price
+-	Create/initialise a variable for the random variable
+-	Create/initialise variables for the simulation runs
+-	Create/initialise the SDE data variable
+-	Create a vector of double to hold simulated prices
+
+-	Set outer for loop controlled by the set of defined time steps
+-	Includes an inner for loop controlled by the set of defined simulations values
+	-	Set the range for and create the time steps mesh
+	-	Create/Set the relevant T step variable for use in the calculations
+	-	Create/Set the count variable to track spurious values
+	-	Inner loop controlled by the number of simulations
+		-	Create a random number
+		-	Calculate the new price based on the current price
+		-	Set the current price to the new price
+		-	Check and set the count variable 
+	-	Calculate the average price from the simulation run
+	-	Add the calculated price to the vector of prices
+	-	Reset the simulation price variables 
+-	Calculate the discounted price
+-	Calculate SD and SE
+-	Collect caculated values and simulation values
+-	Reset simulation values 
+-	Display the resulting values from the simulation runs
+
+
+
+Test Simulations Results:
+
+Batch 1
+N:	500, 1000, 1500
+NSim:	50000, 100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000,
+	1000000, 1500000, 2000000
+
+Exact put price:	5.84628
+Best approximation:	5.84592
+
+
+Size of mesh:           	1500
+Number of simulations run:      900000
+Batch 1 Put price:              5.84628
+Simulated approximation:        5.84592
+Count of spurious values:       0
