@@ -1,0 +1,500 @@
+Test run:
+
+N in the range:		500, 1000, 1500
+Nsim in the range:	50000, 100000, 200000, 300000, 400000, 500000, 600000,
+			700000, 800000, 900000, 1000000, 1500000, 2000000	
+
+
+No of sims:     600000
+
+Std Deviation:  0.00213903
+
+Std Error:      2.76147e-06
+
+Price after discounting: 5.8509
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     500
+
+No of sims:     700000
+
+Std Deviation:  0.00197933
+
+Std Error:      2.36575e-06
+
+Price after discounting: 5.85036
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     500
+
+No of sims:     800000
+
+Std Deviation:  0.00185056
+
+Std Error:      2.06898e-06
+
+Price after discounting: 5.84551
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     500
+
+No of sims:     900000
+
+Std Deviation:  0.00174333
+
+Std Error:      1.83763e-06
+
+Price after discounting: 5.84038
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     500
+
+No of sims:     1000000
+
+Std Deviation:  0.00165289
+
+Std Error:      1.65289e-06
+
+Price after discounting: 5.84125
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     500
+
+No of sims:     1500000
+
+Std Deviation:  0.0013488
+
+Std Error:      1.10129e-06
+
+Price after discounting: 5.83893
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     500
+
+No of sims:     2000000
+
+Std Deviation:  0.00116774
+
+Std Error:      8.25717e-07
+
+Price after discounting: 5.83901
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1000
+
+No of sims:     50000
+
+Std Deviation:  0.00735236
+
+Std Error:      3.28808e-05
+
+Price after discounting: 5.83591
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1000
+
+No of sims:     100000
+
+Std Deviation:  0.00524673
+
+Std Error:      1.65916e-05
+
+Price after discounting: 5.87066
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1000
+
+No of sims:     200000
+
+Std Deviation:  0.00371553
+
+Std Error:      8.30817e-06
+
+Price after discounting: 5.8708
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1000
+
+No of sims:     300000
+
+Std Deviation:  0.00302936
+
+Std Error:      5.53083e-06
+
+Price after discounting: 5.85655
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1000
+
+No of sims:     400000
+
+Std Deviation:  0.00261873
+
+Std Error:      4.14058e-06
+
+Price after discounting: 5.84859
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1000
+
+No of sims:     500000
+
+Std Deviation:  0.0023373
+
+Std Error:      3.30545e-06
+
+Price after discounting: 5.84122
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1000
+
+No of sims:     600000
+
+Std Deviation:  0.00213206
+
+Std Error:      2.75248e-06
+
+Price after discounting: 5.84157
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1000
+
+No of sims:     700000
+
+Std Deviation:  0.00197326
+
+Std Error:      2.3585e-06
+
+Price after discounting: 5.83725
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1000
+
+No of sims:     800000
+
+Std Deviation:  0.001845
+
+Std Error:      2.06277e-06
+
+Price after discounting: 5.83424
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1000
+
+No of sims:     900000
+
+Std Deviation:  0.0017392
+
+Std Error:      1.83328e-06
+
+Price after discounting: 5.83612
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1000
+
+No of sims:     1000000
+
+Std Deviation:  0.00164979
+
+Std Error:      1.64979e-06
+
+Price after discounting: 5.83585
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1000
+
+No of sims:     1500000
+
+Std Deviation:  0.00134827
+
+Std Error:      1.10086e-06
+
+Price after discounting: 5.83948
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1000
+
+No of sims:     2000000
+
+Std Deviation:  0.00116779
+
+Std Error:      8.25752e-07
+
+Price after discounting: 5.83868
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1500
+
+No of sims:     50000
+
+Std Deviation:  0.00739615
+
+Std Error:      3.30766e-05
+
+Price after discounting: 5.86002
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1500
+
+No of sims:     100000
+
+Std Deviation:  0.00526485
+
+Std Error:      1.66489e-05
+
+Price after discounting: 5.87535
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1500
+
+No of sims:     200000
+
+Std Deviation:  0.0037164
+
+Std Error:      8.31012e-06
+
+Price after discounting: 5.86242
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1500
+
+No of sims:     300000
+
+Std Deviation:  0.00302316
+
+Std Error:      5.5195e-06
+
+Price after discounting: 5.84577
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1500
+
+No of sims:     400000
+
+Std Deviation:  0.00261349
+
+Std Error:      4.1323e-06
+
+Price after discounting: 5.84708
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1500
+
+No of sims:     500000
+
+Std Deviation:  0.00233594
+
+Std Error:      3.30352e-06
+
+Price after discounting: 5.83855
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1500
+
+No of sims:     600000
+
+Std Deviation:  0.00213148
+
+Std Error:      2.75173e-06
+
+Price after discounting: 5.84125
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1500
+
+No of sims:     700000
+
+Std Deviation:  0.00197338
+
+Std Error:      2.35864e-06
+
+Price after discounting: 5.84439
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1500
+
+No of sims:     800000
+
+Std Deviation:  0.00184693
+
+Std Error:      2.06493e-06
+
+Price after discounting: 5.84438
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1500
+
+No of sims:     900000
+
+Std Deviation:  0.00174166
+
+Std Error:      1.83587e-06
+
+Price after discounting: 5.84592
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1500
+
+No of sims:     1000000
+
+Std Deviation:  0.00165262
+
+Std Error:      1.65262e-06
+
+Price after discounting: 5.84402
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1500
+
+No of sims:     1500000
+
+Std Deviation:  0.00134954
+
+Std Error:      1.10189e-06
+
+Price after discounting: 5.8434
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Time Steps:     1500
+
+No of sims:     2000000
+
+Std Deviation:  0.00116888
+
+Std Error:      8.26523e-07
+
+Price after discounting: 5.84311
+
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
