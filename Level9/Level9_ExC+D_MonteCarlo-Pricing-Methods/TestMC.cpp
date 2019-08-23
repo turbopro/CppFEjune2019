@@ -83,8 +83,8 @@ int main()
 	
 	// Create vectors for a range of time steps and simulations
 	vector<int> time_steps{ 5000, 1000, 1500 };
-	vector<int> sims{ 50000, 100000, 200000, 300000 , 400000 , 500000, 600000,
-		700000, 800000, 900000, 1000000, 2000000 };
+	vector<int> sims{ 50000, 100000, 200000, 300000, 400000 }; // , 500000, 600000,
+		//700000, 800000, 900000, 1000000, 2000000 };
 	
 	// Simulation run moved to a function in OptionData.hpp
 	
