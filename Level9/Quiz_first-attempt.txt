@@ -49,8 +49,8 @@ Which of the following statements concerning the Black Scholes formula is true?
      The Black Scholes formula is valid for non-constant volatility.
 =There is a closed solution for plain options.
      There is a closed solution for options with early exercise.
-     Put-call parity relates put and call option prices.
-= Perpetual American options have a closed solution.
+= Put-call parity relates put and call option prices.
+	= Perpetual American options have a closed solution.
 = The Black Scholes use the Gaussian cumulative distribution function (cdf).
 = The Black Scholes use the Gaussian probability density (pdf) function.
 
