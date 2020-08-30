@@ -1,0 +1,137 @@
+5 minutes ago
+Complete date
+A moment ago
+
+Question 1
+
+	Which of the following concerning the Explicit Euler method is true?
+
+*** The Crank Nicolson method is unconditionally stable and second-order accurate.
+*** Oscillations occur with EE if the mesh time step is not of the same order as the square of the mesh size in space.
+ EE is first order accurate in the time direction.
+*** The Explicit Euler (EE) method is unconditionally stable.
+
+= The Crank Nicolson method is unconditionally stable and second-order accurate.
+= Oscillations occur with EE if the mesh time step is not of the same order as the square of the mesh size in space.
+= EE is first order accurate in the time direction.
+
+	The Explicit Euler (EE) method is unconditionally stable.
+
+
+
+Which of the following concerning the Explicit Euler method is true?
+
+= The Crank Nicolson method is unconditionally stable and second-order accurate.
+= Oscillations occur with EE if the mesh time step is not of the same order as the square of the mesh size in space.
+= EE is first order accurate in the time direction.
+
+
+
+
+
+Question 2
+
+Which of the following statements concerning the Black Scholes formula is true?
+*** There are exact solutions for option sensitivities for the Black Scholes model.
+ The Black Scholes formula is valid for non-constant volatility.
+*** There is a closed solution for plain options.
+ There is a closed solution for options with early exercise.
+*** Put-call parity relates put and call option prices.
+ Perpetual American options have a closed solution.
+*** The Black Scholes use the Gaussian cumulative distribution function (cdf).
+*** The Black Scholes use the Gaussian probability density (pdf) function.
+
+
+
+
+Which of the following statements concerning the Black Scholes formula is true?
+=There are exact solutions for option sensitivities for the Black Scholes model.
+     The Black Scholes formula is valid for non-constant volatility.
+=There is a closed solution for plain options.
+     There is a closed solution for options with early exercise.
+= Put-call parity relates put and call option prices.
+	= Perpetual American options have a closed solution.
+= The Black Scholes use the Gaussian cumulative distribution function (cdf).
+= The Black Scholes use the Gaussian probability density (pdf) function.
+
+
+
+
+Question 3
+
+Which of the following concerning FDM is true?
+*** Explicit FDM require the solution of a matrix system at each time level.
+ There are no constraints on the step sizes in space and time with implicit FDM.
+*** Divided differences can have first-order or second-order accuracy.
+*** They replace partial derivatives by divided difference approximations.
+ There are no constraints on the step sizes in space and time with explicit FDM.
+
+Which of the following concerning FDM is true?
+	*** Explicit FDM require the solution of a matrix system at each time level.
+= There are no constraints on the step sizes in space and time with implicit FDM.
+= Divided differences can have first-order or second-order accuracy.
+= They replace partial derivatives by divided difference approximations.
+ 	There are no constraints on the step sizes in space and time with explicit FDM.
+
+
+
+Which of the following concerning FDM is true?
+
+= There are no constraints on the step sizes in space and time with implicit FDM.
+= Divided differences can have first-order or second-order accuracy.
+= They replace partial derivatives by divided difference approximations.
+ 	There are no constraints on the step sizes in space and time with explicit FDM.
+
+
+
+
+
+
+
+Question 4
+
+Which of the following concerning the Binomial Method Carlo method is true?
+*** BM cannot be used for two-factor models.
+*** BM is less flexible than FDM.
+*** The Binomial Method (BM) can be used to price American options.
+ BM can give 'zigzag' and oscillatory solutions.
+
+*** BM cannot be used for two-factor models.
+= BM is less flexible than FDM.
+= The Binomial Method (BM) can be used to price American options.
+= BM can give 'zigzag' and oscillatory solutions.
+
+
+
+Which of the following concerning the Binomial Method Carlo method is true?
+
+= BM is less flexible than FDM.
+= The Binomial Method (BM) can be used to price American options.
+= BM can give 'zigzag' and oscillatory solutions.
+
+
+
+
+Question 5
+
+Which of the following concerning the Monte Carlo method is true?
+*** It is not possible to price barrier options using the MC method.
+*** The FDM schemes used to discretise SDEs can give biased results.
+*** Computing option sensitivities with MC is feasible (but not efficient).
+ The Monte Carlo (MC) is less efficient than FDM.
+ Pricing American options using FDM is easier than with MC.
+
+
+	*** It is not possible to price barrier options using the MC method.
+= The FDM schemes used to discretise SDEs can give biased results.
+	*** Computing option sensitivities with MC is feasible (but not efficient).
+= The Monte Carlo (MC) is less efficient than FDM.
+= Pricing American options using FDM is easier than with MC.
+
+
+	*** It is not possible to price barrier options using the MC method.
+	= The FDM schemes used to discretise SDEs can give biased results.
+= Computing option sensitivities with MC is feasible (but not efficient).
+= The Monte Carlo (MC) is less efficient than FDM.
+= Pricing American options using FDM is easier than with MC.
+
