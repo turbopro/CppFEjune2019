@@ -1,9 +1,9 @@
-/* Option.hpp
-//
-// EuropeanOption Base class
-// a
-//
-// (C) Datasim Component Technology BV 2003-2011
+/* EuropeanOption.hpp
+
+EuropeanOption Base class
+
+(C) Datasim Component Technology BV 2003-2011
+
 */
 
 #ifndef EuropeanOption_hpp
@@ -68,13 +68,12 @@ public:	// Public functions
 	EuropeanOption(const map<string, double>& option_parameters,	// constructor
 		const string& option_type, const string& security, const double& b_adjust = 0.0);
 	EuropeanOption(const EuropeanOption& option2);			// Copy constructor
-	//EuropeanOption(const string& optionType);				// Create option type
 	virtual ~EuropeanOption();								// destructor for base class
 
 	EuropeanOption& operator = (const EuropeanOption& option2);	// assignment operator
 
 	// Functions that calculate option price and sensitivities
-	// All functions here set to virtual to allow instantiations by derived classes
+	// All functions here set to virtual to allow instantiations by derived classes if needed
 	virtual double Price(double U) const;			// use with default constructed EuroOption
 	virtual double Price() const;					// use with constructor
 	virtual double Delta(double U) const;			// use with default constructed EuroOption

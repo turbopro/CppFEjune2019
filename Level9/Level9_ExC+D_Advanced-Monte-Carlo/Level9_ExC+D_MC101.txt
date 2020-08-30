@@ -2,6 +2,7 @@ HW: Level 9, Groups C&D: Monte Carlo Pricing Methods
 
 C. Monte Carlo 101
 
+D. Advanced Monte Carlo
 
 
 1.	In order to make the program perhaps a little more readable, the OptionData struct,
@@ -97,7 +98,7 @@ v.	In the main function:
 
 
 
-Test Simulations Results:
+3.	Test Simulations Results:
 
 Batch 1
 N:	500, 1000, 1500
@@ -108,8 +109,64 @@ Exact put price:	5.84628
 Best approximation:	5.84592
 
 
-Size of mesh:           	1500
-Number of simulations run:      900000
-Batch 1 Put price:              5.84628
-Simulated approximation:        5.84592
-Count of spurious values:       0
+Time Steps:     1500
+No of sims:     900000
+
+Std Deviation:  0.00174166
+Std Error:      1.83587e-06
+
+Price after discounting: 5.84592
+Price from exact method: 5.84628
+
+No of times origin  hit: 0
+
+
+Batch 2
+N:	500, 1000, 1500
+NSim:	50000, 100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000,
+	1000000, 1500000, 2000000
+
+Exact put price:	7.96766
+Best approximation:	7.96557
+
+
+Time Steps:     1000
+No of sims:     600000
+
+Std Deviation:  0.00297021
+Std Error:      3.83453e-06
+
+Price after discounting: 7.96766
+Price from exact method: 7.96557
+
+No of times origin  hit: 0
+
+
+Note: Full results are available in the file, Level9_ExC+D_MC101_Sim-Resulks.txt
+
+
+
+The results obtained from simulation runs for Batch 1 and Batch 2 show that the
+best approximations are given with mesh sizes of 1000 and 1500 respectively, with
+simulation sizes of 900000 and 600000 respectively.  
+
+For both batches, with respect to SD and SE, as the mesh size and simulation size
+increase, the SD and SE decrease. This is inline with statistical measures in 
+general: 
+
+"Put simply, the standard error of the sample mean is an estimate of how 
+far the sample mean is likely to be from the population mean, whereas the standard 
+deviation of the sample is the degree to which individuals within the sample differ 
+from the sample mean.[7] If the population standard deviation is finite, the 
+standard error of the mean of the sample will tend to zero with increasing sample 
+size, because the estimate of the population mean will improve, while the standard 
+deviation of the sample will tend to approximate the population standard deviation 
+as the sample size increases." Wikipedia
+
+None of the simulation runs generated spurious values.
+
+
+Given the above, we may be safe in assuming that the MC method, with the parameters
+chosen, give us a good approximation of the option price as compared to the exact
+method price.
+

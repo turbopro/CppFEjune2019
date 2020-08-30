@@ -9,7 +9,7 @@ We implement both exception classes in this header file for simplicity
 
 The ArrayException has an abstract GetMessage() function that returns a std::string
 The OutOfBoundsException class has a constructor with an int as argument that 
-indicates the erroneous array index and store it in a data member
+indicates the erroneous array index and stores it in a data member
 We override the GetMessage() function and let the implementation return a message 
 string saying the given index is out of bounds
 

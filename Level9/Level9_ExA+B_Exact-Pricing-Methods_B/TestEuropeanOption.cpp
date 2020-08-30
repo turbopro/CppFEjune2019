@@ -36,12 +36,9 @@ int main()
 	// We use public inheritance
 	
 
-	/*
-	
-	*****************  Groups A&B: Exact Pricing Methods  *********************
-	
-	*/
-	
+	//	*****************  Groups A&B: Exact Pricing Methods  *********************
+	//
+	//
 	//  A
 	//  EUROPEAN OPTION
 
@@ -507,7 +504,7 @@ int main()
 		cout << "\n\nRun similar test of monotonically increasing test parameter S"
 			"for Delta, Gamma, and Price:\n";
 
-		// Loop over the string vector of member function names and call pricer_ste_by_fn for
+		// Loop over the string vector of member function names and call vector_pricer for
 		// each option measure member function
 		// Collect each loop's vector output into a map<string, vector<double>>
 		map<string, vector<double>> option_measures;

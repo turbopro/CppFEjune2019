@@ -27,7 +27,6 @@ public:	// Public functions
 	AmericanOption(const map<string, double>& option_parameters,	// constructor
 		const string& option_type, const string& security, const double& b_adjust = 0.0);
 	AmericanOption(const AmericanOption& option2);			// Copy constructor
-	//AmericanOption(const string& optionType);				// Create option type
 	virtual ~AmericanOption();								// destructor for base class
 
 	AmericanOption& operator = (const AmericanOption& option2);	// assignment operator

@@ -8,7 +8,7 @@ Our Templated Array class has three private data members:
 · an integer for the size of the array
 · and a static int for the size of the default constructor
 
-We will make the templatised Array glass as generic as posible so
+We will make the templatised Array class as generic as posible so
 we may use it as a general purpose containers for several types of
 objects: e.g., numeric objects, string objects, other array objects
 

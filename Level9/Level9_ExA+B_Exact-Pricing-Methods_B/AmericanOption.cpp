@@ -23,9 +23,6 @@ AmericanOption::AmericanOption(const map<string, double>& option_parameters,
 AmericanOption::AmericanOption(const AmericanOption& option2)
 	: EuropeanOption(option2) {}
 
-
-//AmericanOption::AmericanOption(const string& optionType) {}				// Create option type
-
 // Destructor
 AmericanOption::~AmericanOption() {}
 
@@ -44,8 +41,6 @@ AmericanOption& AmericanOption::operator = (const AmericanOption& option2)
 // Use with default constructor: asset price is accepted here as a single argument double
 double AmericanOption::Price(double U) const
 {
-	// Use member functions D1 and D2 only when needed; no need for temporary variables
-	// Return either call price or put price
 	// Throw exception if either of Y1 or Y2 are set to values that may generate divide by
 	// zero or other similar errors
 	

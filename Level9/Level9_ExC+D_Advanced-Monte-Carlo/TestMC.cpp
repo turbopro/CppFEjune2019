@@ -24,11 +24,10 @@
 #include <boost/tuple/tuple_io.hpp>
 
 
-
-
 int main()
 {
 	std::cout <<  "1 factor MC with explicit Euler\n";
+	
 	OptionData myOption;		// Batch 1 parameters
 	myOption.K = 65.0;
 	myOption.T = 0.25;
@@ -37,7 +36,7 @@ int main()
 	myOption.type = -1;	// Put -1, Call +1
 	double S_0 = 60;
 	double Batch1_price = 5.84628;		// Put price 
-
+	
 	/*
 	OptionData myOption;		// Batch 2 parameters
 	myOption.K = 100.0;
@@ -151,7 +150,7 @@ int main()
 		std::cout << "\nNo of times origin  hit: " << get<2>(val) << endl << endl;
 	}
 
-	// unique_ptr manages memory without the need for delete
+	// unique_ptr manages memory without the need for the delete function
 	//delete myNormal;
 
 	return 0;

@@ -1,4 +1,4 @@
-// Option.cpp
+// EuropeanOption.cpp
 //
 //	Author: Daniel Duffy
 //

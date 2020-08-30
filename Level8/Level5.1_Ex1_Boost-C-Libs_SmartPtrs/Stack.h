@@ -83,7 +83,7 @@ namespace Turbopro
 	{
 		// Stack class declaration using composition
 		// Stack contains and delegates storage to a class template Array<TArray> object as a data member
-		// Given that this is a Stack, we set typename as TNum
+		// Given that this is a Stack, we set typename as TStack
 
 		template <typename TStack, int sz>
 		class Stack
